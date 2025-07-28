@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvhr12tvjvb8s"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_4doc1"]
+[ext_resource type="Texture2D" uid="uid://bn7fdyoqr8a4v" path="res://Sprites/Characters/Canela/A00Wait1.png" id="1_jnsyv"]
+
+[node name="Player" type="Sprite2D"]
+texture = ExtResource("1_jnsyv")
+hframes = 7
+script = ExtResource("1_4doc1")
+
+[node name="StateMachine" type="Node" parent="."]
+
+[node name="Wait" type="Node" parent="StateMachine"]

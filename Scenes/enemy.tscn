@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://eobepwks4242"]
+
+[ext_resource type="Script" path="res://Scripts/EnemyBase/Enemy.gd" id="1_d8ljs"]
+[ext_resource type="Texture2D" uid="uid://imdyfpgo15s0" path="res://Sprites/Characters/Cardemomo/A00Wait.png" id="1_krvq6"]
+
+[node name="Enemy" type="Sprite2D"]
+texture = ExtResource("1_krvq6")
+hframes = 7
+script = ExtResource("1_d8ljs")
