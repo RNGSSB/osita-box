@@ -1,14 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgrwrd2uklgk0"]
+[gd_scene load_steps=6 format=3 uid="uid://bgrwrd2uklgk0"]
 
-[ext_resource type="Texture2D" uid="uid://clpiujpujrchf" path="res://Sprites/Backgrounds/Carderoom.png" id="1_3ty50"]
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_cfo20"]
 [ext_resource type="PackedScene" uid="uid://bvhr12tvjvb8s" path="res://Scenes/player.tscn" id="1_rgjfh"]
 [ext_resource type="PackedScene" uid="uid://eobepwks4242" path="res://Scenes/enemy.tscn" id="2_0vxk1"]
+[ext_resource type="Texture2D" uid="uid://c8y0bh8ebkja7" path="res://Sprites/Backgrounds/Carderoom3.png" id="2_41git"]
+[ext_resource type="Script" path="res://Scripts/camera.gd" id="5_ln6xw"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_cfo20")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_3ty50")
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("2_41git")
 
 [node name="Enemy" parent="." instance=ExtResource("2_0vxk1")]
 
@@ -16,3 +19,4 @@ texture = ExtResource("1_3ty50")
 position = Vector2(0, 142)
 
 [node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("5_ln6xw")

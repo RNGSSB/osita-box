@@ -1,9 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://eobepwks4242"]
+[gd_scene load_steps=9 format=3 uid="uid://eobepwks4242"]
 
 [ext_resource type="Script" path="res://Scripts/EnemyBase/Enemy.gd" id="1_d8ljs"]
 [ext_resource type="Texture2D" uid="uid://imdyfpgo15s0" path="res://Sprites/Characters/Cardemomo/A00Wait.png" id="1_krvq6"]
+[ext_resource type="Script" path="res://Scripts/State Machine/StateMachine.gd" id="3_xadju"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/wait.gd" id="4_iw216"]
+[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_n.gd" id="5_jod84"]
+[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_hi.gd" id="6_4ebl4"]
+[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_n_4.gd" id="7_vm35f"]
+[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_hi_4.gd" id="8_5rcjx"]
 
 [node name="Enemy" type="Sprite2D"]
 texture = ExtResource("1_krvq6")
 hframes = 7
 script = ExtResource("1_d8ljs")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_xadju")
+initial_state = NodePath("Wait")
+
+[node name="Wait" type="Node" parent="StateMachine"]
+script = ExtResource("4_iw216")
+
+[node name="DamageN" type="Node" parent="StateMachine"]
+script = ExtResource("5_jod84")
+
+[node name="DamageHi" type="Node" parent="StateMachine"]
+script = ExtResource("6_4ebl4")
+
+[node name="DamageN4" type="Node" parent="StateMachine"]
+script = ExtResource("7_vm35f")
+
+[node name="DamageHi4" type="Node" parent="StateMachine"]
+script = ExtResource("8_5rcjx")

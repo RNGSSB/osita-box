@@ -1,13 +1,103 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvhr12tvjvb8s"]
+[gd_scene load_steps=20 format=3 uid="uid://bvhr12tvjvb8s"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_4doc1"]
 [ext_resource type="Texture2D" uid="uid://bn7fdyoqr8a4v" path="res://Sprites/Characters/Canela/A00Wait1.png" id="1_jnsyv"]
+[ext_resource type="Script" path="res://Scripts/State Machine/StateMachine.gd" id="3_erowd"]
+[ext_resource type="Script" path="res://Scripts/Player/States/wait.gd" id="4_lc8e2"]
+[ext_resource type="Script" path="res://Scripts/Player/States/punch_left.gd" id="5_7eoxh"]
+[ext_resource type="Script" path="res://Scripts/Player/States/punch_right.gd" id="6_percg"]
+[ext_resource type="Script" path="res://Scripts/Player/States/upper_left.gd" id="7_wt0k2"]
+[ext_resource type="Script" path="res://Scripts/Player/States/upper_right.gd" id="8_t0h8o"]
+[ext_resource type="Script" path="res://Scripts/Player/States/dodge_left.gd" id="9_as63s"]
+[ext_resource type="Script" path="res://Scripts/Player/States/dodge_right.gd" id="10_tybw1"]
+[ext_resource type="Script" path="res://Scripts/Player/States/dodge_down.gd" id="11_hviaj"]
+[ext_resource type="Script" path="res://Scripts/Player/States/punch_left_finish.gd" id="12_e6lha"]
+[ext_resource type="Script" path="res://Scripts/Player/States/punch_right_finish.gd" id="13_fttoh"]
+[ext_resource type="Script" path="res://Scripts/Player/States/upper_left_finish.gd" id="14_uqau8"]
+[ext_resource type="Script" path="res://Scripts/Player/States/upper_right_finish.gd" id="15_kma7x"]
+[ext_resource type="Script" path="res://Scripts/Player/States/punch_left_counter.gd" id="16_ssc2a"]
+[ext_resource type="Script" path="res://Scripts/Player/States/punch_right_counter.gd" id="17_nmrpu"]
+[ext_resource type="Script" path="res://Scripts/Player/States/upper_left_counter.gd" id="18_43xfr"]
+[ext_resource type="Script" path="res://Scripts/Player/States/upper_right_counter.gd" id="19_2ngs3"]
 
 [node name="Player" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.498039)
 texture = ExtResource("1_jnsyv")
 hframes = 7
 script = ExtResource("1_4doc1")
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_erowd")
+initial_state = NodePath("Wait")
 
 [node name="Wait" type="Node" parent="StateMachine"]
+script = ExtResource("4_lc8e2")
+
+[node name="PunchLeft" type="Node" parent="StateMachine"]
+script = ExtResource("5_7eoxh")
+
+[node name="PunchRight" type="Node" parent="StateMachine"]
+script = ExtResource("6_percg")
+
+[node name="UpperLeft" type="Node" parent="StateMachine"]
+script = ExtResource("7_wt0k2")
+
+[node name="UpperRight" type="Node" parent="StateMachine"]
+script = ExtResource("8_t0h8o")
+
+[node name="DodgeLeft" type="Node" parent="StateMachine"]
+script = ExtResource("9_as63s")
+
+[node name="DodgeRight" type="Node" parent="StateMachine"]
+script = ExtResource("10_tybw1")
+
+[node name="DodgeDown" type="Node" parent="StateMachine"]
+script = ExtResource("11_hviaj")
+
+[node name="PunchLeftFinish" type="Node" parent="StateMachine"]
+script = ExtResource("12_e6lha")
+
+[node name="PunchRightFinish" type="Node" parent="StateMachine"]
+script = ExtResource("13_fttoh")
+
+[node name="UpperLeftFinish" type="Node" parent="StateMachine"]
+script = ExtResource("14_uqau8")
+
+[node name="UpperRightFinish" type="Node" parent="StateMachine"]
+script = ExtResource("15_kma7x")
+
+[node name="PunchLeftCounter" type="Node" parent="StateMachine"]
+script = ExtResource("16_ssc2a")
+
+[node name="PunchRightCounter" type="Node" parent="StateMachine"]
+script = ExtResource("17_nmrpu")
+
+[node name="UpperLeftCounter" type="Node" parent="StateMachine"]
+script = ExtResource("18_43xfr")
+
+[node name="UpperRightCounter" type="Node" parent="StateMachine"]
+script = ExtResource("19_2ngs3")
+
+[node name="DebugUI" type="CanvasLayer" parent="."]
+
+[node name="Player1Side" type="Label" parent="DebugUI"]
+offset_left = 28.0
+offset_top = 814.0
+offset_right = 68.0
+offset_bottom = 837.0
+theme_override_constants/outline_size = 15
+text = "State:
+StateFrame: 0
+ctrl: 0
+"
+
+[node name="Player2Side" type="Label" parent="DebugUI"]
+offset_left = 1757.0
+offset_top = 814.0
+offset_right = 1864.0
+offset_bottom = 889.0
+theme_override_constants/outline_size = 15
+text = "State:
+StateFrame: 0
+ctrl: 0
+"

@@ -38,6 +38,7 @@ func change_state(new_state_name):
 		current_state.Exit()
 	
 	owner.PREVSTATE = current_state.name
+	owner.prevStateFrame = owner.stateFrame
 	owner.stateFrame = 1
 	new_state.Enter()
 	current_state = new_state
@@ -54,7 +55,39 @@ func change_state2(new_state_name):
 		current_state.Exit()
 	
 	owner.PREVSTATE = current_state.name
+	owner.prevStateFrame = owner.stateFrame
 	owner.stateFrame = 1
+	new_state.Enter()
+	current_state = new_state
+	owner.CURRSTATE = new_state.name
+	#print(owner.CURRSTATE)
+
+func change_state3(new_state_name):
+	var new_state = states.get(new_state_name.to_lower())
+	if !new_state:
+		return
+	
+	if current_state:
+		#print("THIS FUCKING SUCKS")
+		current_state.Exit()
+	
+	owner.PREVSTATE = current_state.name
+	owner.stateFrame = owner.prevStateFrame
+	new_state.Enter()
+	current_state = new_state
+	owner.CURRSTATE = new_state.name
+	#print(owner.CURRSTATE)
+
+func change_state4(new_state_name):
+	var new_state = states.get(new_state_name.to_lower())
+	if !new_state:
+		return
+	
+	if current_state:
+		#print("THIS FUCKING SUCKS")
+		current_state.Exit()
+	
+	owner.PREVSTATE = current_state.name
 	new_state.Enter()
 	current_state = new_state
 	owner.CURRSTATE = new_state.name
@@ -73,6 +106,7 @@ func on_child_transition(state, new_state_name):
 		current_state.Exit()
 	
 	owner.PREVSTATE = current_state.name
+	owner.prevStateFrame = owner.stateFrame
 	owner.stateFrame = 1
 	new_state.Enter()
 	current_state = new_state
