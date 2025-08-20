@@ -3,12 +3,16 @@ extends State
 
 func Exit():
 	owner.ctrl = 1
+	owner.dodgeSuccess = false
+	owner.perfectDodge = false
 
 func Enter():
 	owner.ctrl = 0
 	owner.spriteOffsets(7,4,6)
 	owner.setFrame(0)
+	AudioManager.Play("res://SFX/Player/Escape.wav", "Right", 1.0, 1.0)
 	owner.flip_h = true
+	owner.dodgeRight = true
 
 func Update(_delta: float):
 	pass
@@ -43,6 +47,7 @@ func Physics_Update(delta: float):
 	if owner.cFrame(14):
 		owner.setFrame(13)
 	if owner.cFrame(15):
+		owner.dodgeRight = false
 		owner.setFrame(14)
 	if owner.cFrame(16):
 		owner.setFrame(15)
@@ -54,6 +59,8 @@ func Physics_Update(delta: float):
 		owner.setFrame(18)
 	if owner.cFrame(20):
 		owner.setFrame(19)
+		if owner.dodgeSuccess:
+			owner.ctrl = 1
 	if owner.cFrame(23):
 		owner.setFrame(20)
 	if owner.cFrame(26):

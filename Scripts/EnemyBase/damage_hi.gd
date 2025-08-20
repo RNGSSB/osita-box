@@ -29,8 +29,13 @@ func Physics_Update(delta: float):
 	if owner.cFrame(25):
 		owner.setFrame(5)
 	if owner.cFrame(30):
+		if owner.stunned:
+			AudioManager.Play("res://SFX/Hit/Dizzy.mp3", "SFX", 1.0, 1.0)
 		owner.setFrame(6)
 	if owner.cFrame(35):
 		owner.setFrame(7)
 	if owner.cFrame(40):
-		Transitioned.emit(self, "wait")
+		if owner.stunned:
+			Transitioned.emit(self, "dizzyhi")
+		else:
+			Transitioned.emit(self, "wait")

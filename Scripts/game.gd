@@ -7,6 +7,10 @@ var fuckYou = false
 
 var hitStop = 0 
 
+var cameraZoom = 1.0
+
+var cameraTilt = 0.0
+
 @onready var player = $Player
 @onready var enemy = $Enemy
 @onready var camera = $Camera
@@ -27,6 +31,9 @@ func hitLag(value, shake):
 	camera.randomShakeStrenght = shake
 	camera.apply_shake()
 
+func zoomAdjust(value):
+	camera.zoom = Vector2(value, value)
+
 func advanceFrame(delta):
 	frameCounter += 1 
 	player.stateFrame += 1
@@ -34,6 +41,7 @@ func advanceFrame(delta):
 	player.frameCounter = frameCounter
 	enemy.frameCounter = frameCounter
 	camera.cameraShake(delta)
+	cameraShenanigans()
 	player.stateMachine.current_state.Update(delta)
 	player.stateMachine.current_state.Physics_Update(delta)
 	enemy.stateMachine.current_state.Update(delta)
@@ -62,7 +70,63 @@ func rewindFrame(delta):
 	enemy.stateMachine.current_state.Physics_Update(delta)
 
 
+func cameraShenanigans():
+	if enemy.stunned and (enemy.CURRSTATE == "DamageN" or enemy.CURRSTATE == "DamageHi" or enemy.CURRSTATE == "DizzyHi" or enemy.CURRSTATE == "DizzyLw") and enemy.hitCount < enemy.maxHitCount + 1:
+		if cameraZoom < 1.0 + (enemy.hitCount * 0.05):
+			cameraZoom += 0.05
+		if cameraZoom > 1.0 + (enemy.hitCount * 0.05):
+			cameraZoom = 1.0 + (enemy.hitCount * 0.05)
+	else:
+		if cameraZoom > 1.0:
+			cameraZoom -= 0.04
+		if cameraZoom < 1.0:
+			cameraZoom = 1.0
+	
+	if player.CURRSTATE == "DodgeLeft" and player.stateFrame <= 13:
+		if cameraTilt > -105:
+			cameraTilt -= 20
+		
+		if cameraTilt < -105:
+			cameraTilt = -105
+	
+	if player.CURRSTATE == "DodgeLeft" and player.stateFrame > 16:
+		if cameraTilt >= -105:
+			cameraTilt += 10
+		
+		if cameraTilt > 0:
+			cameraTilt = 0
+	
+	if player.CURRSTATE == "DodgeRight" and player.stateFrame <= 13:
+		if cameraTilt < 105:
+			cameraTilt += 20
+		
+		if cameraTilt > 105:
+			cameraTilt = 105
+	
+	if player.CURRSTATE == "DodgeRight" and player.stateFrame > 16:
+		if cameraTilt <= 105:
+			cameraTilt -= 10
+		
+		if cameraTilt < 0:
+			cameraTilt = 0
+	
+	
+	if player.CURRSTATE != "DodgeLeft" and player.CURRSTATE != "DodgeRight":
+		if cameraTilt > 0:
+			cameraTilt -= 10
+			if cameraTilt < 0:
+				cameraTilt = 0
+		if cameraTilt < 0:
+			cameraTilt += 10
+			if cameraTilt > 0:
+				cameraTilt = 0
+	
+	camera.position.x = cameraTilt
+	
+	zoomAdjust(cameraZoom)
+
 func _physics_process(delta):
+	
 	if Input.is_action_just_pressed("Freeze") and !fuckYou:
 		player.frozen = true
 		enemy.frozen = true 
@@ -86,9 +150,11 @@ func _physics_process(delta):
 		else:
 			if Input.is_action_just_pressed("FrameAdvance"):
 				hitStop -= 1
+				cameraShenanigans()
 			if Input.is_action_just_pressed("FrameUnwind"):
 				hitStop = 0
 	else:
+		cameraShenanigans()
 		if hitStop <= 0:
 			frameCounter += 1 
 			player.frameCounter = frameCounter

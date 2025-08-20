@@ -9,6 +9,7 @@ func Enter():
 	owner.spriteOffsets(7,2,3)
 	owner.ctrl = 0
 	owner.setFrame(0)
+	AudioManager.Play("res://SFX/Player/Attack4Swoosh.wav", "Right", 1.0, 1.0)
 	owner.bufferPunchR = false
 	owner.bufferUp = false
 	owner.flip_h = false

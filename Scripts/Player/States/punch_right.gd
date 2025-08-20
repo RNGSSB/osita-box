@@ -9,6 +9,7 @@ func Enter():
 	owner.spriteOffsets(7,1,1)
 	owner.ctrl = 0
 	owner.setFrame(0)
+	AudioManager.Play("res://SFX/Player/AttackSwoosh.wav", "Right", 1.0, 1.0)
 	owner.bufferPunchR = false
 	owner.bufferUp = false
 	owner.flip_h = false
@@ -32,7 +33,8 @@ func Physics_Update(delta: float):
 	if owner.cFrame(6):
 		owner.setFrame(4)
 	if owner.cFrame(20):
-		owner.ctrl = 1
+		if owner.punchHit:
+			owner.ctrl = 1
 	if owner.cFrame(21):
 		owner.setFrame(5)
 	if owner.cFrame(23):

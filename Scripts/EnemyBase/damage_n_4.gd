@@ -5,11 +5,13 @@ func Exit():
 	pass
 
 func Enter():
-	owner.hitLeft = true
-	owner.hitRight = true
-	owner.hitUpLeft = true
-	owner.hitUpRight = true
+	owner.hitLeft = false
+	owner.hitRight = false
+	owner.hitUpLeft = false
+	owner.hitUpRight = false
 	owner.counterPunch = false
+	owner.stunned = false
+	owner.hitCount = 0
 	owner.spriteOffsets(7,1,4)
 	owner.setFrame(0)
 
