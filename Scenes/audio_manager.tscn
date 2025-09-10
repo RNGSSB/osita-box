@@ -1,8 +1,62 @@
-[gd_scene load_steps=2 format=3 uid="uid://curbd3j26xu8w"]
+[gd_scene load_steps=16 format=3 uid="uid://curbd3j26xu8w"]
 
 [ext_resource type="Script" path="res://Scripts/audio_manager.gd" id="1_l5gxk"]
+[ext_resource type="AudioStream" uid="uid://bfxcygx8185we" path="res://SFX/Hit/Block.wav" id="2_j1c23"]
+[ext_resource type="AudioStream" uid="uid://dky2g85t1588g" path="res://SFX/Hit/CounterPunch.mp3" id="3_mncqp"]
+[ext_resource type="AudioStream" uid="uid://dn8odebc32v3a" path="res://SFX/Hit/Damage3.mp3" id="4_iu3wj"]
+[ext_resource type="AudioStream" uid="uid://bqlsgij3x5s0y" path="res://SFX/Hit/Damage4.mp3" id="5_ruksg"]
+[ext_resource type="AudioStream" uid="uid://bg5elfs3ldqig" path="res://SFX/Hit/Dizzy.mp3" id="6_m5s05"]
+[ext_resource type="AudioStream" uid="uid://h7h08u0a5ars" path="res://SFX/Hit/Hurt.wav" id="7_1kdop"]
+[ext_resource type="AudioStream" uid="uid://d1yemw7f3bcbq" path="res://SFX/Player/Attack4Swoosh.wav" id="8_pijat"]
+[ext_resource type="AudioStream" uid="uid://btjpv4ga8b57p" path="res://SFX/Player/AttackSwoosh.wav" id="9_xwna7"]
+[ext_resource type="AudioStream" uid="uid://7ocdew7sfydu" path="res://SFX/Player/Dodge.ogg" id="10_x2s2d"]
+[ext_resource type="AudioStream" uid="uid://nesou64j1r0s" path="res://SFX/Player/Escape.wav" id="11_ynh6u"]
+[ext_resource type="AudioStream" uid="uid://llg6hb52h45" path="res://SFX/Player/Perfect.wav" id="12_u2ccq"]
+[ext_resource type="AudioStream" uid="uid://bo50l0gwf11bc" path="res://SFX/Player/SuperSwoosh.wav" id="13_5q3fw"]
+[ext_resource type="AudioStream" uid="uid://dj2pvkgiygbe0" path="res://SFX/Player/SuperStart.ogg" id="14_alw6n"]
+[ext_resource type="AudioStream" uid="uid://drqth8walnq7k" path="res://SFX/Hit/SuperHit.ogg" id="15_faky7"]
 
 [node name="AudioManager" type="Node2D"]
 script = ExtResource("1_l5gxk")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Block" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_j1c23")
+
+[node name="CounterPunch" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_mncqp")
+
+[node name="Damage3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_iu3wj")
+
+[node name="Damage4" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ruksg")
+
+[node name="Dizzy" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_m5s05")
+
+[node name="Hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_1kdop")
+
+[node name="Attack4Swoosh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_pijat")
+
+[node name="AttackSwoosh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_xwna7")
+
+[node name="Dodge" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_x2s2d")
+
+[node name="Escape" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_ynh6u")
+
+[node name="Perfect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_u2ccq")
+
+[node name="SuperSwoosh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_5q3fw")
+
+[node name="SuperStart" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_alw6n")
+
+[node name="SuperHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_faky7")

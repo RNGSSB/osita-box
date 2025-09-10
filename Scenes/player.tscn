@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bvhr12tvjvb8s"]
+[gd_scene load_steps=23 format=3 uid="uid://bvhr12tvjvb8s"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_4doc1"]
 [ext_resource type="Texture2D" uid="uid://bn7fdyoqr8a4v" path="res://Sprites/Characters/Canela/A00Wait1.png" id="1_jnsyv"]
@@ -20,8 +20,11 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/upper_left_counter.gd" id="18_43xfr"]
 [ext_resource type="Script" path="res://Scripts/Player/States/upper_right_counter.gd" id="19_2ngs3"]
 [ext_resource type="Script" path="res://Scripts/Player/States/DamageN.gd" id="20_bfnwb"]
+[ext_resource type="Script" path="res://Scripts/Player/States/super_punch_lw.gd" id="21_ppqjl"]
+[ext_resource type="Script" path="res://Scripts/Player/States/damage_s.gd" id="22_im3km"]
 
 [node name="Player" type="Sprite2D"]
+process_mode = 1
 modulate = Color(1, 1, 1, 0.498039)
 texture = ExtResource("1_jnsyv")
 hframes = 7
@@ -79,8 +82,16 @@ script = ExtResource("18_43xfr")
 [node name="UpperRightCounter" type="Node" parent="StateMachine"]
 script = ExtResource("19_2ngs3")
 
+[node name="DamageS" type="Node" parent="StateMachine"]
+script = ExtResource("22_im3km")
+
+[node name="SuperPunchLw" type="Node" parent="StateMachine"]
+script = ExtResource("21_ppqjl")
+
 [node name="DamageN" type="Node" parent="StateMachine"]
 script = ExtResource("20_bfnwb")
+
+[node name="Block" type="Node" parent="StateMachine"]
 
 [node name="DebugUI" type="CanvasLayer" parent="."]
 
@@ -108,9 +119,9 @@ ctrl: 0
 
 [node name="Player2Side" type="Label" parent="DebugUI"]
 offset_left = 1757.0
-offset_top = 814.0
+offset_top = 772.0
 offset_right = 1864.0
-offset_bottom = 889.0
+offset_bottom = 847.0
 theme_override_constants/outline_size = 15
 text = "State:
 StateFrame: 0

@@ -14,16 +14,35 @@ var cameraTilt = 0.0
 @onready var player = $Player
 @onready var enemy = $Enemy
 @onready var camera = $Camera
+@onready var pauseUI = $PauseUI
+var canPause = true
+
+var fuckYou2 = false
+
+var isPaused = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if canPause:
+		if Input.is_action_just_pressed("Start") and !fuckYou2:
+			isPaused = true
+		
+		if Input.is_action_just_released("Start") and isPaused:
+			fuckYou2 = true
+		
+		if Input.is_action_just_pressed("Start") and fuckYou2:
+			isPaused = false
+			fuckYou2 = false
+	
+	pauseUI.visible = isPaused
+	
+	get_tree().paused = isPaused
 
 
 func hitLag(value, shake):
@@ -42,6 +61,7 @@ func advanceFrame(delta):
 	enemy.frameCounter = frameCounter
 	camera.cameraShake(delta)
 	cameraShenanigans()
+	player.sheVisibleNow()
 	player.stateMachine.current_state.Update(delta)
 	player.stateMachine.current_state.Physics_Update(delta)
 	enemy.stateMachine.current_state.Update(delta)
@@ -126,46 +146,46 @@ func cameraShenanigans():
 	zoomAdjust(cameraZoom)
 
 func _physics_process(delta):
-	
-	if Input.is_action_just_pressed("Freeze") and !fuckYou:
-		player.frozen = true
-		enemy.frozen = true 
-		frameAdvance = true
-	
-	if Input.is_action_just_pressed("Freeze") and fuckYou:
-		player.frozen = false
-		enemy.frozen = false
-		frameAdvance = false
-		fuckYou = false
-	
-	if Input.is_action_just_released("Freeze") and !fuckYou and frameAdvance:
-		fuckYou = true
-	
-	if frameAdvance:
-		if hitStop <= 0:
-			if Input.is_action_just_pressed("FrameAdvance"):
-				advanceFrame(delta)
-			if Input.is_action_just_pressed("FrameUnwind"):
-				rewindFrame(delta)
-		else:
-			if Input.is_action_just_pressed("FrameAdvance"):
-				hitStop -= 1
-				cameraShenanigans()
-			if Input.is_action_just_pressed("FrameUnwind"):
-				hitStop = 0
-	else:
-		cameraShenanigans()
-		if hitStop <= 0:
-			frameCounter += 1 
-			player.frameCounter = frameCounter
-			enemy.frameCounter = frameCounter
-	
-	if hitStop > 0:
-		if !frameAdvance:
+	if !isPaused:
+		if Input.is_action_just_pressed("Freeze") and !fuckYou:
 			player.frozen = true
-			enemy.frozen = true
-			hitStop -= 1
-	else:
-		if !frameAdvance:
+			enemy.frozen = true 
+			frameAdvance = true
+		
+		if Input.is_action_just_pressed("Freeze") and fuckYou:
 			player.frozen = false
 			enemy.frozen = false
+			frameAdvance = false
+			fuckYou = false
+		
+		if Input.is_action_just_released("Freeze") and !fuckYou and frameAdvance:
+			fuckYou = true
+		
+		if frameAdvance:
+			if hitStop <= 0:
+				if Input.is_action_just_pressed("FrameAdvance"):
+					advanceFrame(delta)
+				if Input.is_action_just_pressed("FrameUnwind"):
+					rewindFrame(delta)
+			else:
+				if Input.is_action_just_pressed("FrameAdvance"):
+					hitStop -= 1
+					cameraShenanigans()
+				if Input.is_action_just_pressed("FrameUnwind"):
+					hitStop = 0
+		else:
+			cameraShenanigans()
+			if hitStop <= 0:
+				frameCounter += 1 
+				player.frameCounter = frameCounter
+				enemy.frameCounter = frameCounter
+		
+		if hitStop > 0:
+			if !frameAdvance:
+				player.frozen = true
+				enemy.frozen = true
+				hitStop -= 1
+		else:
+			if !frameAdvance:
+				player.frozen = false
+				enemy.frozen = false

@@ -5,13 +5,18 @@ func Exit():
 	owner.ctrl = 1
 	owner.dodgeSuccess = false
 	owner.perfectDodge = false
+	owner.dodgeLeft = false
+	owner.makerHerVisible = false
 
 func Enter():
 	owner.ctrl = 0
 	owner.spriteOffsets(7,4,6)
 	owner.setFrame(0)
-	AudioManager.Play("res://SFX/Player/Escape.wav", "Left", 1.0, 1.0)
+	owner.makerHerVisible = true
+	AudioManager.Play("Escape", "Left", 1.0, 1.0)
 	owner.flip_h = false
+	owner.dodgeRight = false
+	owner.dodgeDown = false
 	owner.dodgeLeft = true
 
 func Update(_delta: float):
@@ -19,6 +24,7 @@ func Update(_delta: float):
 
 func Physics_Update(delta: float):
 	if owner.cFrame(1):
+		owner.makerHerVisible = true
 		owner.setFrame(0)
 	if owner.cFrame(2):
 		owner.setFrame(1)
@@ -31,6 +37,7 @@ func Physics_Update(delta: float):
 	if owner.cFrame(6):
 		owner.setFrame(5)
 	if owner.cFrame(7):
+		owner.makerHerVisible = false
 		owner.setFrame(6)
 	if owner.cFrame(8):
 		owner.setFrame(7)

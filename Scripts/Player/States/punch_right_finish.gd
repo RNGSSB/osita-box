@@ -4,12 +4,16 @@ extends State
 func Exit():
 	owner.ctrl = 1
 	owner.punchHit = false
+	owner.punchBlock = false
+	owner.makerHerVisible = false
+	owner.hasCombo = false
 
 func Enter():
 	owner.spriteOffsets(7,2,3)
 	owner.ctrl = 0
 	owner.setFrame(0)
-	AudioManager.Play("res://SFX/Player/Attack4Swoosh.wav", "Right", 1.0, 1.0)
+	owner.makerHerVisible = true
+	AudioManager.Play("Attack4Swoosh", "Right", 1.0, 1.0)
 	owner.bufferPunchR = false
 	owner.bufferUp = false
 	owner.flip_h = false
@@ -22,15 +26,16 @@ func Update(_delta: float):
 
 func Physics_Update(delta: float):
 	if owner.cFrame(1):
+		owner.makerHerVisible = true
 		owner.setFrame(0)
-	if owner.cFrame(3):
+	if owner.cFrame(2):
 		owner.setFrame(1)
-	if owner.cFrame(4):
+	if owner.cFrame(3):
 		owner.setFrame(2)
+	if owner.cFrame(4):
+		owner.setFrame(3)
 	if owner.cFrame(5):
 		owner.punchOpponent(5)
-		owner.setFrame(3)
-	if owner.cFrame(6):
 		owner.setFrame(4)
 	if owner.cFrame(10):
 		owner.setFrame(5)

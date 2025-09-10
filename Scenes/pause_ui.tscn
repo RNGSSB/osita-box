@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://b30hbnevlo5r6"]
+
+[ext_resource type="Script" path="res://Scripts/pause_ui.gd" id="1_0ahyt"]
+
+[node name="PauseUI" type="CanvasLayer"]
+script = ExtResource("1_0ahyt")
+
+[node name="GayLabel" type="Label" parent="."]
+offset_left = 616.0
+offset_top = 424.0
+offset_right = 656.0
+offset_bottom = 447.0
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = 553.0
+offset_top = 521.0
+offset_right = 1365.0
+offset_bottom = 537.0
+min_value = -100.0
+max_value = 0.0
+value = -30.0
+
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]

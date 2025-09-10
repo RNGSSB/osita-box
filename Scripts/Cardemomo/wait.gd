@@ -13,6 +13,10 @@ func Enter():
 	owner.hitRight = true
 	owner.hitUpLeft = true
 	owner.hitUpRight = true
+	owner.blockLeft = false
+	owner.blockRight = false
+	owner.blockUpLeft = false
+	owner.blockUpRight = false
 	owner.hitCount = 0
 	owner.maxHitCount = owner.normalCombo
 	idleLoop = 0

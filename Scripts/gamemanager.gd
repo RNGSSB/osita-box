@@ -13,6 +13,8 @@ func createEffects(name, scaleX, scaleY, posX, posY):
 	instance.scale = Vector2(scaleX, scaleY)
 	get_node("/root/Game").add_child(instance)
 
+
+
 func destroyEffect(name):
 	get_node("/root/Game/" + name).queue_free()
 

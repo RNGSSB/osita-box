@@ -11,10 +11,10 @@ func Enter():
 	owner.ctrl = 0
 	owner.dodgeRight = false
 	owner.dodgeLeft = false
-	owner.dodgeDown = false
 	owner.setColor(255,164,150)
+	owner.dodgeDown = false
 	owner.makerHerVisible = true
-	owner.spriteOffsets(7,2,9)
+	owner.spriteOffsets(7,3,7)
 	owner.setFrame(0)
 
 func Update(_delta: float):
@@ -24,32 +24,36 @@ func Physics_Update(delta: float):
 	if owner.cFrame(1):
 		owner.setFrame(0) #2
 	if owner.cFrame(3):
-		owner.setFrame(1) #3
-	if owner.cFrame(7):
-		owner.setFrame(2) #3
+		owner.setFrame(1) #2
+	if owner.cFrame(5):
+		owner.setFrame(2) #1
+	if owner.cFrame(6):
+		owner.setFrame(3) #2
+	if owner.cFrame(8):
+		owner.setFrame(4) #2
 	if owner.cFrame(10):
-		owner.setFrame(3) #5
-	if owner.cFrame(15):
-		owner.setFrame(4) #5
-	if owner.cFrame(20):
-		owner.setFrame(5) #5
-	if owner.cFrame(25):
+		owner.setFrame(5) #2
+	if owner.cFrame(12):
+		owner.setFrame(6) #4 
+	if owner.cFrame(16):
 		owner.setColor(255,255,255)
-		owner.setFrame(6) #4
-	if owner.cFrame(29):
 		owner.setFrame(7) #4
-	if owner.cFrame(33):
-		owner.setFrame(8) #2
-	if owner.cFrame(35):
-		owner.setFrame(9) #2 
-	if owner.cFrame(37):
+	if owner.cFrame(20):
+		owner.setFrame(8) #3
+	if owner.cFrame(23):
+		owner.setFrame(9) #2
+	if owner.cFrame(25):
 		owner.setFrame(10) #2
-	if owner.cFrame(39):
+	if owner.cFrame(27):
 		owner.makerHerVisible = false
 		owner.setFrame(11) #2
-	if owner.cFrame(41):
+	if owner.cFrame(29):
 		owner.setFrame(12) #2
-	if owner.cFrame(43):
+	if owner.cFrame(31):
 		owner.setFrame(13) #2
-	if owner.cFrame(45):
+	if owner.cFrame(33):
+		owner.setFrame(14) #2
+	if owner.cFrame(35):
+		owner.setFrame(15) #2
+	if owner.cFrame(37):
 		Transitioned.emit(self, "wait")

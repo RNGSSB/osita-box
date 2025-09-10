@@ -10,6 +10,7 @@ func Enter():
 	owner.hitUpLeft = true
 	owner.hitUpRight = true
 	owner.spriteOffsets(7,2,3)
+	AudioManager.Stop("Dizzy")
 	owner.setFrame(0)
 
 func Update(_delta: float):
@@ -30,7 +31,7 @@ func Physics_Update(delta: float):
 		owner.setFrame(5)
 	if owner.cFrame(30):
 		if owner.stunned:
-			AudioManager.Play("res://SFX/Hit/Dizzy.mp3", "SFX", 1.0, 1.0) 
+			AudioManager.Play("Dizzy", "SFX", 1.0, 1.0) 
 		owner.setFrame(6)
 	if owner.cFrame(35):
 		owner.setFrame(7)

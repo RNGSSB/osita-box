@@ -10,10 +10,10 @@ func Enter():
 	owner.hitUpLeft = false
 	owner.hitUpRight = false
 	owner.counterPunch = false
-	owner.hitCount = 0
 	owner.stunned = false
+	owner.hitCount = 0
+	owner.spriteOffsets(7,1,13)
 	AudioManager.Stop("Dizzy")
-	owner.spriteOffsets(7,1,7)
 	owner.setFrame(0)
 
 func Update(_delta: float):
