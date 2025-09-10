@@ -4,12 +4,14 @@ extends Node
 var effects = preload("res://Scenes/effect.tscn")
 
 
-func createEffects(name, scaleX, scaleY, posX, posY):
+func createEffects(name = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, zIndex = 3, flip = false):
 	var instance = effects.instantiate()
 	instance.name = name
 	instance.animName = name
 	instance.position.y = posY
 	instance.position.x = posX
+	instance.z_index = zIndex
+	instance.flip_h = flip
 	instance.scale = Vector2(scaleX, scaleY)
 	get_node("/root/Game").add_child(instance)
 

@@ -69,7 +69,10 @@ preload("res://Sprites/Characters/Cardemomo/A12CardeKick.png"),
 preload("res://Sprites/Characters/Cardemomo/A13DamageLw4Counter.png"),
 preload("res://Sprites/Characters/Cardemomo/A14Attack2Start.png"),
 preload("res://Sprites/Characters/Cardemomo/A15AttackHit.png"),
-preload("res://Sprites/Characters/Cardemomo/A16AttackMiss.png"),]
+preload("res://Sprites/Characters/Cardemomo/A16AttackMiss.png"),
+preload("res://Sprites/Characters/Cardemomo/A17DamageLw4L.png"),
+preload("res://Sprites/Characters/Cardemomo/A18DamageHi4L.png"),
+preload("res://Sprites/Characters/Cardemomo/A19DamageLw4CounterL.png"),]
 
 func spriteOffsets(x, y, value):
 	hframes = x
@@ -92,7 +95,7 @@ effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0):
 	Engine.physics_ticks_per_second = 60
 	Engine.time_scale = 1.0
 	enemyRef = owner.player
-	enemyRef.health -= damage
+	owner.playerUpdateHealth(damage)
 	punchHit = true
 	enemyRef.flip_h = flip
 	owner.hitLag(hitlag, shake)
@@ -102,6 +105,7 @@ effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0):
 	enemyRef.position.x = playerX
 
 func punchDodgeFunc(audioBus):
+	enemyRef = owner.player
 	enemyRef.dodgeSuccess = true
 	AudioManager.Play("Dodge", audioBus, 1.0, 1.0)
 	enemyRef.hasCombo = true
@@ -111,26 +115,57 @@ func punchDodgeFunc(audioBus):
 		AudioManager.Play("Perfect", audioBus, 1.0, 1.0)
 		enemyRef.perfectDodge = true
 
-func punchOpponent(value):
+func punchBlockFunc(audioBus):
+	enemyRef = owner.player
+	owner.hitLag(5, 15)
+	hitLeft = true
+	hitRight = true
+	hitUpLeft = true
+	hitUpRight = true
+	AudioManager.Play("Block", audioBus, 1.0, 1.0)
+	Gamemanager.createEffects("BLOCK", 1.5, 1.5, 0, 200, 1, true)
+	enemyRef.stateMachine.change_state2("BlockDamage")
+	punchHit = true
+
+func punchOpponent(value = 0, damage = 1, blockable = true, 
+hitLag = 3, screenShake = 25, 
+sfx = "Hurt", volume = 1.0, pitch = 1.0, 
+effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0):
 	enemyRef = owner.player
 	if value == 0: #Dodge Left
+		if enemyRef.isBlocking and blockable:
+			punchBlockFunc("Left")
+			return
 		if !enemyRef.dodgeLeft:
-			punchHitFunc(1, "DamageS", 250, true, 3, 25, "Hurt", 1.0, 1.0, "Right", "HIT", 3.0, 3.0, 200, 200)
+			punchHitFunc(damage, "DamageS", 250, true, hitLag, screenShake, 
+			sfx, volume, pitch, "Right", effect, scaleX, scaleY, posX, posY)
 		else:
 			punchDodgeFunc("Left")
 	elif value == 1: #Dodge Right
+		if enemyRef.isBlocking and blockable:
+			punchBlockFunc("Right")
+			return
 		if !enemyRef.dodgeRight:
-			punchHitFunc(1, "DamageS", -250, false, 3, 25, "Hurt", 1.0, 1.0, "Right", "HIT", 3.0, 3.0, -200, 200)
+			punchHitFunc(damage, "DamageS", -250, false, hitLag, screenShake, 
+			sfx, volume, pitch, "Right", effect, scaleX, scaleY, posX, posY)
 		else:
 			punchDodgeFunc("Right")
 	elif value == 2: #Dodge Down
+		if enemyRef.isBlocking and blockable:
+			punchBlockFunc("SFX")
+			return
 		if !enemyRef.dodgeDown:
-			punchHitFunc(1, "DamageN", 0, false, 3, 25, "Hurt", 1.0, 1.0, "SFX", "HIT", 3.0, 3.0, 0, 0)
+			punchHitFunc(damage, "DamageN", 0, false, hitLag, screenShake, 
+			sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY)
 		else:
 			punchDodgeFunc("SFX")
 	elif value == 3: #Dodge All
+		if enemyRef.isBlocking and blockable:
+			punchBlockFunc("SFX")
+			return
 		if !enemyRef.dodgeLeft and !enemyRef.dodgeRight and !enemyRef.dodgeDown:
-			punchHitFunc(1, "DamageN", 0, false, 3, 25, "Hurt", 1.0, 1.0, "SFX", "HIT", 3.0, 3.0, 0, 190)
+			punchHitFunc(damage, "DamageN", 0, false, hitLag, screenShake, 
+			sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY)
 		else:
 			punchDodgeFunc("SFX")
 
@@ -163,9 +198,6 @@ func _process(delta):
 	
 	if Input.is_key_pressed(KEY_2):
 		aiActive = false
-	
-	if Input.is_key_pressed(KEY_9):
-		health = maxHealth
 	
 	lobotomy()
 

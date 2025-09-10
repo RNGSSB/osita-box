@@ -21,11 +21,29 @@ var fuckYou2 = false
 
 var isPaused = false
 
+@onready var playerHealth = $CanvasLayer/PlayerHealth
+@onready var playerDamage = $CanvasLayer/PlayerDamage
+@onready var enemyHealth = $CanvasLayer/EnemyHealth
+@onready var enemyDamage = $CanvasLayer/EnemyDamage
+@onready var enemyDamageTimer = $CanvasLayer/EnemyDamage/EnemyTimer
+@onready var playerDamageTimer = $CanvasLayer/PlayerDamage/PlayerTimer
+
+var setDamageBarPlayer = false
+var setDamageBarEnemy = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	initHealthBars()
 
+func initHealthBars():
+	playerHealth.max_value = player.maxHealth
+	playerDamage.max_value = player.maxHealth
+	enemyDamage.max_value = enemy.maxHealth
+	enemyHealth.max_value = enemy.maxHealth
+	playerHealth.value = player.health
+	playerDamage.value = player.health
+	enemyHealth.value = enemy.health
+	enemyDamage.value = enemy.health
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -145,8 +163,41 @@ func cameraShenanigans():
 	
 	zoomAdjust(cameraZoom)
 
+func playerUpdateHealth(value):
+	player.health -= value
+	setDamageBarPlayer = false
+	playerHealth.value = player.health
+	playerDamageTimer.start()
+
+func enemyUpdateHealth(value):
+	enemy.health -= value
+	setDamageBarEnemy = false
+	enemyHealth.value = enemy.health
+	enemyDamageTimer.start()
+
+func regenHealth():
+	enemy.health = enemy.maxHealth
+	player.health = player.maxHealth
+	playerHealth.value = player.health
+	playerDamage.value = player.health
+	enemyHealth.value = enemy.health
+	enemyDamage.value = enemy.health
+
 func _physics_process(delta):
 	if !isPaused:
+		if Input.is_key_pressed(KEY_9):
+			regenHealth()
+		
+		if setDamageBarEnemy and enemyDamage.value != enemyHealth.value:
+			enemyDamage.value -= 1
+		else:
+			setDamageBarEnemy = false
+		
+		if setDamageBarPlayer and playerDamage.value != playerHealth.value:
+			playerDamage.value -= 1
+		else:
+			setDamageBarPlayer = false
+		
 		if Input.is_action_just_pressed("Freeze") and !fuckYou:
 			player.frozen = true
 			enemy.frozen = true 
@@ -189,3 +240,10 @@ func _physics_process(delta):
 			if !frameAdvance:
 				player.frozen = false
 				enemy.frozen = false
+
+
+func _on_enemy_timer_timeout():
+	setDamageBarEnemy = true
+
+func _on_player_timer_timeout():
+	setDamageBarPlayer = true

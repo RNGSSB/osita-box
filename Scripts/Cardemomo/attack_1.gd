@@ -13,7 +13,6 @@ func Enter():
 	owner.hitUpLeft = false
 	owner.hitUpRight = false
 	owner.Guard(true,true,true,true)
-	AudioManager.Play("AttackSwoosh", "Right", 1.0, 1.0)
 	owner.setFrame(0)
 	owner.flip_h = false
 	owner.spriteOffsets(7,3,9)
@@ -28,6 +27,7 @@ func Physics_Update(delta: float):
 		owner.setFrame(1) #2
 	if owner.cFrame(5):
 		owner.setFrame(2) #1
+		AudioManager.Play("AttackSwoosh", "Right", 1.0, 1.0)
 	if owner.cFrame(6):
 		owner.setFrame(3) #1
 	if owner.cFrame(7):
@@ -62,7 +62,7 @@ func Physics_Update(delta: float):
 		owner.setFrame(17) #2
 	if owner.cFrame(40):
 		owner.counterPunch = false
-		owner.punchOpponent(1)
+		owner.punchOpponent(1, 3, true, 3, 25, "Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, -200, 200)
 		owner.setFrame(18) #2
 	if owner.punchHit:
 		if owner.cFrame(42):

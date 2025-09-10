@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bvhr12tvjvb8s"]
+[gd_scene load_steps=25 format=3 uid="uid://bvhr12tvjvb8s"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_4doc1"]
 [ext_resource type="Texture2D" uid="uid://bn7fdyoqr8a4v" path="res://Sprites/Characters/Canela/A00Wait1.png" id="1_jnsyv"]
@@ -22,10 +22,13 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/DamageN.gd" id="20_bfnwb"]
 [ext_resource type="Script" path="res://Scripts/Player/States/super_punch_lw.gd" id="21_ppqjl"]
 [ext_resource type="Script" path="res://Scripts/Player/States/damage_s.gd" id="22_im3km"]
+[ext_resource type="Script" path="res://Scripts/Player/States/block.gd" id="23_a22ns"]
+[ext_resource type="Script" path="res://Scripts/Player/States/block_damage.gd" id="24_y2cwy"]
 
 [node name="Player" type="Sprite2D"]
 process_mode = 1
 modulate = Color(1, 1, 1, 0.498039)
+z_index = 2
 texture = ExtResource("1_jnsyv")
 hframes = 7
 script = ExtResource("1_4doc1")
@@ -92,6 +95,10 @@ script = ExtResource("21_ppqjl")
 script = ExtResource("20_bfnwb")
 
 [node name="Block" type="Node" parent="StateMachine"]
+script = ExtResource("23_a22ns")
+
+[node name="BlockDamage" type="Node" parent="StateMachine"]
+script = ExtResource("24_y2cwy")
 
 [node name="DebugUI" type="CanvasLayer" parent="."]
 

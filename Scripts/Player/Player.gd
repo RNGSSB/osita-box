@@ -62,6 +62,8 @@ var health = 40
 
 var hasCombo = false
 
+var isBlocking = false
+
 var R = 255
 var G = 255
 var B = 255
@@ -75,7 +77,8 @@ preload("res://Sprites/Characters/Canela/A05AttackHi4.png"),
 preload("res://Sprites/Characters/Canela/A06EscapeS.png"),
 preload("res://Sprites/Characters/Canela/A07DamageS.png"),
 preload("res://Sprites/Characters/Canela/A08AttackSuperLw.png"),
-preload("res://Sprites/Characters/Canela/A09DamageN.png"),]
+preload("res://Sprites/Characters/Canela/A09DamageN.png"),
+preload("res://Sprites/Characters/Canela/A10Block.png"),]
 
 var ctrl = 1 
 
@@ -152,12 +155,9 @@ func _process(delta):
 		if bufferDodgeLW:
 			stateMachine.change_state2("DodgeDown")
 		if bufferDodgeHI:
-			stateMachine.change_state("Guard")
+			stateMachine.change_state("Block")
 
 func _physics_process(delta):
-	if Input.is_key_pressed(KEY_0):
-		health = maxHealth
-	
 	if !frozen:
 		sheVisibleNow()
 	
@@ -193,7 +193,7 @@ func punchBlockFunc(effectY, audioBus, blockState):
 func punchHitFunc(damage, flip, counter, audioBus, normalState, counterState, hitlagMul, shakeMul, effectX, effectY, hardPunch, hardEffectX, hardEffectY, sfx, volume, pitch):
 	enemyRef = owner.enemy
 	punchHit = true
-	enemyRef.health -= damage
+	owner.enemyUpdateHealth(damage)
 	enemyRef.hitCount += 1
 	enemyRef.flip_h = flip
 	
@@ -277,15 +277,15 @@ func punchOpponent(value):
 			punchHitFunc(1, false, false, "Right", "DamageHi4", "Damage4Counter", 1.0, 1.0, -150, -240, true, -150, -240, "Damage4", 1.0, 1.35)
 	elif value == 8: #Super Lw
 		if enemyRef.hitLeft or enemyRef.hitRight:
-			punchHitFunc(1, false, false, "Right", "DamageN4", "Damage4Counter", 2.0, 1.0, 0, 60, true, -200, 60, "SuperHit", 1.0, 1.0)
+			punchHitFunc(7, false, false, "Right", "DamageN4", "Damage4Counter", 2.0, 1.0, 0, 60, true, -200, 60, "SuperHit", 1.0, 1.0)
 	elif value == 9: #Super Hi
 		if enemyRef.hitUpRight or enemyRef.hitUpLeft:
-			punchHitFunc(1, false, false, "Right", "DamageHi4", "Damage4Counter", 2.0, 2.0, -150, -240, true, -150, -240, "SuperHit", 1.0, 1.0)
+			punchHitFunc(7, false, false, "Right", "DamageHi4", "Damage4Counter", 2.0, 2.0, -150, -240, true, -150, -240, "SuperHit", 1.0, 1.0)
 
 func debugUI():
 	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "frameAdvance: " + str(owner.frameAdvance) + "\n" + "animFrame: " + str(frame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "PrevFrame: " + str(prevStateFrame) + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge)
 	debugInfoPlayer2.text = "Frame: " + str(frameCounter) + "\n" + "State: " + owner.enemy.CURRSTATE + "\n" + "StateFrame: " + str(owner.enemy.stateFrame) + "\n" + "animFrame: " + str(owner.enemy.frame) + "\n" + "PrevState: " + str(owner.enemy.PREVSTATE) + "\n" + "PrevFrame: " + str(owner.enemy.prevStateFrame) + "\n" + "Stunned: " + str(owner.enemy.stunned) + "\n" + "HitCount: " + str(owner.enemy.hitCount) + "\n" + "MaxHitCount: " + str(owner.enemy.maxHitCount) + "\n" + "Health: " + str(owner.enemy.health) + "\n" + "aiActive: " + str(owner.enemy.aiActive)  
-	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.cameraZoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo)
+	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.cameraZoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking)
 
 func fixThisShit():
 	if CURRSTATE == "PunchLeft" and owner.enemy.counterPunch and owner.enemy.hitLeft:
