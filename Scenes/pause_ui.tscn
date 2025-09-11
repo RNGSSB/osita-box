@@ -5,6 +5,15 @@
 [node name="PauseUI" type="CanvasLayer"]
 script = ExtResource("1_0ahyt")
 
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = -1
+anchor_left = -0.047
+anchor_top = -0.055
+offset_left = 0.240005
+offset_top = 20.4
+offset_right = 1982.0
+offset_bottom = 1152.0
+
 [node name="GayLabel" type="Label" parent="."]
 offset_left = 616.0
 offset_top = 424.0
@@ -19,5 +28,39 @@ offset_bottom = 537.0
 min_value = -100.0
 max_value = 0.0
 value = -30.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 80.0
+offset_top = 116.0
+offset_right = 472.0
+offset_bottom = 753.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 20
+text = "Controls:
+
+Up:      W/Up Arrow
+Down: S/Down Arrow
+Left:     A/Left Arrow
+Right:  D/Right Arrow
+Left Punch:     H/Z
+Right Punch:  J/X
+Super Punch: Spacebar/C
+
+Debug Functions:
+
+Toggle Frame Advance: Tab
+Next Frame: Left Shift
+Activate Timer: 7
+Disable Timer: 8
+Reset Health: 9
+Max Meter: 0
+Activate AI: 1
+Disable AI: 2
+(If AI disabled)
+Enemy Punch 1: 3
+Enemy Punch 2: 4
+Enemy Punch 3: 5"
 
 [connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]

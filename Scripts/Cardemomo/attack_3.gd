@@ -63,7 +63,7 @@ func Physics_Update(delta: float):
 		owner.setFrame(17) #2
 	if owner.cFrame(40):
 		owner.counterPunch = false
-		owner.punchOpponent(0, 3, true, 3, 25, "Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200)
+		owner.punchOpponent(0, 3, 15, false, 3, 25, "Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200)
 		owner.setFrame(18) #2
 	if owner.punchHit:
 		if owner.cFrame(42):

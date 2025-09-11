@@ -104,9 +104,9 @@ script = ExtResource("24_y2cwy")
 
 [node name="Player1Side" type="Label" parent="DebugUI"]
 offset_left = 28.0
-offset_top = 814.0
-offset_right = 68.0
-offset_bottom = 837.0
+offset_top = 742.0
+offset_right = 135.0
+offset_bottom = 817.0
 theme_override_constants/outline_size = 15
 text = "State:
 StateFrame: 0
@@ -115,9 +115,9 @@ ctrl: 0
 
 [node name="Player1Side2" type="Label" parent="DebugUI"]
 offset_left = 249.0
-offset_top = 814.0
+offset_top = 742.0
 offset_right = 356.0
-offset_bottom = 889.0
+offset_bottom = 817.0
 theme_override_constants/outline_size = 15
 text = "State:
 StateFrame: 0

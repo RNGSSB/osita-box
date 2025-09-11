@@ -5,6 +5,7 @@ var CURRSTATE = "Wait"
 var PREVSTATE = "Wait"
 @onready var stateMachine = $StateMachine
 
+var charName = "Cardemomo"
 var stateFrame = 0
 var frameCounter = 0
 var prevStateFrame = 0 
@@ -26,7 +27,7 @@ var counterColor = Color8(255,164,167,255)
 
 var hitlagPunch = 3
 var hitlagUpper = 3
-var shakePunch = 11
+var shakePunch = 13
 var shakeUpper = 13
 
 var dizzy = 0
@@ -46,12 +47,14 @@ var punchHit = false
 var hitCount = 0
 var maxHitCount = 5
 
-var maxHealth = 40
-var health = 40
+var maxHealth = 120
+var health = 120
 
 var aiActive = false
 
 var rng = RandomNumberGenerator.new()
+
+var superInit = 20
 
 var animSheets = [preload("res://Sprites/Characters/Cardemomo/A00Wait.png"),
 preload("res://Sprites/Characters/Cardemomo/A01GuardLw.png"),
@@ -88,7 +91,7 @@ func cFrame(value):
 func setFrame(value):
 	frame = value
 
-func punchHitFunc(damage = 1, damageState = "DamageS", playerX = 0, flip = false, 
+func punchHitFunc(damage = 1, meter = 1, damageState = "DamageS", playerX = 0, flip = false, 
 hitlag = 3, shake = 25, 
 sfx = "Hurt", volume = 1.0, pitch = 1.0, audioBus = "SFX", 
 effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0):
@@ -98,6 +101,7 @@ effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0):
 	owner.playerUpdateHealth(damage)
 	punchHit = true
 	enemyRef.flip_h = flip
+	enemyRef.superMeter -= meter
 	owner.hitLag(hitlag, shake)
 	AudioManager.Play(sfx, audioBus, volume, pitch)
 	Gamemanager.createEffects(effectName, scaleX, scaleY, posX, posY)
@@ -111,60 +115,62 @@ func punchDodgeFunc(audioBus):
 	enemyRef.hasCombo = true
 	maxHitCount = dodgeCombo
 	if enemyRef.stateFrame <= enemyRef.perfectTiming:
+		enemyRef.superMeter += enemyRef.perfectDodgeMeterGain
 		maxHitCount = perfectCombo
 		AudioManager.Play("Perfect", audioBus, 1.0, 1.0)
 		enemyRef.perfectDodge = true
 
-func punchBlockFunc(audioBus):
+func punchBlockFunc(audioBus, meter):
 	enemyRef = owner.player
 	owner.hitLag(5, 15)
 	hitLeft = true
 	hitRight = true
 	hitUpLeft = true
 	hitUpRight = true
+	enemyRef.superMeter -= meter / 2
 	AudioManager.Play("Block", audioBus, 1.0, 1.0)
 	Gamemanager.createEffects("BLOCK", 1.5, 1.5, 0, 200, 1, true)
 	enemyRef.stateMachine.change_state2("BlockDamage")
 	punchHit = true
 
-func punchOpponent(value = 0, damage = 1, blockable = true, 
+func punchOpponent(value = 0, damage = 1, meter = 1, blockable = true, 
 hitLag = 3, screenShake = 25, 
 sfx = "Hurt", volume = 1.0, pitch = 1.0, 
 effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0):
 	enemyRef = owner.player
 	if value == 0: #Dodge Left
-		if enemyRef.isBlocking and blockable:
-			punchBlockFunc("Left")
+		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
+			punchBlockFunc("Left", meter)
 			return
 		if !enemyRef.dodgeLeft:
-			punchHitFunc(damage, "DamageS", 250, true, hitLag, screenShake, 
+			punchHitFunc(damage, meter, "DamageS", 250, true, hitLag, screenShake, 
 			sfx, volume, pitch, "Right", effect, scaleX, scaleY, posX, posY)
 		else:
 			punchDodgeFunc("Left")
 	elif value == 1: #Dodge Right
-		if enemyRef.isBlocking and blockable:
-			punchBlockFunc("Right")
+		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
+			punchBlockFunc("Right", meter)
 			return
 		if !enemyRef.dodgeRight:
-			punchHitFunc(damage, "DamageS", -250, false, hitLag, screenShake, 
+			punchHitFunc(damage, meter, "DamageS", -250, false, hitLag, screenShake, 
 			sfx, volume, pitch, "Right", effect, scaleX, scaleY, posX, posY)
 		else:
 			punchDodgeFunc("Right")
 	elif value == 2: #Dodge Down
-		if enemyRef.isBlocking and blockable:
-			punchBlockFunc("SFX")
+		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
+			punchBlockFunc("SFX", meter)
 			return
 		if !enemyRef.dodgeDown:
-			punchHitFunc(damage, "DamageN", 0, false, hitLag, screenShake, 
+			punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
 			sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY)
 		else:
 			punchDodgeFunc("SFX")
 	elif value == 3: #Dodge All
-		if enemyRef.isBlocking and blockable:
-			punchBlockFunc("SFX")
+		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
+			punchBlockFunc("SFX", meter)
 			return
 		if !enemyRef.dodgeLeft and !enemyRef.dodgeRight and !enemyRef.dodgeDown:
-			punchHitFunc(damage, "DamageN", 0, false, hitLag, screenShake, 
+			punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
 			sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY)
 		else:
 			punchDodgeFunc("SFX")

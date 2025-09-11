@@ -35,7 +35,8 @@ func Physics_Update(delta: float):
 	if owner.cFrame(3):
 		owner.setFrame(3)
 	if owner.cFrame(5):
-		owner.punchOpponent(4)
+		owner.punchOpponent(0, owner.finishDamage, owner.finishMeterGain, true, "Left", "Damage4", 1.0, 1.35, 
+		"DamageN4", false, 4.0, 4.0, "HITFINISHER", 200, 60, 3.0, 3.0)
 		owner.setFrame(4)
 	if owner.cFrame(10):
 		owner.setFrame(5)

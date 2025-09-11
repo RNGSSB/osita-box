@@ -27,12 +27,21 @@ var isPaused = false
 @onready var enemyDamage = $CanvasLayer/EnemyDamage
 @onready var enemyDamageTimer = $CanvasLayer/EnemyDamage/EnemyTimer
 @onready var playerDamageTimer = $CanvasLayer/PlayerDamage/PlayerTimer
+@onready var playerSuper = $CanvasLayer/PlayerSuper
+
+@onready var timer = $CanvasLayer/Timer
+
+var roundTimer = 3600.0
+var secondTimer = 3600.0
+var lolText = ""
+var pauseTimer = true
 
 var setDamageBarPlayer = false
 var setDamageBarEnemy = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	player.superMeter = enemy.superInit
 	initHealthBars()
 
 func initHealthBars():
@@ -44,6 +53,8 @@ func initHealthBars():
 	playerDamage.value = player.health
 	enemyHealth.value = enemy.health
 	enemyDamage.value = enemy.health
+	playerSuper.max_value = player.superMax
+	playerSuper.value = enemy.superInit
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -60,6 +71,11 @@ func _process(delta):
 	
 	pauseUI.visible = isPaused
 	
+	if isPaused:
+		player.debugLayer.visible = false
+	else:
+		player.debugLayer.visible = true
+	
 	get_tree().paused = isPaused
 
 
@@ -73,6 +89,10 @@ func zoomAdjust(value):
 
 func advanceFrame(delta):
 	frameCounter += 1 
+	if !pauseTimer:
+		roundTimer -= 1.0
+		if roundTimer > 0:
+			secondTimer -= 1.0
 	player.stateFrame += 1
 	enemy.stateFrame += 1
 	player.frameCounter = frameCounter
@@ -88,6 +108,9 @@ func advanceFrame(delta):
 func rewindFrame(delta):
 	if frameCounter > 1 and player.stateFrame > 1 and enemy.stateFrame > 1:
 		frameCounter -= 1 
+	if !pauseTimer:
+		roundTimer += 1.0
+		secondTimer += 1.0
 	player.frameCounter = frameCounter
 	enemy.frameCounter = frameCounter
 	if player.stateFrame > 1:
@@ -183,10 +206,48 @@ func regenHealth():
 	enemyHealth.value = enemy.health
 	enemyDamage.value = enemy.health
 
+func timerUI():
+	if Input.is_key_pressed(KEY_7):
+		pauseTimer = true
+		
+	if Input.is_key_pressed(KEY_8):
+		pauseTimer = false
+	
+	if (secondTimer * 3 / 60) - 120 < 10:
+		lolText = "0"
+	else:
+		lolText = ""
+	
+	if (secondTimer * 3 / 60) - 120 == 60:
+		timer.text = str(snapped(roundTimer * 3 / 60 / 60, 00)) + ":00" 
+	else:
+		timer.text = str(snapped(roundTimer * 3 / 60 / 60, 00)) + ":" + lolText + str(snapped((secondTimer * 3 / 60) - 120, 00))
+		
+	if roundTimer < 0:
+		roundTimer = 0
+		secondTimer = 3600.0
+	
+	if (secondTimer * 3 / 60) - 120 < 0 and roundTimer > 0:
+		secondTimer = 3600.0
+
 func _physics_process(delta):
 	if !isPaused:
 		if Input.is_key_pressed(KEY_9):
 			regenHealth()
+		
+		timerUI()
+		
+		player.hitCount = enemy.hitCount + 1
+		
+		if playerSuper.value > player.superMeter:
+			playerSuper.value -= 4.0
+		if playerSuper.value < player.superMeter:
+			playerSuper.value += 4.0
+		if playerSuper.value == player.superMeter + 1:
+			playerSuper.value = player.superMeter
+		
+		if playerSuper.value == player.superMeter - 1:
+			playerSuper.value = player.superMeter
 		
 		if setDamageBarEnemy and enemyDamage.value != enemyHealth.value:
 			enemyDamage.value -= 1
@@ -216,18 +277,18 @@ func _physics_process(delta):
 			if hitStop <= 0:
 				if Input.is_action_just_pressed("FrameAdvance"):
 					advanceFrame(delta)
-				if Input.is_action_just_pressed("FrameUnwind"):
-					rewindFrame(delta)
 			else:
 				if Input.is_action_just_pressed("FrameAdvance"):
 					hitStop -= 1
 					cameraShenanigans()
-				if Input.is_action_just_pressed("FrameUnwind"):
-					hitStop = 0
 		else:
 			cameraShenanigans()
 			if hitStop <= 0:
 				frameCounter += 1 
+				if !pauseTimer:
+					roundTimer -= 1.0
+					if roundTimer > 0:
+						secondTimer -= 1.0
 				player.frameCounter = frameCounter
 				enemy.frameCounter = frameCounter
 		
