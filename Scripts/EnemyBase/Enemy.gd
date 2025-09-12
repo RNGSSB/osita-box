@@ -127,11 +127,14 @@ func punchBlockFunc(audioBus, meter):
 	hitRight = true
 	hitUpLeft = true
 	hitUpRight = true
+	maxHitCount = normalCombo
+	enemyRef.hasCombo = true
 	enemyRef.superMeter -= meter / 2
 	AudioManager.Play("Block", audioBus, 1.0, 1.0)
 	Gamemanager.createEffects("BLOCK", 1.5, 1.5, 0, 200, 1, true)
 	enemyRef.stateMachine.change_state2("BlockDamage")
-	punchHit = true
+	stun()
+	punchHit = false
 
 func punchOpponent(value = 0, damage = 1, meter = 1, blockable = true, 
 hitLag = 3, screenShake = 25, 
