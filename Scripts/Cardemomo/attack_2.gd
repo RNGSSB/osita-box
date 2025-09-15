@@ -66,7 +66,8 @@ func Physics_Update(delta: float):
 	if owner.cFrame(40):
 		owner.counterPunch = false
 		owner.spriteOffsets(7,2,15)
-		owner.punchOpponent(3, 3, 10, true, 3, 25, "Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 0, 190)
+		owner.punchOpponent(3, 6, 10, true, 3, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 0, 190)
 		owner.setFrame(1) #2
 	if owner.punchHit:
 		if owner.cFrame(42): # 2
@@ -89,7 +90,7 @@ func Physics_Update(delta: float):
 		if owner.cFrame(40):
 			owner.stun()
 			owner.spriteOffsets(7,2,16)
-			owner.setFrame(0) #1
+			owner.setFrame(1) #1
 		if owner.cFrame(41):
 			owner.setFrame(1) #2
 		if owner.cFrame(43):

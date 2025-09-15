@@ -44,10 +44,12 @@ var perfectCombo = 6
 
 var punchHit = false
 
+var healing = false
+
 var hitCount = 0
 var maxHitCount = 5
 
-var maxHealth = 120
+var maxHealth = 250
 var health = 120
 
 var aiActive = false
@@ -55,6 +57,10 @@ var aiActive = false
 var rng = RandomNumberGenerator.new()
 
 var superInit = 20
+
+var R = 255
+var G = 255
+var B = 255
 
 var animSheets = [preload("res://Sprites/Characters/Cardemomo/A00Wait.png"),
 preload("res://Sprites/Characters/Cardemomo/A01GuardLw.png"),
@@ -77,6 +83,11 @@ preload("res://Sprites/Characters/Cardemomo/A17DamageLw4L.png"),
 preload("res://Sprites/Characters/Cardemomo/A18DamageHi4L.png"),
 preload("res://Sprites/Characters/Cardemomo/A19DamageLw4CounterL.png"),]
 
+func setColor(value1, value2, value3):
+	R = value1 
+	G = value2
+	B = value3
+
 func spriteOffsets(x, y, value):
 	hframes = x
 	vframes = y
@@ -90,6 +101,13 @@ func cFrame(value):
 
 func setFrame(value):
 	frame = value
+
+func enemyHeal(value, rate):
+	healing = true
+	owner.enemyHealing = health + value
+	if owner.enemyHealing > maxHealth:
+		owner.enemyHealing = maxHealth
+	owner.enemyHealingRate = rate
 
 func punchHitFunc(damage = 1, meter = 1, damageState = "DamageS", playerX = 0, flip = false, 
 hitlag = 3, shake = 25, 
@@ -120,7 +138,7 @@ func punchDodgeFunc(audioBus):
 		AudioManager.Play("Perfect", audioBus, 1.0, 1.0)
 		enemyRef.perfectDodge = true
 
-func punchBlockFunc(audioBus, meter):
+func punchBlockFunc(audioBus, meter, guardMeter):
 	enemyRef = owner.player
 	owner.hitLag(5, 15)
 	hitLeft = true
@@ -129,7 +147,10 @@ func punchBlockFunc(audioBus, meter):
 	hitUpRight = true
 	maxHitCount = normalCombo
 	enemyRef.hasCombo = true
-	enemyRef.superMeter -= meter / 2
+	if guardMeter == -1:
+		enemyRef.superMeter -= meter / 2
+	else:
+		enemyRef.superMeter -= guardMeter
 	AudioManager.Play("Block", audioBus, 1.0, 1.0)
 	Gamemanager.createEffects("BLOCK", 1.5, 1.5, 0, 200, 1, true)
 	enemyRef.stateMachine.change_state2("BlockDamage")
@@ -139,11 +160,12 @@ func punchBlockFunc(audioBus, meter):
 func punchOpponent(value = 0, damage = 1, meter = 1, blockable = true, 
 hitLag = 3, screenShake = 25, 
 sfx = "Hurt", volume = 1.0, pitch = 1.0, 
-effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0):
+effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0,
+guardMeter = -1):
 	enemyRef = owner.player
 	if value == 0: #Dodge Left
 		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
-			punchBlockFunc("Left", meter)
+			punchBlockFunc("Left", meter, guardMeter)
 			return
 		if !enemyRef.dodgeLeft:
 			punchHitFunc(damage, meter, "DamageS", 250, true, hitLag, screenShake, 
@@ -152,7 +174,7 @@ effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0):
 			punchDodgeFunc("Left")
 	elif value == 1: #Dodge Right
 		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
-			punchBlockFunc("Right", meter)
+			punchBlockFunc("Right", meter, guardMeter)
 			return
 		if !enemyRef.dodgeRight:
 			punchHitFunc(damage, meter, "DamageS", -250, false, hitLag, screenShake, 
@@ -161,7 +183,7 @@ effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0):
 			punchDodgeFunc("Right")
 	elif value == 2: #Dodge Down
 		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
-			punchBlockFunc("SFX", meter)
+			punchBlockFunc("SFX", meter, guardMeter)
 			return
 		if !enemyRef.dodgeDown:
 			punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
@@ -170,7 +192,7 @@ effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0):
 			punchDodgeFunc("SFX")
 	elif value == 3: #Dodge All
 		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
-			punchBlockFunc("SFX", meter)
+			punchBlockFunc("SFX", meter, guardMeter)
 			return
 		if !enemyRef.dodgeLeft and !enemyRef.dodgeRight and !enemyRef.dodgeDown:
 			punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
@@ -229,7 +251,6 @@ func lobotomy():
 func _physics_process(delta):
 	if health < 0:
 		health = 0
-	
 	
 	if counterPunch:
 		modulate = counterColor

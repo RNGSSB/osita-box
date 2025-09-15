@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://curbd3j26xu8w"]
+[gd_scene load_steps=18 format=3 uid="uid://curbd3j26xu8w"]
 
 [ext_resource type="Script" path="res://Scripts/audio_manager.gd" id="1_l5gxk"]
 [ext_resource type="AudioStream" uid="uid://bfxcygx8185we" path="res://SFX/Hit/Block.wav" id="2_j1c23"]
@@ -15,6 +15,8 @@
 [ext_resource type="AudioStream" uid="uid://bo50l0gwf11bc" path="res://SFX/Player/SuperSwoosh.wav" id="13_5q3fw"]
 [ext_resource type="AudioStream" uid="uid://dj2pvkgiygbe0" path="res://SFX/Player/SuperStart.ogg" id="14_alw6n"]
 [ext_resource type="AudioStream" uid="uid://drqth8walnq7k" path="res://SFX/Hit/SuperHit.ogg" id="15_faky7"]
+[ext_resource type="AudioStream" uid="uid://cmapste846kxw" path="res://SFX/Player/SuperMax.wav" id="16_ilju8"]
+[ext_resource type="AudioStream" uid="uid://cqhq80bbg1237" path="res://SFX/Player/SuperDrain.wav" id="17_jvt53"]
 
 [node name="AudioManager" type="Node2D"]
 script = ExtResource("1_l5gxk")
@@ -60,3 +62,9 @@ stream = ExtResource("14_alw6n")
 
 [node name="SuperHit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_faky7")
+
+[node name="SuperMax" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_ilju8")
+
+[node name="SuperDrain" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_jvt53")

@@ -18,6 +18,7 @@ func Enter():
 	owner.dodgeRight = true
 	owner.dodgeDown = false
 	owner.dodgeLeft = false
+	owner.bufferDodgeR = false
 
 func Update(_delta: float):
 	pass

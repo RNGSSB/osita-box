@@ -10,8 +10,10 @@ func Exit():
 func Enter():
 	owner.spriteOffsets(7,2,3)
 	owner.ctrl = 0
-	owner.setFrame(0)
+	owner.setFrame(4)
 	owner.makerHerVisible = true
+	owner.punchOpponent(1, owner.counterDamage, owner.counterMeterGain, false, "Right", "Damage4", 1.0, 1.35, 
+	"DamageN4Counter", false, 3.0, 3.0, "HITCOUNTER", -200, 60, 3.0, 3.0)
 	AudioManager.Play("Attack4Swoosh", "Right", 1.0, 1.0)
 	owner.bufferPunchR = false
 	owner.bufferUp = false
@@ -25,30 +27,19 @@ func Update(_delta: float):
 
 func Physics_Update(delta: float):
 	if owner.cFrame(1):
-		owner.makerHerVisible = true
-		owner.setFrame(0)
-	if owner.cFrame(2):
-		owner.setFrame(1)
-	if owner.cFrame(3):
-		owner.setFrame(2)
-	if owner.cFrame(4):
-		owner.setFrame(3)
-	if owner.cFrame(5):
-		owner.punchOpponent(1, owner.counterDamage, owner.counterMeterGain, false, "Right", "Damage4", 1.0, 1.35, 
-		"DamageN4Counter", false, 2.0, 2.0, "HITCOUNTER", -200, 60, 3.0, 3.0)
 		owner.setFrame(4)
-	if owner.cFrame(10):
+	if owner.cFrame(6):
 		owner.setFrame(5)
-	if owner.cFrame(11):
+	if owner.cFrame(7):
 		owner.setFrame(6)
-	if owner.cFrame(12):
+	if owner.cFrame(8):
 		owner.setFrame(7)
-	if owner.cFrame(23):
+	if owner.cFrame(11):
 		owner.ctrl = 1
 		owner.setFrame(8)
-	if owner.cFrame(29):
+	if owner.cFrame(17):
 		owner.setFrame(9)
-	if owner.cFrame(34):
+	if owner.cFrame(22):
 		owner.setFrame(10)
-	if owner.cFrame(40):
+	if owner.cFrame(28):
 		Transitioned.emit(self, "wait")

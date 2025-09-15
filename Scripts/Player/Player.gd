@@ -91,14 +91,14 @@ preload("res://Sprites/Characters/Canela/A10Block.png"),]
 
 var ctrl = 1 
 
-const guardMeterLoss = 5
-const punchDamage = 2
-const punchMeterGain = 2
-const finishDamage = 4
-const finishMeterGain = 4
-const counterDamage = 4
+const guardMeterLoss = 10
+const punchDamage = 5
+const punchMeterGain = 5
+const finishDamage = 10
+const finishMeterGain = 10
+const counterDamage = 15
 const counterMeterGain = 25
-const superDamage = 20
+const superDamage = 40
 const perfectDodgeMeterGain = 25
 
 func spriteOffsets(x, y, value):
@@ -133,52 +133,58 @@ func _process(delta):
 	if superMeter == superMax and inputY <= 0 and bufferSuper and !bufferUp and (ctrl == 1 or owner.hitStop == 0 and punchHit and CURRSTATE != "PunchLeftFinish" and CURRSTATE != "PunchLeftCounter" and CURRSTATE != "PunchRightFinish" and CURRSTATE != "PunchRightCounter" and CURRSTATE != "UpperLeftFinish" and CURRSTATE != "UpperLeftCounter" and CURRSTATE != "UpperRightCounter" and CURRSTATE != "UpperRightFinish"):
 			stateMachine.change_state("SuperPunchLw")
 	
-	if ctrl == 1:
-		if inputY <= 0 and bufferPunchL and !bufferUp:
-			if owner.enemy.counterPunch and owner.enemy.hitLeft:
-				stateMachine.change_state2("PunchLeftCounter")
+	if inputY <= 0 and bufferPunchL and !bufferUp and ctrl == 1:
+		if owner.enemy.counterPunch and owner.enemy.hitLeft:
+			stateMachine.change_state2("PunchLeftCounter")
+		else:
+			if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
+				stateMachine.change_state2("PunchLeft")
 			else:
-				if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
-					stateMachine.change_state2("PunchLeft")
-				else:
-					stateMachine.change_state2("PunchLeftFinish")
-		if inputY <= 0 and bufferPunchR and !bufferUp:
-			if owner.enemy.counterPunch and owner.enemy.hitRight:
-				stateMachine.change_state2("PunchRightCounter")
+				stateMachine.change_state2("PunchLeftFinish")
+	if inputY <= 0 and bufferPunchR and !bufferUp and ctrl == 1:
+		if owner.enemy.counterPunch and owner.enemy.hitRight:
+			stateMachine.change_state2("PunchRightCounter")
+		else:
+			if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
+				stateMachine.change_state2("PunchRight")
 			else:
-				if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
-					stateMachine.change_state2("PunchRight")
-				else:
-					stateMachine.change_state2("PunchRightFinish")
-		if (inputY > 0 or bufferUp) and bufferPunchL:
-			if owner.enemy.counterPunch and owner.enemy.hitUpLeft:
-				stateMachine.change_state2("UpperLeftCounter")
+				stateMachine.change_state2("PunchRightFinish")
+	if (inputY > 0 or bufferUp) and bufferPunchL and ctrl == 1:
+		if owner.enemy.counterPunch and owner.enemy.hitUpLeft:
+			stateMachine.change_state2("UpperLeftCounter")
+		else:
+			if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
+				stateMachine.change_state2("UpperLeft")
 			else:
-				if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
-					stateMachine.change_state2("UpperLeft")
-				else:
-					stateMachine.change_state2("UpperLeftFinish")
-		if (inputY > 0 or bufferUp) and bufferPunchR:
-			if owner.enemy.counterPunch and owner.enemy.hitUpRight:
-				stateMachine.change_state2("UpperRightCounter")
+				stateMachine.change_state2("UpperLeftFinish")
+	if (inputY > 0 or bufferUp) and bufferPunchR and ctrl == 1:
+		if owner.enemy.counterPunch and owner.enemy.hitUpRight:
+			stateMachine.change_state2("UpperRightCounter")
+		else:
+			if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
+				stateMachine.change_state2("UpperRight")
 			else:
-				if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
-					stateMachine.change_state2("UpperRight")
-				else:
-					stateMachine.change_state2("UpperRightFinish")
-		
-		if bufferDodgeL:
-			stateMachine.change_state2("DodgeLeft")
-		if bufferDodgeR:
-			stateMachine.change_state2("DodgeRight")
-		if bufferDodgeLW:
-			stateMachine.change_state2("DodgeDown")
-		if bufferDodgeHI:
-			stateMachine.change_state("Block")
+				stateMachine.change_state2("UpperRightFinish")
+	
+	if bufferDodgeL and ctrl == 1:
+		stateMachine.change_state2("DodgeLeft")
+	if bufferDodgeR and ctrl == 1:
+		stateMachine.change_state2("DodgeRight")
+	if bufferDodgeLW and ctrl == 1:
+		stateMachine.change_state2("DodgeDown")
+	if bufferDodgeHI and ctrl == 1:
+		stateMachine.change_state("Block")
 
 func _physics_process(delta):
 	if !frozen:
 		sheVisibleNow()
+	
+	if superMeter == 0:
+		if R == 255 and G == 255 and B == 255:
+			setColor(102,102,102)
+	else:
+		if R == 102 and G == 102 and B == 102:
+			setColor(255,255,255)
 	
 	if health < 0:
 		health = 0
@@ -229,6 +235,7 @@ hitState = "DamageN", upper = false, hitlagMul = 1.0, shakeMul = 1.0,
 effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 	enemyRef = owner.enemy
 	punchHit = true
+	enemyRef.healing = false
 	owner.enemyUpdateHealth(damage)
 	superMeter += meter
 	enemyRef.hitCount += 1

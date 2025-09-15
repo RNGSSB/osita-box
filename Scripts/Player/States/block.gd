@@ -12,6 +12,7 @@ func Enter():
 	owner.isBlocking = true
 	owner.setFrame(0)
 	owner.makerHerVisible = true
+	owner.bufferDodgeHI = false
 	idleLoop = 0
 
 func Update(_delta: float):

@@ -4,6 +4,7 @@ extends State
 func Exit():
 	owner.ctrl = 1
 	owner.makerHerVisible = false
+	owner.hasCombo = false
 	owner.punchHit = false
 
 func Enter():

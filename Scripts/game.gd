@@ -39,6 +39,12 @@ var pauseTimer = true
 var setDamageBarPlayer = false
 var setDamageBarEnemy = false
 
+var superFilled = false
+var superDrained = false
+
+var enemyHealing = 0
+var enemyHealingRate = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player.superMeter = enemy.superInit
@@ -53,7 +59,7 @@ func initHealthBars():
 	playerDamage.value = player.health
 	enemyHealth.value = enemy.health
 	enemyDamage.value = enemy.health
-	playerSuper.max_value = player.superMax
+	playerSuper.max_value = player.superMax 
 	playerSuper.value = enemy.superInit
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -99,6 +105,8 @@ func advanceFrame(delta):
 	enemy.frameCounter = frameCounter
 	camera.cameraShake(delta)
 	cameraShenanigans()
+	enemyHealingFunc()
+	meterHandle()
 	player.sheVisibleNow()
 	player.stateMachine.current_state.Update(delta)
 	player.stateMachine.current_state.Physics_Update(delta)
@@ -189,21 +197,26 @@ func cameraShenanigans():
 func playerUpdateHealth(value):
 	player.health -= value
 	setDamageBarPlayer = false
-	playerHealth.value = player.health
 	playerDamageTimer.start()
 
 func enemyUpdateHealth(value):
 	enemy.health -= value
 	setDamageBarEnemy = false
-	enemyHealth.value = enemy.health
 	enemyDamageTimer.start()
+
+func enemyHealingFunc():
+	if enemy.healing:
+		if enemy.health < enemyHealing:
+			enemy.health = lerp(enemy.health, float(enemyHealing), enemyHealingRate)
+		else:
+			enemyHealing = 0
+			enemyHealingRate = 0
+			enemy.healing = false
 
 func regenHealth():
 	enemy.health = enemy.maxHealth
 	player.health = player.maxHealth
-	playerHealth.value = player.health
 	playerDamage.value = player.health
-	enemyHealth.value = enemy.health
 	enemyDamage.value = enemy.health
 
 func timerUI():
@@ -230,6 +243,47 @@ func timerUI():
 	if (secondTimer * 3 / 60) - 120 < 0 and roundTimer > 0:
 		secondTimer = 3600.0
 
+func meterHandle():
+	if player.superMeter == player.superMax and !superFilled: 
+		AudioManager.Play("SuperMax", "SFX", 1.0, 1.0)
+		superFilled = true
+	
+	if player.superMeter < player.superMax:
+		superFilled = false
+	
+	if player.superMeter == 0 and !superDrained:
+		hitLag(20, 25)
+		AudioManager.Play("SuperDrain", "SFX", 1.0, 1.0)
+		superDrained = true
+	
+	if player.superMeter > 0:
+		superDrained = false
+	
+	if playerSuper.value > player.superMeter:
+		playerSuper.value = lerp(playerSuper.value, float(player.superMeter), 0.5)
+	if playerSuper.value < player.superMeter:
+		playerSuper.value = lerp(playerSuper.value, float(player.superMeter), 0.5)
+	
+	if playerHealth.value > player.health:
+		playerHealth.value = lerp(playerHealth.value, float(player.health), 0.5)
+	if playerHealth.value < player.health:
+		playerHealth.value = lerp(playerHealth.value, float(player.health), 0.5)
+	
+	if enemyHealth.value > enemy.health:
+		enemyHealth.value = lerp(enemyHealth.value, float(enemy.health), 0.5)
+	if enemyHealth.value < enemy.health:
+		enemyHealth.value = lerp(enemyHealth.value, float(enemy.health), 0.5)
+	
+	if setDamageBarEnemy and enemyDamage.value != enemyHealth.value:
+		enemyDamage.value = lerp(enemyDamage.value, float(enemy.health), 0.3)
+	else:
+		setDamageBarEnemy = false
+	
+	if setDamageBarPlayer and playerDamage.value != playerHealth.value:
+		playerDamage.value = lerp(playerDamage.value, float(player.health), 0.3)
+	else:
+		setDamageBarPlayer = false
+
 func _physics_process(delta):
 	if !isPaused:
 		if Input.is_key_pressed(KEY_9):
@@ -238,26 +292,6 @@ func _physics_process(delta):
 		timerUI()
 		
 		player.hitCount = enemy.hitCount + 1
-		
-		if playerSuper.value > player.superMeter:
-			playerSuper.value -= 4.0
-		if playerSuper.value < player.superMeter:
-			playerSuper.value += 4.0
-		if playerSuper.value == player.superMeter + 1:
-			playerSuper.value = player.superMeter
-		
-		if playerSuper.value == player.superMeter - 1:
-			playerSuper.value = player.superMeter
-		
-		if setDamageBarEnemy and enemyDamage.value != enemyHealth.value:
-			enemyDamage.value -= 1
-		else:
-			setDamageBarEnemy = false
-		
-		if setDamageBarPlayer and playerDamage.value != playerHealth.value:
-			playerDamage.value -= 1
-		else:
-			setDamageBarPlayer = false
 		
 		if Input.is_action_just_pressed("Freeze") and !fuckYou:
 			player.frozen = true
@@ -280,9 +314,12 @@ func _physics_process(delta):
 			else:
 				if Input.is_action_just_pressed("FrameAdvance"):
 					hitStop -= 1
+					meterHandle()
 					cameraShenanigans()
 		else:
 			cameraShenanigans()
+			meterHandle()
+			enemyHealingFunc()
 			if hitStop <= 0:
 				frameCounter += 1 
 				if !pauseTimer:

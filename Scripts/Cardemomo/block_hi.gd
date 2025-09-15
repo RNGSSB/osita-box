@@ -8,6 +8,10 @@ func Enter():
 	owner.setFrame(0)
 	owner.counterPunch = false
 	owner.spriteOffsets(7,1,2)
+	owner.blockLeft = false
+	owner.blockRight = false
+	owner.blockUpLeft = true
+	owner.blockUpRight = true
 
 func Update(_delta: float):
 	pass
