@@ -73,6 +73,12 @@ var superMax = 150
 
 var hitCount = 0
 
+var gotSuper = false
+
+var inBurnout = false
+var burnoutTime = 300
+var burnoutTimer = 0
+
 var R = 255
 var G = 255
 var B = 255
@@ -172,14 +178,15 @@ func _process(delta):
 		stateMachine.change_state2("DodgeRight")
 	if bufferDodgeLW and ctrl == 1:
 		stateMachine.change_state2("DodgeDown")
-	if bufferDodgeHI and ctrl == 1:
+	if bufferDodgeHI and ctrl == 1 and !inBurnout:
 		stateMachine.change_state("Block")
 
 func _physics_process(delta):
 	if !frozen:
 		sheVisibleNow()
 	
-	if superMeter == 0:
+	
+	if inBurnout:
 		if R == 255 and G == 255 and B == 255:
 			setColor(102,102,102)
 	else:
@@ -195,8 +202,13 @@ func _physics_process(delta):
 	if superMeter < 0:
 		superMeter = 0
 	
+	if superMeter < superMax:
+		gotSuper = false
+	
 	if Input.is_key_pressed(KEY_0):
 		superMeter = superMax
+		gotSuper = true
+		burnoutEnd()
 	
 	if Input.is_key_pressed(KEY_CTRL):
 		superMeter = 0
@@ -237,15 +249,23 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 	punchHit = true
 	enemyRef.healing = false
 	owner.enemyUpdateHealth(damage)
-	superMeter += meter
+	if !inBurnout:
+		superMeter += meter
 	enemyRef.hitCount += 1
-	enemyRef.flip_h = flip
 	if effect == "HITCOUNTER":
 		AudioManager.Play("CounterPunch", "SFX", 1.0, 1.0)
 	if !upper:
-		owner.hitLag(enemyRef.hitlagPunch * hitlagMul,enemyRef.shakePunch * shakeMul)
+		if superMeter >= superMax and !gotSuper:
+			owner.hitLag((enemyRef.hitlagPunch * hitlagMul),(enemyRef.shakePunch * shakeMul))
+			gotSuper = true
+		else:
+			owner.hitLag((enemyRef.hitlagPunch * hitlagMul),(enemyRef.shakePunch * shakeMul))
 	else:
-		owner.hitLag(enemyRef.hitlagUpper * hitlagMul,enemyRef.shakeUpper * shakeMul)
+		if superMeter >= superMax and !gotSuper:
+			owner.hitLag((enemyRef.hitlagUpper * hitlagMul),(enemyRef.shakeUpper * shakeMul))
+			gotSuper = true
+		else:
+			owner.hitLag(enemyRef.hitlagUpper * hitlagMul,enemyRef.shakeUpper * shakeMul)
 	Gamemanager.createEffects(effect, scaleX, scaleY, effectX, effectY)
 	AudioManager.Play(sfx, audioBus, volume, pitch)
 	enemyRef.stateMachine.change_state2(hitState)
@@ -261,6 +281,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			return
 		if enemyRef.hitLeft:
 			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
+				enemyRef.playerPunch = value
 				punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 				hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 			else:
@@ -271,6 +292,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			return
 		if enemyRef.hitRight:
 			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
+				enemyRef.playerPunch = value
 				punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 				hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 			else:
@@ -281,6 +303,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			return
 		if enemyRef.hitUpLeft:
 			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
+				enemyRef.playerPunch = value
 				punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 				hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 			else:
@@ -291,15 +314,17 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			return
 		if enemyRef.hitUpRight:
 			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
+				enemyRef.playerPunch = value
 				punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 				hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 			else:
 				punchBlockFunc(-150, "Right", "BlockHi")
 	if value == 4: #Super Lw
 		if enemyRef.blockUpRight:
-			punchBlockFunc(60, "SFX", "BlockLw", 10, 40)
+			punchBlockFunc(60, "SFX", "BlockLw", 20, 40)
 			return
 		if enemyRef.hitRight or enemyRef.hitLeft:
+			enemyRef.playerPunch = value
 			punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 			hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 	if value == 5: #Super Hi
@@ -307,14 +332,30 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			punchBlockFunc(-150, "SFX", "BlockHi")
 			return
 		if enemyRef.hitUpRight or enemyRef.hitUpLeft:
+			enemyRef.playerPunch = value
 			punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 			hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 
 
 func debugUI():
-	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "frameAdvance: " + str(owner.frameAdvance) + "\n" + "animFrame: " + str(frame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "PrevFrame: " + str(prevStateFrame) + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter)
+	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "frameAdvance: " + str(owner.frameAdvance) + "\n" + "animFrame: " + str(frame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "PrevFrame: " + str(prevStateFrame) + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter) + "\n" + "BurnoutTime: " + str(burnoutTimer)
 	debugInfoPlayer2.text = "Frame: " + str(frameCounter) + "\n" + "State: " + owner.enemy.CURRSTATE + "\n" + "StateFrame: " + str(owner.enemy.stateFrame) + "\n" + "animFrame: " + str(owner.enemy.frame) + "\n" + "PrevState: " + str(owner.enemy.PREVSTATE) + "\n" + "PrevFrame: " + str(owner.enemy.prevStateFrame) + "\n" + "Stunned: " + str(owner.enemy.stunned) + "\n" + "HitCount: " + str(owner.enemy.hitCount) + "\n" + "MaxHitCount: " + str(owner.enemy.maxHitCount) + "\n" + "Health: " + str(owner.enemy.health) + "\n" + "aiActive: " + str(owner.enemy.aiActive)  
 	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.cameraZoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superBarValue: " + str(owner.playerSuper.value)
+
+func burnout():
+	if inBurnout:
+		burnoutTimer -= 1
+		if burnoutTimer == 0:
+			burnoutEnd()
+
+func burnoutEnd():
+	if inBurnout:
+		owner.playerSuper.max_value = superMax
+		owner.playerSuper.min_value = 0
+		superMeter += 10
+		owner.playerSuper.get("theme_override_styles/fill").bg_color = Color(0.081, 0.622, 1)
+		AudioManager.Play("BurnoutEnd", "SFX", 1.0, 1.0)
+		inBurnout = false
 
 func fixThisShit():
 	if CURRSTATE == "PunchLeft" and owner.enemy.counterPunch and owner.enemy.hitLeft:

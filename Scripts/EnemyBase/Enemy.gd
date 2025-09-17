@@ -62,6 +62,12 @@ var R = 255
 var G = 255
 var B = 255
 
+var playerPunch = 0 
+var flipDamageLw = true
+var flipDamageHi = true
+var flipDamageCounterLw = true
+var flipDamageCounterHi = false
+
 var animSheets = [preload("res://Sprites/Characters/Cardemomo/A00Wait.png"),
 preload("res://Sprites/Characters/Cardemomo/A01GuardLw.png"),
 preload("res://Sprites/Characters/Cardemomo/A02GuardHi.png"),
@@ -119,8 +125,13 @@ effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0):
 	owner.playerUpdateHealth(damage)
 	punchHit = true
 	enemyRef.flip_h = flip
+	if enemyRef.inBurnout:
+		owner.hitLag(hitlag * 4, shake * 2)
+	else:
+		owner.hitLag(hitlag, shake)
+	if enemyRef.superMeter == 0 and !enemyRef.inBurnout:
+		owner.playerBurnout()
 	enemyRef.superMeter -= meter
-	owner.hitLag(hitlag, shake)
 	AudioManager.Play(sfx, audioBus, volume, pitch)
 	Gamemanager.createEffects(effectName, scaleX, scaleY, posX, posY)
 	enemyRef.stateMachine.change_state2(damageState)
@@ -134,6 +145,9 @@ func punchDodgeFunc(audioBus):
 	maxHitCount = dodgeCombo
 	if enemyRef.stateFrame <= enemyRef.perfectTiming:
 		enemyRef.superMeter += enemyRef.perfectDodgeMeterGain
+		enemyRef.burnoutEnd()
+		if enemyRef.superMeter >= enemyRef.superMax:
+			enemyRef.gotSuper = true
 		maxHitCount = perfectCombo
 		AudioManager.Play("Perfect", audioBus, 1.0, 1.0)
 		enemyRef.perfectDodge = true
@@ -147,6 +161,9 @@ func punchBlockFunc(audioBus, meter, guardMeter):
 	hitUpRight = true
 	maxHitCount = normalCombo
 	enemyRef.hasCombo = true
+	if enemyRef.superMeter == 0 and !enemyRef.inBurnout:
+		owner.playerBurnout()
+	
 	if guardMeter == -1:
 		enemyRef.superMeter -= meter / 2
 	else:
@@ -154,7 +171,6 @@ func punchBlockFunc(audioBus, meter, guardMeter):
 	AudioManager.Play("Block", audioBus, 1.0, 1.0)
 	Gamemanager.createEffects("BLOCK", 1.5, 1.5, 0, 200, 1, true)
 	enemyRef.stateMachine.change_state2("BlockDamage")
-	stun()
 	punchHit = false
 
 func punchOpponent(value = 0, damage = 1, meter = 1, blockable = true, 
@@ -164,7 +180,7 @@ effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0,
 guardMeter = -1):
 	enemyRef = owner.player
 	if value == 0: #Dodge Left
-		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
+		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
 			punchBlockFunc("Left", meter, guardMeter)
 			return
 		if !enemyRef.dodgeLeft:
@@ -173,7 +189,7 @@ guardMeter = -1):
 		else:
 			punchDodgeFunc("Left")
 	elif value == 1: #Dodge Right
-		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
+		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
 			punchBlockFunc("Right", meter, guardMeter)
 			return
 		if !enemyRef.dodgeRight:
@@ -182,7 +198,7 @@ guardMeter = -1):
 		else:
 			punchDodgeFunc("Right")
 	elif value == 2: #Dodge Down
-		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
+		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
 			punchBlockFunc("SFX", meter, guardMeter)
 			return
 		if !enemyRef.dodgeDown:
@@ -191,7 +207,7 @@ guardMeter = -1):
 		else:
 			punchDodgeFunc("SFX")
 	elif value == 3: #Dodge All
-		if enemyRef.isBlocking and blockable and enemyRef.superMeter > 0:
+		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
 			punchBlockFunc("SFX", meter, guardMeter)
 			return
 		if !enemyRef.dodgeLeft and !enemyRef.dodgeRight and !enemyRef.dodgeDown:

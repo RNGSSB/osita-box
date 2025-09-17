@@ -28,6 +28,7 @@ var isPaused = false
 @onready var enemyDamageTimer = $CanvasLayer/EnemyDamage/EnemyTimer
 @onready var playerDamageTimer = $CanvasLayer/PlayerDamage/PlayerTimer
 @onready var playerSuper = $CanvasLayer/PlayerSuper
+@onready var damageFilter = $CanvasLayer/Damage
 
 @onready var timer = $CanvasLayer/Timer
 
@@ -44,6 +45,8 @@ var superDrained = false
 
 var enemyHealing = 0
 var enemyHealingRate = 0
+
+var rageActive = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -107,6 +110,7 @@ func advanceFrame(delta):
 	cameraShenanigans()
 	enemyHealingFunc()
 	meterHandle()
+	player.burnout()
 	player.sheVisibleNow()
 	player.stateMachine.current_state.Update(delta)
 	player.stateMachine.current_state.Physics_Update(delta)
@@ -195,12 +199,25 @@ func cameraShenanigans():
 	zoomAdjust(cameraZoom)
 
 func playerUpdateHealth(value):
-	player.health -= value
+	if player.inBurnout:
+		player.health -= value * 2
+	else:
+		player.health -= value
 	setDamageBarPlayer = false
 	playerDamageTimer.start()
 
 func enemyUpdateHealth(value):
-	enemy.health -= value
+	if rageActive:
+		if player.health > player.maxHealth / 1.2:
+			enemy.health -= value * 1.0
+		elif player.health > player.maxHealth / 2:
+			enemy.health -= value * 1.15
+		elif player.health > player.maxHealth / 4:
+			enemy.health -= value * 1.2
+		elif player.health < player.maxHealth / 4:
+			enemy.health -= value * 1.3
+	else:
+		enemy.health -= value
 	setDamageBarEnemy = false
 	enemyDamageTimer.start()
 
@@ -243,26 +260,39 @@ func timerUI():
 	if (secondTimer * 3 / 60) - 120 < 0 and roundTimer > 0:
 		secondTimer = 3600.0
 
+func playerBurnout():
+	hitLag(20, 25)
+	player.inBurnout = true
+	playerSuper.value = 0
+	playerSuper.max_value = 0
+	playerSuper.min_value = player.burnoutTime * -1
+	playerSuper.get("theme_override_styles/fill").bg_color = Color.DARK_GRAY
+	player.burnoutTimer = player.burnoutTime
+	AudioManager.Play("SuperDrain", "SFX", 1.0, 1.0)
+	superDrained = true
+
+
 func meterHandle():
-	if player.superMeter == player.superMax and !superFilled: 
-		AudioManager.Play("SuperMax", "SFX", 1.0, 1.0)
-		superFilled = true
-	
-	if player.superMeter < player.superMax:
-		superFilled = false
-	
-	if player.superMeter == 0 and !superDrained:
-		hitLag(20, 25)
-		AudioManager.Play("SuperDrain", "SFX", 1.0, 1.0)
-		superDrained = true
-	
-	if player.superMeter > 0:
-		superDrained = false
-	
-	if playerSuper.value > player.superMeter:
-		playerSuper.value = lerp(playerSuper.value, float(player.superMeter), 0.5)
-	if playerSuper.value < player.superMeter:
-		playerSuper.value = lerp(playerSuper.value, float(player.superMeter), 0.5)
+	if !player.inBurnout:
+		if player.superMeter == player.superMax and !superFilled: 
+			AudioManager.Play("SuperMax", "SFX", 1.0, 1.0)
+			superFilled = true
+		
+		if player.superMeter < player.superMax:
+			superFilled = false
+		
+		if player.superMeter == 0 and !superDrained:
+			playerBurnout()
+		
+		if player.superMeter > 0:
+			superDrained = false
+		
+		if playerSuper.value > player.superMeter:
+			playerSuper.value = lerp(playerSuper.value, float(player.superMeter), 0.5)
+		if playerSuper.value < player.superMeter:
+			playerSuper.value = lerp(playerSuper.value, float(player.superMeter), 0.5)
+	else:
+		playerSuper.value = player.burnoutTimer * -1
 	
 	if playerHealth.value > player.health:
 		playerHealth.value = lerp(playerHealth.value, float(player.health), 0.5)
@@ -290,6 +320,14 @@ func _physics_process(delta):
 			regenHealth()
 		
 		timerUI()
+		
+		if (player.CURRSTATE == "DamageS" or player.CURRSTATE == "DamageN") and player.stateFrame < 16:
+			damageFilter.visible = true
+		else:
+			damageFilter.visible = false
+		
+		if enemy.CURRSTATE == "Wait":
+			player.hasCombo = false
 		
 		player.hitCount = enemy.hitCount + 1
 		
@@ -322,6 +360,7 @@ func _physics_process(delta):
 			enemyHealingFunc()
 			if hitStop <= 0:
 				frameCounter += 1 
+				player.burnout()
 				if !pauseTimer:
 					roundTimer -= 1.0
 					if roundTimer > 0:

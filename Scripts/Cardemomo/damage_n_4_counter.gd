@@ -12,7 +12,18 @@ func Enter():
 	owner.counterPunch = false
 	owner.stunned = false
 	owner.hitCount = 0
-	owner.spriteOffsets(7,1,13)
+	if owner.flipDamageCounterLw:
+		owner.flip_h = false
+		if owner.playerPunch == 0:
+			owner.spriteOffsets(7,1,19)
+		if owner.playerPunch == 1:
+			owner.spriteOffsets(7,1,13)
+	else:
+		owner.spriteOffsets(7,1,13)
+		if owner.playerPunch == 0:
+			owner.flip_h = true
+		if owner.playerPunch == 1:
+			owner.flip_h = false
 	AudioManager.Stop("Dizzy")
 	owner.setFrame(0)
 
