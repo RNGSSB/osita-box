@@ -10,12 +10,16 @@ func Enter():
 	owner.hitUpLeft = false
 	owner.hitUpRight = false
 	owner.counterPunch = false
+	owner.guardAll = true
+	owner.damaged = true
 	owner.stunned = false
 	if owner.flipDamageLw:
 		owner.flip_h = false
 		if owner.playerPunch == 0:
 			owner.spriteOffsets(7,2,17)
 		if owner.playerPunch == 1:
+			owner.spriteOffsets(7,2,4)
+		if owner.playerPunch == 4:
 			owner.spriteOffsets(7,2,4)
 	else:
 		owner.spriteOffsets(7,2,4)

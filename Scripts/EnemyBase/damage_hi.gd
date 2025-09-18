@@ -9,6 +9,7 @@ func Enter():
 	owner.hitRight = true
 	owner.hitUpLeft = true
 	owner.hitUpRight = true
+	owner.damaged = true
 	AudioManager.Stop("Dizzy")
 	if owner.flipDamageHi:
 		owner.flip_h = false

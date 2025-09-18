@@ -10,8 +10,10 @@ func Enter():
 	owner.hitUpLeft = false
 	owner.hitUpRight = false
 	owner.counterPunch = false
+	owner.guardAll = true
 	owner.hitCount = 0
 	owner.stunned = false
+	owner.damaged = true
 	AudioManager.Stop("Dizzy")
 	if owner.flipDamageHi:
 		owner.flip_h = false

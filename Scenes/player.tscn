@@ -126,9 +126,9 @@ ctrl: 0
 
 [node name="Player2Side" type="Label" parent="DebugUI"]
 offset_left = 1757.0
-offset_top = 772.0
+offset_top = 627.0
 offset_right = 1864.0
-offset_bottom = 847.0
+offset_bottom = 702.0
 theme_override_constants/outline_size = 15
 text = "State:
 StateFrame: 0

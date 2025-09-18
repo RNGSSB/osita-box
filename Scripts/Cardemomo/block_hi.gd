@@ -1,13 +1,16 @@
 extends State
-
+var idleLoop = 0
 
 func Exit():
-	pass
+	idleLoop = 0
 
 func Enter():
-	owner.setFrame(0)
+	owner.setFrame(1)
+	idleLoop = 0
 	owner.counterPunch = false
 	owner.spriteOffsets(7,1,2)
+	owner.attackMiss = false
+	owner.damaged = false
 	owner.blockLeft = false
 	owner.blockRight = false
 	owner.blockUpLeft = true
@@ -17,19 +20,26 @@ func Update(_delta: float):
 	pass
 
 func Physics_Update(delta: float):
-	if owner.cFrame(1):
-		owner.setFrame(0) 
-	if owner.cFrame(4):
-		owner.setFrame(1) 
-	if owner.cFrame(8):
-		owner.setFrame(2) 
-	if owner.cFrame(12):
-		owner.setFrame(3) 
-	if owner.cFrame(16):
-		owner.setFrame(4) 
+	idleLoop += 1
+	
 	if owner.cFrame(20):
-		owner.setFrame(5) 
-	if owner.cFrame(24):
-		owner.setFrame(6) 
-	if owner.cFrame(30):
-		Transitioned.emit(self, "wait")
+		owner.guardAll = false
+	
+	if idleLoop == 0:
+		owner.setFrame(1)
+	if idleLoop == 4:
+		owner.setFrame(2)
+	if idleLoop == 8:
+		owner.setFrame(3)
+	if idleLoop == 12:
+		owner.setFrame(4)
+	if idleLoop == 16:
+		owner.setFrame(5)
+	if idleLoop == 20:
+		owner.setFrame(6)
+	
+	
+	
+	if idleLoop == 24:
+		owner.setFrame(1)
+		idleLoop = 0

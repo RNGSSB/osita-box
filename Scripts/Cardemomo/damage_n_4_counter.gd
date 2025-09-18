@@ -11,6 +11,8 @@ func Enter():
 	owner.hitUpRight = false
 	owner.counterPunch = false
 	owner.stunned = false
+	owner.damaged = true
+	owner.guardAll = true
 	owner.hitCount = 0
 	if owner.flipDamageCounterLw:
 		owner.flip_h = false

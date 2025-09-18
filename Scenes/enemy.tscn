@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://eobepwks4242"]
+[gd_scene load_steps=21 format=3 uid="uid://eobepwks4242"]
 
 [ext_resource type="Script" path="res://Scripts/EnemyBase/Enemy.gd" id="1_d8ljs"]
 [ext_resource type="Texture2D" uid="uid://imdyfpgo15s0" path="res://Sprites/Characters/Cardemomo/A00Wait.png" id="1_krvq6"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/brain.gd" id="3_4dlqf"]
 [ext_resource type="Script" path="res://Scripts/State Machine/StateMachine.gd" id="3_xadju"]
 [ext_resource type="Script" path="res://Scripts/Cardemomo/wait.gd" id="4_iw216"]
 [ext_resource type="Script" path="res://Scripts/EnemyBase/damage_n.gd" id="5_jod84"]
@@ -17,12 +18,17 @@
 [ext_resource type="Script" path="res://Scripts/Cardemomo/block.gd" id="14_y3m0o"]
 [ext_resource type="Script" path="res://Scripts/Cardemomo/block_hi.gd" id="15_5d20b"]
 [ext_resource type="Script" path="res://Scripts/Cardemomo/attack_3.gd" id="17_jgx48"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/block_lw_damage.gd" id="19_uinfc"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/block_hi_damage.gd" id="20_yg3kw"]
 
 [node name="Enemy" type="Sprite2D"]
 process_mode = 1
 texture = ExtResource("1_krvq6")
 hframes = 7
 script = ExtResource("1_d8ljs")
+
+[node name="Brain" type="Node" parent="."]
+script = ExtResource("3_4dlqf")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_xadju")
@@ -69,3 +75,9 @@ script = ExtResource("15_5d20b")
 
 [node name="Attack3" type="Node" parent="StateMachine"]
 script = ExtResource("17_jgx48")
+
+[node name="BlockLwDamage" type="Node" parent="StateMachine"]
+script = ExtResource("19_uinfc")
+
+[node name="BlockHiDamage" type="Node" parent="StateMachine"]
+script = ExtResource("20_yg3kw")

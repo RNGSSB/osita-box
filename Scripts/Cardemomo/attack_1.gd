@@ -8,11 +8,12 @@ func Enter():
 	owner.stunned = false
 	owner.hitCount = 0
 	owner.counterPunch = false
+	owner.guardAll = false
 	owner.hitLeft = false
-	owner.hitRight = true
+	owner.hitRight = false
 	owner.hitUpLeft = false
 	owner.hitUpRight = false
-	owner.Guard(true,true,true,true)
+	owner.Guard(false,false,false,false)
 	owner.setFrame(0)
 	owner.flip_h = false
 	owner.spriteOffsets(7,3,9)
@@ -35,7 +36,7 @@ func Physics_Update(delta: float):
 	if owner.cFrame(8):
 		owner.setFrame(5) #1
 	if owner.cFrame(9):
-		owner.Guard(false,false,false,false)
+		owner.hitRight = true
 		owner.counterPunch = true
 		owner.setFrame(6) #4
 	if owner.cFrame(13):
@@ -63,7 +64,7 @@ func Physics_Update(delta: float):
 	if owner.cFrame(40):
 		owner.counterPunch = false
 		owner.punchOpponent(1, 10, 15, true, 3, 25, "Hurt", 
-		1.0, 1.0, "HIT", 3.0, 3.0, -200, 200, 20)
+		1.0, 1.0, "HIT", 3.0, 3.0, -200, 200, 20, false)
 		owner.setFrame(18) #2
 	if owner.punchHit:
 		if owner.cFrame(42):

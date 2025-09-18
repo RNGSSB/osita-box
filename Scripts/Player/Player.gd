@@ -186,6 +186,9 @@ func _physics_process(delta):
 		sheVisibleNow()
 	
 	
+	if stateFrame > 300 and ctrl == 0:
+		stateFrame = 0
+	
 	if inBurnout:
 		if R == 255 and G == 255 and B == 255:
 			setColor(102,102,102)
@@ -235,10 +238,14 @@ func sheVisibleNow():
 func punchBlockFunc(effectY = 0, audioBus = "SFX", blockState = "BlockLw", hitlag = 0, shake = 10):
 	punchBlock = true
 	superMeter -= guardMeterLoss
+	enemyRef.hitCount = 0
 	owner.hitLag(hitlag, shake)
+	if superMeter <= 0 and !inBurnout:
+		print("WHAT")
+		owner.playerBurnout()
 	Gamemanager.createEffects("BLOCK", 1.0, 1.0, 0, effectY)
 	AudioManager.Play("Block", audioBus, 1.0, 1.0)
-	enemyRef.stateMachine.change_state2(blockState)
+	enemyRef.stateMachine.change_state2(blockState+"Damage")
 
 
 func punchHitFunc(damage = 1, meter = 1, flip = false, 
@@ -249,6 +256,8 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 	punchHit = true
 	enemyRef.healing = false
 	owner.enemyUpdateHealth(damage)
+	if enemyRef.counterPunch:
+		enemyRef.attackMiss = true
 	if !inBurnout:
 		superMeter += meter
 	enemyRef.hitCount += 1
@@ -276,7 +285,7 @@ hitState = "DamageN", upper = false, hitlagMul = 1.0, shakeMul = 1.0,
 effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 	enemyRef = owner.enemy
 	if value == 0: #Left
-		if enemyRef.blockLeft:
+		if enemyRef.blockLeft or enemyRef.guardAll:
 			punchBlockFunc(60, "Left", "BlockLw")
 			return
 		if enemyRef.hitLeft:
@@ -287,7 +296,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			else:
 				punchBlockFunc(60, "Left", "BlockLw")
 	if value == 1: #Right
-		if enemyRef.blockRight:
+		if enemyRef.blockRight  or enemyRef.guardAll:
 			punchBlockFunc(60, "Right", "BlockLw")
 			return
 		if enemyRef.hitRight:
@@ -298,7 +307,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			else:
 				punchBlockFunc(60, "Right", "BlockLw")
 	if value == 2: #Left Up
-		if enemyRef.blockUpLeft:
+		if enemyRef.blockUpLeft  or enemyRef.guardAll:
 			punchBlockFunc(-150, "Left", "BlockHi")
 			return
 		if enemyRef.hitUpLeft:
@@ -309,7 +318,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			else:
 				punchBlockFunc(-150, "Left", "BlockHi")
 	if value == 3: #Right Up
-		if enemyRef.blockUpRight:
+		if enemyRef.blockUpRight  or enemyRef.guardAll:
 			punchBlockFunc(-150, "Right", "BlockHi")
 			return
 		if enemyRef.hitUpRight:
@@ -320,7 +329,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			else:
 				punchBlockFunc(-150, "Right", "BlockHi")
 	if value == 4: #Super Lw
-		if enemyRef.blockUpRight:
+		if enemyRef.blockUpRight  or enemyRef.guardAll:
 			punchBlockFunc(60, "SFX", "BlockLw", 20, 40)
 			return
 		if enemyRef.hitRight or enemyRef.hitLeft:
@@ -328,7 +337,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 			hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 	if value == 5: #Super Hi
-		if enemyRef.blockUpRight:
+		if enemyRef.blockUpRight  or enemyRef.guardAll:
 			punchBlockFunc(-150, "SFX", "BlockHi")
 			return
 		if enemyRef.hitUpRight or enemyRef.hitUpLeft:
@@ -339,8 +348,8 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 
 func debugUI():
 	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "frameAdvance: " + str(owner.frameAdvance) + "\n" + "animFrame: " + str(frame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "PrevFrame: " + str(prevStateFrame) + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter) + "\n" + "BurnoutTime: " + str(burnoutTimer)
-	debugInfoPlayer2.text = "Frame: " + str(frameCounter) + "\n" + "State: " + owner.enemy.CURRSTATE + "\n" + "StateFrame: " + str(owner.enemy.stateFrame) + "\n" + "animFrame: " + str(owner.enemy.frame) + "\n" + "PrevState: " + str(owner.enemy.PREVSTATE) + "\n" + "PrevFrame: " + str(owner.enemy.prevStateFrame) + "\n" + "Stunned: " + str(owner.enemy.stunned) + "\n" + "HitCount: " + str(owner.enemy.hitCount) + "\n" + "MaxHitCount: " + str(owner.enemy.maxHitCount) + "\n" + "Health: " + str(owner.enemy.health) + "\n" + "aiActive: " + str(owner.enemy.aiActive)  
-	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.cameraZoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superBarValue: " + str(owner.playerSuper.value)
+	debugInfoPlayer2.text = "Frame: " + str(frameCounter) + "\n" + "State: " + owner.enemy.CURRSTATE + "\n" + "StateFrame: " + str(owner.enemy.stateFrame) + "\n" + "animFrame: " + str(owner.enemy.frame) + "\n" + "PrevState: " + str(owner.enemy.PREVSTATE) + "\n" + "PrevFrame: " + str(owner.enemy.prevStateFrame) + "\n" + "Stunned: " + str(owner.enemy.stunned) + "\n" + "HitCount: " + str(owner.enemy.hitCount) + "\n" + "MaxHitCount: " + str(owner.enemy.maxHitCount) + "\n" + "Health: " + str(owner.enemy.health) + "\n" + "aiActive: " + str(owner.enemy.aiActive) + "\n" + "attackPhase: " + str(owner.enemy.brain.attackPhase) + "\n" + "waitTimer: " + str(owner.enemy.brain.waitTimer) + "\n" + "nextMove: " + str(owner.enemy.brain.nextMove)   
+	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.cameraZoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superBarValue: " + str(owner.playerSuper.value) + "\n" + "inBurnout: " + str(inBurnout)
 
 func burnout():
 	if inBurnout:
@@ -352,19 +361,18 @@ func burnoutEnd():
 	if inBurnout:
 		owner.playerSuper.max_value = superMax
 		owner.playerSuper.min_value = 0
-		superMeter += 10
 		owner.playerSuper.get("theme_override_styles/fill").bg_color = Color(0.081, 0.622, 1)
 		AudioManager.Play("BurnoutEnd", "SFX", 1.0, 1.0)
 		inBurnout = false
 
 func fixThisShit():
-	if CURRSTATE == "PunchLeft" and owner.enemy.counterPunch and owner.enemy.hitLeft:
+	if CURRSTATE == "PunchLeft" and owner.enemy.counterPunch and owner.enemy.hitLeft and stateFrame < 6:
 		stateMachine.change_state4("PunchLeftCounter")
-	if CURRSTATE == "PunchRight" and owner.enemy.counterPunch and owner.enemy.hitRight:
+	if CURRSTATE == "PunchRight" and owner.enemy.counterPunch and owner.enemy.hitRight and stateFrame < 6:
 		stateMachine.change_state4("PunchRightCounter")
-	if CURRSTATE == "UpperLeft" and owner.enemy.counterPunch and owner.enemy.hitUpLeft:
+	if CURRSTATE == "UpperLeft" and owner.enemy.counterPunch and owner.enemy.hitUpLeft and stateFrame < 6:
 		stateMachine.change_state4("UpperLeftCounter")
-	if CURRSTATE == "UpperRight" and owner.enemy.counterPunch and owner.enemy.hitUpRight:
+	if CURRSTATE == "UpperRight" and owner.enemy.counterPunch and owner.enemy.hitUpRight and stateFrame < 6:
 		stateMachine.change_state4("UpperRightCounter")
 	
 	if CURRSTATE == "PunchLeftCounter" and !owner.enemy.counterPunch and !punchHit:

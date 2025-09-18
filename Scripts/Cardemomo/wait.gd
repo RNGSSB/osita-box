@@ -17,6 +17,8 @@ func Enter():
 	owner.blockRight = false
 	owner.blockUpLeft = false
 	owner.blockUpRight = false
+	owner.damaged = false
+	owner.attackMiss = false
 	owner.hitCount = 0
 	owner.maxHitCount = owner.normalCombo
 	idleLoop = 0
@@ -25,6 +27,10 @@ func Update(_delta: float):
 	pass
 
 func Physics_Update(delta: float):
+	
+	if owner.cFrame(20):
+		owner.guardAll = false
+	
 	idleLoop += 1
 	
 	if idleLoop == 0:
@@ -45,4 +51,5 @@ func Physics_Update(delta: float):
 	
 	
 	if idleLoop == 35:
+		owner.setFrame(0)
 		idleLoop = 0

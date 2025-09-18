@@ -9,6 +9,7 @@ func Enter():
 	owner.hitRight = true
 	owner.hitUpLeft = true
 	owner.hitUpRight = true
+	owner.damaged = true
 	if owner.flipDamageLw:
 		owner.flip_h = false
 		if owner.playerPunch == 0:
