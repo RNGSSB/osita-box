@@ -219,8 +219,9 @@ func _physics_process(delta):
 	modulate = Color8(R,G,B,transparency)
 	
 	debugUI()
-	fixThisShit()
+	#fixThisShit()
 	clearBuffer()
+
 
 func sheVisibleNow():
 	if makerHerVisible:
@@ -235,7 +236,7 @@ func sheVisibleNow():
 		if transparency < 127:
 			transparency = 127
 
-func punchBlockFunc(effectY = 0, audioBus = "SFX", blockState = "BlockLw", hitlag = 0, shake = 10):
+func punchBlockFunc(effectY = 0, audioBus = "SFX", blockState = "BlockLw", hitlag = 3, shake = 10):
 	punchBlock = true
 	superMeter -= guardMeterLoss
 	enemyRef.hitCount = 0
@@ -256,7 +257,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 	punchHit = true
 	enemyRef.healing = false
 	owner.enemyUpdateHealth(damage)
-	if enemyRef.counterPunch:
+	if enemyRef.isAttacking:
 		enemyRef.attackMiss = true
 	if !inBurnout:
 		superMeter += meter

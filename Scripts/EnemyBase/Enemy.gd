@@ -46,6 +46,7 @@ var perfectCombo = 6
 
 var punchHit = false
 var attackMiss = false
+var isAttacking = false
 
 var healing = false
 
@@ -58,6 +59,7 @@ var health = 120
 var aiActive = false
 
 var damaged = false
+var damageStopTimer = false
 
 var rng = RandomNumberGenerator.new()
 
@@ -282,8 +284,19 @@ func _physics_process(delta):
 	if health < 0:
 		health = 0
 	
+	if (owner.player.CURRSTATE == "PunchLeft" or owner.player.CURRSTATE == "PunchRight" or owner.player.CURRSTATE == "UpperLeft" or owner.player.CURRSTATE == "UpperRight") and counterPunch:
+		counterPunch = false
+	
 	if hitCount == maxHitCount and !owner.player.hasCombo:
 		guardAll = true
+	
+	if damaged and !damageStopTimer and (CURRSTATE != "DizzyHi" and CURRSTATE != "DizzyLw" and CURRSTATE != "DizzyEnd"):
+		owner.pauseTimer = true
+		damageStopTimer = true
+	
+	if (!damaged or (CURRSTATE == "DizzyHi" or CURRSTATE == "DizzyLw" or CURRSTATE == "DizzyEnd" or CURRSTATE == "DamageN4" or CURRSTATE == "DamageHi4" or CURRSTATE == "DamageN4Counter" or CURRSTATE == "DamageHi4Counter")) and damageStopTimer:
+		owner.pauseTimer = false
+		damageStopTimer = false
 	
 	if counterPunch:
 		modulate = counterColor

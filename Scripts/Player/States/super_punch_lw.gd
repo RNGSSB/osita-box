@@ -44,7 +44,7 @@ func Physics_Update(delta: float):
 		owner.setFrame(6) #2
 	if owner.cFrame(21):
 		owner.punchOpponent(4, owner.superDamage, 2, false, "SFX", "SuperHit", 1.0, 1.0, 
-		"DamageN4", false, 4.0, 4.0, "HITFINISHER", -200, 60, 3.0, 3.0)
+		"DamageN4", false, 6.0, 4.0, "HITFINISHER", -200, 60, 3.0, 3.0)
 		owner.setFrame(7) #1
 	if owner.cFrame(22):
 		owner.makerHerVisible = false

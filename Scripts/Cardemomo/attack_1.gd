@@ -3,8 +3,11 @@ extends State
 
 func Exit():
 	owner.punchHit = false
+	owner.isAttacking = false
+	owner.counterPunch = false
 
 func Enter():
+	owner.isAttacking = true
 	owner.stunned = false
 	owner.hitCount = 0
 	owner.counterPunch = false
@@ -37,12 +40,12 @@ func Physics_Update(delta: float):
 		owner.setFrame(5) #1
 	if owner.cFrame(9):
 		owner.hitRight = true
-		owner.counterPunch = true
 		owner.setFrame(6) #4
 	if owner.cFrame(13):
 		owner.setFrame(7) #4
 	if owner.cFrame(17):
 		owner.setFrame(8) #4
+		owner.counterPunch = true
 	if owner.cFrame(21):
 		owner.setFrame(9) #2
 	if owner.cFrame(23):
@@ -55,6 +58,7 @@ func Physics_Update(delta: float):
 		owner.setFrame(13) #2
 	if owner.cFrame(31):
 		owner.setFrame(14) #4
+		owner.counterPunch = false
 	if owner.cFrame(35):
 		owner.setFrame(15) #1
 	if owner.cFrame(36):
@@ -62,7 +66,6 @@ func Physics_Update(delta: float):
 	if owner.cFrame(38):
 		owner.setFrame(17) #2
 	if owner.cFrame(40):
-		owner.counterPunch = false
 		owner.punchOpponent(1, 10, 15, true, 3, 25, "Hurt", 
 		1.0, 1.0, "HIT", 3.0, 3.0, -200, 200, 20, false)
 		owner.setFrame(18) #2

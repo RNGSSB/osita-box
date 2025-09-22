@@ -13,12 +13,14 @@ func createEffects(name = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0,
 	instance.z_index = zIndex
 	instance.flip_h = flip
 	instance.scale = Vector2(scaleX, scaleY)
-	get_node("/root/Game").add_child(instance)
+	get_node("/root/Game/GameElements").add_child(instance)
 
 
 
 func destroyEffect(name):
-	get_node("/root/Game/" + name).queue_free()
+	if get_node("/root/Game/GameElements/" + name) == null:
+		return
+	get_node("/root/Game/GameElements/" + name).queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -2,7 +2,7 @@ extends State
 
 
 func Exit():
-	pass
+	owner.damaged = false
 
 func Enter():
 	owner.hitLeft = true

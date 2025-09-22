@@ -6,14 +6,15 @@ var frameAdvance = false
 var fuckYou = false
 
 var hitStop = 0 
+var prevHitStop = 0
 
 var cameraZoom = 1.0
 
 var cameraTilt = 0.0
 
-@onready var player = $Player
-@onready var enemy = $Enemy
-@onready var camera = $Camera
+@onready var player = $GameElements/Player
+@onready var enemy = $GameElements/Enemy
+@onready var camera = $GameElements/Camera
 @onready var pauseUI = $PauseUI
 var canPause = true
 
@@ -21,21 +22,21 @@ var fuckYou2 = false
 
 var isPaused = false
 
-@onready var playerHealth = $CanvasLayer/PlayerHealth
-@onready var playerDamage = $CanvasLayer/PlayerDamage
-@onready var enemyHealth = $CanvasLayer/EnemyHealth
-@onready var enemyDamage = $CanvasLayer/EnemyDamage
-@onready var enemyDamageTimer = $CanvasLayer/EnemyDamage/EnemyTimer
-@onready var playerDamageTimer = $CanvasLayer/PlayerDamage/PlayerTimer
-@onready var playerSuper = $CanvasLayer/PlayerSuper
-@onready var damageFilter = $CanvasLayer/Damage
+@onready var playerHealth = $HUD/PlayerHealth
+@onready var playerDamage = $HUD/PlayerDamage
+@onready var enemyHealth = $HUD/EnemyHealth
+@onready var enemyDamage = $HUD/EnemyDamage
+@onready var enemyDamageTimer = $HUD/EnemyDamage/EnemyTimer
+@onready var playerDamageTimer = $HUD/PlayerDamage/PlayerTimer
+@onready var playerSuper = $HUD/PlayerSuper
+@onready var damageFilter = $HUD/Damage
 
-@onready var timer = $CanvasLayer/Timer
+@onready var timer = $HUD/Timer
 
 var roundTimer = 3600.0
 var secondTimer = 3600.0
 var lolText = ""
-var pauseTimer = true
+var pauseTimer = false
 
 var setDamageBarPlayer = false
 var setDamageBarEnemy = false
@@ -145,10 +146,10 @@ func rewindFrame(delta):
 
 func cameraShenanigans():
 	if enemy.stunned and (enemy.CURRSTATE == "DamageN" or enemy.CURRSTATE == "DamageHi" or enemy.CURRSTATE == "DizzyHi" or enemy.CURRSTATE == "DizzyLw") and enemy.hitCount < enemy.maxHitCount + 1:
-		if cameraZoom < 1.0 + (enemy.hitCount * 0.05):
+		if cameraZoom < 1.0 + (enemy.hitCount * 0.07):
 			cameraZoom += 0.05
-		if cameraZoom > 1.0 + (enemy.hitCount * 0.05):
-			cameraZoom = 1.0 + (enemy.hitCount * 0.05)
+		if cameraZoom > 1.0 + (enemy.hitCount * 0.07):
+			cameraZoom = 1.0 + (enemy.hitCount * 0.07)
 	else:
 		if cameraZoom > 1.0:
 			cameraZoom -= 0.04
@@ -236,12 +237,23 @@ func regenHealth():
 	playerDamage.value = player.health
 	enemyDamage.value = enemy.health
 
+func hitStopShake():
+	if hitStop > 0:
+		var rng = RandomNumberGenerator.new()
+		if enemy.damaged:
+			enemy.offset = Vector2(rng.randi_range((hitStop * 15) * -1, hitStop * 15),rng.randi_range(-10 + (hitStop * 2) * -1, 10 + hitStop * 2))
+			player.offset = Vector2(rng.randi_range(-5 + (hitStop * 2) * -1, 5 + hitStop * 2),rng.randi_range(0, 10 + hitStop * 2))
+		else:
+			enemy.offset = Vector2(rng.randi_range(-5 + (hitStop * 2) * -1, 5 + hitStop * 2),rng.randi_range(-10 + (hitStop * 2) * -1, 10 + hitStop * 2))
+			player.offset = Vector2(rng.randi_range(-10 + (hitStop * 12) * -1, 10 + hitStop * 12),rng.randi_range(0, 10 + hitStop * 2))
+	else:
+		enemy.offset = Vector2(0,0)
+		player.offset = Vector2(0,0)
+
 func timerUI():
-	if Input.is_key_pressed(KEY_7):
-		pauseTimer = true
-		
 	if Input.is_key_pressed(KEY_8):
-		pauseTimer = false
+		roundTimer = 3600.0
+		secondTimer = 3600.0
 	
 	if (secondTimer * 3 / 60) - 120 < 10:
 		lolText = "0"
@@ -321,6 +333,7 @@ func _physics_process(delta):
 		
 		timerUI()
 		
+		
 		if (player.CURRSTATE == "DamageS" or player.CURRSTATE == "DamageN") and player.stateFrame < 16:
 			damageFilter.visible = true
 		else:
@@ -352,12 +365,14 @@ func _physics_process(delta):
 			else:
 				if Input.is_action_just_pressed("FrameAdvance"):
 					hitStop -= 1
+					hitStopShake()
 					meterHandle()
 					cameraShenanigans()
 		else:
 			cameraShenanigans()
 			meterHandle()
 			enemyHealingFunc()
+			hitStopShake()
 			if hitStop <= 0:
 				frameCounter += 1 
 				player.burnout()
