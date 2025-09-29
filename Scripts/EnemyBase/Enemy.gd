@@ -96,7 +96,10 @@ preload("res://Sprites/Characters/Cardemomo/A15AttackHit.png"),
 preload("res://Sprites/Characters/Cardemomo/A16AttackMiss.png"),
 preload("res://Sprites/Characters/Cardemomo/A17DamageLw4L.png"),
 preload("res://Sprites/Characters/Cardemomo/A18DamageHi4L.png"),
-preload("res://Sprites/Characters/Cardemomo/A19DamageLw4CounterL.png"),]
+preload("res://Sprites/Characters/Cardemomo/A19DamageLw4CounterL.png"),
+preload("res://Sprites/Characters/Cardemomo/A20Attack4Start.png"),
+preload("res://Sprites/Characters/Cardemomo/A21Attack4Hit.png"),
+preload("res://Sprites/Characters/Cardemomo/A22Attack4Miss.png"),]
 
 func setColor(value1, value2, value3):
 	R = value1 
@@ -277,6 +280,8 @@ func lobotomy():
 			stateMachine.change_state2("Attack2")
 		if Input.is_key_pressed(KEY_5):
 			stateMachine.change_state2("Attack3")
+		if Input.is_key_pressed(KEY_6):
+			stateMachine.change_state2("Attack4")
 		if Input.is_key_pressed(KEY_7):
 			stateMachine.change_state2("Wait")
 

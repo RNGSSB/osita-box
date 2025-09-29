@@ -22,13 +22,13 @@ var fuckYou2 = false
 
 var isPaused = false
 
-@onready var playerHealth = $HUD/PlayerHealth
-@onready var playerDamage = $HUD/PlayerDamage
-@onready var enemyHealth = $HUD/EnemyHealth
-@onready var enemyDamage = $HUD/EnemyDamage
-@onready var enemyDamageTimer = $HUD/EnemyDamage/EnemyTimer
-@onready var playerDamageTimer = $HUD/PlayerDamage/PlayerTimer
-@onready var playerSuper = $HUD/PlayerSuper
+@onready var playerHealth = $HUD/Timer/PlayerHealth
+@onready var playerDamage = $HUD/Timer/PlayerDamage
+@onready var enemyHealth = $HUD/Timer/EnemyHealth
+@onready var enemyDamage = $HUD/Timer/EnemyDamage
+@onready var enemyDamageTimer = $HUD/Timer/EnemyDamage/EnemyTimer
+@onready var playerDamageTimer = $HUD/Timer/PlayerDamage/PlayerTimer
+@onready var playerSuper = $HUD/Timer/PlayerSuper
 @onready var damageFilter = $HUD/Damage
 
 @onready var timer = $HUD/Timer
@@ -48,6 +48,9 @@ var enemyHealing = 0
 var enemyHealingRate = 0
 
 var rageActive = false
+
+var fuckYou3 = false
+var prevScreenMode
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -241,7 +244,7 @@ func hitStopShake():
 	if hitStop > 0:
 		var rng = RandomNumberGenerator.new()
 		if enemy.damaged:
-			enemy.offset = Vector2(rng.randi_range((hitStop * 15) * -1, hitStop * 15),rng.randi_range(-10 + (hitStop * 2) * -1, 10 + hitStop * 2))
+			enemy.offset = Vector2(rng.randi_range((hitStop * 2) * -1, hitStop * 2),rng.randi_range(-10 + (hitStop * 2) * -1, 10 + hitStop * 2))
 			player.offset = Vector2(rng.randi_range(-5 + (hitStop * 2) * -1, 5 + hitStop * 2),rng.randi_range(0, 10 + hitStop * 2))
 		else:
 			enemy.offset = Vector2(rng.randi_range(-5 + (hitStop * 2) * -1, 5 + hitStop * 2),rng.randi_range(-10 + (hitStop * 2) * -1, 10 + hitStop * 2))
@@ -333,7 +336,6 @@ func _physics_process(delta):
 		
 		timerUI()
 		
-		
 		if (player.CURRSTATE == "DamageS" or player.CURRSTATE == "DamageN") and player.stateFrame < 16:
 			damageFilter.visible = true
 		else:
@@ -343,6 +345,20 @@ func _physics_process(delta):
 			player.hasCombo = false
 		
 		player.hitCount = enemy.hitCount + 1
+		
+		
+		if Input.is_action_just_pressed("Fullscreen") and !fuckYou3:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN) 
+		
+		if Input.is_action_just_released("Fullscreen") and !fuckYou3 and DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+			fuckYou3 = true
+		
+		if Input.is_action_just_pressed("Fullscreen") and fuckYou3 :
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED) 
+		
+		if Input.is_action_just_released("Fullscreen") and fuckYou3 and DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
+			fuckYou3 = false
+		
 		
 		if Input.is_action_just_pressed("Freeze") and !fuckYou:
 			player.frozen = true
@@ -365,14 +381,14 @@ func _physics_process(delta):
 			else:
 				if Input.is_action_just_pressed("FrameAdvance"):
 					hitStop -= 1
-					hitStopShake()
+					#hitStopShake()
 					meterHandle()
 					cameraShenanigans()
 		else:
 			cameraShenanigans()
 			meterHandle()
 			enemyHealingFunc()
-			hitStopShake()
+			#hitStopShake()
 			if hitStop <= 0:
 				frameCounter += 1 
 				player.burnout()

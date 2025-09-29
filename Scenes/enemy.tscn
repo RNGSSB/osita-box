@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://eobepwks4242"]
+[gd_scene load_steps=22 format=3 uid="uid://eobepwks4242"]
 
 [ext_resource type="Script" path="res://Scripts/EnemyBase/Enemy.gd" id="1_d8ljs"]
 [ext_resource type="Texture2D" uid="uid://imdyfpgo15s0" path="res://Sprites/Characters/Cardemomo/A00Wait.png" id="1_krvq6"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://Scripts/Cardemomo/attack_3.gd" id="17_jgx48"]
 [ext_resource type="Script" path="res://Scripts/Cardemomo/block_lw_damage.gd" id="19_uinfc"]
 [ext_resource type="Script" path="res://Scripts/Cardemomo/block_hi_damage.gd" id="20_yg3kw"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/attack_4.gd" id="21_dno04"]
 
 [node name="Enemy" type="Sprite2D"]
 process_mode = 1
@@ -81,3 +82,6 @@ script = ExtResource("19_uinfc")
 
 [node name="BlockHiDamage" type="Node" parent="StateMachine"]
 script = ExtResource("20_yg3kw")
+
+[node name="Attack4" type="Node" parent="StateMachine"]
+script = ExtResource("21_dno04")
