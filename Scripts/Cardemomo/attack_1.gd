@@ -5,6 +5,7 @@ func Exit():
 	owner.punchHit = false
 	owner.isAttacking = false
 	owner.counterPunch = false
+	owner.attackMiss = false
 
 func Enter():
 	owner.isAttacking = true
@@ -66,7 +67,7 @@ func Physics_Update(delta: float):
 	if owner.cFrame(38):
 		owner.setFrame(17) #2
 	if owner.cFrame(40):
-		owner.punchOpponent(1, 10, 15, true, 3, 25, "Hurt", 
+		owner.punchOpponent(1, 10, 15, true, 8, 25, "Hurt", 
 		1.0, 1.0, "HIT", 3.0, 3.0, -200, 200, 20, false)
 		owner.setFrame(18) #2
 	if owner.punchHit:

@@ -117,6 +117,7 @@ _data = {
 [node name="Effect" type="Sprite2D"]
 process_mode = 1
 z_index = 1
+texture_filter = 1
 texture = ExtResource("1_h06an")
 hframes = 4
 vframes = 6

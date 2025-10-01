@@ -3,6 +3,7 @@ extends State
 
 func Exit():
 	owner.punchHit = false
+	owner.attackMiss = false
 	owner.isAttacking = false
 	owner.counterPunch = false
 
@@ -53,13 +54,28 @@ func Physics_Update(delta: float):
 		owner.setFrame(11) #1
 	if owner.cFrame(33):
 		owner.setFrame(12) #1
-	if owner.cFrame(34):
-		owner.setFrame(13) #2
-	if owner.cFrame(36):
-		owner.setFrame(14) #2
 		owner.counterPunch = false
+	if owner.cFrame(34):
+		owner.punchOpponent(2, 10, 15, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, false, false, false)
+		owner.setFrame(13) #2
+	if owner.cFrame(35):
+		owner.punchOpponent(2, 10, 15, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, false, false, false)
+	if owner.cFrame(36):
+		owner.punchOpponent(2, 10, 15, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, true, false, true)
+		owner.setFrame(14) #2
+	if owner.cFrame(37):
+		owner.punchOpponent(2, 10, 15, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, true, false, true)
 	if owner.cFrame(38):
+		owner.punchOpponent(2, 10, 15, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, true, true, true, "DamageS", 250, true)
 		owner.setFrame(15) #2
+	if owner.cFrame(39):
+		owner.punchOpponent(2, 10, 15, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, true, true, true, "DamageS", 250, true)
 	if owner.cFrame(40):
 		owner.setFrame(16) #1
 	if owner.cFrame(41):
@@ -71,22 +87,20 @@ func Physics_Update(delta: float):
 	if owner.cFrame(44):
 		owner.setFrame(20) #1
 	if owner.punchHit:
-		if owner.cFrame(42):
+		if owner.cFrame(45):
 			owner.spriteOffsets(7,1,21)
 			owner.setFrame(0)
-		if owner.cFrame(44): #2
+		if owner.cFrame(46): #2
 			owner.setFrame(1)
-		if owner.cFrame(46): # 2
-			owner.setFrame(2)
 		if owner.cFrame(48): # 2
+			owner.setFrame(2)
+		if owner.cFrame(52): # 2
 			owner.setFrame(3)
-		if owner.cFrame(55): #7
+		if owner.cFrame(56): #7
 			owner.setFrame(4)
-		if owner.cFrame(62): #7
+		if owner.cFrame(60): #7
 			owner.setFrame(5)
-		if owner.cFrame(69): #7
-			owner.setFrame(6)
-		if owner.cFrame(76): #7
+		if owner.cFrame(70): #7
 			Transitioned.emit(self, "wait")
 	else:
 		if owner.cFrame(45):

@@ -12,8 +12,11 @@ var cameraZoom = 1.0
 
 var cameraTilt = 0.0
 
-@onready var player = $GameElements/Player
-@onready var enemy = $GameElements/Enemy
+#@onready var player = $GameElements/Player
+#@onready var enemy = $GameElements/Enemy
+var player
+var enemy
+
 @onready var camera = $GameElements/Camera
 @onready var pauseUI = $PauseUI
 var canPause = true
@@ -49,13 +52,25 @@ var enemyHealingRate = 0
 
 var rageActive = false
 
-var fuckYou3 = false
-var prevScreenMode
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	initFighters()
+	
 	player.superMeter = enemy.superInit
 	initHealthBars()
+
+func initFighters():
+	var enemyInstance = Gamemanager.enemyList[Gamemanager.enemyId].instantiate()
+	get_node("GameElements").add_child(enemyInstance)
+	enemyInstance.owner = self
+	enemy = get_node("GameElements/Enemy")
+	
+	var playerInstance = Gamemanager.players[Gamemanager.playerId].instantiate()
+	get_node("GameElements").add_child(playerInstance)
+	playerInstance.owner = self
+	player = get_node("GameElements/Player")
+	player.position.y = 143
+
 
 func initHealthBars():
 	playerHealth.max_value = player.maxHealth
@@ -73,16 +88,21 @@ func initHealthBars():
 func _process(delta):
 	if canPause:
 		if Input.is_action_just_pressed("Start") and !fuckYou2:
+			pauseUI.resumeButton.grab_focus()
 			isPaused = true
 		
 		if Input.is_action_just_released("Start") and isPaused:
 			fuckYou2 = true
 		
 		if Input.is_action_just_pressed("Start") and fuckYou2:
+			pauseUI.select = 0
 			isPaused = false
 			fuckYou2 = false
 	
 	pauseUI.visible = isPaused
+	
+	if !pauseUI.visible and Options.visible:
+		Options.visible = false
 	
 	if isPaused:
 		player.debugLayer.visible = false
@@ -149,10 +169,10 @@ func rewindFrame(delta):
 
 func cameraShenanigans():
 	if enemy.stunned and (enemy.CURRSTATE == "DamageN" or enemy.CURRSTATE == "DamageHi" or enemy.CURRSTATE == "DizzyHi" or enemy.CURRSTATE == "DizzyLw") and enemy.hitCount < enemy.maxHitCount + 1:
-		if cameraZoom < 1.0 + (enemy.hitCount * 0.07):
+		if cameraZoom < 1.0 + (enemy.hitCount * 0.05):
 			cameraZoom += 0.05
-		if cameraZoom > 1.0 + (enemy.hitCount * 0.07):
-			cameraZoom = 1.0 + (enemy.hitCount * 0.07)
+		if cameraZoom > 1.0 + (7 * 0.05):
+			cameraZoom = 1.0 + (7 * 0.05)
 	else:
 		if cameraZoom > 1.0:
 			cameraZoom -= 0.04
@@ -345,20 +365,6 @@ func _physics_process(delta):
 			player.hasCombo = false
 		
 		player.hitCount = enemy.hitCount + 1
-		
-		
-		if Input.is_action_just_pressed("Fullscreen") and !fuckYou3:
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN) 
-		
-		if Input.is_action_just_released("Fullscreen") and !fuckYou3 and DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
-			fuckYou3 = true
-		
-		if Input.is_action_just_pressed("Fullscreen") and fuckYou3 :
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED) 
-		
-		if Input.is_action_just_released("Fullscreen") and fuckYou3 and DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
-			fuckYou3 = false
-		
 		
 		if Input.is_action_just_pressed("Freeze") and !fuckYou:
 			player.frozen = true

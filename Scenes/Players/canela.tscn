@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bvhr12tvjvb8s"]
+[gd_scene load_steps=25 format=3 uid="uid://rwrhuvtwbrjs"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_4doc1"]
 [ext_resource type="Texture2D" uid="uid://bn7fdyoqr8a4v" path="res://Sprites/Characters/Canela/A00Wait1.png" id="1_jnsyv"]
@@ -135,3 +135,8 @@ text = "State:
 StateFrame: 0
 ctrl: 0
 "
+
+[node name="FPS" type="Label" parent="DebugUI"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "FPS: 60"

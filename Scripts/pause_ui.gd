@@ -1,29 +1,91 @@
 extends CanvasLayer
 
-@onready var volumeSlider = $HSlider
+@onready var resumeButton = $Resume
+@onready var optionsButton = $Options
+@onready var restartButton = $Restart
+@onready var menuButton = $Menu
 
-var masterVolume = 0
-
-@onready var volumeLabel = $GayLabel
-
+var select = 0
+var menuMin = 0
+var menuMax = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	volumeLabel.text = str(volumeSlider.value + 100) 
-	AudioServer.set_bus_volume_db(0, volumeSlider.value)
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if !Options.visible:
+		if Input.is_action_just_pressed("ui_cancel") and !Options.holdOn:
+			select = 0
+			owner.isPaused = false
+			owner.fuckYou2 = false
+		
+		if Input.is_action_just_released("ui_cancel"):
+			Options.holdOn = false
+		
+		if Input.is_action_just_pressed("Down"):
+			select += 1
+		if Input.is_action_just_pressed("Up"):
+			select -= 1
+		
+		if select < menuMin:
+			select = menuMax
+		
+		if select > menuMax:
+			select = menuMin
+		
+		match select:
+			0:
+				if !resumeButton.has_focus():
+					resumeButton.grab_focus()
+			1:
+				if !restartButton.has_focus():
+					restartButton.grab_focus()
+			2:
+				if !optionsButton.has_focus():
+					optionsButton.grab_focus()
+			3:
+				if !menuButton.has_focus():
+					menuButton.grab_focus()
 
 
-func _on_h_slider_value_changed(value):
-	masterVolume = value
-	
-	if masterVolume == volumeSlider.min_value:
-		AudioServer.set_bus_volume_db(0, -100)
-		volumeLabel.text = "Mute"
-	else:
-		volumeLabel.text = str(value + 100)
-		AudioServer.set_bus_volume_db(0, value)
+func _on_menu_pressed():
+	get_tree().paused = false
+	get_tree().change_scene_to_file(Gamemanager.menu)
+
+
+func _on_options_pressed():
+	Options.visible = true
+	Options.vsyncCheck.grab_focus()
+
+
+func _on_resume_pressed():
+	select = 0
+	owner.isPaused = false
+	owner.fuckYou2 = false
+
+
+func _on_restart_pressed():
+	get_tree().reload_current_scene()
+
+
+func _on_options_mouse_entered():
+	select = 2
+	optionsButton.grab_focus()
+
+
+func _on_restart_mouse_entered():
+	select = 1
+	restartButton.grab_focus()
+
+
+func _on_resume_mouse_entered():
+	select = 0
+	resumeButton.grab_focus()
+
+
+func _on_menu_mouse_entered():
+	select = 3
+	menuButton.grab_focus()

@@ -1,8 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://bgrwrd2uklgk0"]
+[gd_scene load_steps=18 format=3 uid="uid://bgrwrd2uklgk0"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_cfo20"]
-[ext_resource type="PackedScene" uid="uid://bvhr12tvjvb8s" path="res://Scenes/player.tscn" id="1_rgjfh"]
-[ext_resource type="PackedScene" uid="uid://eobepwks4242" path="res://Scenes/enemy.tscn" id="2_0vxk1"]
 [ext_resource type="Texture2D" uid="uid://c8y0bh8ebkja7" path="res://Sprites/Backgrounds/Carderoom3.png" id="2_41git"]
 [ext_resource type="PackedScene" uid="uid://b30hbnevlo5r6" path="res://Scenes/pause_ui.tscn" id="2_s8xf7"]
 [ext_resource type="Texture2D" uid="uid://bbj3b40i8h4c0" path="res://Sprites/victory.png" id="3_rvnu7"]
@@ -193,17 +191,28 @@ position = Vector2(270, 105)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("3_rvnu7")
 
-[node name="Sprite2D" type="Sprite2D" parent="HUD/Timer"]
+[node name="PortraitPlayer" type="Sprite2D" parent="HUD/Timer"]
 position = Vector2(-420, 40)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("4_qgphd")
 offset = Vector2(-151, 0)
 
-[node name="Sprite2D2" type="Sprite2D" parent="HUD/Timer"]
+[node name="PortraitEnemy" type="Sprite2D" parent="HUD/Timer"]
 position = Vector2(750, 40)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("4_qgphd")
 offset = Vector2(-151, 0)
+
+[node name="Round" type="Label" parent="HUD/Timer"]
+layout_mode = 0
+offset_left = 0.5
+offset_top = -65.0
+offset_right = 131.5
+offset_bottom = -25.0
+pivot_offset = Vector2(36.5, 12)
+theme_override_constants/outline_size = 18
+theme_override_font_sizes/font_size = 29
+text = "ROUND 1"
 
 [node name="Damage" type="Panel" parent="HUD"]
 visible = false
@@ -215,11 +224,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_eski1")
 
 [node name="GameElements" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
-
-[node name="Enemy" parent="GameElements" instance=ExtResource("2_0vxk1")]
-
-[node name="Player" parent="GameElements" instance=ExtResource("1_rgjfh")]
-position = Vector2(0, 142)
 
 [node name="Camera" type="Camera2D" parent="GameElements"]
 script = ExtResource("5_ln6xw")

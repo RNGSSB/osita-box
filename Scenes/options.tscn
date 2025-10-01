@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7xafbrbotlai"]
+
+[ext_resource type="Script" path="res://Scripts/options.gd" id="1_u8l7e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdnsm"]
+
+[node name="Options" type="CanvasLayer"]
+process_mode = 3
+layer = 7
+script = ExtResource("1_u8l7e")
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(0.439049, 0.439049, 0.439049, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -149.0
+offset_right = 300.0
+offset_bottom = 151.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdnsm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -74.0
+offset_right = 100.0
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vsync" type="CheckBox" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "V-Sync"
+
+[node name="Fullscreen" type="CheckBox" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="Volume Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Volume"
+
+[node name="Master Volume" type="HSlider" parent="Panel/VBoxContainer"]
+layout_mode = 2
+min_value = -100.0
+max_value = 0.0
+value = -30.0
+
+[node name="Back" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="mouse_entered" from="Panel/VBoxContainer/Vsync" to="." method="_on_vsync_mouse_entered"]
+[connection signal="pressed" from="Panel/VBoxContainer/Vsync" to="." method="_on_vsync_pressed"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_mouse_entered"]
+[connection signal="pressed" from="Panel/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_pressed"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/Master Volume" to="." method="_on_master_volume_mouse_entered"]
+[connection signal="value_changed" from="Panel/VBoxContainer/Master Volume" to="." method="_on_master_volume_value_changed"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/Back" to="." method="_on_back_mouse_entered"]
+[connection signal="pressed" from="Panel/VBoxContainer/Back" to="." method="_on_back_pressed"]

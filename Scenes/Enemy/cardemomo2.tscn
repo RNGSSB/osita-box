@@ -1,0 +1,90 @@
+[gd_scene load_steps=22 format=3 uid="uid://psonm70gfidh"]
+
+[ext_resource type="Texture2D" uid="uid://imdyfpgo15s0" path="res://Sprites/Characters/Cardemomo/A00Wait.png" id="1_8ua7t"]
+[ext_resource type="Script" path="res://Scripts/EnemyBase/Enemy.gd" id="2_v3gcc"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/brain.gd" id="3_2dsar"]
+[ext_resource type="Script" path="res://Scripts/State Machine/StateMachine.gd" id="4_rbssl"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/wait.gd" id="5_lv7pb"]
+[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_n.gd" id="6_u030a"]
+[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_hi.gd" id="7_au8hf"]
+[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_n_4.gd" id="8_h643o"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/damage_n_4_counter.gd" id="9_ttkvq"]
+[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_hi_4.gd" id="10_rtuje"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/attack_1.gd" id="11_2kxwq"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/dizzy_hi.gd" id="12_ne3xl"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/dizzy_lw.gd" id="13_y2gjs"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/dizzy_end.gd" id="14_cptr4"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/attack_2.gd" id="15_fx7xt"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/block.gd" id="16_j04r3"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/block_hi.gd" id="17_be8ea"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/attack_3.gd" id="18_ekutk"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/block_lw_damage.gd" id="19_iytfc"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/block_hi_damage.gd" id="20_tn3fl"]
+[ext_resource type="Script" path="res://Scripts/Cardemomo/attack_4.gd" id="21_ylxri"]
+
+[node name="Enemy" type="Sprite2D"]
+process_mode = 1
+modulate = Color(0, 1, 1, 1)
+texture_filter = 1
+scale = Vector2(3.66636, 1)
+texture = ExtResource("1_8ua7t")
+hframes = 7
+script = ExtResource("2_v3gcc")
+
+[node name="Brain" type="Node" parent="."]
+script = ExtResource("3_2dsar")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_rbssl")
+initial_state = NodePath("Wait")
+
+[node name="Wait" type="Node" parent="StateMachine"]
+script = ExtResource("5_lv7pb")
+
+[node name="DamageN" type="Node" parent="StateMachine"]
+script = ExtResource("6_u030a")
+
+[node name="DamageHi" type="Node" parent="StateMachine"]
+script = ExtResource("7_au8hf")
+
+[node name="DamageN4" type="Node" parent="StateMachine"]
+script = ExtResource("8_h643o")
+
+[node name="DamageN4Counter" type="Node" parent="StateMachine"]
+script = ExtResource("9_ttkvq")
+
+[node name="DamageHi4" type="Node" parent="StateMachine"]
+script = ExtResource("10_rtuje")
+
+[node name="Attack1" type="Node" parent="StateMachine"]
+script = ExtResource("11_2kxwq")
+
+[node name="DizzyHi" type="Node" parent="StateMachine"]
+script = ExtResource("12_ne3xl")
+
+[node name="DizzyLw" type="Node" parent="StateMachine"]
+script = ExtResource("13_y2gjs")
+
+[node name="DizzyEnd" type="Node" parent="StateMachine"]
+script = ExtResource("14_cptr4")
+
+[node name="Attack2" type="Node" parent="StateMachine"]
+script = ExtResource("15_fx7xt")
+
+[node name="BlockLw" type="Node" parent="StateMachine"]
+script = ExtResource("16_j04r3")
+
+[node name="BlockHi" type="Node" parent="StateMachine"]
+script = ExtResource("17_be8ea")
+
+[node name="Attack3" type="Node" parent="StateMachine"]
+script = ExtResource("18_ekutk")
+
+[node name="BlockLwDamage" type="Node" parent="StateMachine"]
+script = ExtResource("19_iytfc")
+
+[node name="BlockHiDamage" type="Node" parent="StateMachine"]
+script = ExtResource("20_tn3fl")
+
+[node name="Attack4" type="Node" parent="StateMachine"]
+script = ExtResource("21_ylxri")

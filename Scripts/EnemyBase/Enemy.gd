@@ -29,8 +29,8 @@ var counterColor = Color8(255,164,167,255)
 
 var hitlagPunch = 3
 var hitlagUpper = 3
-var shakePunch = 13
-var shakeUpper = 13
+var shakePunch = 10
+var shakeUpper = 10
 
 var dizzy = 0
 var dizzyTime = 90
@@ -130,7 +130,7 @@ func enemyHeal(value, rate):
 func punchHitFunc(damage = 1, meter = 1, damageState = "DamageS", playerX = 0, flip = false, 
 hitlag = 3, shake = 25, 
 sfx = "Hurt", volume = 1.0, pitch = 1.0, audioBus = "SFX", 
-effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0):
+effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, animOverride = "no", posOverride = 0, dirOverride = false):
 	Engine.physics_ticks_per_second = 60
 	Engine.time_scale = 1.0
 	enemyRef = owner.player
@@ -147,8 +147,13 @@ effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0):
 	enemyRef.superMeter -= meter
 	AudioManager.Play(sfx, audioBus, volume, pitch)
 	Gamemanager.createEffects(effectName, scaleX, scaleY, posX, posY)
-	enemyRef.stateMachine.change_state2(damageState)
-	enemyRef.position.x = playerX
+	if animOverride == "no":
+		enemyRef.stateMachine.change_state2(damageState)
+		enemyRef.position.x = playerX
+	else:
+		enemyRef.stateMachine.change_state2(animOverride)
+		enemyRef.flip_h = dirOverride
+		enemyRef.position.x = posOverride
 
 func punchDodgeFunc(audioBus):
 	enemyRef = owner.player
@@ -195,19 +200,43 @@ func punchBlockFunc(audioBus, meter, guardMeter, stun):
 	Gamemanager.createEffects("BLOCK", 1.5, 1.5, 0, 200, 1, true)
 	enemyRef.stateMachine.change_state2("BlockDamage")
 
+
+func hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
+	enemyRef = owner.player
+	if enemyRef.dodgeLeft:
+		if hitLeft:
+			return true
+	elif enemyRef.dodgeRight:
+		if hitRight:
+			return true
+	elif enemyRef.dodgeDown:
+		if hitDown:
+			return true
+	elif !enemyRef.dodgeLeft and !enemyRef.dodgeRight and !enemyRef.dodgeDown:
+		if hitNeutral:
+			return true
+	else:
+		return false
+
 func punchOpponent(value = 0, damage = 1, meter = 1, blockable = true, 
 hitLag = 3, screenShake = 25, 
 sfx = "Hurt", volume = 1.0, pitch = 1.0, 
 effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0,
-guardMeter = -1, blockStun = true):
+guardMeter = -1, blockStun = true, hitLeft = true, hitNeutral = true, hitRight = true, hitDown = true, animOverride = "no", posOverride = 0, dirOverride = false):
 	enemyRef = owner.player
+	if attackMiss or punchHit:
+		return
+	
 	if value == 0: #Dodge Left
 		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
 			punchBlockFunc("Left", meter, guardMeter, blockStun)
 			return
 		if !enemyRef.dodgeLeft:
-			punchHitFunc(damage, meter, "DamageS", 250, true, hitLag, screenShake, 
-			sfx, volume, pitch, "Right", effect, scaleX, scaleY, posX, posY)
+			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
+				punchHitFunc(damage, meter, "DamageS", 250, true, hitLag, screenShake, 
+				sfx, volume, pitch, "Left", effect, scaleX, scaleY, posX, posY, animOverride, posOverride, dirOverride)
+			else:
+				return
 		else:
 			punchDodgeFunc("Left")
 	elif value == 1: #Dodge Right
@@ -215,8 +244,11 @@ guardMeter = -1, blockStun = true):
 			punchBlockFunc("Right", meter, guardMeter, blockStun)
 			return
 		if !enemyRef.dodgeRight:
-			punchHitFunc(damage, meter, "DamageS", -250, false, hitLag, screenShake, 
-			sfx, volume, pitch, "Right", effect, scaleX, scaleY, posX, posY)
+			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
+				punchHitFunc(damage, meter, "DamageS", -250, false, hitLag, screenShake, 
+				sfx, volume, pitch, "Right", effect, scaleX, scaleY, posX, posY, animOverride, posOverride, dirOverride)
+			else:
+				return
 		else:
 			punchDodgeFunc("Right")
 	elif value == 2: #Dodge Down
@@ -224,8 +256,11 @@ guardMeter = -1, blockStun = true):
 			punchBlockFunc("SFX", meter, guardMeter, blockStun)
 			return
 		if !enemyRef.dodgeDown:
-			punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
-			sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY)
+			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
+				punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
+				sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY, animOverride, posOverride, dirOverride)
+			else:
+				return
 		else:
 			punchDodgeFunc("SFX")
 	elif value == 3: #Dodge All
@@ -233,8 +268,11 @@ guardMeter = -1, blockStun = true):
 			punchBlockFunc("SFX", meter, guardMeter, blockStun)
 			return
 		if !enemyRef.dodgeLeft and !enemyRef.dodgeRight and !enemyRef.dodgeDown:
-			punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
-			sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY)
+			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
+				punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
+				sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY, animOverride, posOverride, dirOverride)
+			else:
+				return
 		else:
 			punchDodgeFunc("SFX")
 

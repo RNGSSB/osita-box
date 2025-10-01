@@ -41,7 +41,7 @@ func Physics_Update(delta: float):
 		owner.makerHerVisible = false
 	if owner.cFrame(16):
 		owner.setFrame(5)
-	if owner.cFrame(20):
+	if owner.cFrame(20 - owner.epicCombo):
 		if owner.punchHit:
 			owner.ctrl = 1
 	if owner.cFrame(20):
