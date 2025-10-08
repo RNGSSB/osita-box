@@ -33,8 +33,19 @@ var isPaused = false
 @onready var playerDamageTimer = $HUD/Timer/PlayerDamage/PlayerTimer
 @onready var playerSuper = $HUD/Timer/PlayerSuper
 @onready var damageFilter = $HUD/Damage
+@onready var roundText = $HUD/Timer/Round
 
 @onready var timer = $HUD/Timer
+
+@onready var stateMachine = $StateMachine
+
+@onready var readyText = $UIFront/Start
+
+var CURRSTATE = "Intro"
+var PREVSTATE = "Intro"
+var stateFrame = 0
+var frozen = false
+var prevStateFrame = 0
 
 var roundTimer = 3600.0
 var secondTimer = 3600.0
@@ -52,9 +63,12 @@ var enemyHealingRate = 0
 
 var rageActive = false
 
-# Called when the node enters the scene tree for the first time.
+var round = 1
+
 func _ready():
 	initFighters()
+	
+	round = 1
 	
 	player.superMeter = enemy.superInit
 	initHealthBars()
@@ -87,24 +101,27 @@ func initHealthBars():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if canPause:
-		if Input.is_action_just_pressed("Start") and !fuckYou2:
+		if Input.is_action_just_pressed("Start") or Input.is_action_just_pressed("StartKey") and !fuckYou2:
 			pauseUI.resumeButton.grab_focus()
 			isPaused = true
 		
 		if Input.is_action_just_released("Start") and isPaused:
 			fuckYou2 = true
 		
-		if Input.is_action_just_pressed("Start") and fuckYou2:
+		if Input.is_action_just_pressed("Start") or Input.is_action_just_pressed("StartKey") and fuckYou2:
 			pauseUI.select = 0
 			isPaused = false
 			fuckYou2 = false
 	
 	pauseUI.visible = isPaused
 	
+	frozen = isPaused
+	
 	if !pauseUI.visible and Options.visible:
 		Options.visible = false
 	
 	if isPaused:
+		readyText.visible = false
 		player.debugLayer.visible = false
 	else:
 		player.debugLayer.visible = true
@@ -355,6 +372,8 @@ func _physics_process(delta):
 			regenHealth()
 		
 		timerUI()
+		
+		roundText.text = "ROUND " + str(round)
 		
 		if (player.CURRSTATE == "DamageS" or player.CURRSTATE == "DamageN") and player.stateFrame < 16:
 			damageFilter.visible = true

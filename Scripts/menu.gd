@@ -21,10 +21,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !Options.visible:
-		if Input.is_action_just_pressed("Down"):
+	
+	
+	if !Options.visible and !InputMapper.visible:
+		carde1.disabled = false
+		carde2.disabled = false
+		setting.disabled = false
+		quit.disabled = false
+		
+		if Input.is_action_just_pressed("Down") or Input.is_action_just_pressed("DownKey"):
 			select += 1
-		if Input.is_action_just_pressed("Up"):
+		if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("UpKey"):
 			select -= 1
 		
 		if select < menuMin:
@@ -46,6 +53,11 @@ func _process(delta):
 			3:
 				if !quit.has_focus():
 					quit.grab_focus()
+	else:
+		carde1.disabled = true
+		carde2.disabled = true
+		setting.disabled = true
+		quit.disabled = true
 
 
 func _on_cardemomo_pressed():
@@ -71,20 +83,24 @@ func _on_quit_pressed():
 
 
 func _on_cardemomo_mouse_entered():
-	select = 0
-	carde1.grab_focus()
+	if !Options.visible and !InputMapper.visible:
+		select = 0
+		carde1.grab_focus()
 
 
 func _on_character_2_mouse_entered():
-	select = 1
-	carde2.grab_focus()
+	if !Options.visible and !InputMapper.visible:
+		select = 1
+		carde2.grab_focus()
 
 
 func _on_settings_mouse_entered():
-	select = 2
-	setting.grab_focus()
+	if !Options.visible and !InputMapper.visible:
+		select = 2
+		setting.grab_focus()
 
 
 func _on_quit_mouse_entered():
-	select = 3
-	quit.grab_focus()
+	if !Options.visible and !InputMapper.visible:
+		select = 3
+		quit.grab_focus()

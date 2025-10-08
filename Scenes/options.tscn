@@ -56,6 +56,10 @@ min_value = -100.0
 max_value = 0.0
 value = -30.0
 
+[node name="Controls" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Input Setup"
+
 [node name="Back" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Back"
@@ -66,5 +70,7 @@ text = "Back"
 [connection signal="pressed" from="Panel/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_pressed"]
 [connection signal="mouse_entered" from="Panel/VBoxContainer/Master Volume" to="." method="_on_master_volume_mouse_entered"]
 [connection signal="value_changed" from="Panel/VBoxContainer/Master Volume" to="." method="_on_master_volume_value_changed"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/Controls" to="." method="_on_controls_mouse_entered"]
+[connection signal="pressed" from="Panel/VBoxContainer/Controls" to="." method="_on_controls_pressed"]
 [connection signal="mouse_entered" from="Panel/VBoxContainer/Back" to="." method="_on_back_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/Back" to="." method="_on_back_pressed"]

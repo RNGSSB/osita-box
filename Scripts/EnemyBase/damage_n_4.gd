@@ -37,6 +37,9 @@ func Update(_delta: float):
 func Physics_Update(delta: float):
 	if owner.cFrame(1):
 		owner.setFrame(0)
+	if owner.cFrame(2):
+		if owner.health == 0:
+			Transitioned.emit(self, "dead")
 	if owner.cFrame(5):
 		owner.setFrame(1)
 	if owner.cFrame(10):

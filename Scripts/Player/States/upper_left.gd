@@ -19,7 +19,7 @@ func Enter():
 
 func Update(_delta: float):
 	if owner.frameCounter >= 6:
-		if Input.is_action_just_pressed("Up") and !owner.bufferUp:
+		if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("UpKey") and !owner.bufferUp:
 			owner.upBuffer = owner.frameCounter
 			owner.bufferUp = true
 
@@ -37,14 +37,29 @@ func Physics_Update(delta: float):
 		owner.punchOpponent(2, owner.punchDamage, owner.punchMeterGain, true, "Left", "Damage3", 1.0, 1.0 + (owner.hitCount * 0.2), 
 		"DamageHi", true, 1.0, 1.0, "HIT", 0, -180, 2.0, 2.0)
 		owner.setFrame(4)
-	if owner.cFrame(16):
-		owner.setFrame(5)
-	if owner.cFrame(20 - owner.epicCombo):
-		if owner.punchHit:
-			owner.ctrl = 1
-	if owner.cFrame(21):
-		owner.setFrame(5)
-	if owner.cFrame(23):
-		owner.setFrame(6)
-	if owner.cFrame(30):
-		Transitioned.emit(self, "wait")
+	if !owner.punchHit:
+		if owner.cFrame(6):
+			owner.spriteOffsets(5,1,12)
+			owner.setFrame(0)
+		if owner.cFrame(12):
+			owner.setFrame(1)
+		if owner.cFrame(19):
+			owner.setFrame(2)
+		if owner.cFrame(21):
+			owner.setFrame(3)
+		if owner.cFrame(26):
+			owner.setFrame(4)
+		if owner.cFrame(31):
+			Transitioned.emit(self, "wait")
+	else:
+		if owner.cFrame(16):
+			owner.setFrame(5)
+		if owner.cFrame(20 - owner.epicCombo):
+			if owner.punchHit:
+				owner.ctrl = 1
+		if owner.cFrame(21):
+			owner.setFrame(5)
+		if owner.cFrame(23):
+			owner.setFrame(6)
+		if owner.cFrame(30):
+			Transitioned.emit(self, "wait")

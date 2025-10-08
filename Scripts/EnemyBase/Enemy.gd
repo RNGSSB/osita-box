@@ -53,8 +53,8 @@ var healing = false
 var hitCount = 0
 var maxHitCount = 5
 
-var maxHealth = 250
-var health = 120
+var maxHealth = 100
+var health = 100
 
 var aiActive = false
 
@@ -63,7 +63,7 @@ var damageStopTimer = false
 
 var rng = RandomNumberGenerator.new()
 
-var superInit = 20
+var superInit = 40
 
 var R = 255
 var G = 255
@@ -99,7 +99,8 @@ preload("res://Sprites/Characters/Cardemomo/A18DamageHi4L.png"),
 preload("res://Sprites/Characters/Cardemomo/A19DamageLw4CounterL.png"),
 preload("res://Sprites/Characters/Cardemomo/A20Attack4Start.png"),
 preload("res://Sprites/Characters/Cardemomo/A21Attack4Hit.png"),
-preload("res://Sprites/Characters/Cardemomo/A22Attack4Miss.png"),]
+preload("res://Sprites/Characters/Cardemomo/A22Attack4Miss.png"),
+preload("res://Sprites/Characters/Cardemomo/A23Dead.png"),]
 
 func setColor(value1, value2, value3):
 	R = value1 
@@ -131,8 +132,8 @@ func punchHitFunc(damage = 1, meter = 1, damageState = "DamageS", playerX = 0, f
 hitlag = 3, shake = 25, 
 sfx = "Hurt", volume = 1.0, pitch = 1.0, audioBus = "SFX", 
 effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, animOverride = "no", posOverride = 0, dirOverride = false):
-	Engine.physics_ticks_per_second = 60
-	Engine.time_scale = 1.0
+	#Engine.physics_ticks_per_second = 60
+	#Engine.time_scale = 1.0
 	enemyRef = owner.player
 	owner.playerUpdateHealth(damage)
 	punchHit = true
@@ -155,23 +156,23 @@ effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, animOverride
 		enemyRef.flip_h = dirOverride
 		enemyRef.position.x = posOverride
 
-func punchDodgeFunc(audioBus):
+func punchDodgeFunc(audioBus, combo = 3, comboPerfect = 5):
 	enemyRef = owner.player
 	enemyRef.dodgeSuccess = true
 	attackMiss = true
 	AudioManager.Play("Dodge", audioBus, 1.0, 1.0)
 	enemyRef.hasCombo = true
-	maxHitCount = dodgeCombo
+	maxHitCount = combo
 	if enemyRef.stateFrame <= enemyRef.perfectTiming:
 		enemyRef.superMeter += enemyRef.perfectDodgeMeterGain
 		enemyRef.burnoutEnd()
 		if enemyRef.superMeter >= enemyRef.superMax:
 			enemyRef.gotSuper = true
-		maxHitCount = perfectCombo
+		maxHitCount = comboPerfect
 		AudioManager.Play("Perfect", audioBus, 1.0, 1.0)
 		enemyRef.perfectDodge = true
 
-func punchBlockFunc(audioBus, meter, guardMeter, stun):
+func punchBlockFunc(audioBus, meter, guardMeter, stun, combo = 3):
 	enemyRef = owner.player
 	owner.hitLag(5, 15)
 	hitLeft = true
@@ -179,7 +180,7 @@ func punchBlockFunc(audioBus, meter, guardMeter, stun):
 	hitUpLeft = true
 	hitUpRight = true
 	if stun:
-		maxHitCount = normalCombo
+		maxHitCount = combo
 		enemyRef.hasCombo = true
 		punchHit = false
 		attackMiss = true
@@ -222,14 +223,16 @@ func punchOpponent(value = 0, damage = 1, meter = 1, blockable = true,
 hitLag = 3, screenShake = 25, 
 sfx = "Hurt", volume = 1.0, pitch = 1.0, 
 effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0,
-guardMeter = -1, blockStun = true, hitLeft = true, hitNeutral = true, hitRight = true, hitDown = true, animOverride = "no", posOverride = 0, dirOverride = false):
+guardMeter = -1, blockStun = true, dodgeCombo = 3, blockCombo = 3, perfectCombo = 5, 
+hitLeft = true, hitNeutral = true, hitRight = true, hitDown = true, 
+animOverride = "no", posOverride = 0, dirOverride = false):
 	enemyRef = owner.player
 	if attackMiss or punchHit:
 		return
 	
 	if value == 0: #Dodge Left
 		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
-			punchBlockFunc("Left", meter, guardMeter, blockStun)
+			punchBlockFunc("Left", meter, guardMeter, blockStun, blockCombo)
 			return
 		if !enemyRef.dodgeLeft:
 			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
@@ -238,10 +241,10 @@ guardMeter = -1, blockStun = true, hitLeft = true, hitNeutral = true, hitRight =
 			else:
 				return
 		else:
-			punchDodgeFunc("Left")
+			punchDodgeFunc("Left", dodgeCombo, perfectCombo)
 	elif value == 1: #Dodge Right
 		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
-			punchBlockFunc("Right", meter, guardMeter, blockStun)
+			punchBlockFunc("Right", meter, guardMeter, blockStun, blockCombo)
 			return
 		if !enemyRef.dodgeRight:
 			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
@@ -250,10 +253,10 @@ guardMeter = -1, blockStun = true, hitLeft = true, hitNeutral = true, hitRight =
 			else:
 				return
 		else:
-			punchDodgeFunc("Right")
+			punchDodgeFunc("Right", dodgeCombo, perfectCombo)
 	elif value == 2: #Dodge Down
 		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
-			punchBlockFunc("SFX", meter, guardMeter, blockStun)
+			punchBlockFunc("SFX", meter, guardMeter, blockStun, blockCombo)
 			return
 		if !enemyRef.dodgeDown:
 			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
@@ -262,10 +265,10 @@ guardMeter = -1, blockStun = true, hitLeft = true, hitNeutral = true, hitRight =
 			else:
 				return
 		else:
-			punchDodgeFunc("SFX")
+			punchDodgeFunc("SFX", dodgeCombo, perfectCombo)
 	elif value == 3: #Dodge All
 		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
-			punchBlockFunc("SFX", meter, guardMeter, blockStun)
+			punchBlockFunc("SFX", meter, guardMeter, blockStun, blockCombo)
 			return
 		if !enemyRef.dodgeLeft and !enemyRef.dodgeRight and !enemyRef.dodgeDown:
 			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
@@ -274,7 +277,7 @@ guardMeter = -1, blockStun = true, hitLeft = true, hitNeutral = true, hitRight =
 			else:
 				return
 		else:
-			punchDodgeFunc("SFX")
+			punchDodgeFunc("SFX", dodgeCombo, perfectCombo)
 
 func stun():
 	hitLeft = true
@@ -321,7 +324,7 @@ func lobotomy():
 		if Input.is_key_pressed(KEY_6):
 			stateMachine.change_state2("Attack4")
 		if Input.is_key_pressed(KEY_7):
-			stateMachine.change_state2("Wait")
+			stateMachine.change_state2("Dead")
 
 func _physics_process(delta):
 	if health < 0:

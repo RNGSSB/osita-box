@@ -9,10 +9,11 @@ var masterVolume = -30
 @onready var fullScreenCheck = $Panel/VBoxContainer/Fullscreen
 @onready var vsyncCheck = $Panel/VBoxContainer/Vsync
 @onready var backButton = $Panel/VBoxContainer/Back
+@onready var inputButton = $Panel/VBoxContainer/Controls
 
 var select = 0
 var menuMin = 0
-var menuMax = 3
+var menuMax = 4
 
 var holdOn = false
 
@@ -69,9 +70,9 @@ func _process(delta):
 			holdOn = true
 			SaveData()
 			visible = false
-		if Input.is_action_just_pressed("Down"):
+		if Input.is_action_just_pressed("Down") or Input.is_action_just_pressed("DownKey"):
 			select += 1
-		if Input.is_action_just_pressed("Up"):
+		if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("UpKey"):
 			select -= 1
 		
 		if select < menuMin:
@@ -90,9 +91,12 @@ func _process(delta):
 			2:
 				if !volumeSlider.has_focus():
 					volumeSlider.grab_focus()
-			3:
+			4:
 				if !backButton.has_focus():
 					backButton.grab_focus()
+			3:
+				if !inputButton.has_focus():
+					inputButton.grab_focus()
 
 
 func _on_master_volume_value_changed(value):
@@ -150,5 +154,15 @@ func _on_master_volume_mouse_entered():
 
 
 func _on_back_mouse_entered():
-	select = 3
+	select = 4
 	backButton.grab_focus()
+
+
+func _on_controls_pressed():
+	visible = false
+	InputMapper.visible = true
+
+
+func _on_controls_mouse_entered():
+	select = 3
+	inputButton.grab_focus()

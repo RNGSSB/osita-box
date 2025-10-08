@@ -56,26 +56,26 @@ func Physics_Update(delta: float):
 		owner.setFrame(12) #1
 		owner.counterPunch = false
 	if owner.cFrame(34):
-		owner.punchOpponent(2, 10, 15, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, false, false, false)
+		owner.punchOpponent(2, 20, 20, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9, true, false, false, false)
 		owner.setFrame(13) #2
 	if owner.cFrame(35):
-		owner.punchOpponent(2, 10, 15, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, false, false, false)
+		owner.punchOpponent(2, 20, 20, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, false, false, false)
 	if owner.cFrame(36):
-		owner.punchOpponent(2, 10, 15, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, true, false, true)
+		owner.punchOpponent(2, 20, 20, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, true, false, true)
 		owner.setFrame(14) #2
 	if owner.cFrame(37):
-		owner.punchOpponent(2, 10, 15, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, true, false, true)
+		owner.punchOpponent(2, 20, 20, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, true, false, true)
 	if owner.cFrame(38):
-		owner.punchOpponent(2, 10, 15, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, true, true, true, "DamageS", 250, true)
+		owner.punchOpponent(2, 20, 20, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, true, true, true, "DamageS", 250, true)
 		owner.setFrame(15) #2
 	if owner.cFrame(39):
-		owner.punchOpponent(2, 10, 15, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 20, false, true, true, true, true, "DamageS", 250, true)
+		owner.punchOpponent(2, 20, 20, true, 12, 25, 
+		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9, true, true, true, true, "DamageS", 250, true)
 	if owner.cFrame(40):
 		owner.setFrame(16) #1
 	if owner.cFrame(41):

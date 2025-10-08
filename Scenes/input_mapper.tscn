@@ -1,0 +1,458 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnpfg14nxbxll"]
+
+[ext_resource type="Script" path="res://Scripts/input_mapper.gd" id="1_27ajb"]
+[ext_resource type="Script" path="res://Scripts/controllermapper.gd" id="2_o3vdk"]
+[ext_resource type="Script" path="res://Scripts/buttonMap.gd" id="3_encuj"]
+[ext_resource type="Script" path="res://Scripts/keyboardmapper.gd" id="4_5h44m"]
+[ext_resource type="Script" path="res://Scripts/keyMap.gd" id="5_bphcu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdlqu"]
+bg_color = Color(0.20871, 0.20871, 0.20871, 1)
+
+[node name="InputMapper" type="CanvasLayer" node_paths=PackedStringArray("controller", "keyboard")]
+script = ExtResource("1_27ajb")
+controller = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/Controller")
+keyboard = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/Keyboard")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -281.0
+offset_top = -324.0
+offset_right = 281.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdlqu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Control Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Action"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Button 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Button 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Key 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Key 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Action Names" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Up" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Up"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Down" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Down"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Left" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Left"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Right"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Left Punch" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Left Punch"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right Punch" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Right Punch"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Super Punch" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Super Punch"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pause" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Pause"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Accept" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Accept"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cancel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Cancel"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Controller" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+script = ExtResource("2_o3vdk")
+
+[node name="Up" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "Up"
+
+[node name="Down" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "Down"
+
+[node name="Left" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "Left"
+
+[node name="Right" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "Right"
+
+[node name="LeftPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "LeftPunch"
+
+[node name="RightPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "RightPunch"
+
+[node name="SuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "SuperPunch"
+
+[node name="Pause" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "Start"
+
+[node name="Accept" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "ui_accept"
+
+[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "ui_cancel"
+
+[node name="Controller2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+script = ExtResource("2_o3vdk")
+
+[node name="Up" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "Up"
+index = 1
+
+[node name="Down" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "Down"
+index = 1
+
+[node name="Left" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "Left"
+index = 1
+
+[node name="Right" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "Right"
+index = 1
+
+[node name="LeftPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "LeftPunch"
+index = 1
+
+[node name="RightPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "RightPunch"
+index = 1
+
+[node name="SuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "SuperPunch"
+index = 1
+
+[node name="Pause" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "Start"
+index = 1
+
+[node name="Accept" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "ui_accept"
+index = 1
+
+[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "ui_cancel"
+index = 1
+
+[node name="Keyboard" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+script = ExtResource("4_5h44m")
+
+[node name="Up" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "UpKey"
+index = 0
+
+[node name="Down" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "DownKey"
+index = 0
+
+[node name="Left" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "LeftKey"
+index = 0
+
+[node name="Right" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "RightKey"
+index = 0
+
+[node name="LeftPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "LeftPunchKey"
+index = 0
+
+[node name="RightPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "RightPunchKey"
+index = 0
+
+[node name="SuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "SuperPunchKey"
+index = 0
+
+[node name="Pause" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "StartKey"
+index = 0
+
+[node name="Accept" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "ui_accept"
+index = 0
+
+[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "ui_cancel"
+index = 0
+
+[node name="Keyboard2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+script = ExtResource("4_5h44m")
+
+[node name="Up" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "UpKey"
+index = 1
+
+[node name="Down" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "DownKey"
+index = 1
+
+[node name="Left" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "LeftKey"
+index = 1
+
+[node name="Right" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "RightKey"
+index = 1
+
+[node name="LeftPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "LeftPunchKey"
+index = 1
+
+[node name="RightPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "RightPunchKey"
+index = 1
+
+[node name="SuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "SuperPunchKey"
+index = 1
+
+[node name="Pause" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "StartKey"
+index = 1
+
+[node name="Accept" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "ui_accept"
+index = 1
+
+[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "ui_cancel"
+index = 1
+
+[node name="Reset" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reset"
+
+[node name="Save" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save and Return"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Save" to="." method="_on_save_pressed"]

@@ -15,6 +15,9 @@ var stateFrame = 0
 var prevStateFrame = 0 
 var frameCounter = 0
 
+var controllerDir = Vector2()
+var keyboardDir = Vector2()
+
 var inputX = 0
 var inputY = 0
 
@@ -70,7 +73,7 @@ var isBlocking = false
 
 var superMeter = 0
 var superInit = 20
-var superMax = 150
+var superMax = 100
 
 var hitCount = 0
 
@@ -98,19 +101,21 @@ preload("res://Sprites/Characters/Canela/A06EscapeS.png"),
 preload("res://Sprites/Characters/Canela/A07DamageS.png"),
 preload("res://Sprites/Characters/Canela/A08AttackSuperLw.png"),
 preload("res://Sprites/Characters/Canela/A09DamageN.png"),
-preload("res://Sprites/Characters/Canela/A10Block.png"),]
+preload("res://Sprites/Characters/Canela/A10Block.png"),
+preload("res://Sprites/Characters/Canela/A11AttackLwMiss.png"),
+preload("res://Sprites/Characters/Canela/A12AttackHiMiss.png"),]
 
 var ctrl = 1 
 
 const guardMeterLoss = 10
-const punchDamage = 5
-const punchMeterGain = 5
-const finishDamage = 10
-const finishMeterGain = 10
-const counterDamage = 15
-const counterMeterGain = 25
+const punchDamage = 2.5
+const punchMeterGain = 2
+const finishDamage = 5
+const finishMeterGain = 2
+const counterDamage = 2.5
+const counterMeterGain = 20
 const superDamage = 40
-const perfectDodgeMeterGain = 25
+const perfectDodgeMeterGain = 5
 
 func spriteOffsets(x, y, value):
 	hframes = x
@@ -136,8 +141,32 @@ func setColor(value1, value2, value3):
 	
 
 func _process(delta):
-	inputX = Input.get_axis("Left", "Right")
-	inputY = Input.get_axis("Down", "Up")
+	controllerDir = Vector2(Input.get_axis("Left", "Right"), Input.get_axis("Down", "Up"))
+	keyboardDir = Vector2(Input.get_axis("LeftKey", "RightKey"), Input.get_axis("DownKey", "UpKey"))
+	
+	if controllerDir.x != 0 and keyboardDir.x != 0:
+		inputX = controllerDir.x
+	elif controllerDir.x == 0 and keyboardDir.x != 0:
+		inputX = keyboardDir.x
+	elif controllerDir.x != 0 and keyboardDir.x == 0:
+		inputX = controllerDir.x
+	elif controllerDir.x == 0 and keyboardDir.x == 0:
+		inputX = 0
+	else:
+		inputX = 0
+	
+	if controllerDir.y != 0 and keyboardDir.y != 0:
+		inputY = controllerDir.y
+	elif controllerDir.y == 0 and keyboardDir.y != 0:
+		inputY = keyboardDir.y
+	elif controllerDir.y != 0 and keyboardDir.y == 0:
+		inputY = controllerDir.y
+	elif controllerDir.y == 0 and keyboardDir.y == 0:
+		inputY = 0
+	else:
+		inputX = 0
+	
+	#print(inputY)
 	gameManager = owner
 	processInputs()
 	
@@ -203,6 +232,18 @@ func _physics_process(delta):
 	
 	if health < 0:
 		health = 0
+	
+	if owner.enemy.health <= finishDamage and CURRSTATE == "PunchLeft" and stateFrame < 5:
+		stateMachine.change_state2("PunchLeftFinish")
+	
+	if owner.enemy.health <= finishDamage and CURRSTATE == "PunchRight" and stateFrame < 5:
+		stateMachine.change_state2("PunchRightFinish")
+	
+	if owner.enemy.health <= finishDamage and CURRSTATE == "UpperLeft" and stateFrame < 5:
+		stateMachine.change_state2("UpperLeftFinish")
+	
+	if owner.enemy.health <= finishDamage and CURRSTATE == "UpperRight" and stateFrame < 5:
+		stateMachine.change_state2("UpperRightFinish")
 	
 	if superMeter > superMax:
 		superMeter = superMax
@@ -363,7 +404,7 @@ func debugUI():
 	fpsCounter.text = "FPS: " + str(Engine.get_frames_per_second())
 	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "frameAdvance: " + str(owner.frameAdvance) + "\n" + "animFrame: " + str(frame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "PrevFrame: " + str(prevStateFrame) + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter) + "\n" + "BurnoutTime: " + str(burnoutTimer)
 	debugInfoPlayer2.text = "Frame: " + str(frameCounter) + "\n" + "State: " + owner.enemy.CURRSTATE + "\n" + "StateFrame: " + str(owner.enemy.stateFrame) + "\n" + "animFrame: " + str(owner.enemy.frame) + "\n" + "PrevState: " + str(owner.enemy.PREVSTATE) + "\n" + "PrevFrame: " + str(owner.enemy.prevStateFrame) + "\n" + "Stunned: " + str(owner.enemy.stunned) + "\n" + "HitCount: " + str(owner.enemy.hitCount) + "\n" + "MaxHitCount: " + str(owner.enemy.maxHitCount) + "\n" + "Health: " + str(owner.enemy.health) + "\n" + "aiActive: " + str(owner.enemy.aiActive) + "\n" + "attackPhase: " + str(owner.enemy.brain.attackPhase) + "\n" + "waitTimer: " + str(owner.enemy.brain.waitTimer) + "\n" + "nextMove: " + str(owner.enemy.brain.nextMove) + "\n" + "epicCombo: " + str(epicCombo)  
-	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.cameraZoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superBarValue: " + str(owner.playerSuper.value) + "\n" + "inBurnout: " + str(inBurnout)
+	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.cameraZoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superBarValue: " + str(owner.playerSuper.value) + "\n" + "inBurnout: " + str(inBurnout) + "\n" + "GameState: " + owner.CURRSTATE
 
 func burnout():
 	if inBurnout:
@@ -399,33 +440,35 @@ func fixThisShit():
 		stateMachine.change_state4("UpperRight")
 
 func processInputs():
-	if Input.is_action_just_pressed("LeftPunch") and !bufferPunchL:
+	if owner.CURRSTATE == "Intro" or owner.CURRSTATE == "KnockDown":
+		return
+	if Input.is_action_just_pressed("LeftPunch") or Input.is_action_just_pressed("LeftPunchKey") and !bufferPunchL:
 		punchLBuffer = frameCounter
 		bufferDodgeHI = false
 		bufferPunchL = true
 	
-	if Input.is_action_just_pressed("RightPunch") and !bufferPunchR:
+	if Input.is_action_just_pressed("RightPunch") or Input.is_action_just_pressed("RightPunchKey") and !bufferPunchR:
 		punchRBuffer = frameCounter
 		bufferDodgeHI = false
 		bufferPunchR = true
 	
-	if Input.is_action_just_pressed("Down") and !bufferDodgeLW:
+	if Input.is_action_just_pressed("Down") or Input.is_action_just_pressed("DownKey") and !bufferDodgeLW:
 		dodgeBufferLW = frameCounter
 		bufferDodgeLW = true
 	
-	if Input.is_action_just_pressed("Left") and !bufferDodgeL:
+	if Input.is_action_just_pressed("Left") or Input.is_action_just_pressed("LeftKey") and !bufferDodgeL:
 		dodgeBufferL = frameCounter
 		bufferDodgeL = true
 	
-	if Input.is_action_just_pressed("Right") and !bufferDodgeR:
+	if Input.is_action_just_pressed("Right") or Input.is_action_just_pressed("RightKey") and !bufferDodgeR:
 		dodgeBufferR = frameCounter
 		bufferDodgeR = true
 	
-	if Input.is_action_just_pressed("Up") and !bufferDodgeHI:
+	if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("UpKey") and !bufferDodgeHI:
 		dodgeBufferHI = frameCounter
 		bufferDodgeHI = true
 	
-	if Input.is_action_just_pressed("SuperPunch") and !bufferSuper:
+	if Input.is_action_just_pressed("SuperPunch") or Input.is_action_just_pressed("SuperPunchKey") and !bufferSuper:
 		superBuffer = frameCounter
 		bufferSuper = true
 

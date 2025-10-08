@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bgrwrd2uklgk0"]
+[gd_scene load_steps=26 format=3 uid="uid://bgrwrd2uklgk0"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_cfo20"]
 [ext_resource type="Texture2D" uid="uid://c8y0bh8ebkja7" path="res://Sprites/Backgrounds/Carderoom3.png" id="2_41git"]
@@ -6,6 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://bbj3b40i8h4c0" path="res://Sprites/victory.png" id="3_rvnu7"]
 [ext_resource type="Texture2D" uid="uid://6ma50jnlv543" path="res://Sprites/circle.png" id="4_qgphd"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="5_ln6xw"]
+[ext_resource type="Script" path="res://Scripts/State Machine/StateMachine.gd" id="7_d4whq"]
+[ext_resource type="Script" path="res://Scripts/Game/intro.gd" id="8_1rhh7"]
+[ext_resource type="Script" path="res://Scripts/Game/fight.gd" id="9_xiygw"]
+[ext_resource type="Script" path="res://Scripts/Game/knock_down.gd" id="10_rjk3o"]
+[ext_resource type="Script" path="res://Scripts/Game/time_out.gd" id="11_c2tyf"]
+[ext_resource type="Script" path="res://Scripts/Game/in_between.gd" id="11_dm6ty"]
+[ext_resource type="Script" path="res://Scripts/Game/ko.gd" id="12_baftu"]
+[ext_resource type="Script" path="res://Scripts/Game/results.gd" id="13_wq8bv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayv2y"]
 bg_color = Color(0, 0, 0, 0)
@@ -222,6 +230,27 @@ offset_right = 1939.0
 offset_bottom = 1093.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_eski1")
 
+[node name="UIFront" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Start" type="Label" parent="UIFront"]
+z_index = 20
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -68.5
+offset_right = 35.5
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(182.5, 74)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 100
+text = "3"
+
 [node name="GameElements" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
@@ -236,6 +265,31 @@ follow_viewport_enabled = true
 z_index = -2
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_41git")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("7_d4whq")
+initial_state = NodePath("Intro")
+
+[node name="Intro" type="Node" parent="StateMachine"]
+script = ExtResource("8_1rhh7")
+
+[node name="Fight" type="Node" parent="StateMachine"]
+script = ExtResource("9_xiygw")
+
+[node name="KnockDown" type="Node" parent="StateMachine"]
+script = ExtResource("10_rjk3o")
+
+[node name="TimeOut" type="Node" parent="StateMachine"]
+script = ExtResource("11_c2tyf")
+
+[node name="InBetween" type="Node" parent="StateMachine"]
+script = ExtResource("11_dm6ty")
+
+[node name="KO" type="Node" parent="StateMachine"]
+script = ExtResource("12_baftu")
+
+[node name="Results" type="Node" parent="StateMachine"]
+script = ExtResource("13_wq8bv")
 
 [connection signal="timeout" from="HUD/Timer/PlayerDamage/PlayerTimer" to="." method="_on_player_timer_timeout"]
 [connection signal="timeout" from="HUD/Timer/EnemyDamage/EnemyTimer" to="." method="_on_enemy_timer_timeout"]

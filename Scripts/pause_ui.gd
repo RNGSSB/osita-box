@@ -16,7 +16,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !Options.visible:
+	if !Options.visible and !InputMapper.visible:
 		if Input.is_action_just_pressed("ui_cancel") and !Options.holdOn:
 			select = 0
 			owner.isPaused = false
@@ -25,9 +25,9 @@ func _process(delta):
 		if Input.is_action_just_released("ui_cancel"):
 			Options.holdOn = false
 		
-		if Input.is_action_just_pressed("Down"):
+		if Input.is_action_just_pressed("Down") or Input.is_action_just_pressed("DownKey"):
 			select += 1
-		if Input.is_action_just_pressed("Up"):
+		if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("UpKey"):
 			select -= 1
 		
 		if select < menuMin:
