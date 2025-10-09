@@ -101,14 +101,14 @@ func initHealthBars():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if canPause:
-		if Input.is_action_just_pressed("Start") or Input.is_action_just_pressed("StartKey") and !fuckYou2:
+		if Gamemanager.checkInputJustPressed("Start") and !fuckYou2:
 			pauseUI.resumeButton.grab_focus()
 			isPaused = true
 		
-		if Input.is_action_just_released("Start") and isPaused:
+		if Gamemanager.checkInputJustReleased("Start") and isPaused:
 			fuckYou2 = true
 		
-		if Input.is_action_just_pressed("Start") or Input.is_action_just_pressed("StartKey") and fuckYou2:
+		if Gamemanager.checkInputJustPressed("Start") and fuckYou2 and !InputMapper.setting:
 			pauseUI.select = 0
 			isPaused = false
 			fuckYou2 = false
@@ -196,7 +196,21 @@ func cameraShenanigans():
 		if cameraZoom < 1.0:
 			cameraZoom = 1.0
 	
-	if player.CURRSTATE == "DodgeLeft" and player.stateFrame <= 13:
+	if enemy.CURRSTATE == "Dead" and hitStop > 0:
+		if cameraTilt < 70:
+			cameraTilt += 35
+		
+		if cameraTilt > 70:
+			cameraTilt = 70
+	
+	if enemy.CURRSTATE == "Dead" and enemy.stateFrame >= 11:
+		if cameraTilt < 105:
+			cameraTilt += 20
+		
+		if cameraTilt > 105:
+			cameraTilt = 105
+	
+	if player.CURRSTATE == "DodgeLeft" and player.stateFrame <= 11:
 		if cameraTilt > -105:
 			cameraTilt -= 20
 		
@@ -225,7 +239,7 @@ func cameraShenanigans():
 			cameraTilt = 0
 	
 	
-	if player.CURRSTATE != "DodgeLeft" and player.CURRSTATE != "DodgeRight":
+	if player.CURRSTATE != "DodgeLeft" and player.CURRSTATE != "DodgeRight" and enemy.CURRSTATE != "Dead":
 		if cameraTilt > 0:
 			cameraTilt -= 10
 			if cameraTilt < 0:

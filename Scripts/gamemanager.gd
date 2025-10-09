@@ -31,6 +31,54 @@ func createEffects(name = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0,
 	get_node("/root/Game/GameElements").add_child(instance)
 
 
+func checkInputJustPressed(name):
+	if Input.is_action_just_pressed(name):
+		return true
+	elif Input.is_action_just_pressed(name + "Key"):
+		return true
+	elif Input.is_action_just_pressed(name + "2"):
+		return true
+	elif Input.is_action_just_pressed(name + "Key2"):
+		return true
+	else:
+		return false
+
+func checkInputJustReleased(name):
+	if Input.is_action_just_released(name):
+		return true
+	elif Input.is_action_just_released(name + "Key"):
+		return true
+	elif Input.is_action_just_released(name + "2"):
+		return true
+	elif Input.is_action_just_released(name + "Key2"):
+		return true
+	else:
+		return false
+
+func checkInputHold(name):
+	if Input.is_action_pressed(name):
+		return true
+	elif Input.is_action_pressed(name + "Key"):
+		return true
+	elif Input.is_action_pressed(name + "2"):
+		return true
+	elif Input.is_action_pressed(name + "Key2"):
+		return true
+	else:
+		return false
+
+func checkInputAxis(neg, pos):
+	if Input.get_axis(neg, pos) != 0:
+		return Input.get_axis(neg, pos)
+	elif Input.get_axis(neg + "Key", pos + "Key") != 0:
+		return Input.get_axis(neg + "Key", pos + "Key") 
+	elif Input.get_axis(neg + "2", pos + "2") != 0:
+		return Input.get_axis(neg + "2", pos + "2") 
+	elif Input.get_axis(neg + "Key2", pos + "Key2") != 0:
+		return Input.get_axis(neg + "Key2", pos + "Key2") 
+	else:
+		return 0
+
 
 func destroyEffect(name):
 	if get_node("/root/Game/GameElements/" + name) == null:

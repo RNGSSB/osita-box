@@ -25,19 +25,19 @@ func Update(_delta: float):
 func Physics_Update(delta: float):
 	owner.guardAll = false
 	if owner.cFrame(1):
-		owner.setFrame(0) #2
-	if owner.cFrame(3):
-		owner.setFrame(1) #2
-	if owner.cFrame(5):
-		owner.setFrame(2) #2
+		owner.setFrame(0) #3
+	if owner.cFrame(4):
+		owner.setFrame(1) #3
 	if owner.cFrame(7):
-		owner.setFrame(3) #2
+		owner.setFrame(2) #2
 	if owner.cFrame(9):
-		owner.setFrame(4) #2
+		owner.setFrame(3) #2
 	if owner.cFrame(11):
-		owner.setFrame(5) #3
-	if owner.cFrame(14):
-		owner.setFrame(6) #3
+		owner.setFrame(4) #2
+	if owner.cFrame(13):
+		owner.setFrame(5) #2
+	if owner.cFrame(15):
+		owner.setFrame(6) #2
 	if owner.cFrame(17):
 		owner.setFrame(7) #2
 	if owner.cFrame(19):
@@ -49,12 +49,8 @@ func Physics_Update(delta: float):
 	if owner.cFrame(27):
 		owner.setFrame(11) #3
 	if owner.cFrame(30):
-		owner.setFrame(12) #2
-	if owner.cFrame(32):
-		owner.setFrame(13) #2
-	if owner.cFrame(34):
-		owner.setFrame(14) #2
+		owner.setFrame(12) #3
+	if owner.cFrame(33):
+		owner.setFrame(13) #3
 	if owner.cFrame(36):
-		owner.setFrame(15) #2
-	if owner.cFrame(38):
-		owner.setFrame(16) #2
+		owner.setFrame(14) #?

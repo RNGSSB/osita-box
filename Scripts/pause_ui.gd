@@ -17,17 +17,17 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if !Options.visible and !InputMapper.visible:
-		if Input.is_action_just_pressed("ui_cancel") and !Options.holdOn:
+		if Gamemanager.checkInputJustPressed("ui_cancel") and !Options.holdOn:
 			select = 0
 			owner.isPaused = false
 			owner.fuckYou2 = false
 		
-		if Input.is_action_just_released("ui_cancel"):
+		if Gamemanager.checkInputJustReleased("ui_cancel"):
 			Options.holdOn = false
 		
-		if Input.is_action_just_pressed("Down") or Input.is_action_just_pressed("DownKey"):
+		if Gamemanager.checkInputJustPressed("Down"):
 			select += 1
-		if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("UpKey"):
+		if Gamemanager.checkInputJustPressed("Up"):
 			select -= 1
 		
 		if select < menuMin:
@@ -72,20 +72,24 @@ func _on_restart_pressed():
 
 
 func _on_options_mouse_entered():
-	select = 2
-	optionsButton.grab_focus()
+	if !Options.visible and !InputMapper.visible:
+		select = 2
+		optionsButton.grab_focus()
 
 
 func _on_restart_mouse_entered():
-	select = 1
-	restartButton.grab_focus()
+	if !Options.visible and !InputMapper.visible:
+		select = 1
+		restartButton.grab_focus()
 
 
 func _on_resume_mouse_entered():
-	select = 0
-	resumeButton.grab_focus()
+	if !Options.visible and !InputMapper.visible:
+		select = 0
+		resumeButton.grab_focus()
 
 
 func _on_menu_mouse_entered():
-	select = 3
-	menuButton.grab_focus()
+	if !Options.visible and !InputMapper.visible:
+		select = 3
+		menuButton.grab_focus()

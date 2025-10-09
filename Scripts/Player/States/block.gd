@@ -19,7 +19,7 @@ func Update(_delta: float):
 	pass
 
 func Physics_Update(delta: float):
-	if Input.is_action_pressed("Up") or Input.is_action_pressed("UpKey") and owner.isBlocking:
+	if Gamemanager.checkInputHold("Up") and owner.isBlocking:
 		idleLoop += 1
 		
 		if idleLoop == 0:
@@ -37,7 +37,7 @@ func Physics_Update(delta: float):
 			owner.setFrame(0)
 			idleLoop = 0
 	
-	if !Input.is_action_pressed("Up") and !Input.is_action_pressed("UpKey") and owner.stateFrame > 10 and owner.isBlocking:
+	if !Gamemanager.checkInputHold("Up") and owner.stateFrame > 10 and owner.isBlocking:
 		idleLoop = 0
 		owner.setFrame(9)
 		owner.isBlocking = false

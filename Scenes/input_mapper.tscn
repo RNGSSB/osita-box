@@ -10,6 +10,8 @@
 bg_color = Color(0.20871, 0.20871, 0.20871, 1)
 
 [node name="InputMapper" type="CanvasLayer" node_paths=PackedStringArray("controller", "keyboard")]
+process_mode = 3
+layer = 8
 script = ExtResource("1_27ajb")
 controller = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/Controller")
 keyboard = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/Keyboard")
@@ -44,7 +46,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Action" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -52,7 +54,7 @@ text = "Action"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Button 1" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -60,7 +62,7 @@ text = "Button 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Button 2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -68,7 +70,7 @@ text = "Button 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Key 1" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -76,7 +78,7 @@ text = "Key 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Key 2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -228,70 +230,70 @@ action = "ui_cancel"
 layout_mode = 2
 script = ExtResource("2_o3vdk")
 
-[node name="Up" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="Up2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "Up"
+action = "Up2"
 index = 1
 
-[node name="Down" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="Down2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "Down"
+action = "Down2"
 index = 1
 
-[node name="Left" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="Left2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "Left"
+action = "Left2"
 index = 1
 
-[node name="Right" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="Right2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "Right"
+action = "Right2"
 index = 1
 
-[node name="LeftPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="LeftPunch2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "LeftPunch"
+action = "LeftPunch2"
 index = 1
 
-[node name="RightPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="RightPunch2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "RightPunch"
+action = "RightPunch2"
 index = 1
 
-[node name="SuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="SuperPunch2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "SuperPunch"
+action = "SuperPunch2"
 index = 1
 
-[node name="Pause" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="Pause2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "Start"
+action = "Start2"
 index = 1
 
-[node name="Accept" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="Accept2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "ui_accept"
 index = 1
 
-[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="Cancel2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
@@ -302,70 +304,70 @@ index = 1
 layout_mode = 2
 script = ExtResource("4_5h44m")
 
-[node name="Up" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="UpKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "UpKey"
 index = 0
 
-[node name="Down" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="DownKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "DownKey"
 index = 0
 
-[node name="Left" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="LeftKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "LeftKey"
 index = 0
 
-[node name="Right" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="RightKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "RightKey"
 index = 0
 
-[node name="LeftPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="LeftPunchKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "LeftPunchKey"
 index = 0
 
-[node name="RightPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="RightPunchKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "RightPunchKey"
 index = 0
 
-[node name="SuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="SuperPunchKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "SuperPunchKey"
 index = 0
 
-[node name="Pause" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="PauseKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "StartKey"
 index = 0
 
-[node name="Accept" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="AcceptKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "ui_accept"
 index = 0
 
-[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="CancelKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
@@ -376,70 +378,70 @@ index = 0
 layout_mode = 2
 script = ExtResource("4_5h44m")
 
-[node name="Up" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="UpKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "UpKey"
+action = "UpKey2"
 index = 1
 
-[node name="Down" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="DownKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "DownKey"
+action = "DownKey2"
 index = 1
 
-[node name="Left" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="LeftKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "LeftKey"
+action = "LeftKey2"
 index = 1
 
-[node name="Right" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="RightKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "RightKey"
+action = "RightKey2"
 index = 1
 
-[node name="LeftPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="LeftPunchKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "LeftPunchKey"
+action = "LeftPunchKey2"
 index = 1
 
-[node name="RightPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="RightPunchKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "RightPunchKey"
+action = "RightPunchKey2"
 index = 1
 
-[node name="SuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="SuperPunchKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "SuperPunchKey"
+action = "SuperPunchKey2"
 index = 1
 
-[node name="Pause" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="PauseKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "StartKey"
+action = "StartKey2"
 index = 1
 
-[node name="Accept" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="AcceptKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "ui_accept"
 index = 1
 
-[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="CancelKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
@@ -454,5 +456,47 @@ text = "Reset"
 layout_mode = 2
 text = "Save and Return"
 
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Up" to="." method="_on_up_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Down" to="." method="_on_down_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Left" to="." method="_on_left_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Right" to="." method="_on_right_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/LeftPunch" to="." method="_on_left_punch_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/RightPunch" to="." method="_on_right_punch_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/SuperPunch" to="." method="_on_super_punch_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Pause" to="." method="_on_pause_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Accept" to="." method="_on_accept_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Cancel" to="." method="_on_cancel_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Up2" to="." method="_on_up_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Down2" to="." method="_on_down_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Left2" to="." method="_on_left_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Right2" to="." method="_on_right_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/LeftPunch2" to="." method="_on_left_punch_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/RightPunch2" to="." method="_on_right_punch_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/SuperPunch2" to="." method="_on_super_punch_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Pause2" to="." method="_on_pause_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Accept2" to="." method="_on_accept_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Cancel2" to="." method="_on_cancel_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/UpKey" to="." method="_on_up_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/DownKey" to="." method="_on_down_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/LeftKey" to="." method="_on_left_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/RightKey" to="." method="_on_right_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/LeftPunchKey" to="." method="_on_left_punch_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/RightPunchKey" to="." method="_on_right_punch_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/SuperPunchKey" to="." method="_on_super_punch_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/PauseKey" to="." method="_on_pause_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/AcceptKey" to="." method="_on_accept_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/CancelKey" to="." method="_on_cancel_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/UpKey2" to="." method="_on_up_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/DownKey2" to="." method="_on_down_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/LeftKey2" to="." method="_on_left_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/RightKey2" to="." method="_on_right_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/LeftPunchKey2" to="." method="_on_left_punch_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/RightPunchKey2" to="." method="_on_right_punch_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/SuperPunchKey2" to="." method="_on_super_punch_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/PauseKey2" to="." method="_on_pause_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/AcceptKey2" to="." method="_on_accept_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/CancelKey2" to="." method="_on_cancel_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Reset" to="." method="_on_reset_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Reset" to="." method="_on_reset_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Save" to="." method="_on_save_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Save" to="." method="_on_save_pressed"]

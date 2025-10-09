@@ -141,30 +141,10 @@ func setColor(value1, value2, value3):
 	
 
 func _process(delta):
-	controllerDir = Vector2(Input.get_axis("Left", "Right"), Input.get_axis("Down", "Up"))
-	keyboardDir = Vector2(Input.get_axis("LeftKey", "RightKey"), Input.get_axis("DownKey", "UpKey"))
 	
-	if controllerDir.x != 0 and keyboardDir.x != 0:
-		inputX = controllerDir.x
-	elif controllerDir.x == 0 and keyboardDir.x != 0:
-		inputX = keyboardDir.x
-	elif controllerDir.x != 0 and keyboardDir.x == 0:
-		inputX = controllerDir.x
-	elif controllerDir.x == 0 and keyboardDir.x == 0:
-		inputX = 0
-	else:
-		inputX = 0
+	inputX = Gamemanager.checkInputAxis("Left", "Right")
+	inputY = Gamemanager.checkInputAxis("Down", "Up")
 	
-	if controllerDir.y != 0 and keyboardDir.y != 0:
-		inputY = controllerDir.y
-	elif controllerDir.y == 0 and keyboardDir.y != 0:
-		inputY = keyboardDir.y
-	elif controllerDir.y != 0 and keyboardDir.y == 0:
-		inputY = controllerDir.y
-	elif controllerDir.y == 0 and keyboardDir.y == 0:
-		inputY = 0
-	else:
-		inputX = 0
 	
 	#print(inputY)
 	gameManager = owner
@@ -442,33 +422,33 @@ func fixThisShit():
 func processInputs():
 	if owner.CURRSTATE == "Intro" or owner.CURRSTATE == "KnockDown":
 		return
-	if Input.is_action_just_pressed("LeftPunch") or Input.is_action_just_pressed("LeftPunchKey") and !bufferPunchL:
+	if Gamemanager.checkInputJustPressed("LeftPunch") and !bufferPunchL:
 		punchLBuffer = frameCounter
 		bufferDodgeHI = false
 		bufferPunchL = true
 	
-	if Input.is_action_just_pressed("RightPunch") or Input.is_action_just_pressed("RightPunchKey") and !bufferPunchR:
+	if Gamemanager.checkInputJustPressed("RightPunch") and !bufferPunchR:
 		punchRBuffer = frameCounter
 		bufferDodgeHI = false
 		bufferPunchR = true
 	
-	if Input.is_action_just_pressed("Down") or Input.is_action_just_pressed("DownKey") and !bufferDodgeLW:
+	if Gamemanager.checkInputJustPressed("Down") and !bufferDodgeLW:
 		dodgeBufferLW = frameCounter
 		bufferDodgeLW = true
 	
-	if Input.is_action_just_pressed("Left") or Input.is_action_just_pressed("LeftKey") and !bufferDodgeL:
+	if Gamemanager.checkInputJustPressed("Left") and !bufferDodgeL:
 		dodgeBufferL = frameCounter
 		bufferDodgeL = true
 	
-	if Input.is_action_just_pressed("Right") or Input.is_action_just_pressed("RightKey") and !bufferDodgeR:
+	if Gamemanager.checkInputJustPressed("Right") and !bufferDodgeR:
 		dodgeBufferR = frameCounter
 		bufferDodgeR = true
 	
-	if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("UpKey") and !bufferDodgeHI:
+	if Gamemanager.checkInputJustPressed("Up") and !bufferDodgeHI:
 		dodgeBufferHI = frameCounter
 		bufferDodgeHI = true
 	
-	if Input.is_action_just_pressed("SuperPunch") or Input.is_action_just_pressed("SuperPunchKey") and !bufferSuper:
+	if Gamemanager.checkInputJustPressed("SuperPunch") and !bufferSuper:
 		superBuffer = frameCounter
 		bufferSuper = true
 

@@ -60,19 +60,19 @@ func loadData():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if visible:
-		if Input.is_action_just_pressed("Start"):
+		if Gamemanager.checkInputJustPressed("Start"):
 			select = 0
 			holdOn = false
 			SaveData()
 			visible = false
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Gamemanager.checkInputJustPressed("ui_cancel"):
 			select = 0
 			holdOn = true
 			SaveData()
 			visible = false
-		if Input.is_action_just_pressed("Down") or Input.is_action_just_pressed("DownKey"):
+		if Gamemanager.checkInputJustPressed("Down"):
 			select += 1
-		if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("UpKey"):
+		if Gamemanager.checkInputJustPressed("Up"):
 			select -= 1
 		
 		if select < menuMin:
@@ -139,30 +139,39 @@ func _on_vsync_pressed():
 
 
 func _on_vsync_mouse_entered():
-	select = 0
-	vsyncCheck.grab_focus()
+	if !InputMapper.visible:
+		select = 0
+		vsyncCheck.grab_focus()
 
 
 func _on_fullscreen_mouse_entered():
-	select = 1
-	fullScreenCheck.grab_focus()
+	if !InputMapper.visible:
+		select = 1
+		fullScreenCheck.grab_focus()
 
 
 func _on_master_volume_mouse_entered():
-	select = 2
-	volumeSlider.grab_focus()
+	if !InputMapper.visible:
+		select = 2
+		volumeSlider.grab_focus()
 
 
 func _on_back_mouse_entered():
-	select = 4
-	backButton.grab_focus()
+	if !InputMapper.visible:
+		select = 4
+		backButton.grab_focus()
 
 
 func _on_controls_pressed():
 	visible = false
+	InputMapper.canPress = true
+	InputMapper.selectX = 0
+	InputMapper.selectY = 0
+	InputMapper.setting = false
 	InputMapper.visible = true
 
 
 func _on_controls_mouse_entered():
-	select = 3
-	inputButton.grab_focus()
+	if !InputMapper.visible:
+		select = 3
+		inputButton.grab_focus()

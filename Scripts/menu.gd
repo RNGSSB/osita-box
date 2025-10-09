@@ -29,9 +29,9 @@ func _process(delta):
 		setting.disabled = false
 		quit.disabled = false
 		
-		if Input.is_action_just_pressed("Down") or Input.is_action_just_pressed("DownKey"):
+		if Gamemanager.checkInputJustPressed("Down"):
 			select += 1
-		if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("UpKey"):
+		if Gamemanager.checkInputJustPressed("Up"):
 			select -= 1
 		
 		if select < menuMin:

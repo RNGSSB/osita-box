@@ -20,7 +20,7 @@ func Enter():
 
 func Update(_delta: float):
 	if owner.frameCounter >= 6:
-		if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("UpKey") and !owner.bufferUp:
+		if Gamemanager.checkInputJustPressed("Up") and !owner.bufferUp:
 			owner.upBuffer = owner.frameCounter
 			owner.bufferUp = true
 
