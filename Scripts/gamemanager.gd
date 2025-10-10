@@ -90,6 +90,8 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
+	#print(InputMap.action_get_events("LeftPunch2")[0].as_text())
+	
 	if Input.is_action_just_pressed("Fullscreen") and !fuckYou3:
 		Options.fullScreenCheck.button_pressed = true
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN) 

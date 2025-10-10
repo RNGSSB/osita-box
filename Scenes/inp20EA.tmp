@@ -22,9 +22,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -425.0
+offset_left = -281.0
 offset_top = -324.0
-offset_right = 425.0
+offset_right = 281.0
 offset_bottom = 324.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -47,7 +47,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="Action" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Action"
@@ -55,7 +55,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button 1" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Button 1"
@@ -63,7 +63,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button 2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Button 2"
@@ -71,7 +71,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Key 1" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Key 1"
@@ -79,7 +79,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Key 2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Key 2"
@@ -93,70 +93,70 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Up" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Up"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Down" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Down"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Left" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Left"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Right" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Right"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Left Punch" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Left Punch"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Right Punch" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Right Punch"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Super Punch" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Super Punch"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Pause" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Pause"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Accept" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Accept"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Cancel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Cancel"
 horizontal_alignment = 1
@@ -166,282 +166,282 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="Up" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "Up"
 
 [node name="Down" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "Down"
 
 [node name="Left" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "Left"
 
 [node name="Right" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "Right"
 
 [node name="LeftPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "LeftPunch"
 
 [node name="RightPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "RightPunch"
 
 [node name="SuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "SuperPunch"
 
 [node name="Pause" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "Start"
 
 [node name="Accept" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "Accept"
+action = "ui_accept"
 
 [node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "Cancel"
+action = "ui_cancel"
 
 [node name="Controller2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
 [node name="Up2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "Up2"
 index = 1
 
 [node name="Down2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "Down2"
 index = 1
 
 [node name="Left2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "Left2"
 index = 1
 
 [node name="Right2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "Right2"
 index = 1
 
 [node name="LeftPunch2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "LeftPunch2"
 index = 1
 
 [node name="RightPunch2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "RightPunch2"
 index = 1
 
 [node name="SuperPunch2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "SuperPunch2"
 index = 1
 
 [node name="Pause2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
 action = "Start2"
 index = 1
 
 [node name="Accept2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "Accept2"
+action = "ui_accept"
 index = 1
 
 [node name="Cancel2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "Cancel2"
+action = "ui_cancel"
 index = 1
 
 [node name="Keyboard" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
 [node name="UpKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "UpKey"
 index = 0
 
 [node name="DownKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "DownKey"
 index = 0
 
 [node name="LeftKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "LeftKey"
 index = 0
 
 [node name="RightKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "RightKey"
 index = 0
 
 [node name="LeftPunchKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "LeftPunchKey"
 index = 0
 
 [node name="RightPunchKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "RightPunchKey"
 index = 0
 
 [node name="SuperPunchKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "SuperPunchKey"
 index = 0
 
 [node name="PauseKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "StartKey"
 index = 0
 
 [node name="AcceptKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "AcceptKey"
+action = "ui_accept"
 index = 0
 
 [node name="CancelKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "CancelKey"
+action = "ui_cancel"
 index = 0
 
 [node name="Keyboard2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
 [node name="UpKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "UpKey2"
 index = 1
 
 [node name="DownKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "DownKey2"
 index = 1
 
 [node name="LeftKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "LeftKey2"
 index = 1
 
 [node name="RightKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "RightKey2"
 index = 1
 
 [node name="LeftPunchKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "LeftPunchKey2"
 index = 1
 
 [node name="RightPunchKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "RightPunchKey2"
 index = 1
 
 [node name="SuperPunchKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "SuperPunchKey2"
 index = 1
 
 [node name="PauseKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
 action = "StartKey2"
 index = 1
 
 [node name="AcceptKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "AcceptKey2"
+action = "ui_accept"
 index = 1
 
 [node name="CancelKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
-custom_minimum_size = Vector2(150, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "CancelKey2"
+action = "ui_cancel"
 index = 1
 
 [node name="Reset" type="Button" parent="PanelContainer/VBoxContainer"]
@@ -451,12 +451,6 @@ text = "Reset"
 [node name="Save" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Save and Return"
-
-[node name="HeyYa" type="Label" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "Press BACKSPACE or Select to delete selected bind"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Up" to="." method="_on_up_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Down" to="." method="_on_down_mouse_entered"]

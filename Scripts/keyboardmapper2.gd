@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const keymaps_path = "user://keyboardmaps.dat"
+const keymaps_path = "user://keyboardmaps2.dat"
 var keymaps: Dictionary
 
 # Called when the node enters the scene tree for the first time.
@@ -34,7 +34,6 @@ func load_keymap():
 			keymaps[action] = temp_keymap[action]
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, keymaps[action])
-	
 
 func save_keymap():
 	var file = FileAccess.open(keymaps_path, FileAccess.WRITE)

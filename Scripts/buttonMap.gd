@@ -1,7 +1,6 @@
 extends Button
 
 @export var action : String
-@onready var input_mapper = $".."
 @export var index = 0
 var canPressSelf = true
 
@@ -31,11 +30,11 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("DeleteInput") and canPressSelf:
 			print(name + " deleted!!!")
 			InputMap.action_erase_events(action)
-			input_mapper.keymaps[action] = null
+			owner.keymaps[action] = null
 			button_pressed = false
 			grab_focus()
 			update_text()
-			input_mapper.save_keymap()
+			owner.save_keymap()
 			owner.waitagoddamnsecond = 3
 			owner.canPress = false
 			canPressSelf = false
@@ -59,8 +58,8 @@ func _unhandled_input(event):
 			button_pressed = false
 			grab_focus()
 			update_text()
-			input_mapper.keymaps[action] = event
-			input_mapper.save_keymap()
+			owner.keymaps[action] = event
+			owner.save_keymap()
 			owner.waitagoddamnsecond = 3
 			owner.canPress = false
 			canPressSelf = false
@@ -92,6 +91,27 @@ func update_text():
 				text = "Start"
 			_:
 				text = InputMap.action_get_events(action)[0].as_text()
+		if InputMap.action_get_events(action)[0] is InputEventJoypadMotion:
+			if InputMap.action_get_events(action)[0].axis == 1 and InputMap.action_get_events(action)[0].axis_value > 0:
+				text = "L-Stick Down"
+			elif InputMap.action_get_events(action)[0].axis == 1 and InputMap.action_get_events(action)[0].axis_value < 0:
+				text = "L-Stick Up"
+			elif InputMap.action_get_events(action)[0].axis == 0 and InputMap.action_get_events(action)[0].axis_value > 0:
+				text = "L-Stick Right"
+			elif InputMap.action_get_events(action)[0].axis == 0 and InputMap.action_get_events(action)[0].axis_value < 0:
+				text = "L-Stick Left"
+			elif InputMap.action_get_events(action)[0].axis == 2 and InputMap.action_get_events(action)[0].axis_value > 0:
+				text = "R-Stick Right"
+			elif  InputMap.action_get_events(action)[0].axis == 2 and InputMap.action_get_events(action)[0].axis_value < 0:
+				text = "R-Stick Left"
+			elif InputMap.action_get_events(action)[0].axis == 3 and InputMap.action_get_events(action)[0].axis_value > 0:
+				text = "R-Stick Down"
+			elif InputMap.action_get_events(action)[0].axis == 3 and InputMap.action_get_events(action)[0].axis_value < 0:
+				text = "R-Stick Up"
+			elif InputMap.action_get_events(action)[0].axis == 4 and InputMap.action_get_events(action)[0].axis_value > 0:
+				text = "LT"
+			elif InputMap.action_get_events(action)[0].axis == 5 and InputMap.action_get_events(action)[0].axis_value > 0:
+				text = "RT"
 		#print(text)
 	else:
 		text = "None"

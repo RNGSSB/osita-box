@@ -3,6 +3,8 @@ extends CanvasLayer
 
 @export var controller : VBoxContainer
 @export var keyboard : VBoxContainer
+@export var controller2 : VBoxContainer
+@export var keyboard2 : VBoxContainer
 
 @onready var controllerUp = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/Up
 @onready var controllerDown = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/Down
@@ -50,6 +52,7 @@ extends CanvasLayer
 
 @onready var resetButton = $PanelContainer/VBoxContainer/Reset
 @onready var saveButton = $PanelContainer/VBoxContainer/Save
+@onready var helpLabel = $PanelContainer/VBoxContainer/HeyYa
 
 var focusX = 0
 var focusY = 0
@@ -61,9 +64,71 @@ var canPress = false
 var setting = false
 var waitagoddamnsecond = 0
 
+const keymaps_path = "user://inputmaps.dat"
+var keymaps: Dictionary
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	visible = false
+	for action in InputMap.get_actions():
+		if InputMap.action_get_events(action).size() != 0:
+			keymaps[action] = InputMap.action_get_events(action)[0]
+		else:
+			keymaps[action] = null
+	load_keymap()
+	updateTextPlease()
+
+func updateTextPlease():
+	for n in controller.get_children():
+		n.update_text()
+	for n in controller2.get_children():
+		n.update_text()
+	for n in keyboard.get_children():
+		n.update_text()
+	for n in keyboard2.get_children():
+		n.update_text()
+
+func reloadBind():
+	for action in InputMap.get_actions():
+		if InputMap.action_get_events(action).size() != 0:
+			keymaps[action] = InputMap.action_get_events(action)[0]
+	save_keymap()
+	updateTextPlease()
+
+func load_keymap():
+	print("HELP")
+	if not FileAccess.file_exists(keymaps_path):
+		save_keymap()
+		return
+	var file = FileAccess.open(keymaps_path, FileAccess.READ)
+	var temp_keymap = file.get_var(true) as Dictionary
+	file.close()
+	
+	for action in keymaps.keys():
+		if temp_keymap.has(action):
+			keymaps[action] = temp_keymap[action]
+			InputMap.action_erase_events(action)
+			InputMap.action_add_event(action, keymaps[action])
+			print(str(action) + " " + str(keymaps[action]))
+	acceptCancelHack()
+
+func save_keymap():
+	var file = FileAccess.open(keymaps_path, FileAccess.WRITE)
+	file.store_var(keymaps, true)
+	file.close()
+	acceptCancelHack()
+
+func acceptCancelHack():
+	InputMap.action_erase_events("ui_accept")
+	InputMap.action_add_event("ui_accept", keymaps["Accept"])
+	InputMap.action_add_event("ui_accept", keymaps["Accept2"])
+	InputMap.action_add_event("ui_accept", keymaps["AcceptKey"])
+	InputMap.action_add_event("ui_accept", keymaps["AcceptKey2"])
+	InputMap.action_erase_events("ui_cancel")
+	InputMap.action_add_event("ui_cancel", keymaps["Cancel"])
+	InputMap.action_add_event("ui_cancel", keymaps["Cancel2"])
+	InputMap.action_add_event("ui_cancel", keymaps["CancelKey"])
+	InputMap.action_add_event("ui_cancel", keymaps["CancelKey2"])
 
 func _physics_process(delta):
 	if waitagoddamnsecond > 0:
@@ -72,11 +137,61 @@ func _physics_process(delta):
 	if waitagoddamnsecond == 0:
 		canPress = true
 
+func disableButtons():
+	if setting:
+		#print("Loner with a claustrophobic mind")
+		for n in controller.get_children():
+			if !n.button_pressed:
+				n.disabled = true
+				n.focus_mode = 0
+		for n in controller2.get_children():
+			if !n.button_pressed:
+				n.disabled = true
+				n.focus_mode = 0
+		for n in keyboard.get_children():
+			if !n.button_pressed:
+				n.disabled = true
+				n.focus_mode = 0
+		for n in keyboard2.get_children():
+			if !n.button_pressed:
+				n.disabled = true
+				n.focus_mode = 0
+		saveButton.disabled = true
+		saveButton.focus_mode = 0
+		resetButton.disabled = true
+		resetButton.focus_mode = 0
+		helpLabel.text = "Press BACKSPACE or Select to cancel"
+	else:
+		if canPress:
+			for n in controller.get_children():
+				n.disabled = false
+				n.focus_mode = 2
+			for n in controller2.get_children():
+				n.disabled = false
+				n.focus_mode = 2
+			for n in keyboard.get_children():
+				n.disabled = false
+				n.focus_mode = 2
+			for n in keyboard2.get_children():
+				n.disabled = false
+				n.focus_mode = 2
+			saveButton.disabled = false
+			saveButton.focus_mode = 2
+			resetButton.disabled = false
+			resetButton.focus_mode = 2
+			helpLabel.text = "Press BACKSPACE or Select to delete selected bind"
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if visible:
+		disableButtons()
+	
 	if visible and !setting and canPress:
 		if Gamemanager.checkInputJustPressed("Start"):
+			visible = false
+		
+		if Gamemanager.checkInputJustPressed("ui_cancel"):
 			visible = false
 		
 		#print(setting)
@@ -254,8 +369,7 @@ func _process(delta):
 
 func _on_reset_pressed():
 	InputMap.load_from_project_settings()
-	controller.reloadBind()
-	keyboard.reloadBind()
+	reloadBind()
 
 
 func _on_save_pressed():
@@ -545,12 +659,12 @@ func _on_cancel_key_2_mouse_entered():
 
 
 func _on_reset_mouse_entered():
-	if !setting:
+	if !setting and !resetButton.has_focus():
 		selectY = 10
 		resetButton.grab_focus()
 
 
 func _on_save_mouse_entered():
-	if !setting:
+	if !setting and !saveButton.has_focus():
 		selectY = 11
 		saveButton.grab_focus()
