@@ -18,6 +18,7 @@ func Enter():
 	owner.blockUpLeft = false
 	owner.blockUpRight = false
 	owner.guardAll = false
+	#owner.moveCamera(0.5, 105)
 
 func Update(_delta: float):
 	pass
@@ -36,6 +37,7 @@ func Physics_Update(delta: float):
 		owner.setFrame(4) #2
 	if owner.cFrame(13):
 		owner.setFrame(5) #2
+		owner.moveCamera(0.2, 105)
 	if owner.cFrame(15):
 		owner.setFrame(6) #2
 	if owner.cFrame(17):

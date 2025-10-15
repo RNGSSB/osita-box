@@ -14,6 +14,7 @@ func Enter():
 	owner.setFrame(0)
 	AudioManager.Play("Escape", "Right", 1.0, 1.0)
 	owner.makerHerVisible = true
+	owner.moveCamera(0.2, 105)
 	owner.flip_h = true
 	owner.dodgeRight = true
 	owner.dodgeDown = false
@@ -60,6 +61,7 @@ func Physics_Update(delta: float):
 	if owner.cFrame(17):
 		owner.setFrame(15) #1
 	if owner.cFrame(18):
+		owner.moveCamera(0.2, 0)
 		owner.setFrame(16) #3
 	if owner.cFrame(20):
 		if owner.dodgeSuccess:

@@ -18,7 +18,7 @@ func _physics_process(delta):
 		disabled = false
 	
 	if button_pressed:
-		if Input.is_action_just_pressed("DeleteInput"):
+		if Gamemanager.checkInputJustPressed("DeleteInput"):
 			print(name + " cancelled!!!")
 			owner.setting = false
 			update_text()
@@ -27,7 +27,7 @@ func _physics_process(delta):
 			owner.canPress = false
 			button_pressed = false
 	if !button_pressed and has_focus():
-		if Input.is_action_just_pressed("DeleteInput") and canPressSelf:
+		if Gamemanager.checkInputJustPressed("DeleteInput") and canPressSelf:
 			print(name + " deleted!!!")
 			InputMap.action_erase_events(action)
 			owner.keymaps[action] = null
@@ -52,7 +52,7 @@ func _toggled(button_pressed):
 
 func _unhandled_input(event):
 	if event.is_pressed():
-		if event is InputEventJoypadButton and event.button_index != 7 and event.button_index != 8 or event is InputEventJoypadMotion:
+		if event is InputEventJoypadButton and event.button_index != 7 and event.button_index != 4 and event.button_index != 8 or event is InputEventJoypadMotion:
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, event)
 			button_pressed = false

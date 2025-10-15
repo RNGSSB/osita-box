@@ -11,6 +11,10 @@ var prevHitStop = 0
 var cameraZoom = 1.0
 
 var cameraTilt = 0.0
+var cameraTiltMax = 0.0
+
+var cameraTiltY = 0.0
+var cameraTiltMaxY = 0.0
 
 #@onready var player = $GameElements/Player
 #@onready var enemy = $GameElements/Enemy
@@ -104,18 +108,21 @@ func _process(delta):
 		if Gamemanager.checkInputJustPressed("Start") and !fuckYou2:
 			pauseUI.resumeButton.grab_focus()
 			isPaused = true
+			frozen = true
 		
 		if Gamemanager.checkInputJustReleased("Start") and isPaused:
 			fuckYou2 = true
 		
 		if Gamemanager.checkInputJustPressed("Start") and fuckYou2 and !InputMapper.setting:
 			pauseUI.select = 0
+			if frameAdvance:
+				frozen = true
+			else:
+				frozen = false
 			isPaused = false
 			fuckYou2 = false
 	
 	pauseUI.visible = isPaused
-	
-	frozen = isPaused
 	
 	if !pauseUI.visible and Options.visible:
 		Options.visible = false
@@ -196,62 +203,78 @@ func cameraShenanigans():
 		if cameraZoom < 1.0:
 			cameraZoom = 1.0
 	
-	if enemy.CURRSTATE == "Dead" and hitStop > 0:
-		if cameraTilt < 70:
-			cameraTilt += 35
+	#print(camera.position.x)
+	
+	#print(str(camera.position.x) + " PlayerStateFrame: " + str(player.stateFrame))
+	
+	camera.position.x = lerp(camera.position.x, float(cameraTiltMax), cameraTilt)
+	
+	camera.position.y = lerp(camera.position.y, float(cameraTiltMaxY), cameraTiltY)
+	
+	#if enemy.CURRSTATE == "Dead" and hitStop > 0:
+	#	if cameraTilt < 70:
+	#		cameraTilt += 35
 		
-		if cameraTilt > 70:
-			cameraTilt = 70
+	#	if cameraTilt > 70:
+	#		cameraTilt = 70
 	
-	if enemy.CURRSTATE == "Dead" and enemy.stateFrame >= 11:
-		if cameraTilt < 105:
-			cameraTilt += 20
-		
-		if cameraTilt > 105:
-			cameraTilt = 105
+	#if enemy.CURRSTATE == "Dead" and enemy.stateFrame >= 11:
+	#	if cameraTilt < 105:
+	#		cameraTilt += 20
+	#	
+	#	if cameraTilt > 105:
+	#		cameraTilt = 105
 	
-	if player.CURRSTATE == "DodgeLeft" and player.stateFrame <= 11:
-		if cameraTilt > -105:
-			cameraTilt -= 20
-		
-		if cameraTilt < -105:
-			cameraTilt = -105
+	#if player.CURRSTATE == "DodgeLeft" and player.stateFrame <= 11:
+	#	if cameraTilt > -105:
+	#		cameraTilt -= 20
+	#	
+	#	if cameraTilt < -105:
+	#		cameraTilt = -105
 	
-	if player.CURRSTATE == "DodgeLeft" and player.stateFrame > 16:
-		if cameraTilt >= -105:
-			cameraTilt += 10
-		
-		if cameraTilt > 0:
-			cameraTilt = 0
+	#if player.CURRSTATE == "DodgeLeft" and player.stateFrame > 16:
+	#	if cameraTilt >= -105:
+	#		cameraTilt += 10
+	#	
+	#	if cameraTilt > 0:
+	#		cameraTilt = 0
 	
-	if player.CURRSTATE == "DodgeRight" and player.stateFrame <= 13:
-		if cameraTilt < 105:
-			cameraTilt += 20
-		
-		if cameraTilt > 105:
-			cameraTilt = 105
+	#if player.CURRSTATE == "DodgeRight" and player.stateFrame <= 13:
+	#	if cameraTilt < 105:
+	#		cameraTilt += 20
+	#	
+	#	if cameraTilt > 105:
+	#		cameraTilt = 105
 	
-	if player.CURRSTATE == "DodgeRight" and player.stateFrame > 16:
-		if cameraTilt <= 105:
-			cameraTilt -= 10
-		
-		if cameraTilt < 0:
-			cameraTilt = 0
+	#if player.CURRSTATE == "DodgeRight" and player.stateFrame > 16:
+	#	if cameraTilt <= 105:
+	#		cameraTilt -= 10
+	#	
+	#	if cameraTilt < 0:
+	#		cameraTilt = 0
 	
 	
-	if player.CURRSTATE != "DodgeLeft" and player.CURRSTATE != "DodgeRight" and enemy.CURRSTATE != "Dead":
-		if cameraTilt > 0:
-			cameraTilt -= 10
-			if cameraTilt < 0:
-				cameraTilt = 0
-		if cameraTilt < 0:
-			cameraTilt += 10
-			if cameraTilt > 0:
-				cameraTilt = 0
+	#if player.CURRSTATE != "DodgeLeft" and player.CURRSTATE != "DodgeRight" and enemy.CURRSTATE != "Dead":
+	#	if cameraTilt > 0:
+	#		cameraTilt -= 10
+	#		if cameraTilt < 0:
+	#			cameraTilt = 0
+	#	if cameraTilt < 0:
+	#		cameraTilt += 10
+	#		if cameraTilt > 0:
+	#			cameraTilt = 0
 	
-	camera.position.x = cameraTilt
+	#camera.position.x = cameraTilt
 	
 	zoomAdjust(cameraZoom)
+
+func moveCamera(rate, towards):
+	cameraTilt = rate
+	cameraTiltMax = towards
+
+func moveCameraY(rate, towards):
+	cameraTiltY = rate
+	cameraTiltMaxY = towards
 
 func playerUpdateHealth(value):
 	if player.inBurnout:
@@ -402,12 +425,14 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("Freeze") and !fuckYou:
 			player.frozen = true
 			enemy.frozen = true 
+			frozen = true
 			frameAdvance = true
 		
 		if Input.is_action_just_pressed("Freeze") and fuckYou:
 			player.frozen = false
 			enemy.frozen = false
 			frameAdvance = false
+			frozen = false
 			fuckYou = false
 		
 		if Input.is_action_just_released("Freeze") and !fuckYou and frameAdvance:
@@ -419,10 +444,11 @@ func _physics_process(delta):
 					advanceFrame(delta)
 			else:
 				if Input.is_action_just_pressed("FrameAdvance"):
-					hitStop -= 1
-					#hitStopShake()
 					meterHandle()
 					cameraShenanigans()
+					camera.cameraShake(delta)
+					hitStop -= 1
+					#hitStopShake()
 		else:
 			cameraShenanigans()
 			meterHandle()

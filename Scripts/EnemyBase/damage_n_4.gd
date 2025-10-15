@@ -13,6 +13,8 @@ func Enter():
 	owner.guardAll = true
 	owner.damaged = true
 	owner.stunned = false
+	if owner.health <= 0:
+		owner.moveCamera(1, 60)
 	if owner.flipDamageLw:
 		owner.flip_h = false
 		if owner.playerPunch == 0:

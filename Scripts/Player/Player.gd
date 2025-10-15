@@ -138,7 +138,12 @@ func setColor(value1, value2, value3):
 	R = value1 
 	G = value2
 	B = value3
-	
+
+func moveCamera(rate, towards):
+	owner.moveCamera(rate, towards)
+
+func moveCameraY(rate, towards):
+	owner.moveCameraY(rate, towards)
 
 func _process(delta):
 	

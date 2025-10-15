@@ -3,6 +3,7 @@ extends State
 
 func Exit():
 	owner.ctrl = 1
+	owner.moveCamera(0.2, 0)
 	owner.dodgeSuccess = false
 	owner.perfectDodge = false
 	owner.dodgeLeft = false
@@ -13,6 +14,7 @@ func Enter():
 	owner.spriteOffsets(7,3,6)
 	owner.setFrame(0)
 	owner.makerHerVisible = true
+	owner.moveCamera(0.2, -105)
 	AudioManager.Play("Escape", "Left", 1.0, 1.0)
 	owner.flip_h = false
 	owner.dodgeRight = false
@@ -26,6 +28,7 @@ func Update(_delta: float):
 func Physics_Update(delta: float):
 	if owner.cFrame(1):
 		owner.makerHerVisible = true
+		owner.moveCamera(0.2, -105)
 		owner.setFrame(0)
 	if owner.cFrame(2):
 		owner.setFrame(1)
@@ -61,6 +64,7 @@ func Physics_Update(delta: float):
 		owner.setFrame(15) #1
 	if owner.cFrame(18):
 		owner.setFrame(16) #3
+		owner.moveCamera(0.2, 0)
 	if owner.cFrame(20):
 		if owner.dodgeSuccess:
 			owner.ctrl = 1

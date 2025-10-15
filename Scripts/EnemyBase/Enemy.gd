@@ -121,6 +121,12 @@ func cFrame(value):
 func setFrame(value):
 	frame = value
 
+func moveCamera(rate, towards):
+	owner.moveCamera(rate, towards)
+
+func moveCameraY(rate, towards):
+	owner.moveCameraY(rate, towards)
+
 func enemyHeal(value, rate):
 	healing = true
 	owner.enemyHealing = health + value
