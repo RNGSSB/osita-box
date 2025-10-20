@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dnpfg14nxbxll"]
 
-[ext_resource type="Script" path="res://Scripts/input_mapper.gd" id="1_27ajb"]
-[ext_resource type="Script" path="res://Scripts/buttonMap.gd" id="3_encuj"]
-[ext_resource type="Script" path="res://Scripts/keyMap.gd" id="5_bphcu"]
+[ext_resource type="Script" uid="uid://qpbc5osepkwr" path="res://Scripts/input_mapper.gd" id="1_27ajb"]
+[ext_resource type="Script" uid="uid://r8hwu4s3t64y" path="res://Scripts/buttonMap.gd" id="3_encuj"]
+[ext_resource type="Script" uid="uid://c7avlpn3ismcv" path="res://Scripts/keyMap.gd" id="5_bphcu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdlqu"]
 bg_color = Color(0.20871, 0.20871, 0.20871, 1)

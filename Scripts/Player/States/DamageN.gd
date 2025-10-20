@@ -9,47 +9,20 @@ func Exit():
 
 func Enter():
 	owner.ctrl = 0
+	owner.animSys.animPlay("DamageN")
 	owner.dodgeRight = false
 	owner.dodgeLeft = false
 	owner.dodgeDown = false
 	owner.setColor(255,164,150)
 	owner.makerHerVisible = true
-	owner.spriteOffsets(7,2,9)
-	owner.setFrame(0)
 
 func Update(_delta: float):
 	pass
 
 func Physics_Update(delta: float):
-	if owner.cFrame(1):
-		owner.setFrame(0) #2
-	if owner.cFrame(3):
-		owner.setFrame(1) #3
-	if owner.cFrame(7):
-		owner.setFrame(2) #3
-	if owner.cFrame(10):
-		owner.setFrame(3) #5
-	if owner.cFrame(15):
-		owner.setFrame(4) #5
-	if owner.cFrame(20):
-		owner.setFrame(5) #5
 	if owner.cFrame(25):
 		owner.setColor(255,255,255)
-		owner.setFrame(6) #4
-	if owner.cFrame(29):
-		owner.setFrame(7) #4
-	if owner.cFrame(33):
-		owner.setFrame(8) #2
-	if owner.cFrame(35):
-		owner.setFrame(9) #2 
-	if owner.cFrame(37):
-		owner.setFrame(10) #2
 	if owner.cFrame(39):
 		owner.makerHerVisible = false
-		owner.setFrame(11) #2
-	if owner.cFrame(41):
-		owner.setFrame(12) #2
-	if owner.cFrame(43):
-		owner.setFrame(13) #2
-	if owner.cFrame(45):
+	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")

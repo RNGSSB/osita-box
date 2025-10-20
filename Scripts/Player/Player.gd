@@ -1,5 +1,7 @@
 extends Sprite2D
+
 @onready var stateMachine = $StateMachine
+@export var animSys : Node
 @onready var debugInfoPlayer = $DebugUI/Player1Side
 @onready var debugInfoPlayer3 = $DebugUI/Player1Side2
 @onready var debugInfoPlayer2 = $DebugUI/Player2Side
@@ -149,7 +151,6 @@ func _process(delta):
 	
 	inputX = Gamemanager.checkInputAxis("Left", "Right")
 	inputY = Gamemanager.checkInputAxis("Down", "Up")
-	
 	
 	#print(inputY)
 	gameManager = owner
@@ -387,7 +388,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 
 func debugUI():
 	fpsCounter.text = "FPS: " + str(Engine.get_frames_per_second())
-	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "frameAdvance: " + str(owner.frameAdvance) + "\n" + "animFrame: " + str(frame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "PrevFrame: " + str(prevStateFrame) + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter) + "\n" + "BurnoutTime: " + str(burnoutTimer)
+	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "currentFrame: " + str(frame) + "\n" + "animWait: " + str(animSys.animWait) + "\n" + "animFrame: " + str(animSys.animFrame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter) + "\n" + "BurnoutTime: " + str(burnoutTimer)
 	debugInfoPlayer2.text = "Frame: " + str(frameCounter) + "\n" + "State: " + owner.enemy.CURRSTATE + "\n" + "StateFrame: " + str(owner.enemy.stateFrame) + "\n" + "animFrame: " + str(owner.enemy.frame) + "\n" + "PrevState: " + str(owner.enemy.PREVSTATE) + "\n" + "PrevFrame: " + str(owner.enemy.prevStateFrame) + "\n" + "Stunned: " + str(owner.enemy.stunned) + "\n" + "HitCount: " + str(owner.enemy.hitCount) + "\n" + "MaxHitCount: " + str(owner.enemy.maxHitCount) + "\n" + "Health: " + str(owner.enemy.health) + "\n" + "aiActive: " + str(owner.enemy.aiActive) + "\n" + "attackPhase: " + str(owner.enemy.brain.attackPhase) + "\n" + "waitTimer: " + str(owner.enemy.brain.waitTimer) + "\n" + "nextMove: " + str(owner.enemy.brain.nextMove) + "\n" + "epicCombo: " + str(epicCombo)  
 	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.cameraZoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superBarValue: " + str(owner.playerSuper.value) + "\n" + "inBurnout: " + str(inBurnout) + "\n" + "GameState: " + owner.CURRSTATE
 

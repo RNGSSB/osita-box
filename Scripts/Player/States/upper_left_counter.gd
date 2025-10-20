@@ -8,9 +8,8 @@ func Exit():
 	owner.makerHerVisible = false
 
 func Enter():
-	owner.spriteOffsets(7,2,5)
 	owner.ctrl = 0
-	owner.setFrame(4)
+	owner.animSys.animPlay("PunchHighCounter")
 	owner.punchOpponent(2, owner.counterDamage, owner.counterMeterGain, true, "Left", "Damage4", 1.0, 1.35, 
 	"DamageHi4", true, 3.0, 3.0, "HITCOUNTER", 150, -240, 3.0, 3.0)
 	owner.makerHerVisible = true
@@ -26,20 +25,7 @@ func Update(_delta: float):
 			owner.bufferUp = true
 
 func Physics_Update(delta: float):
-	if owner.cFrame(1):
-		owner.setFrame(4)
-	if owner.cFrame(6):
-		owner.setFrame(5)
-	if owner.cFrame(7):
-		owner.setFrame(6)
-	if owner.cFrame(8):
-		owner.setFrame(7)
 	if owner.cFrame(11):
 		owner.ctrl = 1
-		owner.setFrame(8)
-	if owner.cFrame(17):
-		owner.setFrame(9)
-	if owner.cFrame(22):
-		owner.setFrame(10)
-	if owner.cFrame(28):
+	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")

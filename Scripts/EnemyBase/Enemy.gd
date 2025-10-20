@@ -156,11 +156,11 @@ effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, animOverride
 	Gamemanager.createEffects(effectName, scaleX, scaleY, posX, posY)
 	if animOverride == "no":
 		enemyRef.stateMachine.change_state2(damageState)
-		enemyRef.position.x = playerX
+		#enemyRef.position.x = playerX
 	else:
 		enemyRef.stateMachine.change_state2(animOverride)
 		enemyRef.flip_h = dirOverride
-		enemyRef.position.x = posOverride
+		#enemyRef.position.x = posOverride
 
 func punchDodgeFunc(audioBus, combo = 3, comboPerfect = 5):
 	enemyRef = owner.player

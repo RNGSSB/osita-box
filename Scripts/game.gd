@@ -162,6 +162,9 @@ func advanceFrame(delta):
 	player.sheVisibleNow()
 	player.stateMachine.current_state.Update(delta)
 	player.stateMachine.current_state.Physics_Update(delta)
+	player.animSys.animationProcess()
+	if player.stateFrame == 1:
+		player.animSys.animFrame = 1
 	enemy.stateMachine.current_state.Update(delta)
 	enemy.stateMachine.current_state.Physics_Update(delta)
 
@@ -424,12 +427,14 @@ func _physics_process(delta):
 		
 		if Input.is_action_just_pressed("Freeze") and !fuckYou:
 			player.frozen = true
+			player.animSys.frozen = true
 			enemy.frozen = true 
 			frozen = true
 			frameAdvance = true
 		
 		if Input.is_action_just_pressed("Freeze") and fuckYou:
 			player.frozen = false
+			player.animSys.frozen = false
 			enemy.frozen = false
 			frameAdvance = false
 			frozen = false
@@ -467,11 +472,13 @@ func _physics_process(delta):
 		if hitStop > 0:
 			if !frameAdvance:
 				player.frozen = true
+				player.animSys.frozen = true
 				enemy.frozen = true
 				hitStop -= 1
 		else:
 			if !frameAdvance:
 				player.frozen = false
+				player.animSys.frozen = false
 				enemy.frozen = false
 
 

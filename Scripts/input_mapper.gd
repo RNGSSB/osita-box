@@ -96,7 +96,6 @@ func reloadBind():
 	updateTextPlease()
 
 func load_keymap():
-	print("HELP")
 	if not FileAccess.file_exists(keymaps_path):
 		save_keymap()
 		return
@@ -109,7 +108,6 @@ func load_keymap():
 			keymaps[action] = temp_keymap[action]
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, keymaps[action])
-			print(str(action) + " " + str(keymaps[action]))
 	acceptCancelHack()
 
 func save_keymap():

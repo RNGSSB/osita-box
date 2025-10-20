@@ -8,9 +8,8 @@ func Exit():
 	owner.makerHerVisible = false
 
 func Enter():
-	owner.spriteOffsets(7,2,10)
+	owner.animSys.animPlay("Block")
 	owner.isBlocking = true
-	owner.setFrame(0)
 	owner.makerHerVisible = true
 	owner.bufferDodgeHI = false
 	idleLoop = 0
@@ -20,41 +19,15 @@ func Update(_delta: float):
 
 func Physics_Update(delta: float):
 	if Gamemanager.checkInputHold("Up") and owner.isBlocking:
-		idleLoop += 1
-		
-		if idleLoop == 0:
-			owner.setFrame(0)
-		if idleLoop == 8:
-			owner.setFrame(1)
-		if idleLoop == 16:
-			owner.setFrame(2)
-		if idleLoop == 24:
-			owner.setFrame(3)
-		if idleLoop == 32:
-			owner.setFrame(4)
-		
-		if idleLoop == 40:
-			owner.setFrame(0)
-			idleLoop = 0
+		pass
 	
 	if !Gamemanager.checkInputHold("Up") and owner.stateFrame > 10 and owner.isBlocking:
 		idleLoop = 0
-		owner.setFrame(9)
+		owner.animSys.animPlay("BlockEnd")
 		owner.isBlocking = false
 	
 	if !owner.isBlocking:
-		idleLoop += 1
-		
-		if idleLoop == 0:
-			owner.setFrame(9)
-		if idleLoop == 2:
-			owner.setFrame(10)
+		if owner.animSys.onFrame(2):
 			owner.makerHerVisible = false
-		if idleLoop == 4:
-			owner.setFrame(11)
-		if idleLoop == 6:
-			owner.setFrame(12)
-		if idleLoop == 8:
-			owner.setFrame(13)
-		if idleLoop == 10:
+		if owner.animSys.animEnd:
 			Transitioned.emit(self, "wait")
