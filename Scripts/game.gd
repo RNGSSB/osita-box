@@ -78,12 +78,12 @@ func _ready():
 	initHealthBars()
 
 func initFighters():
-	var enemyInstance = Gamemanager.enemyList[Gamemanager.enemyId].instantiate()
+	var enemyInstance = load(Gamemanager.enemyList[Gamemanager.enemyId]).instantiate()
 	get_node("GameElements").add_child(enemyInstance)
 	enemyInstance.owner = self
 	enemy = get_node("GameElements/Enemy")
 	
-	var playerInstance = Gamemanager.players[Gamemanager.playerId].instantiate()
+	var playerInstance = load(Gamemanager.players[Gamemanager.playerId]).instantiate()
 	get_node("GameElements").add_child(playerInstance)
 	playerInstance.owner = self
 	player = get_node("GameElements/Player")
@@ -167,31 +167,9 @@ func advanceFrame(delta):
 		player.animSys.animFrame = 1
 	enemy.stateMachine.current_state.Update(delta)
 	enemy.stateMachine.current_state.Physics_Update(delta)
-
-func rewindFrame(delta):
-	if frameCounter > 1 and player.stateFrame > 1 and enemy.stateFrame > 1:
-		frameCounter -= 1 
-	if !pauseTimer:
-		roundTimer += 1.0
-		secondTimer += 1.0
-	player.frameCounter = frameCounter
-	enemy.frameCounter = frameCounter
-	if player.stateFrame > 1:
-		player.stateFrame -= 1
-	elif player.CURRSTATE != player.PREVSTATE:
-		player.stateMachine.change_state3(player.PREVSTATE)
-		player.PREVSTATE = player.CURRSTATE
-		player.stateFrame = player.prevStateFrame
-	if enemy.stateFrame > 0:
-		enemy.stateFrame -= 1
-	elif enemy.CURRSTATE != enemy.PREVSTATE:
-		enemy.stateMachine.change_state3(enemy.PREVSTATE)
-		enemy.PREVSTATE = enemy.CURRSTATE
-		enemy.stateFrame = enemy.prevStateFrame
-	player.stateMachine.current_state.Update(delta)
-	player.stateMachine.current_state.Physics_Update(delta)
-	enemy.stateMachine.current_state.Update(delta)
-	enemy.stateMachine.current_state.Physics_Update(delta)
+	enemy.animSys.animationProcess()
+	if enemy.stateFrame == 1:
+		enemy.animSys.animFrame = 1
 
 
 func cameraShenanigans():
@@ -206,68 +184,9 @@ func cameraShenanigans():
 		if cameraZoom < 1.0:
 			cameraZoom = 1.0
 	
-	#print(camera.position.x)
-	
-	#print(str(camera.position.x) + " PlayerStateFrame: " + str(player.stateFrame))
-	
 	camera.position.x = lerp(camera.position.x, float(cameraTiltMax), cameraTilt)
 	
 	camera.position.y = lerp(camera.position.y, float(cameraTiltMaxY), cameraTiltY)
-	
-	#if enemy.CURRSTATE == "Dead" and hitStop > 0:
-	#	if cameraTilt < 70:
-	#		cameraTilt += 35
-		
-	#	if cameraTilt > 70:
-	#		cameraTilt = 70
-	
-	#if enemy.CURRSTATE == "Dead" and enemy.stateFrame >= 11:
-	#	if cameraTilt < 105:
-	#		cameraTilt += 20
-	#	
-	#	if cameraTilt > 105:
-	#		cameraTilt = 105
-	
-	#if player.CURRSTATE == "DodgeLeft" and player.stateFrame <= 11:
-	#	if cameraTilt > -105:
-	#		cameraTilt -= 20
-	#	
-	#	if cameraTilt < -105:
-	#		cameraTilt = -105
-	
-	#if player.CURRSTATE == "DodgeLeft" and player.stateFrame > 16:
-	#	if cameraTilt >= -105:
-	#		cameraTilt += 10
-	#	
-	#	if cameraTilt > 0:
-	#		cameraTilt = 0
-	
-	#if player.CURRSTATE == "DodgeRight" and player.stateFrame <= 13:
-	#	if cameraTilt < 105:
-	#		cameraTilt += 20
-	#	
-	#	if cameraTilt > 105:
-	#		cameraTilt = 105
-	
-	#if player.CURRSTATE == "DodgeRight" and player.stateFrame > 16:
-	#	if cameraTilt <= 105:
-	#		cameraTilt -= 10
-	#	
-	#	if cameraTilt < 0:
-	#		cameraTilt = 0
-	
-	
-	#if player.CURRSTATE != "DodgeLeft" and player.CURRSTATE != "DodgeRight" and enemy.CURRSTATE != "Dead":
-	#	if cameraTilt > 0:
-	#		cameraTilt -= 10
-	#		if cameraTilt < 0:
-	#			cameraTilt = 0
-	#	if cameraTilt < 0:
-	#		cameraTilt += 10
-	#		if cameraTilt > 0:
-	#			cameraTilt = 0
-	
-	#camera.position.x = cameraTilt
 	
 	zoomAdjust(cameraZoom)
 
@@ -429,12 +348,14 @@ func _physics_process(delta):
 			player.frozen = true
 			player.animSys.frozen = true
 			enemy.frozen = true 
+			enemy.animSys.frozen = true
 			frozen = true
 			frameAdvance = true
 		
 		if Input.is_action_just_pressed("Freeze") and fuckYou:
 			player.frozen = false
 			player.animSys.frozen = false
+			enemy.animSys.frozen = false
 			enemy.frozen = false
 			frameAdvance = false
 			frozen = false
@@ -474,12 +395,14 @@ func _physics_process(delta):
 				player.frozen = true
 				player.animSys.frozen = true
 				enemy.frozen = true
+				enemy.animSys.frozen = true
 				hitStop -= 1
 		else:
 			if !frameAdvance:
 				player.frozen = false
 				player.animSys.frozen = false
 				enemy.frozen = false
+				enemy.animSys.frozen = false
 
 
 func _on_enemy_timer_timeout():

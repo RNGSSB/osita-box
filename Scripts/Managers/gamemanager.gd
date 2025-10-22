@@ -5,9 +5,9 @@ var effects = preload("res://Scenes/effect.tscn")
 
 var menu = "res://Scenes/menu.tscn"
 
-var players = [preload("res://Scenes/Players/canela.tscn")]
-var enemyList = [preload("res://Scenes/Enemy/cardemomo.tscn"),
-preload("res://Scenes/Enemy/cardemomo2.tscn")]
+var players = ["res://Scenes/Players/canela.tscn"]
+var enemyList = ["res://Scenes/Enemy/cardemomo.tscn",
+"res://Scenes/Enemy/cardemomo2.tscn"]
 
 var playerId = 0
 var enemyId = 0

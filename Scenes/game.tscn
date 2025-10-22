@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b30hbnevlo5r6" path="res://Scenes/pause_ui.tscn" id="2_s8xf7"]
 [ext_resource type="Texture2D" uid="uid://bbj3b40i8h4c0" path="res://Sprites/victory.png" id="3_rvnu7"]
 [ext_resource type="Texture2D" uid="uid://6ma50jnlv543" path="res://Sprites/circle.png" id="4_qgphd"]
-[ext_resource type="Script" uid="uid://c43qgpkicigoq" path="res://Scripts/camera.gd" id="5_ln6xw"]
+[ext_resource type="Script" uid="uid://c43qgpkicigoq" path="res://Scripts/Misc/camera.gd" id="5_ln6xw"]
 [ext_resource type="Script" uid="uid://ckyu2wqkse4qx" path="res://Scripts/State Machine/StateMachine.gd" id="7_d4whq"]
 [ext_resource type="Script" uid="uid://ctebngbd5xb50" path="res://Scripts/Game/intro.gd" id="8_1rhh7"]
 [ext_resource type="Script" uid="uid://ruice7rn3w6k" path="res://Scripts/Game/fight.gd" id="9_xiygw"]

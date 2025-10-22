@@ -17,6 +17,8 @@ var CURRANIM : String = "IDK"
 
 var FSM : float = 1.0
 
+var endFrame = 0
+
 
 
 
@@ -46,6 +48,11 @@ func animPlay(animName):
 		owner.position.x = current_anim.posX * -1
 	else:
 		owner.position.x = current_anim.posX 
+	
+	if current_anim.endFrame <= 1 or current_anim.endFrame > current_anim.frames:
+		endFrame = current_anim.frames - 1
+	else:
+		endFrame = current_anim.endFrame - 1
 
 func calculateAnimLenght():
 	animLenght = 1
@@ -53,7 +60,6 @@ func calculateAnimLenght():
 		animLenght += n
 
 func _physics_process(delta):
-	
 	if !frozen:
 		animationProcess()
 
@@ -70,16 +76,16 @@ func onFrame(value):
 func animationProcess():
 	if current_anim != null or animEnd:
 		if !current_anim.reverse:
-			if owner.frame <= current_anim.frames - 1:
+			if owner.frame <= endFrame:
 				if animWait * FSM > 1:
 					animFrame += 1
 					animWait -= 1
 				else:
-					if owner.frame == current_anim.frames - 1 and !current_anim.loop:
+					if owner.frame == endFrame and !current_anim.loop:
 						animFrame += 1
 						print("2")
 						animEnd = true
-					elif owner.frame == current_anim.frames - 1 and current_anim.loop:
+					elif owner.frame == endFrame and current_anim.loop:
 						owner.frame = current_anim.loopFrame - 1
 						animFrame = 1
 						animWait = current_anim.frameTimes[owner.frame] * FSM

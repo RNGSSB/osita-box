@@ -5,6 +5,7 @@ extends Node
 @export var reverse = false
 @export var spriteSheet : CompressedTexture2D
 @export var initialFrame : int = 1
+@export var endFrame : int = -1
 @export var frames : int = 1
 @export var loopFrame : int = 1
 @export var FAF : int = -1

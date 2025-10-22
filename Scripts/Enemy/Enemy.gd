@@ -4,6 +4,7 @@ var frozen = false
 var CURRSTATE = "Wait"
 var PREVSTATE = "Wait"
 @onready var stateMachine = $StateMachine
+@export var animSys : Node
 
 var charName = "Cardemomo"
 var stateFrame = 0
@@ -25,6 +26,7 @@ var guardAll = false
 var stunned = false
 
 var counterPunch = false
+@export var baseColor = Color8(255,255,255,255)
 var counterColor = Color8(255,164,167,255)
 
 var hitlagPunch = 3
@@ -77,49 +79,16 @@ var flipDamageCounterHi = false
 
 @onready var brain = $Brain
 
-var animSheets = [preload("res://Sprites/Characters/Cardemomo/A00Wait.png"),
-preload("res://Sprites/Characters/Cardemomo/A01GuardLw.png"),
-preload("res://Sprites/Characters/Cardemomo/A02GuardHi.png"),
-preload("res://Sprites/Characters/Cardemomo/A03DamageLw.png"),
-preload("res://Sprites/Characters/Cardemomo/A04DamageLw4.png"),
-preload("res://Sprites/Characters/Cardemomo/A05DizzyLw.png"),
-preload("res://Sprites/Characters/Cardemomo/A06DamageHi.png"),
-preload("res://Sprites/Characters/Cardemomo/A07DamageHi4.png"),
-preload("res://Sprites/Characters/Cardemomo/A08DizzyHi.png"),
-preload("res://Sprites/Characters/Cardemomo/A09Attack1Start.png"),
-preload("res://Sprites/Characters/Cardemomo/A10Attack1Hit.png"),
-preload("res://Sprites/Characters/Cardemomo/A11Attack1Miss.png"),
-preload("res://Sprites/Characters/Cardemomo/A12CardeKick.png"),
-preload("res://Sprites/Characters/Cardemomo/A13DamageLw4Counter.png"),
-preload("res://Sprites/Characters/Cardemomo/A14Attack2Start.png"),
-preload("res://Sprites/Characters/Cardemomo/A15AttackHit.png"),
-preload("res://Sprites/Characters/Cardemomo/A16AttackMiss.png"),
-preload("res://Sprites/Characters/Cardemomo/A17DamageLw4L.png"),
-preload("res://Sprites/Characters/Cardemomo/A18DamageHi4L.png"),
-preload("res://Sprites/Characters/Cardemomo/A19DamageLw4CounterL.png"),
-preload("res://Sprites/Characters/Cardemomo/A20Attack4Start.png"),
-preload("res://Sprites/Characters/Cardemomo/A21Attack4Hit.png"),
-preload("res://Sprites/Characters/Cardemomo/A22Attack4Miss.png"),
-preload("res://Sprites/Characters/Cardemomo/A23Dead.png"),]
-
 func setColor(value1, value2, value3):
 	R = value1 
 	G = value2
 	B = value3
-
-func spriteOffsets(x, y, value):
-	hframes = x
-	vframes = y
-	texture = animSheets[value]
 
 func cFrame(value):
 	if stateFrame == value:
 		return true
 	else:
 		return false
-
-func setFrame(value):
-	frame = value
 
 func moveCamera(rate, towards):
 	owner.moveCamera(rate, towards)
@@ -353,7 +322,7 @@ func _physics_process(delta):
 	if counterPunch:
 		modulate = counterColor
 	else:
-		modulate = Color8(255,255,255,255)
+		modulate = baseColor
 	
 	if Input.is_action_just_pressed("Freeze"):
 		pass

@@ -93,20 +93,6 @@ var R = 255
 var G = 255
 var B = 255
 
-var animSheets = [preload("res://Sprites/Characters/Canela/A00Wait1.png"),
-preload("res://Sprites/Characters/Canela/A01AttackLw.png"),
-preload("res://Sprites/Characters/Canela/A02AttackHi.png"),
-preload("res://Sprites/Characters/Canela/A03AttackLw4.png"),
-preload("res://Sprites/Characters/Canela/A04EscapeN.png"),
-preload("res://Sprites/Characters/Canela/A05AttackHi4.png"),
-preload("res://Sprites/Characters/Canela/A06EscapeS.png"),
-preload("res://Sprites/Characters/Canela/A07DamageS.png"),
-preload("res://Sprites/Characters/Canela/A08AttackSuperLw.png"),
-preload("res://Sprites/Characters/Canela/A09DamageN.png"),
-preload("res://Sprites/Characters/Canela/A10Block.png"),
-preload("res://Sprites/Characters/Canela/A11AttackLwMiss.png"),
-preload("res://Sprites/Characters/Canela/A12AttackHiMiss.png"),]
-
 var ctrl = 1 
 
 const guardMeterLoss = 10
@@ -119,19 +105,11 @@ const counterMeterGain = 20
 const superDamage = 40
 const perfectDodgeMeterGain = 5
 
-func spriteOffsets(x, y, value):
-	hframes = x
-	vframes = y
-	texture = animSheets[value]
-
 func cFrame(value):
 	if stateFrame == value:
 		return true
 	else:
 		return false
-
-func setFrame(value):
-	frame = value
 
 func _ready():
 	health = maxHealth

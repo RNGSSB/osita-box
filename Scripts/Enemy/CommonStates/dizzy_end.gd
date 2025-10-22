@@ -16,9 +16,5 @@ func Update(_delta: float):
 	pass
 
 func Physics_Update(delta: float):
-	if owner.cFrame(1):
-		owner.setFrame(5)
-	if owner.cFrame(8):
-		owner.setFrame(6)
-	if owner.cFrame(12):
+	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")

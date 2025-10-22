@@ -18,7 +18,7 @@ config/icon="res://Sprites/icono2.png"
 [autoload]
 
 AudioManager="*res://Scenes/audio_manager.tscn"
-Gamemanager="*res://Scripts/gamemanager.gd"
+Gamemanager="*res://Scripts/Managers/gamemanager.gd"
 Options="*res://Scenes/options.tscn"
 InputMapper="*res://Scenes/input_mapper.tscn"
 

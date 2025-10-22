@@ -1,37 +1,300 @@
-[gd_scene load_steps=23 format=3 uid="uid://eobepwks4242"]
+[gd_scene load_steps=45 format=3 uid="uid://eobepwks4242"]
 
-[ext_resource type="Script" path="res://Scripts/EnemyBase/Enemy.gd" id="1_d8ljs"]
+[ext_resource type="Script" uid="uid://ccs8cn6x6ojk5" path="res://Scripts/Enemy/Enemy.gd" id="1_d8ljs"]
 [ext_resource type="Texture2D" uid="uid://imdyfpgo15s0" path="res://Sprites/Characters/Cardemomo/A00Wait.png" id="1_krvq6"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/brain.gd" id="3_4dlqf"]
-[ext_resource type="Script" path="res://Scripts/State Machine/StateMachine.gd" id="3_xadju"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/wait.gd" id="4_iw216"]
-[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_n.gd" id="5_jod84"]
-[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_hi.gd" id="6_4ebl4"]
-[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_n_4.gd" id="7_vm35f"]
-[ext_resource type="Script" path="res://Scripts/EnemyBase/damage_hi_4.gd" id="8_5rcjx"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/damage_n_4_counter.gd" id="8_iwnc1"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/attack_1.gd" id="9_0ut8b"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/dizzy_hi.gd" id="10_b64p8"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/dizzy_lw.gd" id="11_s4jw2"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/dizzy_end.gd" id="12_1c0r1"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/attack_2.gd" id="13_nue1q"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/block.gd" id="14_y3m0o"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/block_hi.gd" id="15_5d20b"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/attack_3.gd" id="17_jgx48"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/block_lw_damage.gd" id="19_uinfc"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/block_hi_damage.gd" id="20_yg3kw"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/attack_4.gd" id="21_dno04"]
-[ext_resource type="Script" path="res://Scripts/Cardemomo/dead.gd" id="22_agd4v"]
+[ext_resource type="Script" uid="uid://ie6vgxi6smm1" path="res://Scripts/Enemy/Cardemomo/brain.gd" id="3_4dlqf"]
+[ext_resource type="Script" uid="uid://ckyu2wqkse4qx" path="res://Scripts/State Machine/StateMachine.gd" id="3_xadju"]
+[ext_resource type="Script" uid="uid://dn5hntoj886r0" path="res://Scripts/AnimSys/AnimSys.gd" id="4_e4mki"]
+[ext_resource type="Script" uid="uid://dlw0qoeaol36a" path="res://Scripts/Enemy/CommonStates/wait.gd" id="4_iw216"]
+[ext_resource type="Script" uid="uid://lvfu8ep0al1o" path="res://Scripts/Enemy/CommonStates/damage_n.gd" id="5_jod84"]
+[ext_resource type="Script" uid="uid://dtj8na0fxumeu" path="res://Scripts/AnimSys/anim.gd" id="5_mymh5"]
+[ext_resource type="Script" uid="uid://dnar34i451stk" path="res://Scripts/Enemy/CommonStates/damage_hi.gd" id="6_4ebl4"]
+[ext_resource type="Texture2D" uid="uid://d1wnq2sp2tcwd" path="res://Sprites/Characters/Cardemomo/A03DamageLw.png" id="6_7fwu1"]
+[ext_resource type="Texture2D" uid="uid://c016dmmg1k5wt" path="res://Sprites/Characters/Cardemomo/A07DamageHi4.png" id="6_tugao"]
+[ext_resource type="Texture2D" uid="uid://bok614vx72bdb" path="res://Sprites/Characters/Cardemomo/A17DamageLw4L.png" id="7_7fwu1"]
+[ext_resource type="Texture2D" uid="uid://diitd15qe0d8a" path="res://Sprites/Characters/Cardemomo/A18DamageHi4L.png" id="7_l6kyl"]
+[ext_resource type="Script" uid="uid://cwrstxyodnpey" path="res://Scripts/Enemy/CommonStates/damage_n_4.gd" id="7_vm35f"]
+[ext_resource type="Script" uid="uid://da00ea7yy6wsl" path="res://Scripts/Enemy/CommonStates/damage_hi_4.gd" id="8_5rcjx"]
+[ext_resource type="Script" uid="uid://bqmsrxlpguonw" path="res://Scripts/Enemy/CommonStates/damage_n_4_counter.gd" id="8_iwnc1"]
+[ext_resource type="Texture2D" uid="uid://dfnhgyucjhp82" path="res://Sprites/Characters/Cardemomo/A13DamageLw4Counter.png" id="8_q37go"]
+[ext_resource type="Script" uid="uid://drlv4s3rep60u" path="res://Scripts/Enemy/Cardemomo/States/attack_1.gd" id="9_0ut8b"]
+[ext_resource type="Texture2D" uid="uid://gb0p58istaft" path="res://Sprites/Characters/Cardemomo/A19DamageLw4CounterL.png" id="9_wq2jq"]
+[ext_resource type="Script" uid="uid://cw6qct4nkoy66" path="res://Scripts/Enemy/CommonStates/dizzy_hi.gd" id="10_b64p8"]
+[ext_resource type="Script" uid="uid://c617jww1efng" path="res://Scripts/Enemy/CommonStates/dizzy_lw.gd" id="11_s4jw2"]
+[ext_resource type="Script" uid="uid://besfcfd8k471" path="res://Scripts/Enemy/CommonStates/dizzy_end.gd" id="12_1c0r1"]
+[ext_resource type="Texture2D" uid="uid://codfo3oxe6dnn" path="res://Sprites/Characters/Cardemomo/A05DizzyLw.png" id="12_41qvh"]
+[ext_resource type="Texture2D" uid="uid://xfg074ledum0" path="res://Sprites/Characters/Cardemomo/A08DizzyHi.png" id="13_cp0n4"]
+[ext_resource type="Script" uid="uid://dcrdqffd428s3" path="res://Scripts/Enemy/Cardemomo/States/attack_2.gd" id="13_nue1q"]
+[ext_resource type="Texture2D" uid="uid://bj36fi2yhnr2j" path="res://Sprites/Characters/Cardemomo/A23Dead.png" id="14_fbvtt"]
+[ext_resource type="Script" uid="uid://casim00mgpau0" path="res://Scripts/Enemy/CommonStates/block.gd" id="14_y3m0o"]
+[ext_resource type="Script" uid="uid://8xb0h6o004ig" path="res://Scripts/Enemy/CommonStates/block_hi.gd" id="15_5d20b"]
+[ext_resource type="Texture2D" uid="uid://57bthpkmqdgk" path="res://Sprites/Characters/Cardemomo/A01GuardLw.png" id="15_tjj63"]
+[ext_resource type="Texture2D" uid="uid://bic6sc3q7bmc8" path="res://Sprites/Characters/Cardemomo/A02GuardHi.png" id="16_2syqj"]
+[ext_resource type="Script" uid="uid://dtsqkldv3yw8" path="res://Scripts/Enemy/Cardemomo/States/attack_3.gd" id="17_jgx48"]
+[ext_resource type="Texture2D" uid="uid://7uady8tjsgeu" path="res://Sprites/Characters/Cardemomo/A09Attack1Start.png" id="17_smk4i"]
+[ext_resource type="Texture2D" uid="uid://b3rye7p75bau7" path="res://Sprites/Characters/Cardemomo/A10Attack1Hit.png" id="18_kg3pl"]
+[ext_resource type="Texture2D" uid="uid://dx3xpcboovy88" path="res://Sprites/Characters/Cardemomo/A11Attack1Miss.png" id="19_qc8nk"]
+[ext_resource type="Script" uid="uid://bfqhqeelp8ktx" path="res://Scripts/Enemy/CommonStates/block_lw_damage.gd" id="19_uinfc"]
+[ext_resource type="Texture2D" uid="uid://bsl00cu81cbky" path="res://Sprites/Characters/Cardemomo/A14Attack2Start.png" id="20_5yj8u"]
+[ext_resource type="Script" uid="uid://c2fnjr5m6hm6o" path="res://Scripts/Enemy/CommonStates/block_hi_damage.gd" id="20_yg3kw"]
+[ext_resource type="Script" uid="uid://cbsoaehufkjc2" path="res://Scripts/Enemy/Cardemomo/States/attack_4.gd" id="21_dno04"]
+[ext_resource type="Texture2D" uid="uid://chlrd33uwmd5s" path="res://Sprites/Characters/Cardemomo/A15AttackHit.png" id="21_vg4im"]
+[ext_resource type="Script" uid="uid://bfgl2oga5vcri" path="res://Scripts/Enemy/CommonStates/dead.gd" id="22_agd4v"]
+[ext_resource type="Texture2D" uid="uid://bhsmcs67u12dn" path="res://Sprites/Characters/Cardemomo/A16AttackMiss.png" id="22_bmsvv"]
+[ext_resource type="Texture2D" uid="uid://r4wcxsa628ld" path="res://Sprites/Characters/Cardemomo/A20Attack4Start.png" id="23_ei7hm"]
+[ext_resource type="Texture2D" uid="uid://bigrm8ga1af5u" path="res://Sprites/Characters/Cardemomo/A21Attack4Hit.png" id="24_vpu86"]
+[ext_resource type="Texture2D" uid="uid://dyurjw8n6v0vu" path="res://Sprites/Characters/Cardemomo/A22Attack4Miss.png" id="25_sgbrq"]
 
-[node name="Enemy" type="Sprite2D"]
+[node name="Enemy" type="Sprite2D" node_paths=PackedStringArray("animSys")]
 process_mode = 1
 texture_filter = 1
 texture = ExtResource("1_krvq6")
 hframes = 7
 script = ExtResource("1_d8ljs")
+animSys = NodePath("AnimSys")
 
 [node name="Brain" type="Node" parent="."]
 script = ExtResource("3_4dlqf")
+
+[node name="AnimSys" type="Node" parent="."]
+script = ExtResource("4_e4mki")
+
+[node name="Wait" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+loop = true
+spriteSheet = ExtResource("1_krvq6")
+frames = 7
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DamageHi" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("6_tugao")
+initialFrame = 3
+frames = 10
+columns = 2
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DamageHi4" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("6_tugao")
+frames = 10
+columns = 2
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DamageHiL" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("7_l6kyl")
+initialFrame = 3
+frames = 10
+columns = 2
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DamageHi4L" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("7_l6kyl")
+frames = 10
+columns = 2
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DamageN" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("6_7fwu1")
+initialFrame = 3
+frames = 10
+columns = 2
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DamageN4" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("6_7fwu1")
+frames = 10
+columns = 2
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DamageNL" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("7_7fwu1")
+initialFrame = 3
+frames = 10
+columns = 2
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DamageN4L" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("7_7fwu1")
+frames = 10
+columns = 2
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DamageN4Counter" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("8_q37go")
+frames = 7
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DamageN4CounterL" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("9_wq2jq")
+frames = 7
+frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DizzyLw" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+loop = true
+spriteSheet = ExtResource("12_41qvh")
+endFrame = 5
+frames = 7
+frameTimes = Array[int]([7, 7, 7, 7, 7, 7, 7])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DizzyHi" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+loop = true
+spriteSheet = ExtResource("13_cp0n4")
+endFrame = 5
+frames = 7
+frameTimes = Array[int]([7, 7, 7, 7, 7, 7, 7])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DizzyLwEnd" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("12_41qvh")
+initialFrame = 6
+frames = 7
+frameTimes = Array[int]([7, 7, 7, 7, 7, 8, 4])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DizzyHiEnd" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("13_cp0n4")
+initialFrame = 6
+frames = 7
+frameTimes = Array[int]([7, 7, 7, 7, 7, 8, 4])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="Dead" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("14_fbvtt")
+frames = 15
+columns = 3
+posX = -400.0
+frameTimes = Array[int]([3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="BlockLw" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+loop = true
+spriteSheet = ExtResource("15_tjj63")
+initialFrame = 2
+frames = 7
+loopFrame = 2
+frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="BlockHi" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+loop = true
+spriteSheet = ExtResource("16_2syqj")
+initialFrame = 2
+frames = 7
+loopFrame = 2
+frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="BlockLwDamage" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("15_tjj63")
+frames = 7
+frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="BlockHiDamage" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("16_2syqj")
+frames = 7
+frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="Attack1Start" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("17_smk4i")
+frames = 19
+columns = 3
+frameTimes = Array[int]([2, 2, 1, 1, 1, 1, 4, 4, 4, 2, 2, 2, 2, 2, 4, 1, 2, 2, 2])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="Attack1Hit" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("18_kg3pl")
+frames = 7
+frameTimes = Array[int]([2, 2, 2, 7, 7, 7, 7])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="Attack1Miss" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("19_qc8nk")
+frames = 21
+columns = 3
+frameTimes = Array[int]([2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 6, 6, 6, 6, 6, 6, 3, 3, 3, 3, 3])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="Attack2Start" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("20_5yj8u")
+frames = 18
+columns = 3
+frameTimes = Array[int]([3, 3, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="Attack2Hit" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("21_vg4im")
+frames = 9
+columns = 2
+frameTimes = Array[int]([1, 2, 2, 2, 5, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="Attack2Miss" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("22_bmsvv")
+frames = 12
+columns = 2
+frameTimes = Array[int]([1, 2, 2, 2, 2, 2, 2, 10, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="Attack4Start" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("23_ei7hm")
+frames = 21
+columns = 3
+frameTimes = Array[int]([2, 2, 2, 2, 2, 2, 2, 5, 10, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="Attack4Hit" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("24_vpu86")
+frames = 6
+frameTimes = Array[int]([1, 2, 4, 4, 4, 10])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="Attack4Miss" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("25_sgbrq")
+frames = 11
+columns = 2
+frameTimes = Array[int]([1, 3, 4, 10, 4, 4, 4, 4, 4, 4, 4])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_xadju")

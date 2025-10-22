@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://curbd3j26xu8w"]
 
-[ext_resource type="Script" path="res://Scripts/audio_manager.gd" id="1_l5gxk"]
+[ext_resource type="Script" uid="uid://b7g38wnnl2o5v" path="res://Scripts/Managers/audio_manager.gd" id="1_l5gxk"]
 [ext_resource type="AudioStream" uid="uid://bfxcygx8185we" path="res://SFX/Hit/Block.wav" id="2_j1c23"]
 [ext_resource type="AudioStream" uid="uid://dky2g85t1588g" path="res://SFX/Hit/CounterPunch.mp3" id="3_mncqp"]
 [ext_resource type="AudioStream" uid="uid://dn8odebc32v3a" path="res://SFX/Hit/Damage3.mp3" id="4_iu3wj"]

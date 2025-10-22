@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://birp6hw63wg1x"]
 
 [ext_resource type="Texture2D" uid="uid://cnq8pgxgtr7a2" path="res://Sprites/Effects/Effects.png" id="1_h06an"]
-[ext_resource type="Script" path="res://Scripts/effect.gd" id="1_w6lq1"]
+[ext_resource type="Script" uid="uid://5jova0ib5406" path="res://Scripts/Misc/effect.gd" id="1_w6lq1"]
 
 [sub_resource type="Animation" id="Animation_1qa4f"]
 resource_name = "BLOCK"

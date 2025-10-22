@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7xafbrbotlai"]
 
-[ext_resource type="Script" path="res://Scripts/options.gd" id="1_u8l7e"]
+[ext_resource type="Script" uid="uid://dai74r5f4fllv" path="res://Scripts/UI/options.gd" id="1_u8l7e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdnsm"]
 
