@@ -7,6 +7,8 @@ var gameScene = preload("res://Scenes/game.tscn")
 @onready var carde2 = $CanvasLayer/VBoxContainer/Character2
 @onready var setting = $CanvasLayer/VBoxContainer/Settings
 @onready var quit = $CanvasLayer/VBoxContainer/Quit
+@onready var paletteSlider = $CanvasLayer/PaletteSlider
+@onready var paletteLabel = $CanvasLayer/Palette
 
 
 var select = 0
@@ -17,6 +19,7 @@ var menuMax = 3
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_tree().paused = false
+	paletteSlider.max_value = Gamemanager.playerPalettes.size() - 1 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,6 +31,8 @@ func _process(delta):
 		carde2.disabled = false
 		setting.disabled = false
 		quit.disabled = false
+		
+		paletteLabel.text = str(paletteSlider.value + 1)
 		
 		if Gamemanager.checkInputJustPressed("Down"):
 			select += 1
@@ -62,6 +67,7 @@ func _process(delta):
 
 func _on_cardemomo_pressed():
 	Gamemanager.playerId = 0
+	Gamemanager.playerPaletteId = paletteSlider.value
 	Gamemanager.enemyId = 0
 	Options.visible = true
 	get_tree().change_scene_to_packed(gameScene)
@@ -69,6 +75,7 @@ func _on_cardemomo_pressed():
 
 func _on_character_2_pressed():
 	Gamemanager.playerId = 0
+	Gamemanager.playerPaletteId = paletteSlider.value
 	Gamemanager.enemyId = 1
 	Options.visible = true
 	get_tree().change_scene_to_packed(gameScene)

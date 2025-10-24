@@ -1,34 +1,30 @@
-[gd_scene load_steps=39 format=3 uid="uid://rwrhuvtwbrjs"]
+[gd_scene load_steps=43 format=3 uid="uid://rwrhuvtwbrjs"]
 
 [ext_resource type="Script" uid="uid://rup5oow6s5bh" path="res://Scripts/Player/Player.gd" id="1_4doc1"]
-[ext_resource type="Texture2D" uid="uid://bn7fdyoqr8a4v" path="res://Sprites/Characters/Canela/A00Wait1.png" id="1_jnsyv"]
+[ext_resource type="Shader" uid="uid://d2jyy5lajx1yy" path="res://Shaders/canela.gdshader" id="1_bt5cy"]
+[ext_resource type="Texture2D" uid="uid://clhh3h1korfos" path="res://Sprites/Characters/Canela/A00Wait1.png" id="1_jnsyv"]
 [ext_resource type="Script" uid="uid://ckyu2wqkse4qx" path="res://Scripts/State Machine/StateMachine.gd" id="3_erowd"]
 [ext_resource type="Script" uid="uid://dn5hntoj886r0" path="res://Scripts/AnimSys/AnimSys.gd" id="3_kb4ol"]
 [ext_resource type="Script" uid="uid://dtj8na0fxumeu" path="res://Scripts/AnimSys/anim.gd" id="3_pqjug"]
 [ext_resource type="Script" uid="uid://ev30n5e6lolv" path="res://Scripts/Player/States/wait.gd" id="4_lc8e2"]
-[ext_resource type="Texture2D" uid="uid://c0rrvldsgxw8w" path="res://Sprites/Characters/Canela/A06EscapeS.png" id="5_6nw8g"]
+[ext_resource type="Texture2D" uid="uid://baik0081p18ch" path="res://Sprites/Characters/Canela/A06EscapeS.png" id="5_6nw8g"]
 [ext_resource type="Script" uid="uid://cuitjfxtpvv35" path="res://Scripts/Player/States/punch_left.gd" id="5_7eoxh"]
 [ext_resource type="Script" uid="uid://cr8tvqg6tu4t4" path="res://Scripts/Player/States/punch_right.gd" id="6_percg"]
-[ext_resource type="Texture2D" uid="uid://b8o4ehirsmy74" path="res://Sprites/Characters/Canela/A04EscapeN.png" id="6_ymnn7"]
-[ext_resource type="Texture2D" uid="uid://bgb2mpx1ukptj" path="res://Sprites/Characters/Canela/A01AttackLw.png" id="7_jvtlk"]
+[ext_resource type="Texture2D" uid="uid://dttawxjm8ihjw" path="res://Sprites/Characters/Canela/A01AttackLw.png" id="7_jvtlk"]
 [ext_resource type="Script" uid="uid://dva2tumnxtsxl" path="res://Scripts/Player/States/upper_left.gd" id="7_wt0k2"]
-[ext_resource type="Texture2D" uid="uid://nihy0e1dqwiu" path="res://Sprites/Characters/Canela/A11AttackLwMiss.png" id="8_ced0o"]
-[ext_resource type="Texture2D" uid="uid://di5c7nax2p75s" path="res://Sprites/Characters/Canela/A03AttackLw4.png" id="8_ordue"]
+[ext_resource type="Texture2D" uid="uid://bippp2l15igaw" path="res://Sprites/Characters/Canela/A11AttackLwMiss.png" id="8_ced0o"]
 [ext_resource type="Script" uid="uid://cu8c6iggne34k" path="res://Scripts/Player/States/upper_right.gd" id="8_t0h8o"]
 [ext_resource type="Script" uid="uid://dcgmi2t5ftg3r" path="res://Scripts/Player/States/dodge_left.gd" id="9_as63s"]
-[ext_resource type="Texture2D" uid="uid://mq5wdu8jucyw" path="res://Sprites/Characters/Canela/A02AttackHi.png" id="10_2y6bg"]
+[ext_resource type="Texture2D" uid="uid://boq743j85rlov" path="res://Sprites/Characters/Canela/A02AttackHi.png" id="10_2y6bg"]
 [ext_resource type="Script" uid="uid://852yuq20vlgg" path="res://Scripts/Player/States/dodge_right.gd" id="10_tybw1"]
-[ext_resource type="Texture2D" uid="uid://wbpreadjm4yj" path="res://Sprites/Characters/Canela/A05AttackHi4.png" id="11_48d6b"]
-[ext_resource type="Texture2D" uid="uid://gdu5jgg6dfq6" path="res://Sprites/Characters/Canela/A12AttackHiMiss.png" id="11_fgl15"]
+[ext_resource type="Texture2D" uid="uid://deve8igilovtm" path="res://Sprites/Characters/Canela/A12AttackHiMiss.png" id="11_fgl15"]
 [ext_resource type="Script" uid="uid://bh6g16pyeg1e7" path="res://Scripts/Player/States/dodge_down.gd" id="11_hviaj"]
 [ext_resource type="Script" uid="uid://7cen84ioqv1l" path="res://Scripts/Player/States/punch_left_finish.gd" id="12_e6lha"]
-[ext_resource type="Texture2D" uid="uid://drp74hug2csed" path="res://Sprites/Characters/Canela/A08AttackSuperLw.png" id="13_6nj50"]
 [ext_resource type="Script" uid="uid://1j6yuk63fqx" path="res://Scripts/Player/States/punch_right_finish.gd" id="13_fttoh"]
-[ext_resource type="Texture2D" uid="uid://du1ovol3x1tbq" path="res://Sprites/Characters/Canela/A10Block.png" id="14_5pwl5"]
+[ext_resource type="Texture2D" uid="uid://bkorethyifmk0" path="res://Sprites/Characters/Canela/A10Block.png" id="14_5pwl5"]
 [ext_resource type="Script" uid="uid://beq0rbuehmlav" path="res://Scripts/Player/States/upper_left_finish.gd" id="14_uqau8"]
 [ext_resource type="Script" uid="uid://vj8samna2u4j" path="res://Scripts/Player/States/upper_right_finish.gd" id="15_kma7x"]
-[ext_resource type="Texture2D" uid="uid://b2qlqg5ydm4in" path="res://Sprites/Characters/Canela/A07DamageS.png" id="15_w4r7k"]
-[ext_resource type="Texture2D" uid="uid://c8sea6417dgsl" path="res://Sprites/Characters/Canela/A09DamageN.png" id="16_01clt"]
+[ext_resource type="Texture2D" uid="uid://jhgkd5krxdf0" path="res://Sprites/Characters/Canela/A07DamageS.png" id="15_w4r7k"]
 [ext_resource type="Script" uid="uid://5dc4w8mn67tc" path="res://Scripts/Player/States/punch_left_counter.gd" id="16_ssc2a"]
 [ext_resource type="Script" uid="uid://bc5csndxstwah" path="res://Scripts/Player/States/punch_right_counter.gd" id="17_nmrpu"]
 [ext_resource type="Script" uid="uid://tm6qjwd141pr" path="res://Scripts/Player/States/upper_left_counter.gd" id="18_43xfr"]
@@ -39,13 +35,62 @@
 [ext_resource type="Script" uid="uid://bgioi3xsxaff7" path="res://Scripts/Player/States/block.gd" id="23_a22ns"]
 [ext_resource type="Script" uid="uid://dhesfbi5m5gem" path="res://Scripts/Player/States/block_damage.gd" id="24_y2cwy"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yu04f"]
+shader = ExtResource("1_bt5cy")
+shader_parameter/find_color = Color(1, 0, 0, 1)
+shader_parameter/find_color2 = Color(0, 1, 0, 1)
+shader_parameter/find_color3 = Color(1, 1, 0, 1)
+shader_parameter/find_color4 = Color(0, 0, 1, 1)
+shader_parameter/find_color5 = Color(1, 0, 1, 1)
+shader_parameter/find_color6 = Color(0, 1, 1, 1)
+shader_parameter/find_color7 = Color(1, 0.50980395, 0, 1)
+shader_parameter/find_color8 = Color(1, 0, 0.5882353, 1)
+shader_parameter/find_color9 = Color(0.7254902, 0.39215687, 0.7254902, 1)
+shader_parameter/find_color10 = Color(0.30980393, 0, 0.2901961, 1)
+shader_parameter/find_color11 = Color(0, 0.39215687, 0, 1)
+shader_parameter/separator = Color(0, 0, 0, 1)
+shader_parameter/target_color = Color(1, 0.6627451, 0.9254902, 1)
+shader_parameter/target_color2 = Color(0.039215688, 0.92156863, 0.8627451, 1)
+shader_parameter/target_color3 = Color(0.40392157, 0.6, 0.5921569, 1)
+shader_parameter/target_color4 = Color(0.19607843, 0.3137255, 0.39215687, 1)
+shader_parameter/target_color5 = Color(0.40392157, 0.6, 0.5921569, 1)
+shader_parameter/target_color6 = Color(0.19607843, 0.3137255, 0.39215687, 1)
+shader_parameter/target_color7 = Color(0.2784314, 0.36078432, 0.39215687, 1)
+shader_parameter/target_color8 = Color(0.2784314, 0.36078432, 0.39215687, 1)
+shader_parameter/target_color9 = Color(0.7254902, 0.38431373, 0.7411765, 1)
+shader_parameter/target_color10 = Color(0.41960785, 0.23529412, 0.53333336, 1)
+shader_parameter/target_color11 = Color(0.22745098, 0.54509807, 0.69411767, 1)
+
+[sub_resource type="Resource" id="Resource_6nj50"]
+metadata/__load_path__ = "res://Sprites/Characters/Canela/A04EscapeN.png"
+
+[sub_resource type="Resource" id="Resource_5pwl5"]
+metadata/__load_path__ = "res://Sprites/Characters/Canela/A03AttackLw4.png"
+
+[sub_resource type="Resource" id="Resource_w4r7k"]
+metadata/__load_path__ = "res://Sprites/Characters/Canela/A03AttackLw4.png"
+
+[sub_resource type="Resource" id="Resource_01clt"]
+metadata/__load_path__ = "res://Sprites/Characters/Canela/A05AttackHi4.png"
+
+[sub_resource type="Resource" id="Resource_fytr6"]
+metadata/__load_path__ = "res://Sprites/Characters/Canela/A05AttackHi4.png"
+
+[sub_resource type="Resource" id="Resource_bt5cy"]
+metadata/__load_path__ = "res://Sprites/Characters/Canela/A08AttackSuperLw.png"
+
+[sub_resource type="Resource" id="Resource_1jx2i"]
+metadata/__load_path__ = "res://Sprites/Characters/Canela/A09DamageN.png"
+
 [node name="Player" type="Sprite2D" node_paths=PackedStringArray("animSys")]
 process_mode = 1
-modulate = Color(1, 1, 1, 0.498039)
 z_index = 2
 texture_filter = 1
-texture = ExtResource("1_jnsyv")
+material = SubResource("ShaderMaterial_yu04f")
+texture = ExtResource("5_6nw8g")
 hframes = 7
+vframes = 3
+frame = 7
 script = ExtResource("1_4doc1")
 animSys = NodePath("AnimSys")
 
@@ -70,7 +115,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="DodgeDown" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = ExtResource("6_ymnn7")
+spriteSheet = SubResource("Resource_6nj50")
 frames = 21
 columns = 3
 frameTimes = Array[int]([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 3, 3, 4, 5, 6])
@@ -93,7 +138,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchLowCounter" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = ExtResource("8_ordue")
+spriteSheet = SubResource("Resource_5pwl5")
 initialFrame = 5
 frames = 11
 columns = 2
@@ -102,7 +147,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchLowFinisher" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = ExtResource("8_ordue")
+spriteSheet = SubResource("Resource_w4r7k")
 frames = 11
 columns = 2
 frameTimes = Array[int]([1, 1, 1, 1, 5, 1, 1, 11, 6, 5, 6])
@@ -125,7 +170,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchHighCounter" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = ExtResource("11_48d6b")
+spriteSheet = SubResource("Resource_01clt")
 initialFrame = 5
 frames = 11
 columns = 2
@@ -134,7 +179,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchHighFinisher" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = ExtResource("11_48d6b")
+spriteSheet = SubResource("Resource_fytr6")
 frames = 11
 columns = 2
 frameTimes = Array[int]([1, 1, 1, 1, 5, 1, 1, 11, 6, 5, 6])
@@ -142,7 +187,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="SuperPunchLow" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = ExtResource("13_6nj50")
+spriteSheet = SubResource("Resource_bt5cy")
 frames = 14
 columns = 2
 frameTimes = Array[int]([3, 3, 3, 3, 3, 3, 2, 1, 4, 6, 7, 7, 7, 7])
@@ -185,7 +230,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="DamageN" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = ExtResource("16_01clt")
+spriteSheet = SubResource("Resource_1jx2i")
 frames = 14
 columns = 2
 frameTimes = Array[int]([2, 3, 3, 5, 5, 5, 4, 4, 2, 2, 2, 2, 2, 2])

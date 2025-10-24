@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1i45ydjl7slm"]
+
+[ext_resource type="Shader" uid="uid://d2jyy5lajx1yy" path="res://Shaders/canela.gdshader" id="1_vor2p"]
+[ext_resource type="Texture2D" uid="uid://baik0081p18ch" path="res://Sprites/Characters/Canela/A06EscapeS.png" id="2_yswvn"]
+[ext_resource type="Script" uid="uid://bkgsycqh6qasr" path="res://Scripts/Misc/paletteTest.gd" id="3_yswvn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fvstc"]
+shader = ExtResource("1_vor2p")
+shader_parameter/find_color = Color(1, 0, 0, 1)
+shader_parameter/find_color2 = Color(0, 1, 0, 1)
+shader_parameter/find_color3 = Color(1, 1, 0, 1)
+shader_parameter/find_color4 = Color(0, 0, 1, 1)
+shader_parameter/find_color5 = Color(1, 0, 1, 1)
+shader_parameter/find_color6 = Color(0, 1, 1, 1)
+shader_parameter/find_color7 = Color(1, 0.50980395, 0, 1)
+shader_parameter/find_color8 = Color(1, 0, 0.5882353, 1)
+shader_parameter/find_color9 = Color(0.7254902, 0.39215687, 0.7254902, 1)
+shader_parameter/find_color10 = Color(0.30980393, 0, 0.2901961, 1)
+shader_parameter/find_color11 = Color(0, 0.39215687, 0, 1)
+shader_parameter/separator = Color(0, 0, 0, 1)
+shader_parameter/target_color = Color(0.7372549, 0, 0.2, 1)
+shader_parameter/target_color2 = Color(0.16206557, 0.1620656, 0.16206557, 1)
+shader_parameter/target_color3 = Color(1, 1, 1, 1)
+shader_parameter/target_color4 = Color(0.7372549, 0, 0.2, 1)
+shader_parameter/target_color5 = Color(1, 1, 1, 1)
+shader_parameter/target_color6 = Color(0.7372549, 0, 0.2, 1)
+shader_parameter/target_color7 = Color(0.49803922, 0.49803922, 0.49803922, 1)
+shader_parameter/target_color8 = Color(0.49747366, 0.49747366, 0.49747366, 1)
+shader_parameter/target_color9 = Color(0.48841786, 0, 0.11990475, 1)
+shader_parameter/target_color10 = Color(0.3672888, 0, 0.080918156, 1)
+shader_parameter/target_color11 = Color(0.12225223, 0.12225223, 0.12225223, 1)
+
+[node name="Test" type="Sprite2D"]
+material = SubResource("ShaderMaterial_fvstc")
+texture = ExtResource("2_yswvn")
+hframes = 7
+vframes = 3
+frame = 6
+script = ExtResource("3_yswvn")

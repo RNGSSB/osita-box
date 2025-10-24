@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di5c7nax2p75s"
-path="res://.godot/imported/A03AttackLw4.png-eabc8c83201bec29d7cdaf1a797964a8.ctex"
+uid="uid://b8o4ehirsmy74"
+path="res://.godot/imported/A04EscapeN.png-e8af820f9e684564f355436a1d8c6043.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Characters/Canela/A03AttackLw4.png"
-dest_files=["res://.godot/imported/A03AttackLw4.png-eabc8c83201bec29d7cdaf1a797964a8.ctex"]
+source_file="res://Sprites/Characters/CanelaOld/A04EscapeN.png"
+dest_files=["res://.godot/imported/A04EscapeN.png-e8af820f9e684564f355436a1d8c6043.ctex"]
 
 [params]
 

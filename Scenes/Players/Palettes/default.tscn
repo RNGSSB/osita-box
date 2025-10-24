@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1t42a2fkrhs2"]
+
+[ext_resource type="Script" uid="uid://dgpotaygito1m" path="res://Scripts/Misc/playerPalette.gd" id="1_jii2a"]
+[ext_resource type="PackedScene" uid="uid://b1i45ydjl7slm" path="res://Scenes/paletteTester.tscn" id="2_2syno"]
+
+[node name="player_palette" type="Node"]
+script = ExtResource("1_jii2a")
+metadata/_custom_type_script = "uid://dgpotaygito1m"
+
+[node name="Test" parent="." instance=ExtResource("2_2syno")]

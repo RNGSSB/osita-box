@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wbpreadjm4yj"
-path="res://.godot/imported/A05AttackHi4.png-8fa64a662b0e846f19b574e027840cd5.ctex"
+uid="uid://drp74hug2csed"
+path="res://.godot/imported/A08AttackSuperLw.png-c5dc850688d4e1cbe9a2648c7af2ddb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Characters/Canela/A05AttackHi4.png"
-dest_files=["res://.godot/imported/A05AttackHi4.png-8fa64a662b0e846f19b574e027840cd5.ctex"]
+source_file="res://Sprites/Characters/CanelaOld/A08AttackSuperLw.png"
+dest_files=["res://.godot/imported/A08AttackSuperLw.png-c5dc850688d4e1cbe9a2648c7af2ddb0.ctex"]
 
 [params]
 

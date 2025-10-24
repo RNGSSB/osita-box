@@ -83,7 +83,6 @@ func animationProcess():
 				else:
 					if owner.frame == endFrame and !current_anim.loop:
 						animFrame += 1
-						print("2")
 						animEnd = true
 					elif owner.frame == endFrame and current_anim.loop:
 						owner.frame = current_anim.loopFrame - 1
@@ -92,7 +91,6 @@ func animationProcess():
 					else:
 						owner.frame += 1
 						animFrame += 1
-						print("3")
 						animWait = current_anim.frameTimes[owner.frame] * FSM
 			if !animEnd:
 				if current_anim.FAF > 0:
