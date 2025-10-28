@@ -11,11 +11,11 @@ shirt_color_main = Color(1, 1, 1, 1)
 shirt_color_bottom = Color(0.8627451, 0, 0.19215687, 1)
 pant_color_main = Color(1, 1, 1, 1)
 pant_color_lines = Color(0.8627451, 0, 0.19215687, 1)
-shirt_color_shading = Color(0.7529412, 0.7529412, 0.7529412, 1)
-pant_color_shading = Color(0.7539839, 0.75398386, 0.75398386, 1)
-glove_color_shading = Color(0.6939634, 0, 0.14668402, 1)
-glove_color_inner = Color(0.60767174, 0, 0.12344497, 1)
-glove_color_socket_shading = Color(2.6171097e-07, 0.17238525, 0.05063288, 1)
+shirt_color_shading = Color(0.62314343, 0.762355, 0.9635243, 1)
+pant_color_shading = Color(0.62352943, 0.7607843, 0.9647059, 1)
+glove_color_shading = Color(0.6551214, 6.2569975e-06, 0.42621946, 1)
+glove_color_inner = Color(0.654902, 0, 0.42745098, 1)
+glove_color_socket_shading = Color(0.09998613, 0.099985965, 0.099985994, 1)
 metadata/_custom_type_script = "uid://dgpotaygito1m"
 
 [node name="Test" parent="." instance=ExtResource("2_i7sy5")]

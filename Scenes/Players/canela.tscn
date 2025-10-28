@@ -195,6 +195,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="Block" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
+loop = true
 spriteSheet = ExtResource("14_5pwl5")
 frames = 5
 columns = 2
