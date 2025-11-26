@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://nc3kgescfgpp"]
+
+[ext_resource type="Script" uid="uid://dgpotaygito1m" path="res://Scripts/Misc/playerPalette.gd" id="1_dflh7"]
+[ext_resource type="PackedScene" uid="uid://b1i45ydjl7slm" path="res://Scenes/paletteTester.tscn" id="2_3y37q"]
+
+[node name="player_palette" type="Node"]
+script = ExtResource("1_dflh7")
+glove_color_main = Color(0.07058824, 0.54901963, 0.49411765, 1)
+glove_color_socket = Color(1, 1, 1, 1)
+shirt_color_main = Color(0.14509805, 0.827451, 0.4, 1)
+shirt_color_bottom = Color(1, 1, 1, 1)
+pant_color_main = Color(0.14509805, 0.827451, 0.4, 1)
+pant_color_lines = Color(1, 1, 1, 1)
+shirt_color_shading = Color(0.120761, 0.64531153, 0.31037918, 1)
+pant_color_shading = Color(0.12156863, 0.64705884, 0.30980393, 1)
+glove_color_shading = Color(0.054417156, 0.46028715, 0.41351062, 1)
+glove_color_inner = Color(0.04928015, 0.43002948, 0.38562268, 1)
+glove_color_socket_shading = Color(0.80049086, 0.80049074, 0.80049074, 1)
+metadata/_custom_type_script = "uid://dgpotaygito1m"
+
+[node name="Test" parent="." instance=ExtResource("2_3y37q")]

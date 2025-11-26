@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://rwrhuvtwbrjs"]
+[gd_scene load_steps=41 format=3 uid="uid://rwrhuvtwbrjs"]
 
 [ext_resource type="Script" uid="uid://rup5oow6s5bh" path="res://Scripts/Player/Player.gd" id="1_4doc1"]
 [ext_resource type="Shader" uid="uid://d2jyy5lajx1yy" path="res://Shaders/canela.gdshader" id="1_bt5cy"]
@@ -11,20 +11,24 @@
 [ext_resource type="Script" uid="uid://cuitjfxtpvv35" path="res://Scripts/Player/States/punch_left.gd" id="5_7eoxh"]
 [ext_resource type="Script" uid="uid://cr8tvqg6tu4t4" path="res://Scripts/Player/States/punch_right.gd" id="6_percg"]
 [ext_resource type="Texture2D" uid="uid://dttawxjm8ihjw" path="res://Sprites/Characters/Canela/A01AttackLw.png" id="7_jvtlk"]
+[ext_resource type="Texture2D" uid="uid://dptx37e5iskcv" path="res://Sprites/Characters/Canela/A04EscapeN.png" id="7_w4r7k"]
 [ext_resource type="Script" uid="uid://dva2tumnxtsxl" path="res://Scripts/Player/States/upper_left.gd" id="7_wt0k2"]
 [ext_resource type="Texture2D" uid="uid://bippp2l15igaw" path="res://Sprites/Characters/Canela/A11AttackLwMiss.png" id="8_ced0o"]
 [ext_resource type="Script" uid="uid://cu8c6iggne34k" path="res://Scripts/Player/States/upper_right.gd" id="8_t0h8o"]
 [ext_resource type="Script" uid="uid://dcgmi2t5ftg3r" path="res://Scripts/Player/States/dodge_left.gd" id="9_as63s"]
+[ext_resource type="Texture2D" uid="uid://6f61xtf64gij" path="res://Sprites/Characters/Canela/A03AttackLw4.png" id="10_01clt"]
 [ext_resource type="Texture2D" uid="uid://boq743j85rlov" path="res://Sprites/Characters/Canela/A02AttackHi.png" id="10_2y6bg"]
 [ext_resource type="Script" uid="uid://852yuq20vlgg" path="res://Scripts/Player/States/dodge_right.gd" id="10_tybw1"]
 [ext_resource type="Texture2D" uid="uid://deve8igilovtm" path="res://Sprites/Characters/Canela/A12AttackHiMiss.png" id="11_fgl15"]
 [ext_resource type="Script" uid="uid://bh6g16pyeg1e7" path="res://Scripts/Player/States/dodge_down.gd" id="11_hviaj"]
 [ext_resource type="Script" uid="uid://7cen84ioqv1l" path="res://Scripts/Player/States/punch_left_finish.gd" id="12_e6lha"]
 [ext_resource type="Script" uid="uid://1j6yuk63fqx" path="res://Scripts/Player/States/punch_right_finish.gd" id="13_fttoh"]
+[ext_resource type="Texture2D" uid="uid://dfsjlj6gv4rud" path="res://Sprites/Characters/Canela/A05AttackHi4.png" id="13_fytr6"]
 [ext_resource type="Texture2D" uid="uid://bkorethyifmk0" path="res://Sprites/Characters/Canela/A10Block.png" id="14_5pwl5"]
 [ext_resource type="Script" uid="uid://beq0rbuehmlav" path="res://Scripts/Player/States/upper_left_finish.gd" id="14_uqau8"]
 [ext_resource type="Script" uid="uid://vj8samna2u4j" path="res://Scripts/Player/States/upper_right_finish.gd" id="15_kma7x"]
 [ext_resource type="Texture2D" uid="uid://jhgkd5krxdf0" path="res://Sprites/Characters/Canela/A07DamageS.png" id="15_w4r7k"]
+[ext_resource type="Texture2D" uid="uid://cofj8mv2fvtss" path="res://Sprites/Characters/Canela/A09DamageN.png" id="16_01clt"]
 [ext_resource type="Script" uid="uid://5dc4w8mn67tc" path="res://Scripts/Player/States/punch_left_counter.gd" id="16_ssc2a"]
 [ext_resource type="Script" uid="uid://bc5csndxstwah" path="res://Scripts/Player/States/punch_right_counter.gd" id="17_nmrpu"]
 [ext_resource type="Script" uid="uid://tm6qjwd141pr" path="res://Scripts/Player/States/upper_left_counter.gd" id="18_43xfr"]
@@ -61,26 +65,8 @@ shader_parameter/target_color9 = Color(0.7254902, 0.38431373, 0.7411765, 1)
 shader_parameter/target_color10 = Color(0.41960785, 0.23529412, 0.53333336, 1)
 shader_parameter/target_color11 = Color(0.22745098, 0.54509807, 0.69411767, 1)
 
-[sub_resource type="Resource" id="Resource_6nj50"]
-metadata/__load_path__ = "res://Sprites/Characters/Canela/A04EscapeN.png"
-
-[sub_resource type="Resource" id="Resource_5pwl5"]
-metadata/__load_path__ = "res://Sprites/Characters/Canela/A03AttackLw4.png"
-
-[sub_resource type="Resource" id="Resource_w4r7k"]
-metadata/__load_path__ = "res://Sprites/Characters/Canela/A03AttackLw4.png"
-
-[sub_resource type="Resource" id="Resource_01clt"]
-metadata/__load_path__ = "res://Sprites/Characters/Canela/A05AttackHi4.png"
-
-[sub_resource type="Resource" id="Resource_fytr6"]
-metadata/__load_path__ = "res://Sprites/Characters/Canela/A05AttackHi4.png"
-
 [sub_resource type="Resource" id="Resource_bt5cy"]
 metadata/__load_path__ = "res://Sprites/Characters/Canela/A08AttackSuperLw.png"
-
-[sub_resource type="Resource" id="Resource_1jx2i"]
-metadata/__load_path__ = "res://Sprites/Characters/Canela/A09DamageN.png"
 
 [node name="Player" type="Sprite2D" node_paths=PackedStringArray("animSys")]
 process_mode = 1
@@ -115,7 +101,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="DodgeDown" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = SubResource("Resource_6nj50")
+spriteSheet = ExtResource("7_w4r7k")
 frames = 21
 columns = 3
 frameTimes = Array[int]([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 3, 3, 4, 5, 6])
@@ -138,19 +124,19 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchLowCounter" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = SubResource("Resource_5pwl5")
+spriteSheet = ExtResource("10_01clt")
 initialFrame = 5
 frames = 11
 columns = 2
-frameTimes = Array[int]([0, 0, 0, 0, 5, 1, 1, 11, 6, 5, 6])
+frameTimes = Array[int]([0, 0, 0, 0, 5, 1, 1, 12, 5, 5, 6])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchLowFinisher" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = SubResource("Resource_w4r7k")
+spriteSheet = ExtResource("10_01clt")
 frames = 11
 columns = 2
-frameTimes = Array[int]([1, 1, 1, 1, 5, 1, 1, 11, 6, 5, 6])
+frameTimes = Array[int]([1, 1, 1, 1, 5, 1, 1, 12, 5, 5, 6])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchHigh" type="Node" parent="AnimSys"]
@@ -170,19 +156,19 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchHighCounter" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = SubResource("Resource_01clt")
+spriteSheet = ExtResource("13_fytr6")
 initialFrame = 5
 frames = 11
 columns = 2
-frameTimes = Array[int]([0, 0, 0, 0, 5, 1, 1, 11, 6, 5, 6])
+frameTimes = Array[int]([0, 0, 0, 0, 5, 2, 1, 11, 6, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchHighFinisher" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = SubResource("Resource_fytr6")
+spriteSheet = ExtResource("13_fytr6")
 frames = 11
 columns = 2
-frameTimes = Array[int]([1, 1, 1, 1, 5, 1, 1, 11, 6, 5, 6])
+frameTimes = Array[int]([1, 1, 1, 1, 5, 2, 1, 11, 6, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="SuperPunchLow" type="Node" parent="AnimSys"]
@@ -231,10 +217,10 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="DamageN" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = SubResource("Resource_1jx2i")
+spriteSheet = ExtResource("16_01clt")
 frames = 14
 columns = 2
-frameTimes = Array[int]([2, 3, 3, 5, 5, 5, 4, 4, 2, 2, 2, 2, 2, 2])
+frameTimes = Array[int]([1, 4, 4, 4, 6, 6, 2, 2, 2, 3, 2, 4, 5, 6])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]

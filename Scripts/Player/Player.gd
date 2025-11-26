@@ -42,7 +42,7 @@ var bufferDodgeHI = false
 var dodgeBufferHI = 0
 var bufferUp = false
 var upBuffer = 0
-
+var defaultPosY = 143
 var punchTime = 0
 
 var enemyRef

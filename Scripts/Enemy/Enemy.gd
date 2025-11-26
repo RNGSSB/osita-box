@@ -49,6 +49,7 @@ var perfectCombo = 6
 var punchHit = false
 var attackMiss = false
 var isAttacking = false
+var defaultPosY = 100
 
 var healing = false
 

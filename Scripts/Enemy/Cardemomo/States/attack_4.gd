@@ -31,22 +31,22 @@ func Physics_Update(delta: float):
 		owner.counterPunch = true
 	if owner.cFrame(33):
 		owner.counterPunch = false
-	if owner.cFrame(34):
+	if owner.cFrame(39):
 		owner.punchOpponent(2, 20, 20, true, 12, 25, 
 		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9, true, false, false, false)
-	if owner.cFrame(35):
+	if owner.cFrame(40):
 		owner.punchOpponent(2, 20, 20, true, 12, 25, 
 		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, false, false, false)
-	if owner.cFrame(36):
+	if owner.cFrame(41):
 		owner.punchOpponent(2, 20, 20, true, 12, 25, 
 		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, true, false, true)
-	if owner.cFrame(37):
+	if owner.cFrame(42):
 		owner.punchOpponent(2, 20, 20, true, 12, 25, 
 		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, true, false, true)
-	if owner.cFrame(38):
+	if owner.cFrame(43):
 		owner.punchOpponent(2, 20, 20, true, 12, 25, 
 		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, true, true, true, "DamageS", 250, true)
-	if owner.cFrame(39):
+	if owner.cFrame(44):
 		owner.punchOpponent(2, 20, 20, true, 12, 25, 
 		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9, true, true, true, true, "DamageS", 250, true)
 	if owner.punchHit:

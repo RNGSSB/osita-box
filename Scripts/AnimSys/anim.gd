@@ -12,6 +12,7 @@ extends Node
 @export var rows : int = 7
 @export var columns : int = 1
 @export var posX : float = 0.0
+@export var posY : float = -1.0
 
 @export var frameTimes : Array[int] = []
 
