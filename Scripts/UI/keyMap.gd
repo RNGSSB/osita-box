@@ -10,7 +10,7 @@ func _init():
 func _ready():
 	set_process_unhandled_input(false)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !owner.canPress and !canPressSelf:
 		disabled = true
 	else:

@@ -142,7 +142,7 @@ color9 : Color, color10 : Color, color11 : Color):
 	get_material().set_shader_parameter("target_color10", Vector4(color10.r, color10.g, color10.b, color10.a))
 	get_material().set_shader_parameter("target_color11", Vector4(color11.r, color11.g, color11.b, color11.a))
 
-func _process(delta):
+func _process(_delta):
 	
 	inputX = Gamemanager.checkInputAxis("Left", "Right")
 	inputY = Gamemanager.checkInputAxis("Down", "Up")
@@ -196,7 +196,7 @@ func _process(delta):
 	if bufferDodgeHI and ctrl == 1 and !inBurnout:
 		stateMachine.change_state("Block")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !frozen:
 		sheVisibleNow()
 	

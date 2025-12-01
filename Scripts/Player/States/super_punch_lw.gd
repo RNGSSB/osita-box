@@ -23,7 +23,7 @@ func Update(_delta: float):
 			owner.upBuffer = owner.frameCounter
 			owner.bufferUp = true
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	if owner.cFrame(18):
 		AudioManager.Play("Attack4Swoosh", "Left", 1.0, 1.0)
 	if owner.cFrame(21):

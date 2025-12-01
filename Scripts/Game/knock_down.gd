@@ -10,7 +10,7 @@ func Enter():
 func Update(_delta: float):
 	pass
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	owner.readyText.visible = true
 	if owner.stateFrame == 40:
 		owner.readyText.text = "1"

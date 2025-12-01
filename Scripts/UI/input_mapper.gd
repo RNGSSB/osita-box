@@ -108,6 +108,7 @@ func load_keymap():
 			keymaps[action] = temp_keymap[action]
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, keymaps[action])
+			print(keymaps[action])
 	acceptCancelHack()
 
 func save_keymap():
@@ -128,7 +129,7 @@ func acceptCancelHack():
 	InputMap.action_add_event("ui_cancel", keymaps["CancelKey"])
 	InputMap.action_add_event("ui_cancel", keymaps["CancelKey2"])
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if waitagoddamnsecond > 0:
 		waitagoddamnsecond -= 1
 	
@@ -180,8 +181,8 @@ func disableButtons():
 			helpLabel.text = "Press BACKSPACE or Select to delete selected bind"
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	if visible:
 		disableButtons()
 	
@@ -189,7 +190,7 @@ func _process(delta):
 		if Gamemanager.checkInputJustPressed("Start"):
 			visible = false
 		
-		if Gamemanager.checkInputJustPressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_cancel"):
 			visible = false
 		
 		#print(setting)

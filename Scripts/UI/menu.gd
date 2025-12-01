@@ -22,8 +22,8 @@ func _ready():
 	paletteSlider.max_value = Gamemanager.playerPalettes.size() - 1 
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	
 	
 	if !Options.visible and !InputMapper.visible:

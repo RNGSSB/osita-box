@@ -24,6 +24,6 @@ func _ready() -> void:
 		self.queue_free()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
 	setPalette(owner.glove_color_main, owner.glove_color_socket, owner.shirt_color_main, owner.shirt_color_bottom, owner.pant_color_main, owner.pant_color_lines, owner.shirt_color_shading, owner.pant_color_shading, owner.glove_color_shading, owner.glove_color_inner, owner.glove_color_socket_shading,)

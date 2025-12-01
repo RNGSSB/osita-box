@@ -105,8 +105,8 @@ func initHealthBars():
 	playerSuper.max_value = player.superMax 
 	playerSuper.value = enemy.superInit
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	if canPause:
 		if Gamemanager.checkInputJustPressed("Start") and !fuckYou2:
 			pauseUI.resumeButton.grab_focus()
@@ -147,7 +147,7 @@ func hitLag(value, shake):
 func zoomAdjust(value):
 	camera.zoom = Vector2(value, value)
 
-func advanceFrame(delta):
+func advanceFrame(_delta):
 	frameCounter += 1 
 	if !pauseTimer:
 		roundTimer -= 1.0
@@ -157,19 +157,19 @@ func advanceFrame(delta):
 	enemy.stateFrame += 1
 	player.frameCounter = frameCounter
 	enemy.frameCounter = frameCounter
-	camera.cameraShake(delta)
+	camera.cameraShake(_delta)
 	cameraShenanigans()
 	enemyHealingFunc()
 	meterHandle()
 	player.burnout()
 	player.sheVisibleNow()
-	player.stateMachine.current_state.Update(delta)
-	player.stateMachine.current_state.Physics_Update(delta)
+	player.stateMachine.current_state.Update(_delta)
+	player.stateMachine.current_state.Physics_Update(_delta)
 	player.animSys.animationProcess()
 	if player.stateFrame == 1:
 		player.animSys.animFrame = 1
-	enemy.stateMachine.current_state.Update(delta)
-	enemy.stateMachine.current_state.Physics_Update(delta)
+	enemy.stateMachine.current_state.Update(_delta)
+	enemy.stateMachine.current_state.Physics_Update(_delta)
 	enemy.animSys.animationProcess()
 	if enemy.stateFrame == 1:
 		enemy.animSys.animFrame = 1
@@ -328,7 +328,7 @@ func meterHandle():
 	else:
 		setDamageBarPlayer = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !isPaused:
 		if Input.is_key_pressed(KEY_9):
 			regenHealth()
@@ -370,12 +370,12 @@ func _physics_process(delta):
 		if frameAdvance:
 			if hitStop <= 0:
 				if Input.is_action_just_pressed("FrameAdvance"):
-					advanceFrame(delta)
+					advanceFrame(_delta)
 			else:
 				if Input.is_action_just_pressed("FrameAdvance"):
 					meterHandle()
 					cameraShenanigans()
-					camera.cameraShake(delta)
+					camera.cameraShake(_delta)
 					hitStop -= 1
 					#hitStopShake()
 		else:

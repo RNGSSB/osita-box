@@ -20,7 +20,7 @@ func Enter():
 func Update(_delta: float):
 	pass
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	owner.guardAll = false
 	if owner.cFrame(13):
 		owner.moveCamera(0.2, 105)

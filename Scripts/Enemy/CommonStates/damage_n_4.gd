@@ -35,7 +35,7 @@ func Enter():
 func Update(_delta: float):
 	pass
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	if owner.cFrame(2):
 		if owner.health == 0:
 			owner.flip_h = false

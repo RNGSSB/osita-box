@@ -27,10 +27,10 @@ var fuckYou3 = false
 var prevScreenMode
 
 
-func createEffects(name = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, zIndex = 3, flip = false):
+func createEffects(effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, zIndex = 3, flip = false):
 	var instance = effects.instantiate()
-	instance.name = name
-	instance.animName = name
+	instance.name = effectName
+	instance.animName = effectName
 	instance.position.y = posY
 	instance.position.x = posX
 	instance.z_index = zIndex
@@ -39,38 +39,38 @@ func createEffects(name = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0,
 	get_node("/root/Game/GameElements").add_child(instance)
 
 
-func checkInputJustPressed(name):
-	if Input.is_action_just_pressed(name):
+func checkInputJustPressed(inputName):
+	if Input.is_action_just_pressed(inputName):
 		return true
-	elif Input.is_action_just_pressed(name + "Key"):
+	elif Input.is_action_just_pressed(inputName + "Key"):
 		return true
-	elif Input.is_action_just_pressed(name + "2"):
+	elif Input.is_action_just_pressed(inputName + "2"):
 		return true
-	elif Input.is_action_just_pressed(name + "Key2"):
-		return true
-	else:
-		return false
-
-func checkInputJustReleased(name):
-	if Input.is_action_just_released(name):
-		return true
-	elif Input.is_action_just_released(name + "Key"):
-		return true
-	elif Input.is_action_just_released(name + "2"):
-		return true
-	elif Input.is_action_just_released(name + "Key2"):
+	elif Input.is_action_just_pressed(inputName + "Key2"):
 		return true
 	else:
 		return false
 
-func checkInputHold(name):
-	if Input.is_action_pressed(name):
+func checkInputJustReleased(inputName):
+	if Input.is_action_just_released(inputName):
 		return true
-	elif Input.is_action_pressed(name + "Key"):
+	elif Input.is_action_just_released(inputName + "Key"):
 		return true
-	elif Input.is_action_pressed(name + "2"):
+	elif Input.is_action_just_released(inputName + "2"):
 		return true
-	elif Input.is_action_pressed(name + "Key2"):
+	elif Input.is_action_just_released(inputName + "Key2"):
+		return true
+	else:
+		return false
+
+func checkInputHold(inputName):
+	if Input.is_action_pressed(inputName):
+		return true
+	elif Input.is_action_pressed(inputName + "Key"):
+		return true
+	elif Input.is_action_pressed(inputName + "2"):
+		return true
+	elif Input.is_action_pressed(inputName + "Key2"):
 		return true
 	else:
 		return false
@@ -88,28 +88,28 @@ func checkInputAxis(neg, pos):
 		return 0
 
 
-func destroyEffect(name):
-	if get_node("/root/Game/GameElements/" + name) == null:
+func destroyEffect(effectName):
+	if get_node("/root/Game/GameElements/" + effectName) == null:
 		return
-	get_node("/root/Game/GameElements/" + name).queue_free()
+	get_node("/root/Game/GameElements/" + effectName).queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	print(OS.get_data_dir())
 
-func _process(delta):
+func _process(_delta):
 	#print(InputMap.action_get_events("LeftPunch2")[0].as_text())
 	
-	if checkInputJustPressed("Fullscreen") and !fuckYou3:
+	if Input.is_action_just_pressed("Fullscreen") and !fuckYou3:
 		Options.fullScreenCheck.button_pressed = true
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN) 
 	
-	if checkInputJustReleased("Fullscreen") and !fuckYou3 and DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+	if Input.is_action_just_released("Fullscreen") and !fuckYou3 and DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
 		fuckYou3 = true
 	
-	if checkInputJustPressed("Fullscreen") and fuckYou3 :
+	if Input.is_action_just_pressed("Fullscreen") and fuckYou3 :
 		Options.fullScreenCheck.button_pressed = false
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED) 
 	
-	if checkInputJustReleased("Fullscreen") and fuckYou3 and DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
+	if Input.is_action_just_released("Fullscreen") and fuckYou3 and DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
 		fuckYou3 = false

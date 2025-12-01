@@ -64,7 +64,7 @@ func calculateAnimLenght():
 	for n in current_anim.frameTimes:
 		animLenght += n
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !frozen:
 		animationProcess()
 
@@ -122,6 +122,6 @@ func animationProcess():
 					if owner.stateFrame >= current_anim.FAF:
 						owner.ctrl = 1
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	pass

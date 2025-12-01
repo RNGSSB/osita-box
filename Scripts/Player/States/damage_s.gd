@@ -19,7 +19,7 @@ func Enter():
 func Update(_delta: float):
 	pass
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	if owner.cFrame(16):
 		owner.setColor(255,255,255)
 	if owner.cFrame(27):

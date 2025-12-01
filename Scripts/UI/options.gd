@@ -57,15 +57,15 @@ func loadData():
 		masterVolume = -30
 		print("No data found")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	if visible:
 		if Gamemanager.checkInputJustPressed("Start"):
 			select = 0
 			holdOn = false
 			SaveData()
 			visible = false
-		if Gamemanager.checkInputJustPressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_cancel"):
 			select = 0
 			holdOn = true
 			SaveData()

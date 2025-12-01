@@ -22,7 +22,7 @@ func Update(_delta: float):
 			owner.upBuffer = owner.frameCounter
 			owner.bufferUp = true
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	if owner.cFrame(1):
 		owner.makerHerVisible = true
 	if owner.cFrame(5):

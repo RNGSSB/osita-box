@@ -16,15 +16,15 @@ func _ready():
 		owner.CURRSTATE = current_state.name
 		#print(owner.CURRSTATE)
 
-func _process(delta):
+func _process(_delta):
 	if current_state:
-		current_state.Update(delta)
+		current_state.Update(_delta)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if current_state:
 		if !owner.frozen: 
 			owner.stateFrame += 1
-			current_state.Physics_Update(delta)
+			current_state.Physics_Update(_delta)
 
 func change_state(new_state_name):
 	var new_state = states.get(new_state_name.to_lower())

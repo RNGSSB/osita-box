@@ -14,15 +14,15 @@ func _ready():
 	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	if !Options.visible and !InputMapper.visible:
-		if Gamemanager.checkInputJustPressed("ui_cancel") and !Options.holdOn:
+		if Input.is_action_just_pressed("ui_cancel") and !Options.holdOn:
 			select = 0
 			owner.isPaused = false
 			owner.fuckYou2 = false
 		
-		if Gamemanager.checkInputJustReleased("ui_cancel"):
+		if Input.is_action_just_released("ui_cancel"):
 			Options.holdOn = false
 		
 		if Gamemanager.checkInputJustPressed("Down"):

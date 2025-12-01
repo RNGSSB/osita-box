@@ -24,7 +24,7 @@ func Enter():
 func Update(_delta: float):
 	pass
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	if owner.cFrame(5):
 		AudioManager.Play("AttackSwoosh", "Left", 1.0, 1.0)
 	if owner.cFrame(9):

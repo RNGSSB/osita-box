@@ -9,7 +9,7 @@ var frameCounter = 0
 func _ready():
 	animation.play(animName)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	frameCounter += 1
 	
 	if animName != "DIZZY":

@@ -24,7 +24,7 @@ func Update(_delta: float):
 			owner.upBuffer = owner.frameCounter
 			owner.bufferUp = true
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	if owner.cFrame(11):
 		owner.ctrl = 1
 	if owner.animSys.animEnd:

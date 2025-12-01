@@ -15,11 +15,11 @@ func randomOffset():
 	return Vector2(rng.randf_range(shake_strenght, -shake_strenght), 0)
 
 
-func cameraShake(delta):
+func cameraShake(_delta):
 	if owner.hitStop > 0:
 		print("SHAKING")
 	if shake_strenght > 0:
-		shake_strenght = lerpf(shake_strenght,0, shakeFade * delta)
+		shake_strenght = lerpf(shake_strenght,0, shakeFade * _delta)
 		offset = randomOffset()
 
 
@@ -28,7 +28,7 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _physics_process(_delta):
 	if !owner.frameAdvance:
-		cameraShake(delta)
+		cameraShake(_delta)

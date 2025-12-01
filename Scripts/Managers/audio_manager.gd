@@ -1,20 +1,20 @@
 extends Node2D
 
 
-func Play(name, audiobus, volume, pitch):
-	if get_node(name) == null:
+func Play(soundName, audiobus, volume, pitch):
+	if get_node(soundName) == null:
 		print("No SFX found dumbass")
 		return
-	get_node(name).bus = audiobus
-	get_node(name).volume_db = volume
-	get_node(name).pitch_scale = pitch
-	get_node(name).play()
+	get_node(soundName).bus = audiobus
+	get_node(soundName).volume_db = volume
+	get_node(soundName).pitch_scale = pitch
+	get_node(soundName).play()
 
-func Stop(name):
-	if get_node(name) == null:
+func Stop(soundName):
+	if get_node(soundName) == null:
 		print("No SFX found dumbass")
 		return
-	get_node(name).stop()
+	get_node(soundName).stop()
 
-func _process(delta):
+func _process(_delta):
 	pass

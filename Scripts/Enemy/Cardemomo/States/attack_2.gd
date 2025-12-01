@@ -24,7 +24,7 @@ func Enter():
 func Update(_delta: float):
 	pass
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	if owner.cFrame(7):
 		owner.Guard(true,true,false,true)
 	if owner.cFrame(21):

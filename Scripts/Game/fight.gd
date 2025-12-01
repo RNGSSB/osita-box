@@ -11,7 +11,7 @@ func Enter():
 func Update(_delta: float):
 	pass
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	if owner.stateFrame < 30:
 		owner.readyText.visible = true
 	if owner.stateFrame == 30:

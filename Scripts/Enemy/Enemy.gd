@@ -277,8 +277,8 @@ func _ready():
 	health = maxHealth
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	if Input.is_key_pressed(KEY_1):
 		aiActive = true
 	
@@ -302,7 +302,7 @@ func lobotomy():
 		if Input.is_key_pressed(KEY_7):
 			stateMachine.change_state2("Dead")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if health < 0:
 		health = 0
 	

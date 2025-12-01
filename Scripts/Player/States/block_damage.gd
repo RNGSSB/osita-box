@@ -13,7 +13,7 @@ func Enter():
 func Update(_delta: float):
 	pass
 
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	if owner.cFrame(10):
 		owner.makerHerVisible = false
 	if owner.animSys.animEnd:
