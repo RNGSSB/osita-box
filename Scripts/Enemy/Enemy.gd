@@ -254,6 +254,18 @@ animOverride = "no", posOverride = 0, dirOverride = false):
 				return
 		else:
 			punchDodgeFunc("SFX", dodgeCombo, perfectCombo)
+	elif value == 4: #Dodge Left or Right
+		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
+			punchBlockFunc("SFX", meter, guardMeter, blockStun, blockCombo)
+			return
+		if !enemyRef.dodgeLeft and !enemyRef.dodgeRight:
+			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
+				punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
+				sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY, animOverride, posOverride, dirOverride)
+			else:
+				return
+		else:
+			punchDodgeFunc("SFX", dodgeCombo, perfectCombo)
 
 func stun():
 	hitLeft = true
@@ -300,7 +312,7 @@ func lobotomy():
 		if Input.is_key_pressed(KEY_6):
 			stateMachine.change_state2("Attack4")
 		if Input.is_key_pressed(KEY_7):
-			stateMachine.change_state2("Dead")
+			stateMachine.change_state2("Attack5")
 
 func _physics_process(_delta):
 	if health < 0:

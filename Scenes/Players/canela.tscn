@@ -104,6 +104,7 @@ script = ExtResource("3_pqjug")
 spriteSheet = ExtResource("7_w4r7k")
 frames = 21
 columns = 3
+posY = 243.0
 frameTimes = Array[int]([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 3, 3, 4, 5, 6])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 

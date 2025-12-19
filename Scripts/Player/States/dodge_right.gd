@@ -3,6 +3,7 @@ extends State
 
 func Exit():
 	owner.ctrl = 1
+	owner.moveCamera(0.2, 0)
 	owner.dodgeSuccess = false
 	owner.perfectDodge = false
 	owner.dodgeRight = false

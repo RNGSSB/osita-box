@@ -49,7 +49,7 @@ func animPlay(animName):
 	else:
 		owner.position.x = current_anim.posX 
 	
-	if current_anim.posY > -1.0:
+	if current_anim.posY != -1.0:
 		owner.position.y = current_anim.posY
 	else:
 		owner.position.y = owner.defaultPosY

@@ -42,6 +42,23 @@ func brainJuice():
 	if !owner.aiActive:
 		return
 	
+	if owner.CURRSTATE == "Wait":
+		if rng.randi_range(0, 256) == 256:
+			owner.stateMachine.change_state("Attack1")
+		
+		if rng.randi_range(0, 256) == 255:
+			owner.stateMachine.change_state("Attack2")
+		
+		if rng.randi_range(0, 256) == 254:
+			owner.stateMachine.change_state("Attack3")
+		
+		if rng.randi_range(0, 256) == 253:
+			owner.stateMachine.change_state("Attack4")
+		
+		if rng.randi_range(0, 256) == 252:
+			owner.stateMachine.change_state("Attack5")
+	return
+	
 	if attackAvailable:
 		if !owner.damaged and !owner.guardAll and (owner.CURRSTATE != "BlockLwDamage" or owner.CURRSTATE != "BlockHiDamage"):
 			owner.stateMachine.change_state(currentStance)
