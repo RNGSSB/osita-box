@@ -59,6 +59,7 @@ func brainJuice():
 			owner.stateMachine.change_state("Attack5")
 	return
 	
+	@warning_ignore("unreachable_code")
 	if attackAvailable:
 		if !owner.damaged and !owner.guardAll and (owner.CURRSTATE != "BlockLwDamage" or owner.CURRSTATE != "BlockHiDamage"):
 			owner.stateMachine.change_state(currentStance)
