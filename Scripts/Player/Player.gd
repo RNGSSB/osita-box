@@ -270,7 +270,7 @@ func sheVisibleNow():
 		if transparency < 127:
 			transparency = 127
 
-func punchBlockFunc(effectY = 0, audioBus = "SFX", blockState = "BlockLw", hitlag = 3, shake = 10):
+func punchBlockFunc(effectY = 0, audioBus = "SFX", blockState = "BlockLw", hitlag = 3, shake = 10, flip = false):
 	punchBlock = true
 	superMeter -= guardMeterLoss
 	enemyRef.hitCount = 0
@@ -321,6 +321,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 	enemyRef = owner.enemy
 	if value == 0: #Left
 		if enemyRef.blockLeft or enemyRef.guardAll:
+			enemyRef.playerPunch = value
 			punchBlockFunc(60, "Left", "BlockLw")
 			return
 		if enemyRef.hitLeft:
@@ -329,9 +330,11 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 				punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 				hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 			else:
+				enemyRef.playerPunch = value
 				punchBlockFunc(60, "Left", "BlockLw")
 	if value == 1: #Right
 		if enemyRef.blockRight  or enemyRef.guardAll:
+			enemyRef.playerPunch = value
 			punchBlockFunc(60, "Right", "BlockLw")
 			return
 		if enemyRef.hitRight:
@@ -340,9 +343,11 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 				punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 				hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 			else:
+				enemyRef.playerPunch = value
 				punchBlockFunc(60, "Right", "BlockLw")
 	if value == 2: #Left Up
 		if enemyRef.blockUpLeft  or enemyRef.guardAll:
+			enemyRef.playerPunch = value
 			punchBlockFunc(-150, "Left", "BlockHi")
 			return
 		if enemyRef.hitUpLeft:
@@ -351,9 +356,11 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 				punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 				hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 			else:
+				enemyRef.playerPunch = value
 				punchBlockFunc(-150, "Left", "BlockHi")
 	if value == 3: #Right Up
 		if enemyRef.blockUpRight  or enemyRef.guardAll:
+			enemyRef.playerPunch = value
 			punchBlockFunc(-150, "Right", "BlockHi")
 			return
 		if enemyRef.hitUpRight:
@@ -362,9 +369,11 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 				punchHitFunc(damage, meter, flip, audioBus, sfx, volume, pitch, 
 				hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 			else:
+				enemyRef.playerPunch = value
 				punchBlockFunc(-150, "Right", "BlockHi")
 	if value == 4: #Super Lw
 		if enemyRef.blockUpRight  or enemyRef.guardAll:
+			enemyRef.playerPunch = value
 			punchBlockFunc(60, "SFX", "BlockLw", 20, 40)
 			return
 		if enemyRef.hitRight or enemyRef.hitLeft:
@@ -373,6 +382,7 @@ effect = "HIT", effectX = 0.0, effectY = 0.0, scaleX = 1.0, scaleY = 1.0):
 			hitState, upper, hitlagMul, shakeMul, effect, effectX, effectY, scaleX, scaleY)
 	if value == 5: #Super Hi
 		if enemyRef.blockUpRight  or enemyRef.guardAll:
+			enemyRef.playerPunch = value
 			punchBlockFunc(-150, "SFX", "BlockHi")
 			return
 		if enemyRef.hitUpRight or enemyRef.hitUpLeft:

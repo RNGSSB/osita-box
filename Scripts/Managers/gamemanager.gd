@@ -14,7 +14,7 @@ var playerPalettes = ["res://Scenes/Players/Palettes/default.tscn",
 "res://Scenes/Players/Palettes/test5.tscn",
 "res://Scenes/Players/Palettes/test6.tscn"]
 var enemyList = ["res://Scenes/Enemy/cardemomo.tscn",
-"res://Scenes/Enemy/cardemomo2.tscn"]
+"res://Scenes/Enemy/paulette.tscn"]
 
 var playerId = 0
 var playerPaletteId = 0

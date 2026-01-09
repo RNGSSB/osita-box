@@ -3,6 +3,7 @@ extends Sprite2D
 var frozen = false
 var CURRSTATE = "Wait"
 var PREVSTATE = "Wait"
+@export var background : PackedScene
 @onready var stateMachine = $StateMachine
 @export var animSys : Node
 
@@ -77,6 +78,8 @@ var flipDamageLw = true
 var flipDamageHi = true
 var flipDamageCounterLw = true
 var flipDamageCounterHi = false
+@export var flipBlockLw = false
+@export var flipBlockHi = true
 
 @onready var brain = $Brain
 

@@ -91,6 +91,10 @@ func initFighters():
 	
 	var playerPalette = load(Gamemanager.playerPalettes[Gamemanager.playerPaletteId]).instantiate()
 	player.setPalette(playerPalette.glove_color_main,playerPalette.glove_color_socket,playerPalette.shirt_color_main,playerPalette.shirt_color_bottom,playerPalette.pant_color_main,playerPalette.pant_color_lines,playerPalette.shirt_color_shading,playerPalette.pant_color_shading,playerPalette.glove_color_shading ,playerPalette.glove_color_inner ,playerPalette.glove_color_socket_shading)
+	
+	var background = enemyInstance.background.instantiate()
+	get_node("BackgroundLayer").add_child(background)
+	
 
 
 func initHealthBars():
