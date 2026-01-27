@@ -102,10 +102,10 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 [node name="DodgeDown" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
 spriteSheet = ExtResource("7_w4r7k")
-frames = 21
+frames = 19
 columns = 3
 posY = 243.0
-frameTimes = Array[int]([1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 2, 2, 4, 4, 1, 6, 4])
+frameTimes = Array[int]([1, 1, 1, 1, 2, 1, 1, 5, 1, 1, 1, 1, 2, 2, 4, 4, 1, 6, 4])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchLow" type="Node" parent="AnimSys"]

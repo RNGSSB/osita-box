@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://eobepwks4242"]
+[gd_scene load_steps=52 format=3 uid="uid://eobepwks4242"]
 
 [ext_resource type="Script" uid="uid://ccs8cn6x6ojk5" path="res://Scripts/Enemy/Enemy.gd" id="1_d8ljs"]
 [ext_resource type="Texture2D" uid="uid://imdyfpgo15s0" path="res://Sprites/Characters/Cardemomo/A00Wait.png" id="1_krvq6"]
@@ -49,6 +49,7 @@
 [ext_resource type="Texture2D" uid="uid://bjnp3l2y7t1rh" path="res://Sprites/Characters/Cardemomo/A24Attack5Start.png" id="27_sqo1q"]
 [ext_resource type="Texture2D" uid="uid://0ehfwowyieh2" path="res://Sprites/Characters/Cardemomo/A25Attack5Hit.png" id="28_grbw2"]
 [ext_resource type="Texture2D" uid="uid://bieta6d4jhwbl" path="res://Sprites/Characters/Cardemomo/A26Attack5Miss.png" id="29_j3k2o"]
+[ext_resource type="Script" uid="uid://cmx5chmbgbga5" path="res://Scripts/HitSys/hit.gd" id="31_1a5x5"]
 [ext_resource type="Script" uid="uid://da5xyrhb4icf3" path="res://Scripts/Enemy/Cardemomo/States/attack_5.gd" id="48_grbw2"]
 
 [node name="Enemy" type="Sprite2D" node_paths=PackedStringArray("animSys")]
@@ -331,6 +332,25 @@ frames = 19
 columns = 3
 frameTimes = Array[int]([2, 2, 2, 2, 2, 2, 4, 5, 5, 7, 5, 5, 7, 2, 6, 7, 2, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="HitSys" type="Node" parent="."]
+
+[node name="Attack1" type="Node" parent="HitSys"]
+script = ExtResource("31_1a5x5")
+direction = 1
+damage = 12.5
+meter = 10.0
+damageAnim = 1
+hitlag = 8
+guardMeter = 15.0
+dodgeCombo = 4
+blockCombo = 1
+perfectCombo = 6
+scaleX = 3.0
+scaleY = 3.0
+posX = -200.0
+posY = 200.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_xadju")
