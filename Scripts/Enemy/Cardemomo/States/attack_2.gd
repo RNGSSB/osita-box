@@ -35,9 +35,7 @@ func Physics_Update(_delta: float):
 		owner.animSys.animPlay("Attack2Hit")
 		owner.Guard(false,false,false,false)
 	if owner.cFrame(39):
-		#Hit
-		owner.punchOpponent(3, 7.5, 6, true, 6, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 0, 190, 1, true, 2, 3, 4)
+		owner.punchOpponent("Attack2")
 	if owner.punchHit:
 		if owner.animSys.animEnd: #5
 			Transitioned.emit(self, "wait")

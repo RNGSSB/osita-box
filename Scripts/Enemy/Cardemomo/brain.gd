@@ -41,7 +41,7 @@ func timerDone():
 func brainJuice():
 	if !owner.aiActive:
 		return
-	
+	return
 	if owner.CURRSTATE == "Wait":
 		if rng.randi_range(0, 256) == 256:
 			owner.stateMachine.change_state("Attack1")

@@ -52,7 +52,7 @@
 [ext_resource type="Script" uid="uid://cmx5chmbgbga5" path="res://Scripts/HitSys/hit.gd" id="31_1a5x5"]
 [ext_resource type="Script" uid="uid://da5xyrhb4icf3" path="res://Scripts/Enemy/Cardemomo/States/attack_5.gd" id="48_grbw2"]
 
-[node name="Enemy" type="Sprite2D" node_paths=PackedStringArray("animSys")]
+[node name="Enemy" type="Sprite2D" node_paths=PackedStringArray("animSys", "hitSys")]
 process_mode = 1
 texture_filter = 1
 position = Vector2(0, 100)
@@ -61,6 +61,7 @@ hframes = 7
 script = ExtResource("1_d8ljs")
 background = ExtResource("3_j3k2o")
 animSys = NodePath("AnimSys")
+hitSys = NodePath("HitSys")
 flipBlockHi = false
 
 [node name="Brain" type="Node" parent="."]
@@ -337,19 +338,183 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="Attack1" type="Node" parent="HitSys"]
 script = ExtResource("31_1a5x5")
-direction = 1
+dodgeDirection = 1
 damage = 12.5
 meter = 10.0
-damageAnim = 1
 hitlag = 8
 guardMeter = 15.0
 dodgeCombo = 4
 blockCombo = 1
 perfectCombo = 6
+damageAnim = 1
+playerX = -250.0
+audioBus = 2
 scaleX = 3.0
 scaleY = 3.0
 posX = -200.0
 posY = 200.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack2" type="Node" parent="HitSys"]
+script = ExtResource("31_1a5x5")
+dodgeDirection = 3
+damage = 7.5
+meter = 6.0
+hitlag = 6
+guardMeter = 1.0
+dodgeCombo = 2
+perfectCombo = 4
+audioBus = 2
+scaleX = 3.0
+scaleY = 3.0
+posX = 0.0
+posY = 190.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack3" type="Node" parent="HitSys"]
+script = ExtResource("31_1a5x5")
+damage = 12.5
+meter = 10.0
+hitlag = 8
+guardMeter = 15.0
+dodgeCombo = 4
+blockCombo = 1
+perfectCombo = 6
+damageAnim = 1
+playerX = 250.0
+flip = true
+audioBus = 1
+scaleX = 3.0
+scaleY = 3.0
+posX = 200.0
+posY = 200.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack4H1" type="Node" parent="HitSys"]
+script = ExtResource("31_1a5x5")
+dodgeDirection = 2
+damage = 20.0
+meter = 20.0
+hitlag = 12
+guardMeter = 34.0
+dodgeCombo = 6
+blockCombo = 1
+perfectCombo = 9
+hitNeutral = false
+hitRight = false
+hitDown = false
+scaleX = 3.0
+scaleY = 3.0
+posX = 0.0
+posY = 0.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack4H2" type="Node" parent="HitSys"]
+script = ExtResource("31_1a5x5")
+dodgeDirection = 2
+damage = 20.0
+meter = 20.0
+hitlag = 12
+guardMeter = 34.0
+dodgeCombo = 6
+blockCombo = 1
+perfectCombo = 9
+hitNeutral = false
+hitRight = false
+hitDown = false
+scaleX = 3.0
+scaleY = 3.0
+posX = 0.0
+posY = 0.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack4H3" type="Node" parent="HitSys"]
+script = ExtResource("31_1a5x5")
+dodgeDirection = 2
+damage = 20.0
+meter = 20.0
+hitlag = 12
+guardMeter = 34.0
+dodgeCombo = 6
+blockCombo = 1
+perfectCombo = 9
+hitRight = false
+scaleX = 3.0
+scaleY = 3.0
+posX = 0.0
+posY = 0.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack4H4" type="Node" parent="HitSys"]
+script = ExtResource("31_1a5x5")
+dodgeDirection = 2
+damage = 20.0
+meter = 20.0
+hitlag = 12
+guardMeter = 34.0
+dodgeCombo = 6
+blockCombo = 1
+perfectCombo = 9
+hitRight = false
+scaleX = 3.0
+scaleY = 3.0
+posX = 0.0
+posY = 0.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack4H5" type="Node" parent="HitSys"]
+script = ExtResource("31_1a5x5")
+dodgeDirection = 2
+damage = 20.0
+meter = 20.0
+hitlag = 12
+guardMeter = 34.0
+dodgeCombo = 6
+blockCombo = 1
+perfectCombo = 9
+damageAnim = 1
+playerX = 250.0
+flip = true
+scaleX = 3.0
+scaleY = 3.0
+posX = 0.0
+posY = 0.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack4H6" type="Node" parent="HitSys"]
+script = ExtResource("31_1a5x5")
+dodgeDirection = 2
+damage = 20.0
+meter = 20.0
+hitlag = 12
+guardMeter = 34.0
+dodgeCombo = 6
+blockCombo = 1
+perfectCombo = 9
+damageAnim = 1
+playerX = 250.0
+flip = true
+scaleX = 3.0
+scaleY = 3.0
+posX = 0.0
+posY = 0.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack5" type="Node" parent="HitSys"]
+script = ExtResource("31_1a5x5")
+dodgeDirection = 4
+damage = 12.5
+meter = 10.0
+hitlag = 12
+guardMeter = 15.0
+dodgeCombo = 4
+blockCombo = 1
+perfectCombo = 6
+damageAnim = 2
+scaleX = 3.0
+scaleY = 3.0
+posX = 0.0
+posY = -50.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
