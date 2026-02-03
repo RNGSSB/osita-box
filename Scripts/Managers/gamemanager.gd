@@ -36,7 +36,9 @@ func createEffects(effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, pos
 	instance.z_index = zIndex
 	instance.flip_h = flip
 	instance.scale = Vector2(scaleX, scaleY)
-	get_node("/root/Game/GameElements").add_child(instance)
+	get_node("/root/Game/GameElements3").add_child(instance)
+	instance.owner = get_node("/root/Game")
+	
 
 
 func checkInputJustPressed(inputName):
@@ -89,9 +91,9 @@ func checkInputAxis(neg, pos):
 
 
 func destroyEffect(effectName):
-	if get_node("/root/Game/GameElements/" + effectName) == null:
+	if get_node("/root/Game/GameElements3/" + effectName) == null:
 		return
-	get_node("/root/Game/GameElements/" + effectName).queue_free()
+	get_node("/root/Game/GameElements3/" + effectName).queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

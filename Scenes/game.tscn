@@ -257,6 +257,12 @@ follow_viewport_enabled = true
 [node name="Camera" type="Camera2D" parent="GameElements"]
 script = ExtResource("5_ln6xw")
 
+[node name="GameElements2" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="GameElements3" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
 follow_viewport_enabled = true

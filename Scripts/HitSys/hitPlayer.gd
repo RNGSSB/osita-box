@@ -3,19 +3,29 @@ extends Node
 
 enum hitDirections{LEFT,RIGHT,UPLEFT,UPRIGHT}
 enum AUDIOBUS{SFX,LEFT,RIGHT}
+enum ANIMDIR{L,R}
 
+@export_group("Hit Properties")
 @export var punchDirection : hitDirections = hitDirections.LEFT
 @export var damage = 1.0
 @export var meter = 1.0
-@export var flip = false
-@export var hitState = "DamageN"
-@export var upper = false
 @export var hitlagMul = 1.0
 @export var shakeMul = 1.0
+@export var upper = false
+@export var flip = false
+@export var endStun = false
+@export_group("Animation")
+@export var animDir : ANIMDIR = ANIMDIR.R
+@export var hitAnim = "DamageLw"
+@export var hitAnimBackup = "DamageLw"
+@export var dizzyAnim = "None"
+@export_group("Audio")
 @export var audioBus : AUDIOBUS = AUDIOBUS.SFX
 @export var sfx = "Damage3"
 @export var volume = 1.0
 @export var pitch = 1.0
+@export var soundCombo = false
+@export_group("Hit Spark")
 @export var effect = "HIT"
 @export var effectX = 0.0
 @export var effectY = 0.0

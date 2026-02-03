@@ -5,10 +5,18 @@ func Exit():
 
 func Enter():
 	owner.ctrl = 1
-	owner.animSys.animPlay("Wait")
+	if !owner.inBurnout:
+		owner.animSys.animPlay("Wait")
+	else:
+		owner.animSys.animPlay("WaitBurn")
 
 func Update(_delta: float):
 	pass
 
 func Physics_Update(_delta: float):
-	pass
+	if !owner.inBurnout:
+		if owner.animSys.CURRANIM != "Wait":
+			owner.animSys.animPlay("Wait")
+	else:
+		if owner.animSys.CURRANIM != "WaitBurn":
+			owner.animSys.animPlay("WaitBurn")

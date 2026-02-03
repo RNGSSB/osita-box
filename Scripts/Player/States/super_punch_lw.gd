@@ -26,9 +26,9 @@ func Update(_delta: float):
 func Physics_Update(_delta: float):
 	if owner.cFrame(18):
 		AudioManager.Play("Attack4Swoosh", "Left", 1.0, 1.0)
-	if owner.cFrame(21):
-		owner.punchOpponent(4, owner.superDamage, 2, false, "SFX", "SuperHit", 1.0, 1.0, 
-		"DamageN4", false, 6.0, 4.0, "HITFINISHER", -200, 60, 3.0, 3.0)
+	#if owner.cFrame(21):
+		#owner.punchOpponent(4, owner.superDamage, 2, false, "SFX", "SuperHit", 1.0, 1.0, 
+		#"DamageN4", false, 6.0, 4.0, "HITFINISHER", -200, 60, 3.0, 3.0)
 	if owner.cFrame(22):
 		owner.makerHerVisible = false
 	if owner.animSys.animEnd:

@@ -33,6 +33,6 @@ func Physics_Update(_delta: float):
 			AudioManager.Play("Dizzy", "SFX", 1.0, 1.0) 
 	if owner.animSys.animEnd:
 		if owner.stunned:
-			Transitioned.emit(self, "dizzylw")
+			Transitioned.emit(self, "dizzy")
 		else:
 			Transitioned.emit(self, "wait")

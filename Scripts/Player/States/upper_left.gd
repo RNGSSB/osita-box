@@ -26,8 +26,7 @@ func Physics_Update(_delta: float):
 	if owner.cFrame(1):
 		owner.makerHerVisible = true
 	if owner.cFrame(5):
-		owner.punchOpponent(2, owner.punchDamage, owner.punchMeterGain, true, "Left", "Damage3", 1.0, 1.0 + (owner.hitCount * 0.2), 
-		"DamageHi", true, 1.0, 1.0, "HIT", 0, -180, 2.0, 2.0)
+		owner.punchOpponent("UpperLeft")
 	if !owner.punchHit:
 		if owner.cFrame(6):
 			owner.animSys.animPlay("PunchHighMiss")

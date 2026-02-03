@@ -79,6 +79,8 @@ var flipDamageLw = true
 var flipDamageHi = true
 var flipDamageCounterLw = true
 var flipDamageCounterHi = false
+
+var dizzyAnim = "DizzyLw"
 @export var flipBlockLw = false
 @export var flipBlockHi = true
 

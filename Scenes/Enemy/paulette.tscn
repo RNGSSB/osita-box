@@ -6,26 +6,25 @@
 [ext_resource type="Script" uid="uid://ie6vgxi6smm1" path="res://Scripts/Enemy/Cardemomo/brain.gd" id="4_ebiqh"]
 [ext_resource type="Script" uid="uid://dn5hntoj886r0" path="res://Scripts/AnimSys/AnimSys.gd" id="5_kl1bi"]
 [ext_resource type="Script" uid="uid://dtj8na0fxumeu" path="res://Scripts/AnimSys/anim.gd" id="6_mp353"]
-[ext_resource type="Texture2D" uid="uid://c016dmmg1k5wt" path="res://Sprites/Characters/Cardemomo/A07DamageHi4.png" id="7_numlb"]
-[ext_resource type="Texture2D" uid="uid://diitd15qe0d8a" path="res://Sprites/Characters/Cardemomo/A18DamageHi4L.png" id="8_efa8i"]
-[ext_resource type="Texture2D" uid="uid://d1wnq2sp2tcwd" path="res://Sprites/Characters/Cardemomo/A03DamageLw.png" id="9_e065w"]
-[ext_resource type="Texture2D" uid="uid://bok614vx72bdb" path="res://Sprites/Characters/Cardemomo/A17DamageLw4L.png" id="10_jnmvn"]
-[ext_resource type="Texture2D" uid="uid://dfnhgyucjhp82" path="res://Sprites/Characters/Cardemomo/A13DamageLw4Counter.png" id="11_etxax"]
-[ext_resource type="Texture2D" uid="uid://gb0p58istaft" path="res://Sprites/Characters/Cardemomo/A19DamageLw4CounterL.png" id="12_k6fa4"]
-[ext_resource type="Texture2D" uid="uid://codfo3oxe6dnn" path="res://Sprites/Characters/Cardemomo/A05DizzyLw.png" id="13_wc005"]
-[ext_resource type="Texture2D" uid="uid://xfg074ledum0" path="res://Sprites/Characters/Cardemomo/A08DizzyHi.png" id="14_7l2dw"]
-[ext_resource type="Texture2D" uid="uid://bj36fi2yhnr2j" path="res://Sprites/Characters/Cardemomo/A23Dead.png" id="15_7eml7"]
+[ext_resource type="Texture2D" uid="uid://diitd15qe0d8a" path="res://Sprites/Characters/Cardemomo/DamageHi.png" id="8_efa8i"]
+[ext_resource type="Texture2D" uid="uid://d1wnq2sp2tcwd" path="res://Sprites/Characters/Cardemomo/DamageLw.png" id="9_e065w"]
+[ext_resource type="Texture2D" uid="uid://bok614vx72bdb" path="res://Sprites/Characters/Cardemomo/DamageLwL.png" id="10_jnmvn"]
+[ext_resource type="Texture2D" uid="uid://dfnhgyucjhp82" path="res://Sprites/Characters/Cardemomo/DamageCounterLwL.png" id="11_etxax"]
+[ext_resource type="Texture2D" uid="uid://gb0p58istaft" path="res://Sprites/Characters/Cardemomo/DamageCounterLw.png" id="12_k6fa4"]
+[ext_resource type="Texture2D" uid="uid://codfo3oxe6dnn" path="res://Sprites/Characters/Cardemomo/DizzyLw.png" id="13_wc005"]
+[ext_resource type="Texture2D" uid="uid://xfg074ledum0" path="res://Sprites/Characters/Cardemomo/DizzyHi.png" id="14_7l2dw"]
+[ext_resource type="Texture2D" uid="uid://bj36fi2yhnr2j" path="res://Sprites/Characters/Cardemomo/Dead.png" id="15_7eml7"]
 [ext_resource type="Texture2D" uid="uid://3yyxb06s66x0" path="res://Sprites/Characters/Paulette/A01BlockLw.png" id="16_c7vlj"]
 [ext_resource type="Texture2D" uid="uid://bqo3g0ntvylr4" path="res://Sprites/Characters/Paulette/A02BlockHi.png" id="17_bu6gt"]
-[ext_resource type="Texture2D" uid="uid://7uady8tjsgeu" path="res://Sprites/Characters/Cardemomo/A09Attack1Start.png" id="18_2a7iy"]
-[ext_resource type="Texture2D" uid="uid://b3rye7p75bau7" path="res://Sprites/Characters/Cardemomo/A10Attack1Hit.png" id="19_l62c6"]
-[ext_resource type="Texture2D" uid="uid://dx3xpcboovy88" path="res://Sprites/Characters/Cardemomo/A11Attack1Miss.png" id="20_s815e"]
-[ext_resource type="Texture2D" uid="uid://bsl00cu81cbky" path="res://Sprites/Characters/Cardemomo/A14Attack2Start.png" id="21_nrm3w"]
-[ext_resource type="Texture2D" uid="uid://chlrd33uwmd5s" path="res://Sprites/Characters/Cardemomo/A15AttackHit.png" id="22_w60d5"]
-[ext_resource type="Texture2D" uid="uid://bhsmcs67u12dn" path="res://Sprites/Characters/Cardemomo/A16AttackMiss.png" id="23_r8h6e"]
-[ext_resource type="Texture2D" uid="uid://r4wcxsa628ld" path="res://Sprites/Characters/Cardemomo/A20Attack4Start.png" id="24_wbn3j"]
-[ext_resource type="Texture2D" uid="uid://bigrm8ga1af5u" path="res://Sprites/Characters/Cardemomo/A21Attack4Hit.png" id="25_48au5"]
-[ext_resource type="Texture2D" uid="uid://dyurjw8n6v0vu" path="res://Sprites/Characters/Cardemomo/A22Attack4Miss.png" id="26_egpfw"]
+[ext_resource type="Texture2D" uid="uid://7uady8tjsgeu" path="res://Sprites/Characters/Cardemomo/Attack1Start.png" id="18_2a7iy"]
+[ext_resource type="Texture2D" uid="uid://b3rye7p75bau7" path="res://Sprites/Characters/Cardemomo/Attack1Hit.png" id="19_l62c6"]
+[ext_resource type="Texture2D" uid="uid://dx3xpcboovy88" path="res://Sprites/Characters/Cardemomo/Attack1Miss.png" id="20_s815e"]
+[ext_resource type="Texture2D" uid="uid://bsl00cu81cbky" path="res://Sprites/Characters/Cardemomo/Attack2Start.png" id="21_nrm3w"]
+[ext_resource type="Texture2D" uid="uid://chlrd33uwmd5s" path="res://Sprites/Characters/Cardemomo/Attack2Hit.png" id="22_w60d5"]
+[ext_resource type="Texture2D" uid="uid://bhsmcs67u12dn" path="res://Sprites/Characters/Cardemomo/Attack2Miss.png" id="23_r8h6e"]
+[ext_resource type="Texture2D" uid="uid://cjvmuq3x54w1y" path="res://Sprites/Characters/Cardemomo/Attack4Start.png" id="24_wbn3j"]
+[ext_resource type="Texture2D" uid="uid://bigrm8ga1af5u" path="res://Sprites/Characters/Cardemomo/Attack4Hit.png" id="25_48au5"]
+[ext_resource type="Texture2D" uid="uid://c7o50wnoaomhi" path="res://Sprites/Characters/Cardemomo/Attack4Miss.png" id="26_egpfw"]
 [ext_resource type="Script" uid="uid://ckyu2wqkse4qx" path="res://Scripts/State Machine/StateMachine.gd" id="27_401mr"]
 [ext_resource type="Script" uid="uid://dlw0qoeaol36a" path="res://Scripts/Enemy/CommonStates/wait.gd" id="28_70oni"]
 [ext_resource type="Script" uid="uid://lvfu8ep0al1o" path="res://Scripts/Enemy/CommonStates/damage_n.gd" id="29_kjpmq"]
@@ -45,6 +44,8 @@
 [ext_resource type="Script" uid="uid://c2fnjr5m6hm6o" path="res://Scripts/Enemy/CommonStates/block_hi_damage.gd" id="43_t8net"]
 [ext_resource type="Script" uid="uid://cbsoaehufkjc2" path="res://Scripts/Enemy/Cardemomo/States/attack_4.gd" id="44_j8m32"]
 [ext_resource type="Script" uid="uid://bfgl2oga5vcri" path="res://Scripts/Enemy/CommonStates/dead.gd" id="45_ptblf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lx36s"]
 
 [node name="Enemy" type="Sprite2D" node_paths=PackedStringArray("animSys")]
 process_mode = 1
@@ -74,7 +75,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="DamageHi" type="Node" parent="AnimSys"]
 script = ExtResource("6_mp353")
-spriteSheet = ExtResource("7_numlb")
+spriteSheet = SubResource("CompressedTexture2D_lx36s")
 initialFrame = 3
 frames = 10
 columns = 2
@@ -83,7 +84,7 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="DamageHi4" type="Node" parent="AnimSys"]
 script = ExtResource("6_mp353")
-spriteSheet = ExtResource("7_numlb")
+spriteSheet = SubResource("CompressedTexture2D_lx36s")
 frames = 10
 columns = 2
 frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])

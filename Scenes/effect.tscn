@@ -2,128 +2,70 @@
 
 [ext_resource type="Texture2D" uid="uid://cnq8pgxgtr7a2" path="res://Sprites/Effects/Effects.png" id="1_h06an"]
 [ext_resource type="Script" uid="uid://5jova0ib5406" path="res://Scripts/Misc/effect.gd" id="1_w6lq1"]
+[ext_resource type="Script" uid="uid://dn5hntoj886r0" path="res://Scripts/AnimSys/AnimSys.gd" id="3_taubf"]
+[ext_resource type="Script" uid="uid://dtj8na0fxumeu" path="res://Scripts/AnimSys/anim.gd" id="4_loino"]
+[ext_resource type="Texture2D" uid="uid://cfrq5528wbucu" path="res://Sprites/Effects/Hit.png" id="5_xewqh"]
+[ext_resource type="Texture2D" uid="uid://clrylsefly2js" path="res://Sprites/Effects/HitFinisher.png" id="6_igpwp"]
+[ext_resource type="Texture2D" uid="uid://dlfgusp4p3pkr" path="res://Sprites/Effects/HitCounter.png" id="7_5lgeg"]
+[ext_resource type="Texture2D" uid="uid://c26wagqoywvqv" path="res://Sprites/Effects/Block.png" id="8_lx7xy"]
+[ext_resource type="Texture2D" uid="uid://diwvctp4cufrd" path="res://Sprites/Effects/Dizzy.png" id="9_7hcbh"]
 
-[sub_resource type="Animation" id="Animation_1qa4f"]
-resource_name = "BLOCK"
-length = 0.200002
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.183333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 8]
-}
-
-[sub_resource type="Animation" id="Animation_quks1"]
-resource_name = "DIZZY"
-length = 0.200002
-loop_mode = 1
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [13, 14, 15, 16]
-}
-
-[sub_resource type="Animation" id="Animation_3butk"]
-resource_name = "HIT"
-length = 0.216668
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [4, 5, 6, 7, 8]
-}
-
-[sub_resource type="Animation" id="Animation_nundh"]
-resource_name = "HITCOUNTER"
-length = 0.216669
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [17, 18, 19, 20, 8]
-}
-
-[sub_resource type="Animation" id="Animation_pmmr5"]
-resource_name = "HITFINISHER"
-length = 0.200002
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.183333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [9, 10, 11, 12, 8]
-}
-
-[sub_resource type="Animation" id="Animation_ibx86"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_rd87p"]
-_data = {
-"BLOCK": SubResource("Animation_1qa4f"),
-"DIZZY": SubResource("Animation_quks1"),
-"HIT": SubResource("Animation_3butk"),
-"HITCOUNTER": SubResource("Animation_nundh"),
-"HITFINISHER": SubResource("Animation_pmmr5"),
-"RESET": SubResource("Animation_ibx86")
-}
-
-[node name="Effect" type="Sprite2D"]
+[node name="Effect" type="Sprite2D" node_paths=PackedStringArray("animSys")]
 process_mode = 1
 z_index = 1
 texture_filter = 1
 texture = ExtResource("1_h06an")
 hframes = 4
 vframes = 6
+frame = 13
 script = ExtResource("1_w6lq1")
+animSys = NodePath("AnimSys")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_rd87p")
-}
+[node name="AnimSys" type="Node" parent="."]
+script = ExtResource("3_taubf")
+
+[node name="HIT" type="Node" parent="AnimSys"]
+script = ExtResource("4_loino")
+spriteSheet = ExtResource("5_xewqh")
+frames = 4
+rows = 5
+posX = -1.0
+frameTimes = Array[int]([3, 3, 3, 3, 3])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="HITFINISHER" type="Node" parent="AnimSys"]
+script = ExtResource("4_loino")
+spriteSheet = ExtResource("6_igpwp")
+frames = 4
+rows = 5
+posX = -1.0
+frameTimes = Array[int]([3, 3, 3, 3, 3])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="HITCOUNTER" type="Node" parent="AnimSys"]
+script = ExtResource("4_loino")
+spriteSheet = ExtResource("7_5lgeg")
+frames = 4
+rows = 5
+posX = -1.0
+frameTimes = Array[int]([3, 3, 3, 3, 3])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="BLOCK" type="Node" parent="AnimSys"]
+script = ExtResource("4_loino")
+spriteSheet = ExtResource("8_lx7xy")
+frames = 4
+rows = 5
+posX = -1.0
+frameTimes = Array[int]([3, 3, 3, 3, 3])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="DIZZY" type="Node" parent="AnimSys"]
+script = ExtResource("4_loino")
+loop = true
+spriteSheet = ExtResource("9_7hcbh")
+frames = 4
+rows = 5
+posX = -1.0
+frameTimes = Array[int]([3, 3, 3, 3])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"

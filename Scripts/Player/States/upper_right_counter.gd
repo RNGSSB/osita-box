@@ -10,8 +10,7 @@ func Exit():
 func Enter():
 	owner.ctrl = 0
 	owner.animSys.animPlay("PunchHighCounter")
-	owner.punchOpponent(3, owner.counterDamage, owner.counterMeterGain, false, "Right", "Damage4", 1.0, 1.35, 
-	"DamageHi4", true, 3.0, 3.0, "HITCOUNTER", -150, -240, 3.0, 3.0)
+	owner.punchOpponent("UpperRightCounter")
 	owner.makerHerVisible = true
 	AudioManager.Play("Attack4Swoosh", "Right", 1.0, 1.0)
 	owner.bufferPunchR = false

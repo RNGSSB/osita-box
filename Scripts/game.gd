@@ -84,9 +84,9 @@ func initFighters():
 	enemy = get_node("GameElements/Enemy")
 	
 	var playerInstance = load(Gamemanager.players[Gamemanager.playerId]).instantiate()
-	get_node("GameElements").add_child(playerInstance)
+	get_node("GameElements2").add_child(playerInstance)
 	playerInstance.owner = self
-	player = get_node("GameElements/Player")
+	player = get_node("GameElements2/Player")
 	player.position.y = player.defaultPosY
 	
 	var playerPalette = load(Gamemanager.playerPalettes[Gamemanager.playerPaletteId]).instantiate()

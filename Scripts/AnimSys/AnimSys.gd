@@ -28,6 +28,13 @@ func _ready():
 		if child is Anim:
 			animations[child.name.to_lower()] = child
 
+func checkAnim(animName):
+	var new_anim = animations.get(animName.to_lower())
+	if !new_anim:
+		return false
+	else:
+		return true
+
 func animPlay(animName):
 	FSM = 1.0
 	animEnd = false
@@ -45,14 +52,17 @@ func animPlay(animName):
 		owner.frame = current_anim.initialFrame - 1
 	animWait = current_anim.frameTimes[owner.frame]
 	if !owner.flip_h:
-		owner.position.x = current_anim.posX * -1
+		if current_anim.posX != -1:
+			owner.position.x = current_anim.posX * -1
 	else:
-		owner.position.x = current_anim.posX 
+		if current_anim.posX != -1:
+			owner.position.x = current_anim.posX 
 	
 	if current_anim.posY != -1.0:
 		owner.position.y = current_anim.posY
 	else:
-		owner.position.y = owner.defaultPosY
+		if owner.defaultPosY != -1.0:
+			owner.position.y = owner.defaultPosY
 	
 	if current_anim.endFrame <= 1 or current_anim.endFrame > current_anim.frames:
 		endFrame = current_anim.frames - 1
