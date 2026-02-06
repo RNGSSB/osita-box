@@ -30,8 +30,12 @@ func Physics_Update(_delta: float):
 	if !owner.punchHit:
 		if owner.cFrame(6):
 			owner.animSys.animPlay("PunchHighMiss")
-		if owner.animSys.animEnd:
-			Transitioned.emit(self, "wait")
+		if owner.punchBlock:
+			if owner.cFrame(35):
+				Transitioned.emit(self, "wait")
+		else:
+			if owner.animSys.animEnd:
+				Transitioned.emit(self, "wait")
 	else:
 		if owner.cFrame(20 - owner.epicCombo):
 			if owner.punchHit:

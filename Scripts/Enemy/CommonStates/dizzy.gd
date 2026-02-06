@@ -7,7 +7,7 @@ func Exit():
 	Gamemanager.destroyEffect("DIZZY")
 
 func Enter():
-	Gamemanager.createEffects("DIZZY", 1.0, 1.0, 0, -335)
+	Gamemanager.createEffects("DIZZY", 1.0, 1.0, 0, -300)
 	owner.animSys.animPlay(owner.dizzyAnim)
 	owner.dizzy = owner.dizzyTime
 

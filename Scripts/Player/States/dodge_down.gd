@@ -6,9 +6,9 @@ func Exit():
 	owner.dodgeSuccess = false
 	owner.perfectDodge = false
 	owner.dodgeDown = false
-	owner.moveCameraY(0.6, 0)
 	owner.position.y = 0
 	owner.makerHerVisible = false
+	owner.zoomCamera(0.2, 1.0)
 
 func Enter():
 	owner.ctrl = 0
@@ -33,10 +33,15 @@ func Physics_Update(_delta: float):
 		owner.makerHerVisible = false
 	if owner.cFrame(16):
 		owner.dodgeDown = false
+	if owner.cFrame(17):
+		if owner.dodgeSuccess:
+			owner.moveCameraY(0.2, 0)
 	if owner.cFrame(20):
 		if owner.dodgeSuccess:
 			owner.ctrl = 1
-		owner.moveCameraY(0.2, 0)
+			owner.zoomCamera(0.2, 1.0)
+		else:
+			owner.moveCameraY(0.2, 0)
 	if owner.cFrame(31):
 		owner.ctrl = 1
 	if owner.animSys.animEnd:

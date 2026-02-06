@@ -9,6 +9,8 @@ var hitStop = 0
 var prevHitStop = 0
 
 var cameraZoom = 1.0
+var cameraZoomMax = 0.0
+var cameraZoom2 = 1.0
 
 var cameraTilt = 0.0
 var cameraTiltMax = 0.0
@@ -54,7 +56,7 @@ var prevStateFrame = 0
 var roundTimer = 3600.0
 var secondTimer = 3600.0
 var lolText = ""
-var pauseTimer = false
+var pauseTimer = true
 
 var setDamageBarPlayer = false
 var setDamageBarEnemy = false
@@ -111,6 +113,7 @@ func initHealthBars():
 
 # Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	pauseTimer = true
 	if canPause:
 		if Gamemanager.checkInputJustPressed("Start") and !fuckYou2:
 			pauseUI.resumeButton.grab_focus()
@@ -148,9 +151,6 @@ func hitLag(value, shake):
 	camera.randomShakeStrenght = shake
 	camera.apply_shake()
 
-func zoomAdjust(value):
-	camera.zoom = Vector2(value, value)
-
 func advanceFrame(_delta):
 	frameCounter += 1 
 	if !pauseTimer:
@@ -180,22 +180,24 @@ func advanceFrame(_delta):
 
 
 func cameraShenanigans():
-	if enemy.stunned and (enemy.CURRSTATE == "DamageN" or enemy.CURRSTATE == "DamageHi" or enemy.CURRSTATE == "DizzyHi" or enemy.CURRSTATE == "DizzyLw") and enemy.hitCount < enemy.maxHitCount + 1:
-		if cameraZoom < 1.0 + (enemy.hitCount * 0.05):
-			cameraZoom += 0.05
-		if cameraZoom > 1.0 + (7 * 0.05):
-			cameraZoom = 1.0 + (7 * 0.05)
+	if enemy.stunned and (enemy.CURRSTATE == "Damage" or enemy.CURRSTATE == "Dizzy") and enemy.hitCount < enemy.maxHitCount + 1:
+		camera.zoom = Vector2(lerp(camera.zoom.x, float(1.2), 0.6), lerp(camera.zoom.y, float(1.2), 0.6))
+	elif !enemy.stunned and (enemy.CURRSTATE == "Damage") and enemy.hitCount >= enemy.maxHitCount + 1:
+		camera.zoom = Vector2(lerp(camera.zoom.x, float(1.0), 0.6), lerp(camera.zoom.y, float(1.0), 0.6))
 	else:
-		if cameraZoom > 1.0:
-			cameraZoom -= 0.04
-		if cameraZoom < 1.0:
-			cameraZoom = 1.0
+		camera.zoom = Vector2(lerp(camera.zoom.x, float(cameraZoomMax), cameraZoom), lerp(camera.zoom.y, float(cameraZoomMax), cameraZoom))
 	
 	camera.position.x = lerp(camera.position.x, float(cameraTiltMax), cameraTilt)
 	
 	camera.position.y = lerp(camera.position.y, float(cameraTiltMaxY), cameraTiltY)
-	
-	zoomAdjust(cameraZoom)
+
+func zoomAdjust(value):
+	camera.zoom = Vector2(value, value)
+
+func zoomCamera(rate, towards):
+	cameraZoom = rate
+	cameraZoomMax = towards
+
 
 func moveCamera(rate, towards):
 	cameraTilt = rate

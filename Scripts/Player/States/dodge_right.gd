@@ -3,11 +3,11 @@ extends State
 
 func Exit():
 	owner.ctrl = 1
-	owner.moveCamera(0.2, 0)
 	owner.dodgeSuccess = false
 	owner.perfectDodge = false
 	owner.dodgeRight = false
 	owner.makerHerVisible = false
+	owner.zoomCamera(0.2, 1.0)
 
 func Enter():
 	owner.ctrl = 0
@@ -31,11 +31,12 @@ func Physics_Update(_delta: float):
 		owner.makerHerVisible = false
 	if owner.cFrame(16):
 		owner.dodgeRight = false
-	if owner.cFrame(18):
-		owner.moveCamera(0.2, 0)
+	if owner.cFrame(17):
+		owner.zoomCamera(0.2, 1.0)
 	if owner.cFrame(20):
 		if owner.dodgeSuccess:
 			owner.ctrl = 1
+		owner.moveCamera(0.2, 0)
 	if owner.cFrame(31):
 		owner.ctrl = 1
 	if owner.animSys.animEnd:

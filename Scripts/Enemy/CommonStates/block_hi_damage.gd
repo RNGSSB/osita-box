@@ -2,7 +2,7 @@ extends State
 
 
 func Exit():
-	pass
+	owner.zoomCamera(0.05, 1.0)
 
 func Enter():
 	owner.animSys.animPlay("BlockHiDamage")
@@ -11,6 +11,7 @@ func Enter():
 	owner.blockRight = false
 	owner.blockUpLeft = true
 	owner.blockUpRight = true
+	owner.zoomCamera(0.6, 1.03)
 	
 	if owner.flipBlockHi:
 		owner.flip_h = false
@@ -29,5 +30,7 @@ func Update(_delta: float):
 	pass
 
 func Physics_Update(_delta: float):
+	if owner.cFrame(10):
+		owner.zoomCamera(0.05, 1.0)
 	if owner.animSys.animEnd:
 		Transitioned.emit(self, "blockhi")

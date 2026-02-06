@@ -103,6 +103,9 @@ func moveCamera(rate, towards):
 func moveCameraY(rate, towards):
 	owner.moveCameraY(rate, towards)
 
+func zoomCamera(rate, towards):
+	owner.zoomCamera(rate,towards)
+
 func enemyHeal(value, rate):
 	healing = true
 	owner.enemyHealing = health + value
@@ -116,6 +119,8 @@ func punchHitFunc(hitbox : Hit):
 	punchHit = true
 	attackMiss = false
 	enemyRef.flip_h = hitbox.flip
+	enemyRef.moveCamera(0.2, 0.0)
+	enemyRef.moveCameraY(0.2, 0.0)
 	if enemyRef.inBurnout:
 		owner.hitLag(hitbox.hitlag * 2, hitbox.screenShake * 2)
 	else:
@@ -132,6 +137,9 @@ func punchDodgeFunc(hitbox : Hit):
 	enemyRef = owner.player
 	enemyRef.dodgeSuccess = true
 	attackMiss = true
+	enemyRef.zoomCamera(0.2, 1.2)
+	#enemyRef.moveCamera(0.2, 0.0)
+	#enemyRef.moveCameraY(0.2, 0.0)
 	AudioManager.Play("Dodge", hitbox.AUDIOBUS.keys()[hitbox.audioBus], 1.0, 1.0)
 	enemyRef.hasCombo = true
 	maxHitCount = hitbox.dodgeCombo
@@ -141,6 +149,7 @@ func punchDodgeFunc(hitbox : Hit):
 		if enemyRef.superMeter >= enemyRef.superMax:
 			enemyRef.gotSuper = true
 		maxHitCount = hitbox.perfectCombo
+		
 		AudioManager.Play("Perfect", hitbox.AUDIOBUS.keys()[hitbox.audioBus], 1.0, 1.0)
 		enemyRef.perfectDodge = true
 
@@ -321,7 +330,7 @@ func _physics_process(_delta):
 		owner.pauseTimer = true
 		damageStopTimer = true
 	
-	if (!damaged or (CURRSTATE == "DizzyHi" or CURRSTATE == "DizzyLw" or CURRSTATE == "DizzyEnd" or CURRSTATE == "DamageN4" or CURRSTATE == "DamageHi4" or CURRSTATE == "DamageN4Counter" or CURRSTATE == "DamageHi4Counter")) and damageStopTimer:
+	if (!damaged or (CURRSTATE == "Dizzy" or CURRSTATE == "Damage" or CURRSTATE == "DizzyEnd")) and damageStopTimer:
 		owner.pauseTimer = false
 		damageStopTimer = false
 	

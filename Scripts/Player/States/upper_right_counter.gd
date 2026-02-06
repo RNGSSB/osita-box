@@ -24,7 +24,5 @@ func Update(_delta: float):
 			owner.bufferUp = true
 
 func Physics_Update(_delta: float):
-	if owner.cFrame(11):
-		owner.ctrl = 1
 	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")

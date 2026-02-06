@@ -31,8 +31,12 @@ func Physics_Update(_delta: float):
 		if owner.cFrame(10):
 			owner.animSys.animPlay("PunchLowMiss")
 		
-		if owner.animSys.animEnd:
-			Transitioned.emit(self, "wait")
+		if owner.punchBlock:
+			if owner.cFrame(35):
+				Transitioned.emit(self, "wait")
+		else:
+			if owner.animSys.animEnd:
+				Transitioned.emit(self, "wait")
 	else:
 		if owner.cFrame(15):
 			owner.makerHerVisible = false

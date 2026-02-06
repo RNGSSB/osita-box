@@ -128,6 +128,9 @@ func moveCamera(rate, towards):
 func moveCameraY(rate, towards):
 	owner.moveCameraY(rate, towards)
 
+func zoomCamera(rate, towards):
+	owner.zoomCamera(rate,towards)
+
 func setPalette(color1 : Color, color2 : Color, color3 : Color, 
 color4 : Color, color5 : Color, 
 color6 : Color, color7 : Color, color8 : Color,  
@@ -272,7 +275,7 @@ func sheVisibleNow():
 		if transparency < 127:
 			transparency = 127
 
-func punchBlockFunc(effectY = 0, audioBus = "SFX", blockState = "BlockLw", hitlag = 3, shake = 10, flip = false):
+func punchBlockFunc(effectY = 0, audioBus = "SFX", blockState = "BlockLw", hitlag = 5, shake = 10, flip = false):
 	punchBlock = true
 	superMeter -= guardMeterLoss
 	enemyRef.hitCount = 0
@@ -295,7 +298,10 @@ func punchHitFunc(hitbox : HitPlayer):
 		enemyRef.attackMiss = true
 	if !inBurnout:
 		superMeter += hitbox.meter
+	if enemyRef.hitCount == 0:
+		owner.cameraZoom2 = 1.0
 	enemyRef.hitCount += 1
+	
 	if hitbox.effect == "HITCOUNTER":
 		AudioManager.Play("CounterPunch", "SFX", 1.0, 1.0)
 	if !hitbox.upper:
@@ -408,7 +414,7 @@ func debugUI():
 	fpsCounter.text = "FPS: " + str(Engine.get_frames_per_second())
 	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "currentFrame: " + str(frame) + "\n" + "animWait: " + str(animSys.animWait) + "\n" + "animFrame: " + str(animSys.animFrame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter) + "\n" + "BurnoutTime: " + str(burnoutTimer)
 	debugInfoPlayer2.text = "Frame: " + str(frameCounter) + "\n" + "State: " + owner.enemy.CURRSTATE + "\n" + "StateFrame: " + str(owner.enemy.stateFrame) + "\n" + "Anim: " + owner.enemy.animSys.CURRANIM + "\n" + "animFrame: " + str(owner.enemy.frame) + "\n" + "PrevState: " + str(owner.enemy.PREVSTATE) + "\n" + "PrevFrame: " + str(owner.enemy.prevStateFrame) + "\n" + "Stunned: " + str(owner.enemy.stunned) + "\n" + "HitCount: " + str(owner.enemy.hitCount) + "\n" + "MaxHitCount: " + str(owner.enemy.maxHitCount) + "\n" + "Health: " + str(owner.enemy.health) + "\n" + "aiActive: " + str(owner.enemy.aiActive) + "\n" + "attackPhase: " + str(owner.enemy.brain.attackPhase) + "\n" + "waitTimer: " + str(owner.enemy.brain.waitTimer) + "\n" + "nextMove: " + str(owner.enemy.brain.nextMove) + "\n" + "epicCombo: " + str(epicCombo)  
-	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.cameraZoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superBarValue: " + str(owner.playerSuper.value) + "\n" + "inBurnout: " + str(inBurnout) + "\n" + "GameState: " + owner.CURRSTATE
+	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.camera.zoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superBarValue: " + str(owner.playerSuper.value) + "\n" + "inBurnout: " + str(inBurnout) + "\n" + "GameState: " + owner.CURRSTATE
 
 func burnout():
 	if inBurnout:
