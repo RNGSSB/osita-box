@@ -53,6 +53,9 @@ func Physics_Update(_delta: float):
 		if owner.cFrame(45):
 			owner.animSys.animPlay("Attack4Miss")
 			owner.stun()
+		if owner.cFrame(102):
+			owner.zoomCamera(0.2, 1.0)
 		if owner.animSys.animEnd:
 			owner.stunned = false
+			owner.zoomCamera(0.2, 1.0)
 			Transitioned.emit(self, "wait")

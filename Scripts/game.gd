@@ -41,6 +41,7 @@ var isPaused = false
 @onready var damageFilter = $HUD/Damage
 @onready var roundText = $HUD/Timer/Round
 
+@export var music : AudioStreamPlayer
 @onready var timer = $HUD/Timer
 
 @onready var stateMachine = $StateMachine
@@ -180,12 +181,12 @@ func advanceFrame(_delta):
 
 
 func cameraShenanigans():
-	if enemy.stunned and (enemy.CURRSTATE == "Damage" or enemy.CURRSTATE == "Dizzy") and enemy.hitCount < enemy.maxHitCount + 1:
-		camera.zoom = Vector2(lerp(camera.zoom.x, float(1.2), 0.6), lerp(camera.zoom.y, float(1.2), 0.6))
-	elif !enemy.stunned and (enemy.CURRSTATE == "Damage") and enemy.hitCount >= enemy.maxHitCount + 1:
-		camera.zoom = Vector2(lerp(camera.zoom.x, float(1.0), 0.6), lerp(camera.zoom.y, float(1.0), 0.6))
-	else:
-		camera.zoom = Vector2(lerp(camera.zoom.x, float(cameraZoomMax), cameraZoom), lerp(camera.zoom.y, float(cameraZoomMax), cameraZoom))
+	#if enemy.stunned and (enemy.CURRSTATE == "Damage" or enemy.CURRSTATE == "Dizzy") and enemy.hitCount < enemy.maxHitCount + 1:
+	#	camera.zoom = Vector2(lerp(camera.zoom.x, float(1.2), 0.6), lerp(camera.zoom.y, float(1.2), 0.6))
+	#elif !enemy.stunned and (enemy.CURRSTATE == "Damage") and enemy.hitCount >= enemy.maxHitCount + 1:
+	#	camera.zoom = Vector2(lerp(camera.zoom.x, float(1.0), 0.6), lerp(camera.zoom.y, float(1.0), 0.6))
+	#else:
+	camera.zoom = Vector2(lerp(camera.zoom.x, float(cameraZoomMax), cameraZoom), lerp(camera.zoom.y, float(cameraZoomMax), cameraZoom))
 	
 	camera.position.x = lerp(camera.position.x, float(cameraTiltMax), cameraTilt)
 	

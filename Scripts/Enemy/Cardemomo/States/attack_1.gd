@@ -46,6 +46,9 @@ func Physics_Update(_delta: float):
 			owner.stun()
 		if owner.cFrame(40):
 			owner.stun()
+		if owner.cFrame(94):
+			owner.zoomCamera(0.2, 1.0)
 		if owner.animSys.animEnd:
 			owner.stunned = false
+			owner.zoomCamera(0.2, 1.0)
 			Transitioned.emit(self, "wait")

@@ -140,7 +140,14 @@ func punchDodgeFunc(hitbox : Hit):
 	enemyRef.zoomCamera(0.2, 1.2)
 	#enemyRef.moveCamera(0.2, 0.0)
 	#enemyRef.moveCameraY(0.2, 0.0)
-	AudioManager.Play("Dodge", hitbox.AUDIOBUS.keys()[hitbox.audioBus], 1.0, 1.0)
+	enemyRef.canDodge = false
+	enemyRef.canBlock = false
+	if enemyRef.CURRSTATE == "DodgeLeft":
+		AudioManager.Play("Dodge", "Left", 1.0, 1.0)
+	elif enemyRef.CURRSTATE == "DodgeRight":
+		AudioManager.Play("Dodge", "Right", 1.0, 1.0)
+	else:
+		AudioManager.Play("Dodge", "SFX", 1.0, 1.0)
 	enemyRef.hasCombo = true
 	maxHitCount = hitbox.dodgeCombo
 	if enemyRef.stateFrame <= enemyRef.perfectTiming:
@@ -150,7 +157,7 @@ func punchDodgeFunc(hitbox : Hit):
 			enemyRef.gotSuper = true
 		maxHitCount = hitbox.perfectCombo
 		
-		AudioManager.Play("Perfect", hitbox.AUDIOBUS.keys()[hitbox.audioBus], 1.0, 1.0)
+		AudioManager.Play("Perfect", "SFX", 1.0, 1.0)
 		enemyRef.perfectDodge = true
 
 func punchBlockFunc(hitbox : Hit):
@@ -306,15 +313,44 @@ func lobotomy():
 		pass
 	else:
 		if Input.is_key_pressed(KEY_3):
+			owner.zoomCamera(0.2, 1.0)
 			stateMachine.change_state2("Attack1")
 		if Input.is_key_pressed(KEY_4):
+			owner.zoomCamera(0.2, 1.0)
 			stateMachine.change_state2("Attack2")
 		if Input.is_key_pressed(KEY_5):
+			owner.zoomCamera(0.2, 1.0)
 			stateMachine.change_state2("Attack3")
 		if Input.is_key_pressed(KEY_6):
+			owner.zoomCamera(0.2, 1.0)
 			stateMachine.change_state2("Attack4")
 		if Input.is_key_pressed(KEY_7):
+			owner.zoomCamera(0.2, 1.0)
 			stateMachine.change_state2("Attack5")
+		if Input.is_key_pressed(KEY_KP_0):
+			owner.zoomCamera(0.2, 1.0)
+			stateMachine.change_state2("Wait")
+		if Input.is_key_pressed(KEY_KP_1):
+			owner.zoomCamera(0.2, 1.0)
+			blockLeft = true
+			blockRight = true
+			blockUpLeft = false
+			blockUpRight = false
+			guardAll = false
+			flip_h = false
+			animSys.animPlay("BlockLw")
+			stateMachine.change_state2("Block")
+		if Input.is_key_pressed(KEY_KP_2):
+			owner.zoomCamera(0.2, 1.0)
+			blockLeft = false
+			blockRight = false
+			blockUpLeft = true
+			blockUpRight = true
+			guardAll = false
+			flip_h = false
+			animSys.animPlay("BlockHi")
+			stateMachine.change_state2("Block")
+		
 
 func _physics_process(_delta):
 	if health < 0:

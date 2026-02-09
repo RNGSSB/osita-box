@@ -24,4 +24,5 @@ func Physics_Update(_delta: float):
 	owner.player.ctrl = 0
 	owner.enemy.aiActive = false
 	if owner.stateFrame == 90:
+		owner.music.playing = true
 		Transitioned.emit(self, "fight")

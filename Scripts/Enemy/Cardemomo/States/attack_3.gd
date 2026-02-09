@@ -8,7 +8,7 @@ func Exit():
 	owner.counterPunch = false
 
 func Enter():
-	owner.animSys.animPlay("Attack1Start")
+	owner.animSys.animPlay("Attack3Start")
 	owner.isAttacking = true
 	owner.stunned = false
 	owner.hitCount = 0
@@ -19,7 +19,6 @@ func Enter():
 	owner.hitUpLeft = false
 	owner.hitUpRight = false
 	owner.Guard(false,false,false,false)
-	owner.flip_h = true
 
 func Update(_delta: float):
 	pass
@@ -38,15 +37,18 @@ func Physics_Update(_delta: float):
 		owner.punchOpponent("Attack3")
 	if owner.punchHit:
 		if owner.cFrame(40):
-			owner.animSys.animPlay("Attack1Hit")
+			owner.animSys.animPlay("Attack3Hit")
 		if owner.animSys.animEnd:
 			Transitioned.emit(self, "wait")
 	else:
 		if owner.cFrame(40):
-			owner.animSys.animPlay("Attack1Miss")
+			owner.animSys.animPlay("Attack3Miss")
 			owner.stun()
 		if owner.cFrame(40):
 			owner.stun()
+		if owner.cFrame(94):
+			owner.zoomCamera(0.2, 1.0)
 		if owner.animSys.animEnd:
 			owner.stunned = false
+			owner.zoomCamera(0.2, 1.0)
 			Transitioned.emit(self, "wait")

@@ -56,6 +56,9 @@ var dodgeLeft = false
 var dodgeRight = false
 var dodgeDown = false
 
+var canDodge = true
+var canBlock = true
+
 var dodgeSuccess = false
 var perfectDodge = false
 
@@ -192,13 +195,13 @@ func _process(_delta):
 			else:
 				stateMachine.change_state2("UpperRightFinish")
 	
-	if bufferDodgeL and ctrl == 1:
+	if bufferDodgeL and ctrl == 1 and canDodge:
 		stateMachine.change_state2("DodgeLeft")
-	if bufferDodgeR and ctrl == 1:
+	if bufferDodgeR and ctrl == 1 and canDodge:
 		stateMachine.change_state2("DodgeRight")
-	if bufferDodgeLW and ctrl == 1:
+	if bufferDodgeLW and ctrl == 1 and canDodge:
 		stateMachine.change_state2("DodgeDown")
-	if bufferDodgeHI and ctrl == 1:
+	if bufferDodgeHI and ctrl == 1 and canBlock:
 		stateMachine.change_state("Block")
 
 func _physics_process(_delta):
@@ -275,17 +278,48 @@ func sheVisibleNow():
 		if transparency < 127:
 			transparency = 127
 
-func punchBlockFunc(effectY = 0, audioBus = "SFX", blockState = "BlockLw", hitlag = 5, shake = 10, flip = false):
+func punchBlockFunc(hitbox : HitPlayer):
 	punchBlock = true
 	superMeter -= guardMeterLoss
 	enemyRef.hitCount = 0
-	owner.hitLag(hitlag, shake)
+	owner.hitLag(hitbox.blockHitlag, hitbox.blockShake)
 	if superMeter <= 0 and !inBurnout:
-		print("WHAT")
 		owner.playerBurnout()
-	Gamemanager.createEffects("BLOCK", 1.0, 1.0, 0, effectY)
-	AudioManager.Play("Block", audioBus, 1.0, 1.0)
-	enemyRef.stateMachine.change_state2(blockState+"Damage")
+	Gamemanager.createEffects("BLOCK", 1.0, 1.0, 0, hitbox.blockEffectY)
+	var rng = RandomNumberGenerator.new()
+	AudioManager.Play("Block", hitbox.AUDIOBUS.keys()[hitbox.audioBus], 1.0, rng.randf_range(hitbox.minPitch, hitbox.maxPitch))
+	if hitbox.punchDirection == hitbox.hitDirections.LEFT or hitbox.punchDirection == hitbox.hitDirections.RIGHT:
+		enemyRef.blockLeft = true
+		enemyRef.blockRight = true
+		enemyRef.blockUpLeft = false
+		enemyRef.blockUpRight = false
+		enemyRef.guardAll = true
+		if hitbox.animDir == hitbox.ANIMDIR.L:
+			if enemyRef.animSys.checkAnim("BlockLwDamage" + "L"):
+				enemyRef.animSys.animPlay("BlockLwDamage" + "L")
+			else:
+				enemyRef.flip_h = hitbox.flip
+				enemyRef.animSys.animPlay("BlockLwDamage")
+		else:
+			enemyRef.flip_h = hitbox.flip
+			enemyRef.animSys.animPlay("BlockLwDamage")
+		enemyRef.stateMachine.change_state2("BlockDamage")
+	if hitbox.punchDirection == hitbox.hitDirections.UPLEFT or hitbox.punchDirection == hitbox.hitDirections.UPRIGHT:
+		enemyRef.blockLeft = false
+		enemyRef.blockRight = false
+		enemyRef.blockUpLeft = true
+		enemyRef.blockUpRight = true
+		enemyRef.guardAll = true
+		if hitbox.animDir == hitbox.ANIMDIR.L:
+			if enemyRef.animSys.checkAnim("BlockHiDamage" + "L"):
+				enemyRef.animSys.animPlay("BlockHiDamage" + "L")
+			else:
+				enemyRef.flip_h = hitbox.flip
+				enemyRef.animSys.animPlay("BlockHiDamage")
+		else:
+			enemyRef.flip_h = hitbox.flip
+			enemyRef.animSys.animPlay("BlockHiDamage")
+		enemyRef.stateMachine.change_state2("BlockDamage")
 
 
 func punchHitFunc(hitbox : HitPlayer):
@@ -298,12 +332,13 @@ func punchHitFunc(hitbox : HitPlayer):
 		enemyRef.attackMiss = true
 	if !inBurnout:
 		superMeter += hitbox.meter
-	if enemyRef.hitCount == 0:
-		owner.cameraZoom2 = 1.0
 	enemyRef.hitCount += 1
 	
 	if hitbox.effect == "HITCOUNTER":
 		AudioManager.Play("CounterPunch", "SFX", 1.0, 1.0)
+		owner.zoomCamera(0.6, 1.03)
+	if hitbox.effect == "HITFINISHER":
+		owner.zoomCamera(0.6, 1.0)
 	if !hitbox.upper:
 		if superMeter >= superMax and !gotSuper:
 			owner.hitLag((enemyRef.hitlagPunch * hitbox.hitlagMul),(enemyRef.shakePunch * hitbox.shakeMul))
@@ -319,6 +354,10 @@ func punchHitFunc(hitbox : HitPlayer):
 	Gamemanager.createEffects(hitbox.effect, hitbox.scaleX, hitbox.scaleY, hitbox.effectX, hitbox.effectY)
 	if hitbox.soundCombo:
 		AudioManager.Play(hitbox.sfx, hitbox.AUDIOBUS.keys()[hitbox.audioBus], hitbox.volume, hitbox.pitch + (hitCount * 0.2))
+	elif hitbox.randomPitch:
+		var rng = RandomNumberGenerator.new()
+		AudioManager.Play(hitbox.sfx, hitbox.AUDIOBUS.keys()[hitbox.audioBus], hitbox.volume, rng.randf_range(hitbox.minPitch, hitbox.maxPitch))
+		print(hitbox.AUDIOBUS.keys()[hitbox.audioBus])
 	else:
 		AudioManager.Play(hitbox.sfx, hitbox.AUDIOBUS.keys()[hitbox.audioBus], hitbox.volume, hitbox.pitch)
 	if hitbox.animDir == hitbox.ANIMDIR.L:
@@ -344,7 +383,6 @@ func punchHitFunc(hitbox : HitPlayer):
 				enemyRef.flip_h = hitbox.flip
 			enemyRef.animSys.animPlay(hitbox.hitAnimBackup)
 	
-	
 	enemyRef.dizzyAnim = hitbox.dizzyAnim
 	enemyRef.stateMachine.change_state2("Damage")
 	if hitbox.endStun:
@@ -363,7 +401,7 @@ func punchOpponent(hitboxName : String):
 	if hitbox.punchDirection == hitbox.hitDirections.LEFT: #Left
 		if enemyRef.blockLeft or enemyRef.guardAll:
 			enemyRef.playerPunch = 0
-			punchBlockFunc(60, "Left", "BlockLw")
+			punchBlockFunc(hitbox)
 			return
 		if enemyRef.hitLeft:
 			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
@@ -371,11 +409,11 @@ func punchOpponent(hitboxName : String):
 				punchHitFunc(hitbox)
 			else:
 				enemyRef.playerPunch = 0
-				punchBlockFunc(60, "Left", "BlockLw")
+				punchBlockFunc(hitbox)
 	if hitbox.punchDirection == hitbox.hitDirections.RIGHT: #Right
 		if enemyRef.blockRight  or enemyRef.guardAll:
 			enemyRef.playerPunch = 1
-			punchBlockFunc(60, "Right", "BlockLw")
+			punchBlockFunc(hitbox)
 			return
 		if enemyRef.hitRight:
 			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
@@ -383,11 +421,11 @@ func punchOpponent(hitboxName : String):
 				punchHitFunc(hitbox)
 			else:
 				enemyRef.playerPunch = 1
-				punchBlockFunc(60, "Right", "BlockLw")
+				punchBlockFunc(hitbox)
 	if hitbox.punchDirection == hitbox.hitDirections.UPLEFT: #Left Up
 		if enemyRef.blockUpLeft  or enemyRef.guardAll:
 			enemyRef.playerPunch = 2
-			punchBlockFunc(-150, "Left", "BlockHi")
+			punchBlockFunc(hitbox)
 			return
 		if enemyRef.hitUpLeft:
 			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
@@ -395,11 +433,11 @@ func punchOpponent(hitboxName : String):
 				punchHitFunc(hitbox)
 			else:
 				enemyRef.playerPunch = 2
-				punchBlockFunc(-150, "Left", "BlockHi")
+				punchBlockFunc(hitbox)
 	if hitbox.punchDirection == hitbox.hitDirections.UPRIGHT: #Right Up
 		if enemyRef.blockUpRight  or enemyRef.guardAll:
 			enemyRef.playerPunch = 3
-			punchBlockFunc(-150, "Right", "BlockHi")
+			punchBlockFunc(hitbox)
 			return
 		if enemyRef.hitUpRight:
 			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
@@ -407,7 +445,7 @@ func punchOpponent(hitboxName : String):
 				punchHitFunc(hitbox)
 			else:
 				enemyRef.playerPunch = 3
-				punchBlockFunc(-150, "Right", "BlockHi")
+				punchBlockFunc(hitbox)
 
 
 func debugUI():

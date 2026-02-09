@@ -9,6 +9,7 @@ func Play(soundName, audiobus, volume, pitch):
 	get_node(soundName).volume_db = volume
 	get_node(soundName).pitch_scale = pitch
 	get_node(soundName).play()
+	#print(audiobus)
 
 func Stop(soundName):
 	if get_node(soundName) == null:

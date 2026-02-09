@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://bbj3b40i8h4c0" path="res://Sprites/victory.png" id="3_rvnu7"]
 [ext_resource type="Texture2D" uid="uid://6ma50jnlv543" path="res://Sprites/circle.png" id="4_qgphd"]
 [ext_resource type="Script" uid="uid://c43qgpkicigoq" path="res://Scripts/Misc/camera.gd" id="5_ln6xw"]
-[ext_resource type="Texture2D" uid="uid://c1cv6rv6j010w" path="res://Sprites/Backgrounds/fondo grande.png" id="6_1phco"]
 [ext_resource type="Script" uid="uid://ckyu2wqkse4qx" path="res://Scripts/State Machine/StateMachine.gd" id="7_d4whq"]
 [ext_resource type="Script" uid="uid://ctebngbd5xb50" path="res://Scripts/Game/intro.gd" id="8_1rhh7"]
 [ext_resource type="Script" uid="uid://ruice7rn3w6k" path="res://Scripts/Game/fight.gd" id="9_xiygw"]
@@ -14,6 +13,7 @@
 [ext_resource type="Script" uid="uid://dmc3j831nhkie" path="res://Scripts/Game/in_between.gd" id="11_dm6ty"]
 [ext_resource type="Script" uid="uid://dpxa8ma4rl3kr" path="res://Scripts/Game/ko.gd" id="12_baftu"]
 [ext_resource type="Script" uid="uid://buhly4s4etl5j" path="res://Scripts/Game/results.gd" id="13_wq8bv"]
+[ext_resource type="AudioStream" uid="uid://b4cgulx7j7yr5" path="res://SFX/ytmp3free.cc_street-fighter-ex-3-ost-cute-mafia-theme-of-nanase-youtubemp3free.org.mp3" id="14_1phco"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayv2y"]
 bg_color = Color(0, 0, 0, 0)
@@ -48,9 +48,10 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eski1"]
 bg_color = Color(0.741176, 0, 0, 0.243137)
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("music")]
 process_mode = 3
 script = ExtResource("1_cfo20")
+music = NodePath("Music")
 
 [node name="PauseUI" parent="." instance=ExtResource("2_s8xf7")]
 layer = 2
@@ -267,12 +268,6 @@ follow_viewport_enabled = true
 layer = -1
 follow_viewport_enabled = true
 
-[node name="Background" type="Sprite2D" parent="BackgroundLayer"]
-z_index = -2
-position = Vector2(0, 52)
-scale = Vector2(0.45, 0.45)
-texture = ExtResource("6_1phco")
-
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("7_d4whq")
 initial_state = NodePath("Intro")
@@ -297,6 +292,10 @@ script = ExtResource("12_baftu")
 
 [node name="Results" type="Node" parent="StateMachine"]
 script = ExtResource("13_wq8bv")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_1phco")
+bus = &"Music"
 
 [connection signal="timeout" from="HUD/Timer/PlayerDamage/PlayerTimer" to="." method="_on_player_timer_timeout"]
 [connection signal="timeout" from="HUD/Timer/EnemyDamage/EnemyTimer" to="." method="_on_enemy_timer_timeout"]

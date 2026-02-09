@@ -8,7 +8,8 @@ func Exit():
 	owner.dodgeDown = false
 	owner.position.y = 0
 	owner.makerHerVisible = false
-	owner.zoomCamera(0.2, 1.0)
+	owner.canDodge = true
+	owner.canBlock = true
 
 func Enter():
 	owner.ctrl = 0
@@ -39,7 +40,6 @@ func Physics_Update(_delta: float):
 	if owner.cFrame(20):
 		if owner.dodgeSuccess:
 			owner.ctrl = 1
-			owner.zoomCamera(0.2, 1.0)
 		else:
 			owner.moveCameraY(0.2, 0)
 	if owner.cFrame(31):

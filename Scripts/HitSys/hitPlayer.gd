@@ -2,7 +2,7 @@ class_name HitPlayer
 extends Node
 
 enum hitDirections{LEFT,RIGHT,UPLEFT,UPRIGHT}
-enum AUDIOBUS{SFX,LEFT,RIGHT}
+enum AUDIOBUS{SFX,Left,Right}
 enum ANIMDIR{L,R}
 
 @export_group("Hit Properties")
@@ -14,6 +14,10 @@ enum ANIMDIR{L,R}
 @export var upper = false
 @export var flip = false
 @export var endStun = false
+@export_group("Block")
+@export var blockHitlag = 5
+@export var blockShake = 10
+@export var blockEffectY = 60
 @export_group("Animation")
 @export var animDir : ANIMDIR = ANIMDIR.R
 @export var hitAnim = "DamageLw"
@@ -25,6 +29,9 @@ enum ANIMDIR{L,R}
 @export var volume = 1.0
 @export var pitch = 1.0
 @export var soundCombo = false
+@export var randomPitch = false
+@export var minPitch = 0.85
+@export var maxPitch = 1.0
 @export_group("Hit Spark")
 @export var effect = "HIT"
 @export var effectX = 0.0
