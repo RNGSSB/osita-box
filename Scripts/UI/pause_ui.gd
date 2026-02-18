@@ -68,7 +68,9 @@ func _on_resume_pressed():
 
 
 func _on_restart_pressed():
-	get_tree().reload_current_scene()
+	pass
+	#get_tree().change_scene_to_packed(Gamemanager.gameScene)
+	#get_tree().reload_current_scene()
 
 
 func _on_options_mouse_entered():
@@ -93,3 +95,12 @@ func _on_menu_mouse_entered():
 	if !Options.visible and !InputMapper.visible:
 		select = 3
 		menuButton.grab_focus()
+
+
+func _on_restart_button_down() -> void:
+	select = 0
+	owner.isPaused = false
+	owner.fuckYou2 = false
+	owner.resetEverything()
+	#get_tree().change_scene_to_packed(Gamemanager.gameScene)
+	#get_tree().reload_current_scene()

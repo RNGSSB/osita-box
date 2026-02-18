@@ -1,8 +1,6 @@
 extends Node2D
 
 
-var gameScene = preload("res://Scenes/game.tscn")
-
 @onready var carde1 = $CanvasLayer/VBoxContainer/Cardemomo
 @onready var carde2 = $CanvasLayer/VBoxContainer/Character2
 @onready var setting = $CanvasLayer/VBoxContainer/Settings
@@ -70,7 +68,7 @@ func _on_cardemomo_pressed():
 	Gamemanager.playerPaletteId = paletteSlider.value
 	Gamemanager.enemyId = 0
 	Options.visible = true
-	get_tree().change_scene_to_packed(gameScene)
+	get_tree().change_scene_to_packed(Gamemanager.gameScene)
 
 
 func _on_character_2_pressed():
@@ -78,7 +76,7 @@ func _on_character_2_pressed():
 	Gamemanager.playerPaletteId = paletteSlider.value
 	Gamemanager.enemyId = 1
 	Options.visible = true
-	get_tree().change_scene_to_packed(gameScene)
+	get_tree().change_scene_to_packed(Gamemanager.gameScene)
 
 
 func _on_settings_pressed():

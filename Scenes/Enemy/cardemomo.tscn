@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://eobepwks4242"]
+[gd_scene load_steps=50 format=3 uid="uid://eobepwks4242"]
 
 [ext_resource type="Script" uid="uid://ccs8cn6x6ojk5" path="res://Scripts/Enemy/Enemy.gd" id="1_d8ljs"]
 [ext_resource type="Texture2D" uid="uid://imdyfpgo15s0" path="res://Sprites/Characters/Cardemomo/Wait.png" id="1_krvq6"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b3q1rtpuslwhp" path="res://Scenes/Backgrounds/Cardemomo.tscn" id="3_j3k2o"]
 [ext_resource type="Script" uid="uid://ckyu2wqkse4qx" path="res://Scripts/State Machine/StateMachine.gd" id="3_xadju"]
 [ext_resource type="Script" uid="uid://dn5hntoj886r0" path="res://Scripts/AnimSys/AnimSys.gd" id="4_e4mki"]
+[ext_resource type="Texture2D" uid="uid://oq1w0y641xe" path="res://Sprites/UI/Portraits/Cardemomo.png" id="4_grbw2"]
 [ext_resource type="Script" uid="uid://dlw0qoeaol36a" path="res://Scripts/Enemy/CommonStates/wait.gd" id="4_iw216"]
 [ext_resource type="Script" uid="uid://dtj8na0fxumeu" path="res://Scripts/AnimSys/anim.gd" id="5_mymh5"]
 [ext_resource type="Texture2D" uid="uid://soxq4n4hb8ta" path="res://Sprites/Characters/Cardemomo/DamageHiL.png" id="6_ei7hm"]
@@ -59,6 +60,7 @@ script = ExtResource("1_d8ljs")
 background = ExtResource("3_j3k2o")
 animSys = NodePath("AnimSys")
 hitSys = NodePath("HitSys")
+enemyPortrait = ExtResource("4_grbw2")
 flipBlockHi = false
 
 [node name="Brain" type="Node" parent="."]
@@ -207,68 +209,76 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("15_tjj63")
-initialFrame = 3
-frames = 7
-loopFrame = 3
-frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
+initialFrame = 5
+frames = 9
+loopFrame = 5
+columns = 2
+frameTimes = Array[int]([2, 4, 4, 5, 6, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="BlockLwL" type="Node" parent="AnimSys"]
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("17_vpu86")
-initialFrame = 3
-frames = 7
-loopFrame = 3
-frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
+initialFrame = 5
+frames = 9
+loopFrame = 5
+columns = 2
+frameTimes = Array[int]([2, 4, 4, 5, 6, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="BlockLwDamage" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("15_tjj63")
+frames = 9
+columns = 2
+frameTimes = Array[int]([2, 4, 4, 5, 6, 5, 5, 5, 5])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="BlockLwDamageL" type="Node" parent="AnimSys"]
+script = ExtResource("5_mymh5")
+spriteSheet = ExtResource("17_vpu86")
+frames = 9
+columns = 2
+frameTimes = Array[int]([2, 4, 4, 5, 6, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="BlockHi" type="Node" parent="AnimSys"]
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("16_2syqj")
-initialFrame = 3
-frames = 7
-loopFrame = 3
-frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
+initialFrame = 5
+frames = 9
+loopFrame = 5
+columns = 2
+frameTimes = Array[int]([2, 3, 5, 4, 6, 6, 6, 6, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="BlockHiL" type="Node" parent="AnimSys"]
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("19_sgbrq")
-initialFrame = 3
-frames = 7
-loopFrame = 3
-frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
-metadata/_custom_type_script = "uid://dtj8na0fxumeu"
-
-[node name="BlockLwDamage" type="Node" parent="AnimSys"]
-script = ExtResource("5_mymh5")
-spriteSheet = ExtResource("15_tjj63")
-frames = 7
-frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
-metadata/_custom_type_script = "uid://dtj8na0fxumeu"
-
-[node name="BlockLwDamageL" type="Node" parent="AnimSys"]
-script = ExtResource("5_mymh5")
-spriteSheet = ExtResource("17_vpu86")
-frames = 7
-frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
+initialFrame = 5
+frames = 9
+loopFrame = 5
+columns = 2
+frameTimes = Array[int]([2, 3, 5, 4, 6, 6, 6, 6, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="BlockHiDamage" type="Node" parent="AnimSys"]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("16_2syqj")
-frames = 7
-frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
+frames = 9
+columns = 2
+frameTimes = Array[int]([2, 3, 5, 4, 6, 6, 6, 6, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="BlockHiDamageL" type="Node" parent="AnimSys"]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("19_sgbrq")
-frames = 7
-frameTimes = Array[int]([4, 4, 4, 4, 4, 4, 4])
+frames = 9
+columns = 2
+frameTimes = Array[int]([2, 3, 5, 4, 6, 6, 6, 6, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="Attack1Start" type="Node" parent="AnimSys"]
@@ -396,10 +406,10 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 [node name="Attack1" type="Node" parent="HitSys"]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 1
-damage = 12.5
-meter = 10.0
+damage = 12.0
+meter = 30.0
 hitlag = 8
-guardMeter = 15.0
+guardMeter = 45.0
 dodgeCombo = 4
 blockCombo = 1
 perfectCombo = 6
@@ -415,10 +425,10 @@ metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 [node name="Attack2" type="Node" parent="HitSys"]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 3
-damage = 7.5
-meter = 6.0
+damage = 7.0
+meter = 18.0
 hitlag = 6
-guardMeter = 1.0
+guardMeter = 3.0
 dodgeCombo = 2
 perfectCombo = 4
 audioBus = 2
@@ -430,10 +440,10 @@ metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
 [node name="Attack3" type="Node" parent="HitSys"]
 script = ExtResource("31_1a5x5")
-damage = 12.5
-meter = 10.0
+damage = 12.0
+meter = 30.0
 hitlag = 8
-guardMeter = 15.0
+guardMeter = 45.0
 dodgeCombo = 4
 blockCombo = 1
 perfectCombo = 6
@@ -451,9 +461,9 @@ metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 20.0
-meter = 20.0
+meter = 60.0
 hitlag = 12
-guardMeter = 34.0
+guardMeter = 100.0
 dodgeCombo = 6
 blockCombo = 1
 perfectCombo = 9
@@ -470,9 +480,9 @@ metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 20.0
-meter = 20.0
+meter = 60.0
 hitlag = 12
-guardMeter = 34.0
+guardMeter = 100.0
 dodgeCombo = 6
 blockCombo = 1
 perfectCombo = 9
@@ -489,9 +499,9 @@ metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 20.0
-meter = 20.0
+meter = 60.0
 hitlag = 12
-guardMeter = 34.0
+guardMeter = 100.0
 dodgeCombo = 6
 blockCombo = 1
 perfectCombo = 9
@@ -506,9 +516,9 @@ metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 20.0
-meter = 20.0
+meter = 60.0
 hitlag = 12
-guardMeter = 34.0
+guardMeter = 100.0
 dodgeCombo = 6
 blockCombo = 1
 perfectCombo = 9
@@ -523,9 +533,9 @@ metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 20.0
-meter = 20.0
+meter = 60.0
 hitlag = 12
-guardMeter = 34.0
+guardMeter = 100.0
 dodgeCombo = 6
 blockCombo = 1
 perfectCombo = 9
@@ -542,9 +552,9 @@ metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 20.0
-meter = 20.0
+meter = 60.0
 hitlag = 12
-guardMeter = 34.0
+guardMeter = 100.0
 dodgeCombo = 6
 blockCombo = 1
 perfectCombo = 9
@@ -560,10 +570,10 @@ metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 [node name="Attack5" type="Node" parent="HitSys"]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 4
-damage = 12.5
-meter = 10.0
+damage = 12.0
+meter = 30.0
 hitlag = 12
-guardMeter = 15.0
+guardMeter = 45.0
 dodgeCombo = 4
 blockCombo = 1
 perfectCombo = 6

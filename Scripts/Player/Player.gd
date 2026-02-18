@@ -9,6 +9,9 @@ extends Sprite2D
 @onready var debugLayer = $DebugUI
 @onready var fpsCounter = $DebugUI/FPS
 @onready var colorModulate = $CanvasModulate
+@export var playerPortrait : CompressedTexture2D
+
+@export var playerMeterType = Gamemanager.METERTYPE.STANDARD
 
 var charName = "Canela"
 var frozen = false
@@ -33,7 +36,6 @@ var punchLBuffer = 0
 var punchRBuffer = 0
 var bufferSuper = false
 var superBuffer = 0
-
 var bufferDodgeLW = false
 var dodgeBufferLW = 0
 var bufferDodgeL = false
@@ -79,8 +81,9 @@ var hasCombo = false
 var isBlocking = false
 
 var superMeter = 0
-var superInit = 20
-var superMax = 100
+var superInit = 60
+var superMax = 300
+var superLevel = 0
 
 var hitCount = 0
 
@@ -101,14 +104,14 @@ var B = 255
 var ctrl = 1 
 
 const guardMeterLoss = 10
-const punchDamage = 2.5
+const punchDamage = 2.0
 const punchMeterGain = 2
 const finishDamage = 5
 const finishMeterGain = 2
-const counterDamage = 2.5
+const counterDamage = 2.0
 const counterMeterGain = 20
 const superDamage = 40
-const perfectDodgeMeterGain = 5
+const perfectDodgeMeterGain = 10
 
 func cFrame(value):
 	if stateFrame == value:
@@ -118,7 +121,6 @@ func cFrame(value):
 
 func _ready():
 	health = maxHealth
-	#get_material().set_shader_parameter("target_color", Vector4(0.00, 0.34, 0.97, 1.00))
 
 func setColor(value1, value2, value3):
 	R = value1 
@@ -208,6 +210,15 @@ func _physics_process(_delta):
 	if !frozen:
 		sheVisibleNow()
 	
+	
+	if superMeter < 100:
+		superLevel = 0
+	elif superMeter >= 100 and superMeter < 200:
+		superLevel = 1
+	elif superMeter >= 200 and superMeter < 300:
+		superLevel = 2
+	elif superMeter == 300:
+		superLevel = 3
 	
 	if stateFrame > 300 and ctrl == 0:
 		stateFrame = 0
@@ -450,9 +461,9 @@ func punchOpponent(hitboxName : String):
 
 func debugUI():
 	fpsCounter.text = "FPS: " + str(Engine.get_frames_per_second())
-	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "currentFrame: " + str(frame) + "\n" + "animWait: " + str(animSys.animWait) + "\n" + "animFrame: " + str(animSys.animFrame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter) + "\n" + "BurnoutTime: " + str(burnoutTimer)
+	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(owner.stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "currentFrame: " + str(frame) + "\n" + "animWait: " + str(animSys.animWait) + "\n" + "animFrame: " + str(animSys.animFrame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter) + "\n" + "BurnoutTime: " + str(burnoutTimer)
 	debugInfoPlayer2.text = "Frame: " + str(frameCounter) + "\n" + "State: " + owner.enemy.CURRSTATE + "\n" + "StateFrame: " + str(owner.enemy.stateFrame) + "\n" + "Anim: " + owner.enemy.animSys.CURRANIM + "\n" + "animFrame: " + str(owner.enemy.frame) + "\n" + "PrevState: " + str(owner.enemy.PREVSTATE) + "\n" + "PrevFrame: " + str(owner.enemy.prevStateFrame) + "\n" + "Stunned: " + str(owner.enemy.stunned) + "\n" + "HitCount: " + str(owner.enemy.hitCount) + "\n" + "MaxHitCount: " + str(owner.enemy.maxHitCount) + "\n" + "Health: " + str(owner.enemy.health) + "\n" + "aiActive: " + str(owner.enemy.aiActive) + "\n" + "attackPhase: " + str(owner.enemy.brain.attackPhase) + "\n" + "waitTimer: " + str(owner.enemy.brain.waitTimer) + "\n" + "nextMove: " + str(owner.enemy.brain.nextMove) + "\n" + "epicCombo: " + str(epicCombo)  
-	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.camera.zoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superBarValue: " + str(owner.playerSuper.value) + "\n" + "inBurnout: " + str(inBurnout) + "\n" + "GameState: " + owner.CURRSTATE
+	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.camera.zoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superLevel: " + str(superLevel) + "\n" + "inBurnout: " + str(inBurnout) + "\n" + "GameState: " + owner.CURRSTATE
 
 func burnout():
 	if inBurnout:
@@ -462,9 +473,9 @@ func burnout():
 
 func burnoutEnd():
 	if inBurnout:
-		owner.playerSuper.max_value = superMax
+		owner.playerSuper.max_value = superMax / 3
 		owner.playerSuper.min_value = 0
-		owner.playerSuper.get("theme_override_styles/fill").bg_color = Color(0.081, 0.622, 1)
+		owner.playerSuper.setTexture(0)
 		AudioManager.Play("BurnoutEnd", "SFX", 1.0, 1.0)
 		inBurnout = false
 

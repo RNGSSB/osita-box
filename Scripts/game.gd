@@ -10,7 +10,6 @@ var prevHitStop = 0
 
 var cameraZoom = 1.0
 var cameraZoomMax = 0.0
-var cameraZoom2 = 1.0
 
 var cameraTilt = 0.0
 var cameraTiltMax = 0.0
@@ -18,8 +17,6 @@ var cameraTiltMax = 0.0
 var cameraTiltY = 0.0
 var cameraTiltMaxY = 0.0
 
-#@onready var player = $GameElements/Player
-#@onready var enemy = $GameElements/Enemy
 var player
 var enemy
 
@@ -40,6 +37,7 @@ var isPaused = false
 @onready var playerSuper = $HUD/Timer/PlayerSuper
 @onready var damageFilter = $HUD/Damage
 @onready var roundText = $HUD/Timer/Round
+@onready var superLevelUI = $HUD/Timer/SuperLevel
 
 @export var music : AudioStreamPlayer
 @onready var timer = $HUD/Timer
@@ -75,9 +73,59 @@ var round = 1
 func _ready():
 	initFighters()
 	
+	roundTimer = 3600.0
+	secondTimer = 3600.0
 	round = 1
 	
 	player.superMeter = enemy.superInit
+	
+	initHealthBars()
+
+func resetEverything():
+	frameAdvance = false
+	frozen = false
+	stateFrame = 0
+	frameCounter = 0
+	prevStateFrame = 0
+	roundTimer = 3600.0
+	secondTimer = 3600.0
+	hitStop = 0
+	camera.randomShakeStrenght = 0
+	camera.position.x = 0
+	camera.position.y = 0
+	camera.zoom = Vector2(1.0, 1.0)
+	cameraTilt = 0.0
+	cameraTiltMax = 0.0
+	cameraTiltY = 0.0
+	cameraTiltMaxY = 0.0
+	cameraZoom = 1.0
+	cameraZoomMax = 0.0
+	round = 1
+	
+	player.health = player.maxHealth
+	player.superMeter = enemy.superInit
+	player.stateMachine.change_state("Wait")
+	player.PREVSTATE = "Wait"
+	player.stateFrame = 0
+	player.prevStateFrame = 0 
+	player.frameCounter = 0
+	player.gotSuper = false
+	player.inBurnout = false
+	player.burnoutTimer = 0
+	player.superLevel = 0
+	player.canDodge = true
+	player.canBlock = true
+	player.superMeter = enemy.superInit
+	
+	enemy.stateMachine.change_state("Wait")
+	enemy.health = enemy.maxHealth
+	enemy.PREVSTATE = "Wait"
+	enemy.stateFrame = 0
+	enemy.prevStateFrame = 0
+	enemy.frameCounter = 0
+	enemy.counterPunch = 0
+	enemy.stunned = false
+	stateMachine.change_state("Intro")
 	initHealthBars()
 
 func initFighters():
@@ -94,7 +142,7 @@ func initFighters():
 	
 	var playerPalette = load(Gamemanager.playerPalettes[Gamemanager.playerPaletteId]).instantiate()
 	player.setPalette(playerPalette.glove_color_main,playerPalette.glove_color_socket,playerPalette.shirt_color_main,playerPalette.shirt_color_bottom,playerPalette.pant_color_main,playerPalette.pant_color_lines,playerPalette.shirt_color_shading,playerPalette.pant_color_shading,playerPalette.glove_color_shading ,playerPalette.glove_color_inner ,playerPalette.glove_color_socket_shading)
-	
+	player.playerMeterType = playerPalette.playerMeterType
 	var background = enemyInstance.background.instantiate()
 	get_node("BackgroundLayer").add_child(background)
 	
@@ -109,7 +157,7 @@ func initHealthBars():
 	playerDamage.value = player.health
 	enemyHealth.value = enemy.health
 	enemyDamage.value = enemy.health
-	playerSuper.max_value = player.superMax 
+	playerSuper.max_value = player.superMax / 3
 	playerSuper.value = enemy.superInit
 
 # Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -140,9 +188,11 @@ func _process(_delta):
 	
 	if isPaused:
 		readyText.visible = false
-		player.debugLayer.visible = false
+		if player != null:
+			player.debugLayer.visible = false
 	else:
-		player.debugLayer.visible = true
+		if player != null:
+			player.debugLayer.visible = true
 	
 	get_tree().paused = isPaused
 
@@ -181,11 +231,6 @@ func advanceFrame(_delta):
 
 
 func cameraShenanigans():
-	#if enemy.stunned and (enemy.CURRSTATE == "Damage" or enemy.CURRSTATE == "Dizzy") and enemy.hitCount < enemy.maxHitCount + 1:
-	#	camera.zoom = Vector2(lerp(camera.zoom.x, float(1.2), 0.6), lerp(camera.zoom.y, float(1.2), 0.6))
-	#elif !enemy.stunned and (enemy.CURRSTATE == "Damage") and enemy.hitCount >= enemy.maxHitCount + 1:
-	#	camera.zoom = Vector2(lerp(camera.zoom.x, float(1.0), 0.6), lerp(camera.zoom.y, float(1.0), 0.6))
-	#else:
 	camera.zoom = Vector2(lerp(camera.zoom.x, float(cameraZoomMax), cameraZoom), lerp(camera.zoom.y, float(cameraZoomMax), cameraZoom))
 	
 	camera.position.x = lerp(camera.position.x, float(cameraTiltMax), cameraTilt)
@@ -287,7 +332,6 @@ func playerBurnout():
 	playerSuper.value = 0
 	playerSuper.max_value = 0
 	playerSuper.min_value = player.burnoutTime * -1
-	playerSuper.get("theme_override_styles/fill").bg_color = Color.DARK_GRAY
 	player.burnoutTimer = player.burnoutTime
 	AudioManager.Play("SuperDrain", "SFX", 1.0, 1.0)
 	superDrained = true
@@ -307,33 +351,67 @@ func meterHandle():
 		
 		if player.superMeter > 0:
 			superDrained = false
-		
-		if playerSuper.value > player.superMeter:
-			playerSuper.value = lerp(playerSuper.value, float(player.superMeter), 0.5)
-		if playerSuper.value < player.superMeter:
-			playerSuper.value = lerp(playerSuper.value, float(player.superMeter), 0.5)
+		if player.superLevel < 3:
+			if playerSuper.value < playerSuper.max_value:
+				if playerSuper.value > player.superMeter - player.superLevel * 100:
+					playerSuper.value = lerp(playerSuper.value, float(player.superMeter - player.superLevel * 100), 0.5)
+				if playerSuper.value < player.superMeter:
+					playerSuper.value = lerp(playerSuper.value, float(player.superMeter - player.superLevel * 100), 0.5)
+			else:
+				playerSuper.value = 0 
+		else:
+			playerSuper.value = 100
 	else:
 		playerSuper.value = player.burnoutTimer * -1
 	
-	if playerHealth.value > player.health:
+	if playerHealth.value != player.health:
 		playerHealth.value = lerp(playerHealth.value, float(player.health), 0.5)
-	if playerHealth.value < player.health:
-		playerHealth.value = lerp(playerHealth.value, float(player.health), 0.5)
+	if playerHealth.value == player.health + 1:
+		playerHealth.value = player.health
 	
-	if enemyHealth.value > enemy.health:
+	if enemyHealth.value != enemy.health:
 		enemyHealth.value = lerp(enemyHealth.value, float(enemy.health), 0.5)
-	if enemyHealth.value < enemy.health:
-		enemyHealth.value = lerp(enemyHealth.value, float(enemy.health), 0.5)
+	
+	if enemyHealth.value == enemy.health + 1:
+		enemyHealth.value = enemy.health
+	
+	if player.superLevel == 0:
+		superLevelUI.play("0")
+		if !player.inBurnout:
+			playerSuper.setTexture(0)
+	elif player.superLevel == 1:
+		superLevelUI.play("1")
+		if !player.inBurnout:
+			playerSuper.setTexture(1)
+	elif player.superLevel == 2:
+		superLevelUI.play("2")
+		if !player.inBurnout:
+			playerSuper.setTexture(2)
+	elif player.superLevel == 3:
+		superLevelUI.play("3")
+		if !player.inBurnout:
+			playerSuper.setTexture(3)
+	
+	if player.inBurnout:
+		playerSuper.setTexture(4)
 	
 	if setDamageBarEnemy and enemyDamage.value != enemyHealth.value:
 		enemyDamage.value = lerp(enemyDamage.value, float(enemy.health), 0.3)
 	else:
 		setDamageBarEnemy = false
 	
+	if enemyDamage.value == enemy.health + 1:
+		enemyDamage.value = enemy.health
+	
 	if setDamageBarPlayer and playerDamage.value != playerHealth.value:
 		playerDamage.value = lerp(playerDamage.value, float(player.health), 0.3)
 	else:
 		setDamageBarPlayer = false
+	
+	if playerDamage.value == player.health + 1:
+		playerDamage.value = player.health
+	
+	
 
 func _physics_process(_delta):
 	if !isPaused:

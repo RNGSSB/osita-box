@@ -1,6 +1,8 @@
 extends Node
 
 
+var gameScene = preload("res://Scenes/game.tscn")
+
 var effects = preload("res://Scenes/effect.tscn")
 
 var menu = "res://Scenes/menu.tscn"
@@ -12,7 +14,8 @@ var playerPalettes = ["res://Scenes/Players/Palettes/default.tscn",
 "res://Scenes/Players/Palettes/test3.tscn",
 "res://Scenes/Players/Palettes/test4.tscn",
 "res://Scenes/Players/Palettes/test5.tscn",
-"res://Scenes/Players/Palettes/test6.tscn"]
+"res://Scenes/Players/Palettes/test6.tscn",
+"res://Scenes/Players/Palettes/test7.tscn"]
 var enemyList = ["res://Scenes/Enemy/cardemomo.tscn",
 "res://Scenes/Enemy/paulette.tscn"]
 
@@ -25,6 +28,8 @@ var enemyId = 0
 
 var fuckYou3 = false
 var prevScreenMode
+
+enum METERTYPE{STANDARD, STAR, REVOLVER} 
 
 
 func createEffects(effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, zIndex = 3, flip = false):

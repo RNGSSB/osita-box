@@ -1,52 +1,170 @@
-[gd_scene load_steps=26 format=3 uid="uid://bgrwrd2uklgk0"]
+[gd_scene load_steps=47 format=3 uid="uid://bgrwrd2uklgk0"]
 
 [ext_resource type="Script" uid="uid://bjshvg8ml8wi1" path="res://Scripts/game.gd" id="1_cfo20"]
 [ext_resource type="PackedScene" uid="uid://b30hbnevlo5r6" path="res://Scenes/pause_ui.tscn" id="2_s8xf7"]
-[ext_resource type="Texture2D" uid="uid://bbj3b40i8h4c0" path="res://Sprites/victory.png" id="3_rvnu7"]
-[ext_resource type="Texture2D" uid="uid://6ma50jnlv543" path="res://Sprites/circle.png" id="4_qgphd"]
+[ext_resource type="Texture2D" uid="uid://cm3ldg3tpnu4c" path="res://Sprites/UI/SuperBar0.png" id="3_85qyi"]
+[ext_resource type="Texture2D" uid="uid://dgdd5qe6yqa6n" path="res://Sprites/UI/SuperBar.png" id="3_vm72l"]
+[ext_resource type="Script" uid="uid://2hk7wptrvlk3" path="res://Scripts/Misc/player_super.gd" id="4_iivbl"]
 [ext_resource type="Script" uid="uid://c43qgpkicigoq" path="res://Scripts/Misc/camera.gd" id="5_ln6xw"]
+[ext_resource type="Texture2D" uid="uid://ckbgxi1cqnrp4" path="res://Sprites/UI/SuperBar1.png" id="5_mg4q0"]
+[ext_resource type="Texture2D" uid="uid://dvc8d2h0gxq70" path="res://Sprites/UI/SuperBar2.png" id="6_vm72l"]
+[ext_resource type="Texture2D" uid="uid://cnwnlkbhi25sw" path="res://Sprites/UI/SuperBar3.png" id="7_22asu"]
 [ext_resource type="Script" uid="uid://ckyu2wqkse4qx" path="res://Scripts/State Machine/StateMachine.gd" id="7_d4whq"]
 [ext_resource type="Script" uid="uid://ctebngbd5xb50" path="res://Scripts/Game/intro.gd" id="8_1rhh7"]
+[ext_resource type="Texture2D" uid="uid://bqhj0keygymed" path="res://Sprites/UI/SuperBarBurn.png" id="8_fkdbe"]
 [ext_resource type="Script" uid="uid://ruice7rn3w6k" path="res://Scripts/Game/fight.gd" id="9_xiygw"]
+[ext_resource type="Texture2D" uid="uid://nofdsxldjjwn" path="res://Sprites/UI/LifeBar.png" id="10_22asu"]
 [ext_resource type="Script" uid="uid://bl15h0xi02nyt" path="res://Scripts/Game/knock_down.gd" id="10_rjk3o"]
+[ext_resource type="Texture2D" uid="uid://b6x5kjrqn5oss" path="res://Sprites/UI/healthbar.png" id="11_22asu"]
 [ext_resource type="Script" uid="uid://q324inc7jgh1" path="res://Scripts/Game/time_out.gd" id="11_c2tyf"]
 [ext_resource type="Script" uid="uid://dmc3j831nhkie" path="res://Scripts/Game/in_between.gd" id="11_dm6ty"]
 [ext_resource type="Script" uid="uid://dpxa8ma4rl3kr" path="res://Scripts/Game/ko.gd" id="12_baftu"]
+[ext_resource type="Texture2D" uid="uid://dl04b0m54t16c" path="res://Sprites/UI/healthbardamage.png" id="12_fkdbe"]
+[ext_resource type="Texture2D" uid="uid://3hjq0spjb6y3" path="res://Sprites/UI/0_Super.png" id="13_81klo"]
 [ext_resource type="Script" uid="uid://buhly4s4etl5j" path="res://Scripts/Game/results.gd" id="13_wq8bv"]
 [ext_resource type="AudioStream" uid="uid://b4cgulx7j7yr5" path="res://SFX/ytmp3free.cc_street-fighter-ex-3-ost-cute-mafia-theme-of-nanase-youtubemp3free.org.mp3" id="14_1phco"]
+[ext_resource type="Texture2D" uid="uid://nuhpmyjk41ln" path="res://Sprites/UI/1_Super.png" id="14_tgy6u"]
+[ext_resource type="Texture2D" uid="uid://j0r41yijiiwl" path="res://Sprites/UI/2_Super.png" id="15_cwurv"]
+[ext_resource type="Texture2D" uid="uid://byecu71gscqrl" path="res://Sprites/UI/3_Super.png" id="16_mucmn"]
+[ext_resource type="Texture2D" uid="uid://cmeo2an5hxco5" path="res://Sprites/UI/Portraits/Canela.png" id="17_tgy6u"]
+[ext_resource type="Texture2D" uid="uid://oq1w0y641xe" path="res://Sprites/UI/Portraits/Cardemomo.png" id="18_cwurv"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayv2y"]
-bg_color = Color(0, 0, 0, 0)
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m3t6"]
+atlas = ExtResource("14_tgy6u")
+region = Rect2(0, 0, 23, 69)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3r5g"]
-bg_color = Color(1, 0.137255, 0.203922, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ese38"]
+atlas = ExtResource("14_tgy6u")
+region = Rect2(23, 0, 23, 69)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fhp85"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_oeip8"]
+atlas = ExtResource("14_tgy6u")
+region = Rect2(46, 0, 23, 69)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4elbw"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_xe308"]
+atlas = ExtResource("14_tgy6u")
+region = Rect2(69, 0, 23, 69)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qo5ia"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3cha"]
+atlas = ExtResource("14_tgy6u")
+region = Rect2(92, 0, 23, 69)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01a1u"]
-bg_color = Color(0.0810479, 0.62207, 1, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_i26dy"]
+atlas = ExtResource("15_cwurv")
+region = Rect2(0, 0, 41, 69)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7twb"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmoi6"]
+atlas = ExtResource("15_cwurv")
+region = Rect2(41, 0, 41, 69)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt5d6"]
-bg_color = Color(1, 0.137255, 0.203922, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6uxt2"]
+atlas = ExtResource("15_cwurv")
+region = Rect2(82, 0, 41, 69)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50slk"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ym3tv"]
+atlas = ExtResource("15_cwurv")
+region = Rect2(123, 0, 41, 69)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wau1t"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwj6o"]
+atlas = ExtResource("15_cwurv")
+region = Rect2(164, 0, 41, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3c8l"]
+atlas = ExtResource("16_mucmn")
+region = Rect2(0, 0, 40, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bu0y5"]
+atlas = ExtResource("16_mucmn")
+region = Rect2(40, 0, 40, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6a4tp"]
+atlas = ExtResource("16_mucmn")
+region = Rect2(80, 0, 40, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_631el"]
+atlas = ExtResource("16_mucmn")
+region = Rect2(120, 0, 40, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vs120"]
+atlas = ExtResource("16_mucmn")
+region = Rect2(160, 0, 40, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v2cs8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_81klo")
+}],
+"loop": true,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8m3t6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ese38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oeip8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xe308")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3cha")
+}],
+"loop": true,
+"name": &"1",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i26dy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmoi6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6uxt2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ym3tv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwj6o")
+}],
+"loop": true,
+"name": &"2",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3c8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bu0y5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6a4tp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_631el")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vs120")
+}],
+"loop": true,
+"name": &"3",
+"speed": 10.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eski1"]
 bg_color = Color(0.741176, 0, 0, 0.243137)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mucmn"]
+load_path = "res://.godot/imported/health bars.png-e54309a7c0cf6425ccbd26c82a8ede8d.ctex"
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("music")]
 process_mode = 3
@@ -64,10 +182,10 @@ layer = 0
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -59.5
-offset_top = 80.0
-offset_right = 60.5
-offset_bottom = 180.0
+offset_left = -60.0
+offset_top = 85.0
+offset_right = 60.0
+offset_bottom = 226.0
 grow_horizontal = 2
 pivot_offset = Vector2(60, 50)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -80,148 +198,175 @@ text = "3:00
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayerHealth" type="ProgressBar" parent="HUD/Timer"]
-z_index = 1
+[node name="PlayerSuper" type="TextureProgressBar" parent="HUD/Timer"]
+z_index = -6
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -493.0
+offset_top = 82.0
+offset_right = -79.0
+offset_bottom = 119.0
+grow_horizontal = 2
+pivot_offset = Vector2(276, 15)
+size_flags_horizontal = 4
+value = 30.0
+fill_mode = 1
+texture_under = ExtResource("3_vm72l")
+texture_progress = ExtResource("3_85qyi")
+texture_progress_offset = Vector2(46, 4)
+script = ExtResource("4_iivbl")
+level0 = ExtResource("7_22asu")
+level1 = ExtResource("3_85qyi")
+level2 = ExtResource("5_mg4q0")
+level3 = ExtResource("6_vm72l")
+levelBurn = ExtResource("8_fkdbe")
+
+[node name="PlayerSuper2" type="TextureProgressBar" parent="HUD/Timer"]
+z_index = -7
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -447.5
+offset_top = 86.0
+offset_right = -109.5
+offset_bottom = 103.0
+grow_horizontal = 2
+pivot_offset = Vector2(276, 15)
+size_flags_horizontal = 4
+value = 100.0
+fill_mode = 1
+texture_progress = ExtResource("3_85qyi")
+tint_progress = Color(0.119086884, 0.12829894, 0, 1)
+
+[node name="PlayerHealth" type="TextureProgressBar" parent="HUD/Timer"]
+z_index = -2
 layout_mode = 0
-offset_left = -1.0
-offset_top = 25.0
-offset_right = 399.0
-offset_bottom = 78.0
-rotation = 3.14159
+offset_left = -428.5
+offset_top = 4.0
+offset_right = -18.5
+offset_bottom = 90.0
 pivot_offset = Vector2(-1.14441e-05, 26.5)
 size_flags_vertical = 4
-theme_override_styles/background = SubResource("StyleBoxFlat_ayv2y")
-theme_override_styles/fill = SubResource("StyleBoxFlat_k3r5g")
-max_value = 40.0
-value = 15.0
-show_percentage = false
+value = 30.0
+fill_mode = 1
+stretch_margin_left = 200
+stretch_margin_right = 200
+texture_under = ExtResource("10_22asu")
+texture_progress = ExtResource("11_22asu")
+texture_progress_offset = Vector2(0, 34)
 
-[node name="PlayerDamage" type="ProgressBar" parent="HUD/Timer"]
+[node name="PlayerHealth2" type="TextureProgressBar" parent="HUD/Timer"]
+z_index = -4
 layout_mode = 0
-offset_left = -1.0
-offset_top = 25.0
-offset_right = 399.0
-offset_bottom = 78.0
-rotation = 3.14159
-pivot_offset = Vector2(8.7738e-05, 26.5)
-theme_override_styles/background = SubResource("StyleBoxFlat_fhp85")
-theme_override_styles/fill = SubResource("StyleBoxFlat_4elbw")
-max_value = 40.0
-value = 35.0
-show_percentage = false
+offset_left = -428.5
+offset_top = 4.0
+offset_right = -18.5
+offset_bottom = 90.0
+pivot_offset = Vector2(-1.14441e-05, 26.5)
+size_flags_vertical = 4
+value = 100.0
+fill_mode = 1
+stretch_margin_left = 200
+stretch_margin_right = 200
+texture_progress = ExtResource("11_22asu")
+texture_progress_offset = Vector2(0, 34)
+tint_progress = Color(0.1728327, 0.17283267, 0.17283267, 1)
+
+[node name="PlayerDamage" type="TextureProgressBar" parent="HUD/Timer"]
+z_index = -3
+layout_mode = 0
+offset_left = -428.5
+offset_top = 4.0
+offset_right = -33.5
+offset_bottom = 90.0
+pivot_offset = Vector2(-1.14441e-05, 26.5)
+size_flags_vertical = 4
+value = 70.0
+fill_mode = 1
+stretch_margin_left = 200
+stretch_margin_right = 200
+texture_progress = ExtResource("12_fkdbe")
+texture_progress_offset = Vector2(0, 34)
 
 [node name="PlayerTimer" type="Timer" parent="HUD/Timer/PlayerDamage"]
 wait_time = 0.7
 one_shot = true
 
-[node name="PlayerSuper" type="ProgressBar" parent="HUD/Timer"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -276.5
-offset_top = -20.0
-offset_right = 273.5
-offset_bottom = 10.0
-grow_horizontal = 2
-rotation = 3.14159
-pivot_offset = Vector2(276, 15)
-size_flags_horizontal = 4
-theme_override_styles/background = SubResource("StyleBoxFlat_qo5ia")
-theme_override_styles/fill = SubResource("StyleBoxFlat_01a1u")
-value = 20.0
-show_percentage = false
+[node name="EnemyHealth" type="TextureProgressBar" parent="HUD/Timer"]
+z_index = -4
+layout_mode = 0
+offset_left = 547.5
+offset_top = 4.0
+offset_right = 957.5
+offset_bottom = 90.0
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(-1.14441e-05, 26.5)
+size_flags_vertical = 4
+value = 30.0
+fill_mode = 1
+stretch_margin_left = 200
+stretch_margin_right = 200
+texture_under = ExtResource("10_22asu")
+texture_progress = ExtResource("11_22asu")
+texture_progress_offset = Vector2(0, 34)
 
-[node name="EnemyHealth" type="ProgressBar" parent="HUD/Timer"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_top = 25.0
-offset_right = 400.0
-offset_bottom = 78.0
-grow_horizontal = 0
-pivot_offset = Vector2(0, 27)
-theme_override_styles/background = SubResource("StyleBoxFlat_b7twb")
-theme_override_styles/fill = SubResource("StyleBoxFlat_lt5d6")
-max_value = 40.0
-value = 15.0
-show_percentage = false
-
-[node name="EnemyDamage" type="ProgressBar" parent="HUD/Timer"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_top = 25.0
-offset_right = 400.0
-offset_bottom = 78.0
-grow_horizontal = 0
-pivot_offset = Vector2(0, 27)
-theme_override_styles/background = SubResource("StyleBoxFlat_50slk")
-theme_override_styles/fill = SubResource("StyleBoxFlat_wau1t")
-max_value = 40.0
-value = 35.0
-show_percentage = false
+[node name="EnemyDamage" type="TextureProgressBar" parent="HUD/Timer"]
+z_index = -5
+layout_mode = 0
+offset_left = 547.5
+offset_top = 4.0
+offset_right = 957.5
+offset_bottom = 90.0
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(-1.14441e-05, 26.5)
+size_flags_vertical = 4
+value = 60.0
+fill_mode = 1
+stretch_margin_left = 200
+stretch_margin_right = 200
+texture_progress = ExtResource("12_fkdbe")
+texture_progress_offset = Vector2(0, 34)
 
 [node name="EnemyTimer" type="Timer" parent="HUD/Timer/EnemyDamage"]
 wait_time = 0.7
 one_shot = true
 
-[node name="PlayerStock1" type="Sprite2D" parent="HUD/Timer"]
-position = Vector2(-30, 105)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_rvnu7")
-
-[node name="PlayerStock2" type="Sprite2D" parent="HUD/Timer"]
-position = Vector2(-90, 105)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_rvnu7")
-
-[node name="PlayerStock3" type="Sprite2D" parent="HUD/Timer"]
-position = Vector2(-150, 105)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_rvnu7")
-
-[node name="EnemyStock1" type="Sprite2D" parent="HUD/Timer"]
-position = Vector2(150, 105)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_rvnu7")
-
-[node name="EnemyStock2" type="Sprite2D" parent="HUD/Timer"]
-position = Vector2(210, 105)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_rvnu7")
-
-[node name="EnemyStock3" type="Sprite2D" parent="HUD/Timer"]
-position = Vector2(270, 105)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_rvnu7")
-
-[node name="PortraitPlayer" type="Sprite2D" parent="HUD/Timer"]
-position = Vector2(-420, 40)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("4_qgphd")
-offset = Vector2(-151, 0)
-
-[node name="PortraitEnemy" type="Sprite2D" parent="HUD/Timer"]
-position = Vector2(750, 40)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("4_qgphd")
-offset = Vector2(-151, 0)
+[node name="EnemyHealth2" type="TextureProgressBar" parent="HUD/Timer"]
+z_index = -6
+layout_mode = 0
+offset_left = 547.5
+offset_top = 4.0
+offset_right = 957.5
+offset_bottom = 90.0
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(-1.14441e-05, 26.5)
+size_flags_vertical = 4
+value = 100.0
+fill_mode = 1
+stretch_margin_left = 200
+stretch_margin_right = 200
+texture_progress = ExtResource("11_22asu")
+texture_progress_offset = Vector2(0, 34)
+tint_progress = Color(0.17254902, 0.17254902, 0.17254902, 1)
 
 [node name="Round" type="Label" parent="HUD/Timer"]
 layout_mode = 0
-offset_left = 0.5
-offset_top = -65.0
-offset_right = 131.5
-offset_bottom = -25.0
-pivot_offset = Vector2(36.5, 12)
+offset_left = -5.0
+offset_top = -66.0
+offset_right = 126.0
+offset_bottom = -26.0
+pivot_offset = Vector2(65.5, 20)
 theme_override_constants/outline_size = 18
 theme_override_font_sizes/font_size = 29
 text = "ROUND 1"
+
+[node name="SuperLevel" type="AnimatedSprite2D" parent="HUD/Timer"]
+position = Vector2(-400, 128)
+sprite_frames = SubResource("SpriteFrames_v2cs8")
+animation = &"2"
 
 [node name="Damage" type="Panel" parent="HUD"]
 visible = false
@@ -230,6 +375,21 @@ offset_top = -24.0
 offset_right = 1939.0
 offset_bottom = 1093.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_eski1")
+
+[node name="HealthBars" type="Sprite2D" parent="HUD"]
+visible = false
+position = Vector2(960, 144)
+texture = SubResource("CompressedTexture2D_mucmn")
+
+[node name="PlayerPortrait" type="Sprite2D" parent="HUD"]
+position = Vector2(375.00003, 142.00002)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("17_tgy6u")
+
+[node name="EnemyPortrait" type="Sprite2D" parent="HUD"]
+position = Vector2(1544, 139.00002)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("18_cwurv")
 
 [node name="UIFront" type="CanvasLayer" parent="."]
 layer = 2
@@ -295,6 +455,7 @@ script = ExtResource("13_wq8bv")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_1phco")
+volume_db = -80.0
 bus = &"Music"
 
 [connection signal="timeout" from="HUD/Timer/PlayerDamage/PlayerTimer" to="." method="_on_player_timer_timeout"]

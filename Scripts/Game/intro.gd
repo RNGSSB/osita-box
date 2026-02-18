@@ -3,7 +3,7 @@ extends State
 
 func Exit():
 	owner.player.ctrl = 1
-	owner.enemy.aiActive = true
+	owner.enemy.aiActive = false
 
 func Enter():
 	owner.pauseTimer = true

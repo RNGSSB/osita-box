@@ -7,7 +7,7 @@ var PREVSTATE = "Wait"
 @onready var stateMachine = $StateMachine
 @export var animSys : Node
 @export var hitSys : Node
-
+@export var enemyPortrait : CompressedTexture2D
 var charName = "Cardemomo"
 var stateFrame = 0
 var frameCounter = 0

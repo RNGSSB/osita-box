@@ -78,6 +78,7 @@ text = "Main Menu"
 
 [connection signal="mouse_entered" from="Resume" to="." method="_on_resume_mouse_entered"]
 [connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
+[connection signal="button_down" from="Restart" to="." method="_on_restart_button_down"]
 [connection signal="mouse_entered" from="Restart" to="." method="_on_restart_mouse_entered"]
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
 [connection signal="mouse_entered" from="Options" to="." method="_on_options_mouse_entered"]
