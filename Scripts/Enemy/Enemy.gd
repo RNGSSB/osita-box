@@ -37,7 +37,7 @@ var shakePunch = 10
 var shakeUpper = 10
 
 var dizzy = 0
-var dizzyTime = 90
+var dizzyTime = 97
 
 var finalHitlagMul = 4
 var finalShakeMul = 4

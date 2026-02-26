@@ -35,7 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://chlrd33uwmd5s" path="res://Sprites/Characters/Cardemomo/Attack2Hit.png" id="21_vg4im"]
 [ext_resource type="Script" uid="uid://bfgl2oga5vcri" path="res://Scripts/Enemy/CommonStates/dead.gd" id="22_agd4v"]
 [ext_resource type="Texture2D" uid="uid://bhsmcs67u12dn" path="res://Sprites/Characters/Cardemomo/Attack2Miss.png" id="22_bmsvv"]
-[ext_resource type="Texture2D" uid="uid://cjvmuq3x54w1y" path="res://Sprites/Characters/Cardemomo/Attack4Start.png" id="23_ei7hm"]
+[ext_resource type="Texture2D" uid="uid://r25mhqvmbgbr" path="res://Sprites/Characters/Cardemomo/Attack4Start.png" id="23_ei7hm"]
 [ext_resource type="Texture2D" uid="uid://66ii7gf6hgre" path="res://Sprites/Characters/Cardemomo/Attack3Start.png" id="23_sqo1q"]
 [ext_resource type="Texture2D" uid="uid://dmbv0joadl27p" path="res://Sprites/Characters/Cardemomo/Attack3Hit.png" id="24_grbw2"]
 [ext_resource type="Texture2D" uid="uid://bigrm8ga1af5u" path="res://Sprites/Characters/Cardemomo/Attack4Hit.png" id="24_vpu86"]
@@ -161,11 +161,11 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("12_41qvh")
-endFrame = 8
-frames = 8
-loopFrame = 3
+endFrame = 10
+frames = 10
+loopFrame = 4
 columns = 2
-frameTimes = Array[int]([4, 4, 4, 6, 6, 6, 6, 6])
+frameTimes = Array[int]([3, 2, 1, 1, 7, 7, 7, 7, 6, 6])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="DizzyHi" type="Node" parent="AnimSys"]
@@ -181,10 +181,10 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 [node name="DizzyLwEnd" type="Node" parent="AnimSys"]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("12_41qvh")
-initialFrame = 9
-frames = 10
+initialFrame = 10
+frames = 14
 columns = 2
-frameTimes = Array[int]([7, 7, 7, 7, 7, 8, 4, 2, 4, 4])
+frameTimes = Array[int]([3, 2, 1, 7, 7, 7, 7, 7, 6, 6, 2, 3, 4, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="DizzyHiEnd" type="Node" parent="AnimSys"]
@@ -358,7 +358,8 @@ script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("23_ei7hm")
 frames = 19
 columns = 3
-frameTimes = Array[int]([2, 2, 2, 2, 2, 2, 2, 1, 5, 6, 7, 1, 1, 1, 1, 1, 2, 2, 2])
+posY = -2.0
+frameTimes = Array[int]([1, 2, 2, 2, 2, 2, 2, 1, 5, 6, 7, 1, 1, 2, 1, 2, 2, 2, 2])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="Attack4Hit" type="Node" parent="AnimSys"]

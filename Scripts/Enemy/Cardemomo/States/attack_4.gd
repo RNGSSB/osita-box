@@ -27,30 +27,30 @@ func Update(_delta: float):
 func Physics_Update(_delta: float):
 	if owner.cFrame(7):
 		owner.Guard(false,false,false,false)
-		owner.hitUpRight = true
+		owner.hitUpLeft = true
 	if owner.cFrame(20):
 		owner.counterPunch = true
 	if owner.cFrame(33):
 		owner.counterPunch = false
-	if owner.cFrame(39):
-		owner.punchOpponent("Attack4H1")
 	if owner.cFrame(40):
-		owner.punchOpponent("Attack4H2")
+		owner.punchOpponent("Attack4H1")
 	if owner.cFrame(41):
-		owner.punchOpponent("Attack4H3")
+		owner.punchOpponent("Attack4H2")
 	if owner.cFrame(42):
-		owner.punchOpponent("Attack4H4")
+		owner.punchOpponent("Attack4H3")
 	if owner.cFrame(43):
-		owner.punchOpponent("Attack4H5")
+		owner.punchOpponent("Attack4H4")
 	if owner.cFrame(44):
+		owner.punchOpponent("Attack4H5")
+	if owner.cFrame(45):
 		owner.punchOpponent("Attack4H6")
 	if owner.punchHit:
-		if owner.cFrame(45):
+		if owner.cFrame(46):
 			owner.animSys.animPlay("Attack4Hit")
 		if owner.animSys.animEnd: #7
 			Transitioned.emit(self, "wait")
 	else:
-		if owner.cFrame(45):
+		if owner.cFrame(46):
 			owner.animSys.animPlay("Attack4Miss")
 			owner.stun()
 		if owner.cFrame(102):
