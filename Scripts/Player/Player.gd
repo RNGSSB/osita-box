@@ -169,33 +169,57 @@ func _process(_delta):
 			stateMachine.change_state2("PunchLeftCounter")
 		else:
 			if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
-				stateMachine.change_state2("PunchLeft")
+				if (CURRSTATE == "PunchLeft" or CURRSTATE == "UpperLeft") and bufferPunchR:
+					stateMachine.change_state2("PunchRight")
+				else:
+					stateMachine.change_state2("PunchLeft")
 			else:
-				stateMachine.change_state2("PunchLeftFinish")
+				if (CURRSTATE == "PunchLeft" or CURRSTATE == "UpperLeft") and bufferPunchR:
+					stateMachine.change_state2("PunchRightFinish")
+				else:
+					stateMachine.change_state2("PunchLeftFinish")
 	if inputY <= 0 and bufferPunchR and !bufferUp and ctrl == 1:
 		if owner.enemy.counterPunch and owner.enemy.hitRight:
 			stateMachine.change_state2("PunchRightCounter")
 		else:
 			if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
-				stateMachine.change_state2("PunchRight")
+				if (CURRSTATE == "PunchRight" or CURRSTATE == "UpperRight") and bufferPunchL:
+					stateMachine.change_state2("PunchLeft")
+				else:
+					stateMachine.change_state2("PunchRight")
 			else:
-				stateMachine.change_state2("PunchRightFinish")
+				if (CURRSTATE == "PunchRight" or CURRSTATE == "UpperRight") and bufferPunchL:
+					stateMachine.change_state2("PunchLeftFinish")
+				else:
+					stateMachine.change_state2("PunchRightFinish")
 	if (inputY > 0 or bufferUp) and bufferPunchL and ctrl == 1:
 		if owner.enemy.counterPunch and owner.enemy.hitUpLeft:
 			stateMachine.change_state2("UpperLeftCounter")
 		else:
 			if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
-				stateMachine.change_state2("UpperLeft")
+				if (CURRSTATE == "PunchLeft" or CURRSTATE == "UpperLeft") and bufferPunchR:
+					stateMachine.change_state2("UpperRight")
+				else:
+					stateMachine.change_state2("UpperLeft")
 			else:
-				stateMachine.change_state2("UpperLeftFinish")
+				if (CURRSTATE == "PunchLeft" or CURRSTATE == "UpperLeft") and bufferPunchR:
+					stateMachine.change_state2("UpperRightFinish")
+				else:
+					stateMachine.change_state2("UpperLeftFinish")
 	if (inputY > 0 or bufferUp) and bufferPunchR and ctrl == 1:
 		if owner.enemy.counterPunch and owner.enemy.hitUpRight:
 			stateMachine.change_state2("UpperRightCounter")
 		else:
 			if owner.enemy.hitCount < owner.enemy.maxHitCount or !hasCombo:
-				stateMachine.change_state2("UpperRight")
+				if (CURRSTATE == "PunchRight" or CURRSTATE == "UpperRight") and bufferPunchL:
+					stateMachine.change_state2("UpperLeft")
+				else:
+					stateMachine.change_state2("UpperRight")
 			else:
-				stateMachine.change_state2("UpperRightFinish")
+				if (CURRSTATE == "PunchRight" or CURRSTATE == "UpperRight") and bufferPunchL:
+					stateMachine.change_state2("UpperLeftFinish")
+				else:
+					stateMachine.change_state2("UpperRightFinish")
 	
 	if bufferDodgeL and ctrl == 1 and canDodge:
 		stateMachine.change_state2("DodgeLeft")
@@ -296,7 +320,7 @@ func punchBlockFunc(hitbox : HitPlayer):
 	owner.hitLag(hitbox.blockHitlag, hitbox.blockShake)
 	if superMeter <= 0 and !inBurnout:
 		owner.playerBurnout()
-	Gamemanager.createEffects("BLOCK", 1.0, 1.0, 0, hitbox.blockEffectY)
+	Gamemanager.createEffects("BLOCK", 1.0, 1.0, hitbox.blockEffectX, hitbox.blockEffectY)
 	var rng = RandomNumberGenerator.new()
 	AudioManager.Play("Block", hitbox.AUDIOBUS.keys()[hitbox.audioBus], 1.0, rng.randf_range(hitbox.minPitch, hitbox.maxPitch))
 	if hitbox.punchDirection == hitbox.hitDirections.LEFT or hitbox.punchDirection == hitbox.hitDirections.RIGHT:
@@ -362,6 +386,23 @@ func punchHitFunc(hitbox : HitPlayer):
 			gotSuper = true
 		else:
 			owner.hitLag(enemyRef.hitlagUpper * hitbox.hitlagMul,enemyRef.shakeUpper * hitbox.shakeMul)
+	var hitSparkVector = Vector2(0,0)
+	var hitSparkScaleVec = Vector2(0,0)
+	
+	match hitbox.punchDirection:
+		HitPlayer.hitDirections.LEFT:
+			hitSparkVector = Vector2(enemyRef.hitSparkPosX.x, enemyRef.hitSparkPosY.x) 
+			hitSparkScaleVec = Vector2(enemyRef.hitSparkScale.x, enemyRef.hitSparkScale.x) 
+		HitPlayer.hitDirections.RIGHT:
+			hitSparkVector = Vector2(enemyRef.hitSparkPosX.y, enemyRef.hitSparkPosY.y) 
+			hitSparkScaleVec = Vector2(enemyRef.hitSparkScale.y, enemyRef.hitSparkScale.y) 
+		HitPlayer.hitDirections.UPLEFT:
+			hitSparkVector = Vector2(enemyRef.hitSparkPosX.z, enemyRef.hitSparkPosY.z) 
+			hitSparkScaleVec = Vector2(enemyRef.hitSparkScale.z, enemyRef.hitSparkScale.z) 
+		HitPlayer.hitDirections.UPRIGHT:
+			hitSparkVector = Vector2(enemyRef.hitSparkPosX.w, enemyRef.hitSparkPosY.w) 
+			hitSparkScaleVec = Vector2(enemyRef.hitSparkScale.w, enemyRef.hitSparkScale.w) 
+	
 	Gamemanager.createEffects(hitbox.effect, hitbox.scaleX, hitbox.scaleY, hitbox.effectX, hitbox.effectY)
 	if hitbox.soundCombo:
 		AudioManager.Play(hitbox.sfx, hitbox.AUDIOBUS.keys()[hitbox.audioBus], hitbox.volume, hitbox.pitch + (hitCount * 0.2))
@@ -461,7 +502,7 @@ func punchOpponent(hitboxName : String):
 
 func debugUI():
 	fpsCounter.text = "FPS: " + str(Engine.get_frames_per_second())
-	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(owner.stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "currentFrame: " + str(frame) + "\n" + "animWait: " + str(animSys.animWait) + "\n" + "animFrame: " + str(animSys.animFrame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter) + "\n" + "BurnoutTime: " + str(burnoutTimer)
+	debugInfoPlayer.text = "Frame: " + str(frameCounter) + "\n" + "State: " + CURRSTATE + "\n" + "StateFrame: " + str(stateFrame) + "\n" + "ctrl: " + str(ctrl) + "\n" + "currentFrame: " + str(frame) + "\n" + "animWait: " + str(animSys.animWait) + "\n" + "animFrame: " + str(animSys.animFrame) + "\n" + "PrevState: " + PREVSTATE + "\n" + "HitStop: " + str(owner.hitStop) + "\n" + "PerfectDodge: " + str(perfectDodge) + "\n" + "superMeter: " + str(superMeter) + "\n" + "DodgeCheck: " + str(dodgeSuccess)
 	debugInfoPlayer2.text = "Frame: " + str(frameCounter) + "\n" + "State: " + owner.enemy.CURRSTATE + "\n" + "StateFrame: " + str(owner.enemy.stateFrame) + "\n" + "Anim: " + owner.enemy.animSys.CURRANIM + "\n" + "animFrame: " + str(owner.enemy.frame) + "\n" + "PrevState: " + str(owner.enemy.PREVSTATE) + "\n" + "PrevFrame: " + str(owner.enemy.prevStateFrame) + "\n" + "Stunned: " + str(owner.enemy.stunned) + "\n" + "HitCount: " + str(owner.enemy.hitCount) + "\n" + "MaxHitCount: " + str(owner.enemy.maxHitCount) + "\n" + "Health: " + str(owner.enemy.health) + "\n" + "aiActive: " + str(owner.enemy.aiActive) + "\n" + "attackPhase: " + str(owner.enemy.brain.attackPhase) + "\n" + "waitTimer: " + str(owner.enemy.brain.waitTimer) + "\n" + "nextMove: " + str(owner.enemy.brain.nextMove) + "\n" + "epicCombo: " + str(epicCombo)  
 	debugInfoPlayer3.text = "bufferL: " + str(bufferPunchL) + "\n" + "bufferR: " + str(bufferPunchR) + "\n" + "bufferUp: " + str(bufferUp) + "\n" + "Zoom: " + str(owner.camera.zoom) + "\n" + "DodgeLeft: " + str(dodgeLeft) + "\n" + "DodgeRight: " + str(dodgeRight) + "\n" + "DodgeDown: " + str(dodgeDown) + "\n" + "Health: " + str(health) + "\n" + "hasCombo: " + str(hasCombo) + "\n" + "isBlocking: " + str(isBlocking) + "\n" + "superLevel: " + str(superLevel) + "\n" + "inBurnout: " + str(inBurnout) + "\n" + "GameState: " + owner.CURRSTATE
 
@@ -502,14 +543,24 @@ func processInputs():
 	if owner.CURRSTATE == "Intro" or owner.CURRSTATE == "KnockDown":
 		return
 	if Gamemanager.checkInputJustPressed("LeftPunch") and !bufferPunchL:
-		punchLBuffer = frameCounter
-		bufferDodgeHI = false
-		bufferPunchL = true
+		if CURRSTATE == "PunchLeft" or CURRSTATE == "UpperLeft" or CURRSTATE == "PunchRight" or CURRSTATE == "UpperRight":
+			punchLBuffer = frameCounter + 5
+			bufferDodgeHI = false
+			bufferPunchL = true
+		else:
+			punchLBuffer = frameCounter
+			bufferDodgeHI = false
+			bufferPunchL = true
 	
 	if Gamemanager.checkInputJustPressed("RightPunch") and !bufferPunchR:
-		punchRBuffer = frameCounter
-		bufferDodgeHI = false
-		bufferPunchR = true
+		if CURRSTATE == "PunchLeft" or CURRSTATE == "UpperLeft" or CURRSTATE == "PunchRight" or CURRSTATE == "UpperRight":
+			punchRBuffer = frameCounter + 5
+			bufferDodgeHI = false
+			bufferPunchR = true
+		else:
+			punchRBuffer = frameCounter
+			bufferDodgeHI = false
+			bufferPunchR = true
 	
 	if Gamemanager.checkInputJustPressed("Down") and !bufferDodgeLW:
 		dodgeBufferLW = frameCounter
@@ -532,13 +583,13 @@ func processInputs():
 		bufferSuper = true
 
 func clearBuffer():
-	if bufferSuper and frameCounter == superBuffer + 15:
+	if bufferSuper and frameCounter == superBuffer + 10:
 		bufferSuper = false
 	
-	if bufferPunchL and frameCounter == punchLBuffer + 15:
+	if bufferPunchL and frameCounter == punchLBuffer + 10:
 		bufferPunchL = false
 	
-	if bufferPunchR and frameCounter == punchRBuffer + 15: 
+	if bufferPunchR and frameCounter == punchRBuffer + 10: 
 		bufferPunchR = false
 	
 	if bufferDodgeL and frameCounter == dodgeBufferL + inputBuffer:
@@ -556,10 +607,17 @@ func clearBuffer():
 	if bufferUp and frameCounter == upBuffer + 15:
 		bufferUp = false
 	
-	if bufferPunchL and bufferPunchR:
-		if punchLBuffer > punchRBuffer:
-			bufferPunchR = false
-		if punchLBuffer < punchRBuffer:
-			bufferPunchL = false
-		else:
-			bufferPunchR = false
+	#if CURRSTATE == "PunchRight" or CURRSTATE == "PunchRightFinish" or CURRSTATE == "UpperRight" or CURRSTATE == "UpperRightFinish":
+	#	if bufferPunchL and bufferPunchR:
+	#		bufferPunchR = false
+	#if CURRSTATE == "PunchLeft" or CURRSTATE == "PunchLeftFinish" or CURRSTATE == "UpperLeft" or CURRSTATE == "UpperLeftFinish":
+	#	if bufferPunchL and bufferPunchR:
+	#		bufferPunchL = false
+	
+	#if bufferPunchL and bufferPunchR:
+	#	if punchLBuffer > punchRBuffer:
+	#		bufferPunchR = false
+	#	if punchLBuffer < punchRBuffer:
+	#		bufferPunchL = false
+	#	else:
+	#		bufferPunchR = false

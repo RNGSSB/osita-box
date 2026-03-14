@@ -17,6 +17,7 @@ enum ANIMDIR{L,R}
 @export_group("Block")
 @export var blockHitlag = 5
 @export var blockShake = 10
+@export var blockEffectX = 0
 @export var blockEffectY = 60
 @export_group("Animation")
 @export var animDir : ANIMDIR = ANIMDIR.R

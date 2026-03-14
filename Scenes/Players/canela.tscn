@@ -96,13 +96,17 @@ script = ExtResource("4_1jx2i")
 damage = 2.0
 meter = 6.0
 flip = true
+blockHitlag = 6
+blockEffectX = 85
+blockEffectY = 100
 animDir = 0
 dizzyAnim = "DizzyLw"
 audioBus = 1
 randomPitch = true
-effectY = 60.0
-scaleX = 2.0
-scaleY = 2.0
+effectX = 86.0
+effectY = 100.0
+scaleX = 2.3
+scaleY = 2.3
 metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 
 [node name="PunchLeftCounter" type="Node" parent="HitSys"]
@@ -151,15 +155,18 @@ damage = 2.0
 meter = 6.0
 upper = true
 flip = true
-blockEffectY = -150
+blockHitlag = 6
+blockEffectX = -10
+blockEffectY = -90
 animDir = 0
 hitAnim = "DamageHi"
 dizzyAnim = "DizzyHi"
 audioBus = 1
 randomPitch = true
-effectY = -180.0
-scaleX = 2.0
-scaleY = 2.0
+effectX = 0.025
+effectY = -160.0
+scaleX = 2.5
+scaleY = 2.5
 metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 
 [node name="UpperLeftCounter" type="Node" parent="HitSys"]
@@ -213,12 +220,16 @@ script = ExtResource("4_1jx2i")
 punchDirection = 1
 damage = 2.0
 meter = 6.0
+blockHitlag = 6
+blockEffectX = -85
+blockEffectY = 100
 dizzyAnim = "DizzyLw"
 audioBus = 2
 randomPitch = true
-effectY = 60.0
-scaleX = 2.0
-scaleY = 2.0
+effectX = -86.0
+effectY = 100.0
+scaleX = 2.2
+scaleY = 2.2
 metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 
 [node name="PunchRightCounter" type="Node" parent="HitSys"]
@@ -265,14 +276,16 @@ punchDirection = 3
 damage = 2.0
 meter = 6.0
 upper = true
-blockEffectY = -150
+blockHitlag = 6
+blockEffectX = 10
+blockEffectY = -90
 hitAnim = "DamageHi"
 dizzyAnim = "DizzyHi"
 audioBus = 2
 randomPitch = true
-effectY = -180.0
-scaleX = 2.0
-scaleY = 2.0
+effectY = -160.0
+scaleX = 2.4
+scaleY = 2.4
 metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 
 [node name="UpperRightCounter" type="Node" parent="HitSys"]
@@ -375,7 +388,7 @@ script = ExtResource("3_pqjug")
 spriteSheet = ExtResource("8_ced0o")
 frames = 3
 rows = 3
-frameTimes = Array[int]([8, 6, 6])
+frameTimes = Array[int]([9, 11, 11])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="PunchLowCounter" type="Node" parent="AnimSys"]

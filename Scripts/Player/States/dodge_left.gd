@@ -44,6 +44,7 @@ func Physics_Update(_delta: float):
 		else:
 			owner.moveCamera(0.2, 0)
 	if owner.cFrame(31):
-		owner.ctrl = 1
+		if !owner.inBurnout:
+			owner.ctrl = 1
 	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")

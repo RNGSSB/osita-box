@@ -86,6 +86,15 @@ var dizzyAnim = "DizzyLw"
 
 @onready var brain = $Brain
 
+
+@export var hitSparkPosX = Vector4(0,0,0,0)
+@export var hitSparkPosY = Vector4(0,0,0,0)
+@export var hitSparkScale = Vector4(1.0,1.0,1.0,1.0)
+@export var blockSparkPos = Vector4(0,0,0,0)
+@export var blockSparkScale = Vector4(1.0,1.0,1.0,1.0)
+
+
+
 func setColor(value1, value2, value3):
 	R = value1 
 	G = value2
@@ -115,6 +124,11 @@ func enemyHeal(value, rate):
 
 func punchHitFunc(hitbox : Hit):
 	enemyRef = owner.player
+	if enemyRef.stateFrame > 15 and enemyRef.stateFrame <= 18:
+		if (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.LEFT and enemyRef.CURRSTATE == "DodgeLeft") or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.RIGHT and enemyRef.CURRSTATE == "DodgeRight") or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.DOWN and enemyRef.CURRSTATE == "DodgeDown") or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.ALL and (enemyRef.CURRSTATE == "DodgeLeft" or enemyRef.CURRSTATE == "DodgeRight" or enemyRef.CURRSTATE == "DodgeDown")) or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.HORIZONTAL and (enemyRef.CURRSTATE == "DodgeLeft" or enemyRef.CURRSTATE == "DodgeRight")):
+			punchDodgeFunc(hitbox)
+			AudioManager.Play("Dizzy", hitbox.AUDIOBUS.keys()[hitbox.audioBus], 8.0, hitbox.pitch)
+			return
 	owner.playerUpdateHealth(hitbox.damage)
 	punchHit = true
 	attackMiss = false
@@ -150,9 +164,8 @@ func punchDodgeFunc(hitbox : Hit):
 		AudioManager.Play("Dodge", "SFX", 1.0, 1.0)
 	enemyRef.hasCombo = true
 	maxHitCount = hitbox.dodgeCombo
-	if enemyRef.stateFrame <= enemyRef.perfectTiming:
+	if enemyRef.stateFrame <= enemyRef.perfectTiming and !enemyRef.inBurnout:
 		enemyRef.superMeter += enemyRef.perfectDodgeMeterGain
-		enemyRef.burnoutEnd()
 		if enemyRef.superMeter >= enemyRef.superMax:
 			enemyRef.gotSuper = true
 		maxHitCount = hitbox.perfectCombo
@@ -230,7 +243,8 @@ func punchOpponent(hitboxName : String):
 			else:
 				return
 		else:
-			punchDodgeFunc(hitbox)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchDodgeFunc(hitbox)
 	elif hitbox.dodgeDirection == hitbox.HITDIRECTIONS.RIGHT: #Dodge Right
 		if enemyRef.isBlocking and hitbox.blockable and !enemyRef.inBurnout and hitbox.hitNeutral:
 			punchBlockFunc(hitbox)
@@ -241,7 +255,8 @@ func punchOpponent(hitboxName : String):
 			else:
 				return
 		else:
-			punchDodgeFunc(hitbox)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchDodgeFunc(hitbox)
 	elif hitbox.dodgeDirection == hitbox.HITDIRECTIONS.DOWN: #Dodge Down
 		if enemyRef.isBlocking and hitbox.blockable and !enemyRef.inBurnout and hitbox.hitNeutral:
 			punchBlockFunc(hitbox)
@@ -252,7 +267,8 @@ func punchOpponent(hitboxName : String):
 			else:
 				return
 		else:
-			punchDodgeFunc(hitbox)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchDodgeFunc(hitbox)
 	elif hitbox.dodgeDirection == hitbox.HITDIRECTIONS.ALL: #Dodge All
 		if enemyRef.isBlocking and hitbox.blockable and !enemyRef.inBurnout and hitbox.hitNeutral:
 			punchBlockFunc(hitbox)
@@ -263,7 +279,8 @@ func punchOpponent(hitboxName : String):
 			else:
 				return
 		else:
-			punchDodgeFunc(hitbox)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchDodgeFunc(hitbox)
 	elif hitbox.dodgeDirection == hitbox.HITDIRECTIONS.HORIZONTAL: #Dodge Left or Right
 		if enemyRef.isBlocking and hitbox.blockable and !enemyRef.inBurnout and hitbox.hitNeutral:
 			punchBlockFunc(hitbox)
@@ -274,7 +291,8 @@ func punchOpponent(hitboxName : String):
 			else:
 				return
 		else:
-			punchDodgeFunc(hitbox)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchDodgeFunc(hitbox)
 
 func stun():
 	hitLeft = true

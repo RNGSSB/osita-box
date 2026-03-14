@@ -37,12 +37,19 @@ func Physics_Update(_delta: float):
 	if owner.cFrame(17):
 		if owner.dodgeSuccess:
 			owner.moveCameraY(0.2, 0)
+	if owner.cFrame(18):
+		if owner.dodgeSuccess:
+			owner.moveCameraY(0.2, 0)
+	if owner.cFrame(19):
+		if owner.dodgeSuccess:
+			owner.moveCameraY(0.2, 0)
 	if owner.cFrame(20):
 		if owner.dodgeSuccess:
 			owner.ctrl = 1
 		else:
 			owner.moveCameraY(0.2, 0)
 	if owner.cFrame(31):
-		owner.ctrl = 1
+		if !owner.inBurnout:
+			owner.ctrl = 1
 	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")
