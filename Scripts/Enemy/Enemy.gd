@@ -8,7 +8,7 @@ var PREVSTATE = "Wait"
 @export var animSys : Node
 @export var hitSys : Node
 @export var enemyPortrait : CompressedTexture2D
-var charName = "Cardemomo"
+@export var charName = "Cardemomo"
 var stateFrame = 0
 var frameCounter = 0
 var prevStateFrame = 0 
@@ -31,34 +31,36 @@ var counterPunch = false
 @export var baseColor = Color8(255,255,255,255)
 var counterColor = Color8(255,164,167,255)
 
-var hitlagPunch = 3
-var hitlagUpper = 3
-var shakePunch = 10
-var shakeUpper = 10
+@export var hitlagPunch = 3
+@export var hitlagUpper = 3
+@export var shakePunch = 10
+@export var shakeUpper = 10
 
 var dizzy = 0
-var dizzyTime = 97
+@export var dizzyTime = 97
 
-var finalHitlagMul = 4
-var finalShakeMul = 4
+@export var finalHitlagMul = 4
+@export var finalShakeMul = 4
 
 var enemyRef
 
-var normalCombo = 2
-var dodgeCombo = 4
-var perfectCombo = 6
+@export var normalCombo = 2
+@export var dodgeCombo = 4
+@export var perfectCombo = 6
 
 var punchHit = false
 var attackMiss = false
 var isAttacking = false
-var defaultPosY = 100
+@export var defaultPosY = 100
 
 var healing = false
 
 var hitCount = 0
-var maxHitCount = 5
+@export var maxHitCount = 5
+var blockCount = 0
+@export var maxBlockCount = 3
 
-var maxHealth = 100
+@export var maxHealth = 100
 var health = 100
 
 var aiActive = false
@@ -68,30 +70,23 @@ var damageStopTimer = false
 
 var rng = RandomNumberGenerator.new()
 
-var superInit = 40
+@export var superInit = 40
 
 var R = 255
 var G = 255
 var B = 255
 
 var playerPunch = 0 
-var flipDamageLw = true
-var flipDamageHi = true
-var flipDamageCounterLw = true
-var flipDamageCounterHi = false
+@export var flipDamageLw = true
+@export var flipDamageHi = true
+@export var flipDamageCounterLw = true
+@export var flipDamageCounterHi = false
 
 var dizzyAnim = "DizzyLw"
 @export var flipBlockLw = false
 @export var flipBlockHi = true
 
 @onready var brain = $Brain
-
-
-@export var hitSparkPosX = Vector4(0,0,0,0)
-@export var hitSparkPosY = Vector4(0,0,0,0)
-@export var hitSparkScale = Vector4(1.0,1.0,1.0,1.0)
-@export var blockSparkPos = Vector4(0,0,0,0)
-@export var blockSparkScale = Vector4(1.0,1.0,1.0,1.0)
 
 
 

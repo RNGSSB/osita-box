@@ -386,22 +386,6 @@ func punchHitFunc(hitbox : HitPlayer):
 			gotSuper = true
 		else:
 			owner.hitLag(enemyRef.hitlagUpper * hitbox.hitlagMul,enemyRef.shakeUpper * hitbox.shakeMul)
-	var hitSparkVector = Vector2(0,0)
-	var hitSparkScaleVec = Vector2(0,0)
-	
-	match hitbox.punchDirection:
-		HitPlayer.hitDirections.LEFT:
-			hitSparkVector = Vector2(enemyRef.hitSparkPosX.x, enemyRef.hitSparkPosY.x) 
-			hitSparkScaleVec = Vector2(enemyRef.hitSparkScale.x, enemyRef.hitSparkScale.x) 
-		HitPlayer.hitDirections.RIGHT:
-			hitSparkVector = Vector2(enemyRef.hitSparkPosX.y, enemyRef.hitSparkPosY.y) 
-			hitSparkScaleVec = Vector2(enemyRef.hitSparkScale.y, enemyRef.hitSparkScale.y) 
-		HitPlayer.hitDirections.UPLEFT:
-			hitSparkVector = Vector2(enemyRef.hitSparkPosX.z, enemyRef.hitSparkPosY.z) 
-			hitSparkScaleVec = Vector2(enemyRef.hitSparkScale.z, enemyRef.hitSparkScale.z) 
-		HitPlayer.hitDirections.UPRIGHT:
-			hitSparkVector = Vector2(enemyRef.hitSparkPosX.w, enemyRef.hitSparkPosY.w) 
-			hitSparkScaleVec = Vector2(enemyRef.hitSparkScale.w, enemyRef.hitSparkScale.w) 
 	
 	Gamemanager.createEffects(hitbox.effect, hitbox.scaleX, hitbox.scaleY, hitbox.effectX, hitbox.effectY)
 	if hitbox.soundCombo:
