@@ -45,12 +45,12 @@ func Physics_Update(_delta: float):
 	if owner.cFrame(45):
 		owner.punchOpponent("Attack4H6")
 	if owner.punchHit:
-		if owner.cFrame(46):
+		if owner.cFrame(45):
 			owner.animSys.animPlay("Attack4Hit")
 		if owner.animSys.animEnd: #7
 			Transitioned.emit(self, "wait")
 	else:
-		if owner.cFrame(46):
+		if owner.cFrame(45):
 			owner.animSys.animPlay("Attack4Miss")
 			owner.stun()
 		if owner.cFrame(102):
