@@ -95,7 +95,7 @@ var burnoutTimer = 0
 
 var epicCombo = 0
 
-
+var currentCombo : Array[Gamemanager.COMBOHIT] = []
 
 var R = 255
 var G = 255
@@ -357,10 +357,38 @@ func punchBlockFunc(hitbox : HitPlayer):
 		enemyRef.stateMachine.change_state2("BlockDamage")
 
 
+func checkCombo(hitbox : HitPlayer, count):
+	match hitbox.punchDirection:
+		HitPlayer.hitDirections.LEFT:
+			if currentCombo[count] == Gamemanager.COMBOHIT.ANY or currentCombo[count] == Gamemanager.COMBOHIT.PUNCH_LR or currentCombo[count] == Gamemanager.COMBOHIT.PUNCH_L or currentCombo[count] == Gamemanager.COMBOHIT.ANY_LEFT or currentCombo[count] == Gamemanager.COMBOHIT.PU_LR:
+				return true
+			else:
+				return false
+		HitPlayer.hitDirections.RIGHT:
+			if currentCombo[count] == Gamemanager.COMBOHIT.ANY or currentCombo[count] == Gamemanager.COMBOHIT.PUNCH_LR or currentCombo[count] == Gamemanager.COMBOHIT.PUNCH_R or currentCombo[count] == Gamemanager.COMBOHIT.ANY_RIGHT or currentCombo[count] == Gamemanager.COMBOHIT.PU_RL:
+				return true
+			else:
+				return false
+		HitPlayer.hitDirections.UPLEFT:
+			if currentCombo[count] == Gamemanager.COMBOHIT.ANY or currentCombo[count] == Gamemanager.COMBOHIT.UPPER_LR or currentCombo[count] == Gamemanager.COMBOHIT.UPPER_L or currentCombo[count] == Gamemanager.COMBOHIT.ANY_LEFT or currentCombo[count] == Gamemanager.COMBOHIT.PU_RL:
+				return true
+			else:
+				return false
+		HitPlayer.hitDirections.UPRIGHT:
+			if currentCombo[count] == Gamemanager.COMBOHIT.ANY or currentCombo[count] == Gamemanager.COMBOHIT.UPPER_LR or currentCombo[count] == Gamemanager.COMBOHIT.UPPER_R or currentCombo[count] == Gamemanager.COMBOHIT.ANY_RIGHT or currentCombo[count] == Gamemanager.COMBOHIT.PU_LR:
+				return true
+			else:
+				return false
+
 func punchHitFunc(hitbox : HitPlayer):
 	enemyRef = owner.enemy
 	punchHit = true
 	enemyRef.healing = false
+	
+	if !checkCombo(hitbox, enemyRef.hitCount):
+		punchBlockFunc(hitbox)
+		return
+	
 	owner.enemyUpdateHealth(hitbox.damage)
 	enemyRef.flip_h = false
 	if enemyRef.isAttacking:
@@ -440,48 +468,32 @@ func punchOpponent(hitboxName : String):
 			punchBlockFunc(hitbox)
 			return
 		if enemyRef.hitLeft:
-			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
-				enemyRef.playerPunch = 0
-				punchHitFunc(hitbox)
-			else:
-				enemyRef.playerPunch = 0
-				punchBlockFunc(hitbox)
+			enemyRef.playerPunch = 0
+			punchHitFunc(hitbox)
 	if hitbox.punchDirection == hitbox.hitDirections.RIGHT: #Right
 		if enemyRef.blockRight  or enemyRef.guardAll:
 			enemyRef.playerPunch = 1
 			punchBlockFunc(hitbox)
 			return
 		if enemyRef.hitRight:
-			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
-				enemyRef.playerPunch = 1
-				punchHitFunc(hitbox)
-			else:
-				enemyRef.playerPunch = 1
-				punchBlockFunc(hitbox)
+			enemyRef.playerPunch = 1
+			punchHitFunc(hitbox)
 	if hitbox.punchDirection == hitbox.hitDirections.UPLEFT: #Left Up
 		if enemyRef.blockUpLeft  or enemyRef.guardAll:
 			enemyRef.playerPunch = 2
 			punchBlockFunc(hitbox)
 			return
 		if enemyRef.hitUpLeft:
-			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
-				enemyRef.playerPunch = 2
-				punchHitFunc(hitbox)
-			else:
-				enemyRef.playerPunch = 2
-				punchBlockFunc(hitbox)
+			enemyRef.playerPunch = 2
+			punchHitFunc(hitbox)
 	if hitbox.punchDirection == hitbox.hitDirections.UPRIGHT: #Right Up
 		if enemyRef.blockUpRight  or enemyRef.guardAll:
 			enemyRef.playerPunch = 3
 			punchBlockFunc(hitbox)
 			return
 		if enemyRef.hitUpRight:
-			if hasCombo or owner.enemy.hitCount < owner.enemy.maxHitCount:
-				enemyRef.playerPunch = 3
-				punchHitFunc(hitbox)
-			else:
-				enemyRef.playerPunch = 3
-				punchBlockFunc(hitbox)
+			enemyRef.playerPunch = 3
+			punchHitFunc(hitbox)
 
 
 func debugUI():

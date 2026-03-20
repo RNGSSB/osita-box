@@ -30,6 +30,7 @@ var fuckYou3 = false
 var prevScreenMode
 
 enum METERTYPE{STANDARD, STAR, REVOLVER} 
+enum COMBOHIT{ANY,PUNCH_LR, UPPER_LR, PUNCH_L, PUNCH_R, UPPER_L, UPPER_R, ANY_LEFT, ANY_RIGHT, PU_LR, PU_RL, NONE}
 
 
 func createEffects(effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, zIndex = 3, flip = false):

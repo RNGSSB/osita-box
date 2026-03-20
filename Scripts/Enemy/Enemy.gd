@@ -44,9 +44,7 @@ var dizzy = 0
 
 var enemyRef
 
-@export var normalCombo = 2
-@export var dodgeCombo = 4
-@export var perfectCombo = 6
+@export var normalCombo : Array[Gamemanager.COMBOHIT] = [Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY]
 
 var punchHit = false
 var attackMiss = false
@@ -55,10 +53,10 @@ var isAttacking = false
 
 var healing = false
 
-var hitCount = 0
-@export var maxHitCount = 5
+var hitCount : int = 0
+var maxHitCount : int = 5
 var blockCount = 0
-@export var maxBlockCount = 3
+var maxBlockCount = 3
 
 @export var maxHealth = 100
 var health = 100
@@ -88,7 +86,21 @@ var dizzyAnim = "DizzyLw"
 
 @onready var brain = $Brain
 
-
+func resetCombo():
+	enemyRef = owner.player
+	hitLeft = true
+	hitRight = true
+	hitUpLeft = true
+	hitUpRight = true
+	blockLeft = false
+	blockRight = false
+	blockUpLeft = false
+	blockUpRight = false
+	damaged = false
+	attackMiss = false
+	hitCount = 0
+	enemyRef.currentCombo = normalCombo
+	maxHitCount = normalCombo.size()
 
 func setColor(value1, value2, value3):
 	R = value1 
@@ -158,12 +170,14 @@ func punchDodgeFunc(hitbox : Hit):
 	else:
 		AudioManager.Play("Dodge", "SFX", 1.0, 1.0)
 	enemyRef.hasCombo = true
-	maxHitCount = hitbox.dodgeCombo
+	enemyRef.currentCombo = hitbox.dodgeCombo
+	maxHitCount = hitbox.dodgeCombo.size() - 1
 	if enemyRef.stateFrame <= enemyRef.perfectTiming and !enemyRef.inBurnout:
 		enemyRef.superMeter += enemyRef.perfectDodgeMeterGain
 		if enemyRef.superMeter >= enemyRef.superMax:
 			enemyRef.gotSuper = true
-		maxHitCount = hitbox.perfectCombo
+		enemyRef.currentCombo = hitbox.perfectCombo
+		maxHitCount = hitbox.perfectCombo.size() - 1
 		
 		AudioManager.Play("Perfect", "SFX", 1.0, 1.0)
 		enemyRef.perfectDodge = true
@@ -176,12 +190,14 @@ func punchBlockFunc(hitbox : Hit):
 	hitUpLeft = true
 	hitUpRight = true
 	if stun:
-		maxHitCount = hitbox.blockCombo
+		enemyRef.currentCombo = hitbox.blockCombo
+		maxHitCount = hitbox.blockCombo.size() - 1
 		enemyRef.hasCombo = true
 		punchHit = false
 		attackMiss = true
 	else:
-		maxHitCount = normalCombo
+		enemyRef.currentCombo = normalCombo
+		maxHitCount = normalCombo.size() - 1
 		enemyRef.hasCombo = false
 		punchHit = true
 		attackMiss = true
@@ -371,9 +387,6 @@ func _physics_process(_delta):
 	
 	if (owner.player.CURRSTATE == "PunchLeft" or owner.player.CURRSTATE == "PunchRight" or owner.player.CURRSTATE == "UpperLeft" or owner.player.CURRSTATE == "UpperRight") and counterPunch:
 		counterPunch = false
-	
-	if hitCount == maxHitCount and !owner.player.hasCombo:
-		guardAll = true
 	
 	if damaged and !damageStopTimer and (CURRSTATE != "DizzyHi" and CURRSTATE != "DizzyLw" and CURRSTATE != "DizzyEnd"):
 		owner.pauseTimer = true

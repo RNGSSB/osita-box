@@ -5,6 +5,7 @@ enum HITDIRECTIONS{LEFT, RIGHT, DOWN, ALL, HORIZONTAL}
 enum HITANIMATIONS{DamageN, DamageS, DamageHi}
 enum AUDIOBUS{SFX,LEFT,RIGHT}
 
+
 @export_group("Hit Properties")
 @export var dodgeDirection : HITDIRECTIONS = HITDIRECTIONS.LEFT
 @export var damage = 1.0
@@ -14,9 +15,9 @@ enum AUDIOBUS{SFX,LEFT,RIGHT}
 @export var screenShake = 25.0
 @export var guardMeter = -1.0
 @export var blockStun = true
-@export var dodgeCombo = 3
-@export var blockCombo = 3
-@export var perfectCombo = 5
+@export var dodgeCombo : Array[Gamemanager.COMBOHIT] = [Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY]
+@export var blockCombo : Array[Gamemanager.COMBOHIT] = [Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY]
+@export var perfectCombo : Array[Gamemanager.COMBOHIT] = [Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY]
 @export_group("Damage Animation")
 @export var damageAnim : HITANIMATIONS = HITANIMATIONS.DamageN
 @export var playerX = 0.0 
