@@ -18,7 +18,7 @@ func _physics_process(_delta):
 		disabled = false
 	
 	if button_pressed:
-		if Input.is_action_just_pressed("DeleteInput"):
+		if Input.is_action_just_pressed("DeleteInputKey", true):
 			print(name + " cancelled!!!")
 			owner.setting = false
 			update_text()
@@ -27,7 +27,7 @@ func _physics_process(_delta):
 			owner.canPress = false
 			button_pressed = false
 	if !button_pressed and has_focus():
-		if  Input.is_action_just_pressed("DeleteInput") and canPressSelf:
+		if  Input.is_action_just_pressed("DeleteInputKey", true) and canPressSelf:
 			print(name + " deleted!!!")
 			InputMap.action_erase_events(action)
 			owner.keymaps[action] = null

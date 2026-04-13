@@ -47,17 +47,19 @@ func createEffects(effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, pos
 	
 
 
-func checkInputJustPressed(inputName):
+func checkInputJustPressed(inputName, singleInput = false):
 	if Input.is_action_just_pressed(inputName):
 		return true
-	elif Input.is_action_just_pressed(inputName + "Key"):
+	if Input.is_action_just_pressed(inputName + "Key"):
 		return true
-	elif Input.is_action_just_pressed(inputName + "2"):
-		return true
-	elif Input.is_action_just_pressed(inputName + "Key2"):
-		return true
-	else:
+	if singleInput:
 		return false
+	if Input.is_action_just_pressed(inputName + "2"):
+		return true
+	if Input.is_action_just_pressed(inputName + "Key2"):
+		return true
+	
+	return false
 
 func checkInputJustReleased(inputName):
 	if Input.is_action_just_released(inputName):

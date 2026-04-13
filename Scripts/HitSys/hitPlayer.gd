@@ -1,3 +1,4 @@
+#Class used by the Player to determine hits and their properties
 class_name HitPlayer
 extends Node
 
@@ -14,6 +15,7 @@ enum ANIMDIR{L,R}
 @export var upper = false
 @export var flip = false
 @export var endStun = false
+@export var superPunch = false
 @export_group("Block")
 @export var blockHitlag = 5
 @export var blockShake = 10

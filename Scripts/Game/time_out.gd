@@ -5,7 +5,7 @@ func Exit():
 	pass
 
 func Enter():
-	owner.round += 1
+	owner.roundCount += 1
 
 func Update(_delta: float):
 	pass

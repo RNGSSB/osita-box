@@ -1,3 +1,5 @@
+#Someone should kill me for this
+
 extends CanvasLayer
 
 
@@ -12,7 +14,8 @@ extends CanvasLayer
 @onready var controllerRight = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/Right
 @onready var controllerLP = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/LeftPunch
 @onready var controllerRP = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/RightPunch
-@onready var controllerSP = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/SuperPunch
+@onready var controllerSP = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/LeftSuperPunch
+@onready var controllerSPR = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/RightSuperPunch
 @onready var controllerPause = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/Pause
 @onready var controllerAccept = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/Accept
 @onready var controllerCancel = $PanelContainer/VBoxContainer/HBoxContainer2/Controller/Cancel
@@ -23,7 +26,8 @@ extends CanvasLayer
 @onready var controllerRight2 = $PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Right2
 @onready var controllerLP2 = $PanelContainer/VBoxContainer/HBoxContainer2/Controller2/LeftPunch2
 @onready var controllerRP2 = $PanelContainer/VBoxContainer/HBoxContainer2/Controller2/RightPunch2
-@onready var controllerSP2 = $PanelContainer/VBoxContainer/HBoxContainer2/Controller2/SuperPunch2
+@onready var controllerSP2 = $PanelContainer/VBoxContainer/HBoxContainer2/Controller2/LeftSuperPunch2
+@onready var controllerSP2R = $PanelContainer/VBoxContainer/HBoxContainer2/Controller2/RightSuperPunch2
 @onready var controllerPause2 = $PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Pause2
 @onready var controllerAccept2 = $PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Accept2
 @onready var controllerCancel2 = $PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Cancel2
@@ -34,7 +38,8 @@ extends CanvasLayer
 @onready var keyboardRight = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/RightKey
 @onready var keyboardLP = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/LeftPunchKey
 @onready var keyboardRP = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/RightPunchKey
-@onready var keyboardSP = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/SuperPunchKey
+@onready var keyboardSP = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/LeftSuperPunchKey
+@onready var keyboardSPR = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/RightSuperPunchKey
 @onready var keyboardPause = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/PauseKey
 @onready var keyboardAccept = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/AcceptKey
 @onready var keyboardCancel = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/CancelKey
@@ -45,7 +50,8 @@ extends CanvasLayer
 @onready var keyboardRight2 = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/RightKey2
 @onready var keyboardLP2 = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/LeftPunchKey2
 @onready var keyboardRP2 = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/RightPunchKey2
-@onready var keyboardSP2 = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/SuperPunchKey2
+@onready var keyboardSP2 = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/LeftSuperPunchKey2
+@onready var keyboardSP2R = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/RightSuperPunchKey2
 @onready var keyboardPause2 = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/PauseKey2
 @onready var keyboardAccept2 = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/AcceptKey2
 @onready var keyboardCancel2 = $PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/CancelKey2
@@ -57,7 +63,7 @@ extends CanvasLayer
 var focusX = 0
 var focusY = 0
 var menuLimitX = 3
-var menuLimitY = 11
+var menuLimitY = 12
 var selectX = 0
 var selectY = 0
 var canPress = false
@@ -107,8 +113,9 @@ func load_keymap():
 		if temp_keymap.has(action):
 			keymaps[action] = temp_keymap[action]
 			InputMap.action_erase_events(action)
-			InputMap.action_add_event(action, keymaps[action])
-			print(keymaps[action])
+			if keymaps[action] != null:
+				InputMap.action_add_event(action, keymaps[action])
+			#print(keymaps[action])
 	acceptCancelHack()
 
 func save_keymap():
@@ -119,15 +126,23 @@ func save_keymap():
 
 func acceptCancelHack():
 	InputMap.action_erase_events("ui_accept")
-	InputMap.action_add_event("ui_accept", keymaps["Accept"])
-	InputMap.action_add_event("ui_accept", keymaps["Accept2"])
-	InputMap.action_add_event("ui_accept", keymaps["AcceptKey"])
-	InputMap.action_add_event("ui_accept", keymaps["AcceptKey2"])
+	if keymaps["Accept"] != null:
+		InputMap.action_add_event("ui_accept", keymaps["Accept"])
+	if keymaps["Accept2"] != null:
+		InputMap.action_add_event("ui_accept", keymaps["Accept2"])
+	if keymaps["AcceptKey"] != null:
+		InputMap.action_add_event("ui_accept", keymaps["AcceptKey"])
+	if keymaps["AcceptKey2"] != null:
+		InputMap.action_add_event("ui_accept", keymaps["AcceptKey2"])
 	InputMap.action_erase_events("ui_cancel")
-	InputMap.action_add_event("ui_cancel", keymaps["Cancel"])
-	InputMap.action_add_event("ui_cancel", keymaps["Cancel2"])
-	InputMap.action_add_event("ui_cancel", keymaps["CancelKey"])
-	InputMap.action_add_event("ui_cancel", keymaps["CancelKey2"])
+	if keymaps["Cancel"] != null:
+		InputMap.action_add_event("ui_cancel", keymaps["Cancel"])
+	if keymaps["Cancel2"] != null:
+		InputMap.action_add_event("ui_cancel", keymaps["Cancel2"])
+	if keymaps["CancelKey"] != null:
+		InputMap.action_add_event("ui_cancel", keymaps["CancelKey"])
+	if keymaps["CancelKey2"] != null:
+		InputMap.action_add_event("ui_cancel", keymaps["CancelKey2"])
 
 func _physics_process(_delta):
 	if waitagoddamnsecond > 0:
@@ -319,6 +334,20 @@ func _process(_delta):
 			7:
 				match selectX:
 					0:
+						if !controllerSPR.has_focus() and !setting:
+							controllerSPR.grab_focus()
+					1:
+						if !controllerSP2R.has_focus() and !setting:
+							controllerSP2R.grab_focus()
+					2:
+						if !keyboardSPR.has_focus() and !setting:
+							keyboardSPR.grab_focus()
+					3:
+						if !keyboardSP2R.has_focus() and !setting:
+							keyboardSP2R.grab_focus()
+			8:
+				match selectX:
+					0:
 						if !controllerPause.has_focus() and !setting:
 							controllerPause.grab_focus()
 					1:
@@ -330,7 +359,7 @@ func _process(_delta):
 					3:
 						if !keyboardPause2.has_focus() and !setting:
 							keyboardPause2.grab_focus()
-			8:
+			9:
 				match selectX:
 					0:
 						if !controllerAccept.has_focus() and !setting:
@@ -344,7 +373,7 @@ func _process(_delta):
 					3:
 						if !keyboardAccept2.has_focus() and !setting:
 							keyboardAccept2.grab_focus()
-			9:
+			10:
 				match selectX:
 					0:
 						if !controllerCancel.has_focus() and !setting:
@@ -358,10 +387,10 @@ func _process(_delta):
 					3:
 						if !keyboardCancel2.has_focus() and !setting:
 							keyboardCancel2.grab_focus()
-			10:
+			11:
 				if !resetButton.has_focus() and !setting:
 					resetButton.grab_focus()
-			11:
+			12:
 				if !saveButton.has_focus() and !setting:
 					saveButton.grab_focus()
 
@@ -428,21 +457,21 @@ func _on_super_punch_mouse_entered():
 
 func _on_pause_mouse_entered():
 	if !controllerPause.has_focus() and !setting:
-		selectY = 7
+		selectY = 8
 		selectX = 0
 		controllerPause.grab_focus()
 
 
 func _on_accept_mouse_entered():
 	if !controllerAccept.has_focus() and !setting:
-		selectY = 8
+		selectY = 9
 		selectX = 0
 		controllerAccept.grab_focus()
 
 
 func _on_cancel_mouse_entered():
 	if !controllerCancel.has_focus() and !setting:
-		selectY = 9
+		selectY = 10
 		selectX = 0
 		controllerCancel.grab_focus()
 
@@ -498,21 +527,21 @@ func _on_super_punch_2_mouse_entered():
 
 func _on_pause_2_mouse_entered():
 	if !controllerPause2.has_focus() and !setting:
-		selectY = 7
+		selectY = 8
 		selectX = 1
 		controllerPause2.grab_focus()
 
 
 func _on_accept_2_mouse_entered():
 	if !controllerAccept2.has_focus() and !setting:
-		selectY = 8
+		selectY = 9
 		selectX = 1
 		controllerAccept2.grab_focus()
 
 
 func _on_cancel_2_mouse_entered():
 	if !controllerCancel2.has_focus() and !setting:
-		selectY = 9
+		selectY = 10
 		selectX = 1
 		controllerCancel2.grab_focus()
 
@@ -568,21 +597,21 @@ func _on_super_punch_key_mouse_entered():
 
 func _on_pause_key_mouse_entered():
 	if !keyboardPause.has_focus() and !setting:
-		selectY = 7
+		selectY = 8
 		selectX = 2
 		keyboardPause.grab_focus()
 
 
 func _on_accept_key_mouse_entered():
 	if !keyboardAccept.has_focus() and !setting:
-		selectY = 8
+		selectY = 9
 		selectX = 2
 		keyboardAccept.grab_focus()
 
 
 func _on_cancel_key_mouse_entered():
 	if !keyboardCancel.has_focus() and !setting:
-		selectY = 9
+		selectY = 10
 		selectX = 2
 		keyboardCancel.grab_focus()
 
@@ -638,32 +667,60 @@ func _on_super_punch_key_2_mouse_entered():
 
 func _on_pause_key_2_mouse_entered():
 	if !keyboardPause2.has_focus() and !setting:
-		selectY = 7
+		selectY = 8
 		selectX = 3
 		keyboardPause2.grab_focus()
 
 
 func _on_accept_key_2_mouse_entered():
 	if !keyboardAccept2.has_focus() and !setting:
-		selectY = 8
+		selectY = 9
 		selectX = 3
 		keyboardAccept2.grab_focus()
 
 
 func _on_cancel_key_2_mouse_entered():
 	if !keyboardCancel2.has_focus() and !setting:
-		selectY = 9
+		selectY = 10
 		selectX = 3
 		keyboardCancel2.grab_focus()
 
 
 func _on_reset_mouse_entered():
 	if !setting and !resetButton.has_focus():
-		selectY = 10
+		selectY = 11
 		resetButton.grab_focus()
 
 
 func _on_save_mouse_entered():
 	if !setting and !saveButton.has_focus():
-		selectY = 11
+		selectY = 12
 		saveButton.grab_focus()
+
+
+func _on_right_super_punch_mouse_entered() -> void:
+	if !controllerSPR.has_focus() and !setting:
+		selectY = 7
+		selectX = 0
+		controllerSPR.grab_focus()
+
+
+func _on_right_super_punch_2_mouse_entered() -> void:
+	if !controllerSP2R.has_focus() and !setting:
+		selectY = 7
+		selectX = 1
+		controllerSP2R.grab_focus()
+
+
+func _on_right_super_punch_key_mouse_entered() -> void:
+	if !keyboardSPR.has_focus() and !setting:
+		selectY = 7
+		selectX = 2
+		keyboardSPR.grab_focus()
+
+
+func _on_right_super_punch_key_2_mouse_entered() -> void:
+	if !keyboardSP2R.has_focus() and !setting:
+		selectY = 7
+		selectX = 2
+		keyboardSP2R.grab_focus()

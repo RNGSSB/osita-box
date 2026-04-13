@@ -1,23 +1,24 @@
 extends Node
 
-var animFrame = 0
-var animWait = 0
+var animFrame = 0 #Current overall frame of animation we are on
+var animWait = 0 #Frames to wait until next animation frame
 
-var animLenght = 0
+var animLenght = 0 #Total animation lenght
 
-var frozen = false
+var frozen = false #For hitlag 
 
-var animations : Dictionary = {}
+var animations : Dictionary = {} #List of every animation the object has
 
-var current_anim : Anim
+var current_anim : Anim #Animation object
 
-var animEnd = false
+var animEnd = false #Becomes true when animation finishes, used for logic in States
+#Doesn't trigger if animation loops, which is also useful for logic things :3
 
-var CURRANIM : String = "IDK"
+var CURRANIM : String = "IDK" #String name of current animation
 
-var FSM : float = 1.0
+var FSM : float = 1.0 #Frame Speed Multiplier, unused maybe
 
-var endFrame = 0
+var endFrame = 0 #Used to end animation at an earlier point
 
 
 
@@ -28,6 +29,7 @@ func _ready():
 		if child is Anim:
 			animations[child.name.to_lower()] = child
 
+#Returns true if animation is found in scene tree
 func checkAnim(animName):
 	var new_anim = animations.get(animName.to_lower())
 	if !new_anim:
@@ -35,6 +37,7 @@ func checkAnim(animName):
 	else:
 		return true
 
+#Plays animation given by string
 func animPlay(animName):
 	FSM = 1.0
 	animEnd = false
@@ -46,11 +49,14 @@ func animPlay(animName):
 	calculateAnimLenght()
 	CURRANIM = current_anim.name
 	current_anim.enter()
+	
 	if !current_anim.reverse:
 		owner.frame = current_anim.initialFrame - 1
 	else:
 		owner.frame = current_anim.initialFrame - 1
 	animWait = current_anim.frameTimes[owner.frame]
+	
+	#Move sprite horizontal offset if not -1, also considers flipping
 	if !owner.flip_h:
 		if current_anim.posX != -1:
 			owner.position.x = current_anim.posX * -1
@@ -58,6 +64,7 @@ func animPlay(animName):
 		if current_anim.posX != -1:
 			owner.position.x = current_anim.posX 
 	
+	#Changes Sprite height if it is not equal to -1.0 (default)
 	if current_anim.posY != -1.0:
 		owner.position.y = current_anim.posY
 	else:
@@ -69,6 +76,7 @@ func animPlay(animName):
 	else:
 		endFrame = current_anim.endFrame - 1
 
+#Returns animation lenght
 func calculateAnimLenght():
 	animLenght = 1
 	for n in current_anim.frameTimes:
@@ -78,14 +86,28 @@ func _physics_process(_delta):
 	if !frozen:
 		animationProcess()
 
-func waitFrames(value):
-	pass
-
 func onFrame(value):
 	if animFrame == value - 1:
 		return true
 	else:
 		return false
+
+#Allows you to skip to a certain animation frame (not state frame), and also sets state and animation
+#frames as if you had just reached that frame naturally.
+#Used to skip startup of attacks, or maybe even restart attacks or states?
+
+func setFrame(frame):
+	var frameCount = 0
+	for n in frame + 1:
+		if n < frame:
+			frameCount += current_anim.frameTimes[n]
+			print(str(frameCount) + " " + str(current_anim.frameTimes[n])) 
+		if n == frame:
+			animWait = current_anim.frameTimes[n]
+			frameCount += 1
+	owner.frame = frame
+	owner.stateFrame = frameCount
+	animFrame = frameCount
 
 
 func animationProcess():

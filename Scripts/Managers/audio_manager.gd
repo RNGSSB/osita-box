@@ -1,5 +1,6 @@
 extends Node2D
 
+#This probably sucks ass long term but works for now
 
 func Play(soundName, audiobus, volume, pitch):
 	if get_node(soundName) == null:

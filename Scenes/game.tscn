@@ -164,7 +164,6 @@ animations = [{
 bg_color = Color(0.741176, 0, 0, 0.243137)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mucmn"]
-load_path = "res://.godot/imported/health bars.png-e54309a7c0cf6425ccbd26c82a8ede8d.ctex"
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("music")]
 process_mode = 3
@@ -211,7 +210,7 @@ offset_bottom = 119.0
 grow_horizontal = 2
 pivot_offset = Vector2(276, 15)
 size_flags_horizontal = 4
-value = 30.0
+max_value = 300.0
 fill_mode = 1
 texture_under = ExtResource("3_vm72l")
 texture_progress = ExtResource("3_85qyi")

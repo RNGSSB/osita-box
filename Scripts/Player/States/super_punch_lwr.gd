@@ -14,17 +14,17 @@ func Enter():
 	owner.ctrl = 0
 	owner.animSys.animPlay("SuperPunchLow")
 	owner.makerHerVisible = true
-	owner.moveCamera(0.2, -105)
+	owner.moveCamera(0.2, 105)
 	#owner.gameManager.hitLag(0,10)
-	owner.bufferSuper = false
-	owner.bufferUp = false
-	owner.dodgeRight = false
+	owner.bufferSuperR = false
+	owner.dodgeRight = true
 	owner.dodgeDown = false
-	owner.dodgeLeft = true
+	owner.dodgeLeft = false
+	owner.bufferUp = false
 	owner.superMeter -= owner.superCost
 	owner.isSuper = true
 	#AudioManager.Play("SuperStart", "SFX", 1.0, 1.0)
-	owner.flip_h = true
+	owner.flip_h = false
 	if owner.PREVSTATE == "PunchRight" or owner.PREVSTATE == "PunchLeft" or owner.PREVSTATE == "UpperRight" or owner.PREVSTATE == "UpperLeft":
 		owner.animSys.setFrame(9)
 
@@ -36,7 +36,7 @@ func Update(_delta: float):
 
 func Physics_Update(_delta: float):
 	if owner.cFrame(8):
-		owner.dodgeLeft = false
+		owner.dodgeRight = false
 	if owner.cFrame(24):
 		AudioManager.Play("Attack4Swoosh", "Left", 1.0, 1.0)
 		owner.moveCamera(0.2, 0)
@@ -44,7 +44,7 @@ func Physics_Update(_delta: float):
 		#owner.punchOpponent(4, owner.superDamage, 2, false, "SFX", "SuperHit", 1.0, 1.0, 
 		#"DamageN4", false, 6.0, 4.0, "HITFINISHER", -200, 60, 3.0, 3.0)
 	if owner.cFrame(37):
-		owner.punchOpponent("SuperPunchLwL")
+		owner.punchOpponent("SuperPunchLwR")
 	if owner.cFrame(60):
 		owner.makerHerVisible = false
 	if owner.animSys.animEnd and owner.animSys.CURRANIM == "SuperPunchLow":

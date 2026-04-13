@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://rwrhuvtwbrjs"]
+[gd_scene load_steps=52 format=3 uid="uid://rwrhuvtwbrjs"]
 
 [ext_resource type="Script" uid="uid://rup5oow6s5bh" path="res://Scripts/Player/Player.gd" id="1_4doc1"]
 [ext_resource type="Shader" uid="uid://d2jyy5lajx1yy" path="res://Shaders/canela.gdshader" id="1_bt5cy"]
@@ -37,14 +37,19 @@
 [ext_resource type="Texture2D" uid="uid://gujtb2ajd8tw" path="res://Sprites/Characters/Canela/BlockBurn.png" id="17_fypas"]
 [ext_resource type="Texture2D" uid="uid://upyuthde7xwh" path="res://Sprites/Characters/Canela/DamageHi.png" id="17_fytr6"]
 [ext_resource type="Script" uid="uid://bc5csndxstwah" path="res://Scripts/Player/States/punch_right_counter.gd" id="17_nmrpu"]
+[ext_resource type="Texture2D" uid="uid://d4nkjs2bd3sbp" path="res://Sprites/Characters/Canela/SuperPunchLwStart.png" id="18_0ayn0"]
 [ext_resource type="Script" uid="uid://tm6qjwd141pr" path="res://Scripts/Player/States/upper_left_counter.gd" id="18_43xfr"]
 [ext_resource type="Script" uid="uid://bjuoqm0i5svbv" path="res://Scripts/Player/States/upper_right_counter.gd" id="19_2ngs3"]
+[ext_resource type="Texture2D" uid="uid://cuxjaprhwvdrs" path="res://Sprites/Characters/Canela/SuperPunchLwHit.png" id="19_pb4o4"]
 [ext_resource type="Script" uid="uid://dykye0a0rqgni" path="res://Scripts/Player/States/DamageN.gd" id="20_bfnwb"]
 [ext_resource type="Script" uid="uid://cp1xj3ad41xxm" path="res://Scripts/Player/States/super_punch_lw.gd" id="21_ppqjl"]
 [ext_resource type="Script" uid="uid://d26b5imtxwqa5" path="res://Scripts/Player/States/damage_s.gd" id="22_im3km"]
 [ext_resource type="Script" uid="uid://bgioi3xsxaff7" path="res://Scripts/Player/States/block.gd" id="23_a22ns"]
+[ext_resource type="Texture2D" uid="uid://cliy3owdaqhri" path="res://Sprites/Characters/Canela/GuardBreak.png" id="23_rg4eo"]
 [ext_resource type="Script" uid="uid://dhesfbi5m5gem" path="res://Scripts/Player/States/block_damage.gd" id="24_y2cwy"]
 [ext_resource type="Script" uid="uid://bcl7ee3x72lh2" path="res://Scripts/Player/States/DamageHi.gd" id="40_bt5cy"]
+[ext_resource type="Script" uid="uid://bvw8f8tw1kqhi" path="res://Scripts/Player/States/super_punch_lwr.gd" id="45_pb4o4"]
+[ext_resource type="Script" uid="uid://dbousx2nhjbc3" path="res://Scripts/Player/States/guard_break.gd" id="47_rof46"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yu04f"]
 shader = ExtResource("1_bt5cy")
@@ -72,9 +77,6 @@ shader_parameter/target_color9 = Color(0.7254902, 0.38431373, 0.7411765, 1)
 shader_parameter/target_color10 = Color(0.41960785, 0.23529412, 0.53333336, 1)
 shader_parameter/target_color11 = Color(0.22745098, 0.54509807, 0.69411767, 1)
 
-[sub_resource type="Resource" id="Resource_bt5cy"]
-metadata/__load_path__ = "res://Sprites/Characters/Canela/A08AttackSuperLw.png"
-
 [node name="Player" type="Sprite2D" node_paths=PackedStringArray("animSys", "hitSys")]
 process_mode = 1
 z_index = 2
@@ -88,13 +90,16 @@ script = ExtResource("1_4doc1")
 animSys = NodePath("AnimSys")
 hitSys = NodePath("HitSys")
 playerPortrait = ExtResource("4_jiwsr")
+maxHealth = 1000
+superMax = 990
+superCost = 330
 
 [node name="HitSys" type="Node" parent="."]
 
 [node name="PunchLeft" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
-damage = 2.0
-meter = 6.0
+damage = 25.0
+meter = 30.0
 flip = true
 blockHitlag = 6
 blockEffectX = 85
@@ -111,8 +116,8 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 
 [node name="PunchLeftCounter" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
-damage = 2.0
-meter = 60.0
+damage = 25.0
+meter = 360.0
 hitlagMul = 3.0
 shakeMul = 3.0
 flip = true
@@ -131,12 +136,13 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 
 [node name="PunchLeftFinisher" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
-damage = 5.0
-meter = 6.0
+damage = 25.0
+meter = 30.0
 hitlagMul = 4.0
 shakeMul = 4.0
 flip = true
 endStun = true
+blockHitlag = 10
 animDir = 0
 hitAnim = "DamageLw4"
 audioBus = 1
@@ -151,8 +157,8 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 [node name="UpperLeft" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
 punchDirection = 2
-damage = 2.0
-meter = 6.0
+damage = 25.0
+meter = 30.0
 upper = true
 flip = true
 blockHitlag = 6
@@ -172,8 +178,8 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 [node name="UpperLeftCounter" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
 punchDirection = 2
-damage = 2.0
-meter = 60.0
+damage = 25.0
+meter = 360.0
 hitlagMul = 3.0
 shakeMul = 3.0
 upper = true
@@ -195,13 +201,14 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 [node name="UpperLeftFinisher" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
 punchDirection = 2
-damage = 5.0
-meter = 6.0
+damage = 25.0
+meter = 30.0
 hitlagMul = 4.0
 shakeMul = 4.0
 upper = true
 flip = true
 endStun = true
+blockHitlag = 10
 blockEffectY = -150
 animDir = 0
 hitAnim = "DamageHi4"
@@ -218,8 +225,8 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 [node name="PunchRight" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
 punchDirection = 1
-damage = 2.0
-meter = 6.0
+damage = 25.0
+meter = 30.0
 blockHitlag = 6
 blockEffectX = -85
 blockEffectY = 100
@@ -235,8 +242,8 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 [node name="PunchRightCounter" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
 punchDirection = 1
-damage = 2.0
-meter = 60.0
+damage = 25.0
+meter = 360.0
 hitlagMul = 3.0
 shakeMul = 3.0
 endStun = true
@@ -254,11 +261,12 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 [node name="PunchRightFinisher" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
 punchDirection = 1
-damage = 5.0
-meter = 6.0
+damage = 25.0
+meter = 30.0
 hitlagMul = 4.0
 shakeMul = 4.0
 endStun = true
+blockHitlag = 10
 hitAnim = "DamageLw4"
 hitAnimBackup = "DamageLw4"
 audioBus = 2
@@ -273,8 +281,8 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 [node name="UpperRight" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
 punchDirection = 3
-damage = 2.0
-meter = 6.0
+damage = 25.0
+meter = 30.0
 upper = true
 blockHitlag = 6
 blockEffectX = 10
@@ -291,8 +299,8 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 [node name="UpperRightCounter" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
 punchDirection = 3
-damage = 2.0
-meter = 60.0
+damage = 25.0
+meter = 360.0
 hitlagMul = 3.0
 shakeMul = 3.0
 upper = true
@@ -312,12 +320,13 @@ metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
 [node name="UpperRightFinisher" type="Node" parent="HitSys"]
 script = ExtResource("4_1jx2i")
 punchDirection = 3
-damage = 5.0
-meter = 6.0
+damage = 25.0
+meter = 30.0
 hitlagMul = 4.0
 shakeMul = 4.0
 upper = true
 endStun = true
+blockHitlag = 10
 blockEffectY = -150
 hitAnim = "DamageHi4"
 hitAnimBackup = "DamageHi4"
@@ -326,6 +335,43 @@ sfx = "Damage4"
 effect = "HITFINISHER"
 effectX = -80.0
 effectY = -200.0
+scaleX = 3.0
+scaleY = 3.0
+metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
+
+[node name="SuperPunchLwL" type="Node" parent="HitSys"]
+script = ExtResource("4_1jx2i")
+damage = 200.0
+meter = 90.0
+hitlagMul = 5.0
+shakeMul = 4.0
+endStun = true
+superPunch = true
+animDir = 0
+hitAnim = "DamageSuperLw"
+audioBus = 1
+sfx = "Damage4"
+effect = "HITFINISHER"
+effectX = 100.0
+effectY = 60.0
+scaleX = 3.0
+scaleY = 3.0
+metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
+
+[node name="SuperPunchLwR" type="Node" parent="HitSys"]
+script = ExtResource("4_1jx2i")
+damage = 200.0
+meter = 90.0
+hitlagMul = 5.0
+shakeMul = 4.0
+endStun = true
+superPunch = true
+hitAnim = "DamageSuperLw"
+audioBus = 2
+sfx = "Damage4"
+effect = "HITFINISHER"
+effectX = -100.0
+effectY = 60.0
 scaleX = 3.0
 scaleY = 3.0
 metadata/_custom_type_script = "uid://dvmxf4ygpssa0"
@@ -442,10 +488,18 @@ metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="SuperPunchLow" type="Node" parent="AnimSys"]
 script = ExtResource("3_pqjug")
-spriteSheet = SubResource("Resource_bt5cy")
-frames = 14
-columns = 2
-frameTimes = Array[int]([3, 3, 3, 3, 3, 3, 2, 1, 4, 6, 7, 7, 7, 7])
+spriteSheet = ExtResource("18_0ayn0")
+frames = 21
+columns = 3
+frameTimes = Array[int]([2, 2, 2, 1, 1, 2, 1, 4, 3, 4, 1, 1, 2, 3, 1, 1, 1, 2, 1, 1, 1])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="SuperPunchLowHit" type="Node" parent="AnimSys"]
+script = ExtResource("3_pqjug")
+spriteSheet = ExtResource("19_pb4o4")
+frames = 19
+columns = 3
+frameTimes = Array[int]([2, 1, 2, 2, 2, 2, 4, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="Block" type="Node" parent="AnimSys"]
@@ -463,7 +517,7 @@ spriteSheet = ExtResource("14_5pwl5")
 initialFrame = 6
 frames = 14
 columns = 2
-frameTimes = Array[int]([0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2])
+frameTimes = Array[int]([0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 2, 2, 2, 2])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="BlockEnd" type="Node" parent="AnimSys"]
@@ -507,6 +561,14 @@ frames = 20
 columns = 3
 posY = 250.0
 frameTimes = Array[int]([2, 1, 2, 1, 1, 1, 1, 4, 2, 1, 1, 1, 2, 6, 2, 7, 2, 5, 6, 3])
+metadata/_custom_type_script = "uid://dtj8na0fxumeu"
+
+[node name="GuardBreak" type="Node" parent="AnimSys"]
+script = ExtResource("3_pqjug")
+spriteSheet = ExtResource("23_rg4eo")
+frames = 18
+columns = 3
+frameTimes = Array[int]([2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 3, 4, 5, 6, 7, 7])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -567,6 +629,9 @@ script = ExtResource("22_im3km")
 [node name="SuperPunchLw" type="Node" parent="StateMachine"]
 script = ExtResource("21_ppqjl")
 
+[node name="SuperPunchLwR" type="Node" parent="StateMachine"]
+script = ExtResource("45_pb4o4")
+
 [node name="DamageN" type="Node" parent="StateMachine"]
 script = ExtResource("20_bfnwb")
 
@@ -578,6 +643,9 @@ script = ExtResource("24_y2cwy")
 
 [node name="DamageHi" type="Node" parent="StateMachine"]
 script = ExtResource("40_bt5cy")
+
+[node name="GuardBreak" type="Node" parent="StateMachine"]
+script = ExtResource("47_rof46")
 
 [node name="DebugUI" type="CanvasLayer" parent="."]
 

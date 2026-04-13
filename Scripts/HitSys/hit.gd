@@ -1,3 +1,5 @@
+#Class used by Opponents to determine hits and their properties
+
 class_name Hit
 extends Node
 
@@ -13,7 +15,7 @@ enum AUDIOBUS{SFX,LEFT,RIGHT}
 @export var blockable = true
 @export var hitlag = 3
 @export var screenShake = 25.0
-@export var guardMeter = -1.0
+@export var guardMeter = 1.0
 @export var blockStun = true
 @export var dodgeCombo : Array[Gamemanager.COMBOHIT] = [Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY]
 @export var blockCombo : Array[Gamemanager.COMBOHIT] = [Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY]
@@ -42,4 +44,3 @@ enum AUDIOBUS{SFX,LEFT,RIGHT}
 
 func _ready() -> void:
 	pass
-	#print(HITANIMATIONS.keys()[damageAnim])

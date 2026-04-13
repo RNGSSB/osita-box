@@ -16,6 +16,7 @@ func Enter():
 	owner.bufferPunchL = false
 	owner.bufferUp = false
 	owner.flip_h = true
+	#owner.animSys.setFrame(6)
 
 func Update(_delta: float):
 	if owner.frameCounter >= 6:

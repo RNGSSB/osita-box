@@ -9,7 +9,7 @@ var hitStop = 0
 var prevHitStop = 0
 
 var cameraZoom = 1.0
-var cameraZoomMax = 0.0
+var cameraZoomMax = 1.0
 
 var cameraTilt = 0.0
 var cameraTiltMax = 0.0
@@ -68,14 +68,14 @@ var enemyHealingRate = 0
 
 var rageActive = false
 
-var round = 1
+var roundCount = 1
 
 func _ready():
 	initFighters()
 	
 	roundTimer = 3600.0
 	secondTimer = 3600.0
-	round = 1
+	roundCount = 1
 	
 	player.superMeter = enemy.superInit
 	
@@ -100,7 +100,7 @@ func resetEverything():
 	cameraTiltMaxY = 0.0
 	cameraZoom = 1.0
 	cameraZoomMax = 0.0
-	round = 1
+	roundCount = 1
 	
 	player.health = player.maxHealth
 	player.superMeter = enemy.superInit
@@ -115,8 +115,17 @@ func resetEverything():
 	player.superLevel = 0
 	player.canDodge = true
 	player.canBlock = true
+	player.hasCombo = false
+	player.makerHerVisible = true
+	player.transparency = 255
+	player.R = 255
+	player.B = 255
+	player.G = 255
+	player.flip_h = false
 	player.superMeter = enemy.superInit
 	player.currentCombo = enemy.normalCombo
+	playerSuper.max_value = player.superMax / 3
+	playerSuper.value = enemy.superInit
 	
 	enemy.stateMachine.change_state("Wait")
 	enemy.health = enemy.maxHealth
@@ -124,8 +133,11 @@ func resetEverything():
 	enemy.stateFrame = 0
 	enemy.prevStateFrame = 0
 	enemy.frameCounter = 0
-	enemy.counterPunch = 0
+	enemy.counterPunch = false
 	enemy.stunned = false
+	enemy.hitCount = 0
+	enemy.blockCount = 0
+	enemy.flip_h = false
 	stateMachine.change_state("Intro")
 	initHealthBars()
 
@@ -355,14 +367,14 @@ func meterHandle():
 			superDrained = false
 		if player.superLevel < 3:
 			if playerSuper.value < playerSuper.max_value:
-				if playerSuper.value > player.superMeter - player.superLevel * 100:
-					playerSuper.value = lerp(playerSuper.value, float(player.superMeter - player.superLevel * 100), 0.5)
+				if playerSuper.value > player.superMeter - player.superLevel * player.superCost:
+					playerSuper.value = lerp(playerSuper.value, float(player.superMeter - player.superLevel * player.superCost), 0.5)
 				if playerSuper.value < player.superMeter:
-					playerSuper.value = lerp(playerSuper.value, float(player.superMeter - player.superLevel * 100), 0.5)
+					playerSuper.value = lerp(playerSuper.value, float(player.superMeter - player.superLevel * player.superCost), 0.5)
 			else:
-				playerSuper.value = 0 
+				playerSuper.value = 0
 		else:
-			playerSuper.value = 100
+			playerSuper.value = playerSuper.max_value
 	else:
 		playerSuper.value = player.burnoutTimer * -1
 	
@@ -422,7 +434,7 @@ func _physics_process(_delta):
 		
 		timerUI()
 		
-		roundText.text = "ROUND " + str(round)
+		roundText.text = "ROUND " + str(roundCount)
 		
 		if (player.CURRSTATE == "DamageS" or player.CURRSTATE == "DamageN") and player.stateFrame < 16:
 			damageFilter.visible = true

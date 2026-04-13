@@ -2,7 +2,6 @@ extends Sprite2D
 
 
 var animName = "HIT"
-@onready var animation = $AnimationPlayer
 @export var animSys : Node
 var frameCounter = 0
 var defaultPosY = -1.0

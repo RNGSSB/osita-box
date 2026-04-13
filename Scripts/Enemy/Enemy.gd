@@ -1,3 +1,4 @@
+#Main Enemy Script
 extends Sprite2D
 
 var frozen = false
@@ -68,7 +69,8 @@ var damageStopTimer = false
 
 var rng = RandomNumberGenerator.new()
 
-@export var superInit = 40
+@export var superInit = 30
+@export var playerMeterGuardLoss = 60
 
 var R = 255
 var G = 255
@@ -134,7 +136,6 @@ func punchHitFunc(hitbox : Hit):
 	if enemyRef.stateFrame > 15 and enemyRef.stateFrame <= 18:
 		if (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.LEFT and enemyRef.CURRSTATE == "DodgeLeft") or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.RIGHT and enemyRef.CURRSTATE == "DodgeRight") or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.DOWN and enemyRef.CURRSTATE == "DodgeDown") or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.ALL and (enemyRef.CURRSTATE == "DodgeLeft" or enemyRef.CURRSTATE == "DodgeRight" or enemyRef.CURRSTATE == "DodgeDown")) or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.HORIZONTAL and (enemyRef.CURRSTATE == "DodgeLeft" or enemyRef.CURRSTATE == "DodgeRight")):
 			punchDodgeFunc(hitbox)
-			AudioManager.Play("Dizzy", hitbox.AUDIOBUS.keys()[hitbox.audioBus], 8.0, hitbox.pitch)
 			return
 	owner.playerUpdateHealth(hitbox.damage)
 	punchHit = true
@@ -148,6 +149,8 @@ func punchHitFunc(hitbox : Hit):
 		owner.hitLag(hitbox.hitlag, hitbox.screenShake)
 	if enemyRef.superMeter == 0 and !enemyRef.inBurnout:
 		owner.playerBurnout()
+	if enemyRef.superMeter - hitbox.meter < enemyRef.superCost * enemyRef.superLevel:
+		owner.playerSuper.value = enemyRef.superCost - 1
 	enemyRef.superMeter -= hitbox.meter
 	AudioManager.Play(hitbox.sfx, hitbox.AUDIOBUS.keys()[hitbox.audioBus], hitbox.volume, hitbox.pitch)
 	Gamemanager.createEffects(hitbox.effect, hitbox.scaleX, hitbox.scaleY, hitbox.posX, hitbox.posY, hitbox.zIndex)
@@ -172,7 +175,7 @@ func punchDodgeFunc(hitbox : Hit):
 	enemyRef.hasCombo = true
 	enemyRef.currentCombo = hitbox.dodgeCombo
 	maxHitCount = hitbox.dodgeCombo.size() - 1
-	if enemyRef.stateFrame <= enemyRef.perfectTiming and !enemyRef.inBurnout:
+	if enemyRef.stateFrame <= enemyRef.perfectTiming and !enemyRef.inBurnout and !enemyRef.isSuper:
 		enemyRef.superMeter += enemyRef.perfectDodgeMeterGain
 		if enemyRef.superMeter >= enemyRef.superMax:
 			enemyRef.gotSuper = true
@@ -205,13 +208,15 @@ func punchBlockFunc(hitbox : Hit):
 	if enemyRef.superMeter <= 0 and !enemyRef.inBurnout:
 		owner.playerBurnout()
 	
-	if hitbox.guardMeter == -1:
-		enemyRef.superMeter -= hitbox.meter / 2
-	else:
-		enemyRef.superMeter -= hitbox.guardMeter
+	if enemyRef.superMeter - hitbox.guardMeter < enemyRef.superCost * enemyRef.superLevel:
+		owner.playerSuper.value = enemyRef.superCost - 1
+	enemyRef.superMeter -= hitbox.guardMeter
 	AudioManager.Play("Block", hitbox.AUDIOBUS.keys()[hitbox.audioBus], 1.0, 1.0)
 	Gamemanager.createEffects("BLOCK", 1.5, 1.5, 0, 200, 1, true)
-	enemyRef.stateMachine.change_state2("BlockDamage")
+	if enemyRef.superMeter <= 0:
+		enemyRef.stateMachine.change_state2("GuardBreak")
+	else:
+		enemyRef.stateMachine.change_state2("BlockDamage")
 
 
 func hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
