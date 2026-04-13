@@ -134,10 +134,17 @@ text = "Right Punch"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Super Punch" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+[node name="Left Super Punch" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
-text = "Super Punch"
+text = "Left Super"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right Super Punch" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Action Names"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+text = "Right Super"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -201,11 +208,17 @@ layout_mode = 2
 script = ExtResource("3_encuj")
 action = "RightPunch"
 
-[node name="SuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+[node name="LeftSuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "SuperPunch"
+action = "LeftSuperPunch"
+
+[node name="RightSuperPunch" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "RightSuperPunch"
 
 [node name="Pause" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller"]
 custom_minimum_size = Vector2(150, 40)
@@ -270,11 +283,18 @@ script = ExtResource("3_encuj")
 action = "RightPunch2"
 index = 1
 
-[node name="SuperPunch2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+[node name="LeftSuperPunch2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 script = ExtResource("3_encuj")
-action = "SuperPunch2"
+action = "LeftSuperPunch2"
+index = 1
+
+[node name="RightSuperPunch2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+script = ExtResource("3_encuj")
+action = "RightSuperPunch2"
 index = 1
 
 [node name="Pause2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Controller2"]
@@ -343,11 +363,18 @@ script = ExtResource("5_bphcu")
 action = "RightPunchKey"
 index = 0
 
-[node name="SuperPunchKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+[node name="LeftSuperPunchKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "SuperPunchKey"
+action = "LeftSuperPunchKey"
+index = 0
+
+[node name="RightSuperPunchKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "RightSuperPunchKey"
 index = 0
 
 [node name="PauseKey" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard"]
@@ -416,11 +443,18 @@ script = ExtResource("5_bphcu")
 action = "RightPunchKey2"
 index = 1
 
-[node name="SuperPunchKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+[node name="LeftSuperPunchKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 script = ExtResource("5_bphcu")
-action = "SuperPunchKey2"
+action = "LeftSuperPunchKey2"
+index = 1
+
+[node name="RightSuperPunchKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+script = ExtResource("5_bphcu")
+action = "RightSuperPunchKey2"
 index = 1
 
 [node name="PauseKey2" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2"]
@@ -464,7 +498,8 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Right" to="." method="_on_right_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/LeftPunch" to="." method="_on_left_punch_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/RightPunch" to="." method="_on_right_punch_mouse_entered"]
-[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/SuperPunch" to="." method="_on_super_punch_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/LeftSuperPunch" to="." method="_on_super_punch_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/RightSuperPunch" to="." method="_on_right_super_punch_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Pause" to="." method="_on_pause_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Accept" to="." method="_on_accept_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller/Cancel" to="." method="_on_cancel_mouse_entered"]
@@ -474,7 +509,8 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Right2" to="." method="_on_right_2_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/LeftPunch2" to="." method="_on_left_punch_2_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/RightPunch2" to="." method="_on_right_punch_2_mouse_entered"]
-[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/SuperPunch2" to="." method="_on_super_punch_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/LeftSuperPunch2" to="." method="_on_super_punch_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/RightSuperPunch2" to="." method="_on_right_super_punch_2_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Pause2" to="." method="_on_pause_2_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Accept2" to="." method="_on_accept_2_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Controller2/Cancel2" to="." method="_on_cancel_2_mouse_entered"]
@@ -484,7 +520,8 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/RightKey" to="." method="_on_right_key_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/LeftPunchKey" to="." method="_on_left_punch_key_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/RightPunchKey" to="." method="_on_right_punch_key_mouse_entered"]
-[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/SuperPunchKey" to="." method="_on_super_punch_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/LeftSuperPunchKey" to="." method="_on_super_punch_key_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/RightSuperPunchKey" to="." method="_on_right_super_punch_key_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/PauseKey" to="." method="_on_pause_key_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/AcceptKey" to="." method="_on_accept_key_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard/CancelKey" to="." method="_on_cancel_key_mouse_entered"]
@@ -494,7 +531,8 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/RightKey2" to="." method="_on_right_key_2_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/LeftPunchKey2" to="." method="_on_left_punch_key_2_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/RightPunchKey2" to="." method="_on_right_punch_key_2_mouse_entered"]
-[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/SuperPunchKey2" to="." method="_on_super_punch_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/LeftSuperPunchKey2" to="." method="_on_super_punch_key_2_mouse_entered"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/RightSuperPunchKey2" to="." method="_on_right_super_punch_key_2_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/PauseKey2" to="." method="_on_pause_key_2_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/AcceptKey2" to="." method="_on_accept_key_2_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/Keyboard2/CancelKey2" to="." method="_on_cancel_key_2_mouse_entered"]

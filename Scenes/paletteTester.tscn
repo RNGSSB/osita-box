@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b1i45ydjl7slm"]
 
 [ext_resource type="Shader" uid="uid://d2jyy5lajx1yy" path="res://Shaders/canela.gdshader" id="1_vor2p"]
-[ext_resource type="Texture2D" uid="uid://baik0081p18ch" path="res://Sprites/Characters/Canela/A06EscapeS.png" id="2_yswvn"]
+[ext_resource type="Texture2D" uid="uid://baik0081p18ch" path="res://Sprites/Characters/Canela/EscapeS.png" id="2_yswvn"]
 [ext_resource type="Script" uid="uid://bkgsycqh6qasr" path="res://Scripts/Misc/paletteTest.gd" id="3_yswvn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fvstc"]

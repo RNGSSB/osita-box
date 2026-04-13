@@ -3,7 +3,7 @@ extends State
 
 func Exit():
 	owner.player.ctrl = 1
-	owner.enemy.aiActive = true
+	owner.enemy.aiActive = false
 
 func Enter():
 	owner.pauseTimer = true
@@ -24,4 +24,5 @@ func Physics_Update(_delta: float):
 	owner.player.ctrl = 0
 	owner.enemy.aiActive = false
 	if owner.stateFrame == 90:
+		owner.music.playing = true
 		Transitioned.emit(self, "fight")

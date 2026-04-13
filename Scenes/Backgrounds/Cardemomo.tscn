@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3q1rtpuslwhp"]
+
+[ext_resource type="Texture2D" uid="uid://c1cv6rv6j010w" path="res://Sprites/Backgrounds/fondo grande.png" id="1_rg3m6"]
+
+[node name="Background" type="Sprite2D"]
+position = Vector2(0, 52)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("1_rg3m6")

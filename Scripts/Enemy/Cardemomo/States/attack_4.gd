@@ -1,3 +1,4 @@
+#Cardemomo - Spin
 extends State
 
 
@@ -18,37 +19,32 @@ func Enter():
 	owner.hitRight = false
 	owner.hitUpLeft = false
 	owner.hitUpRight = false
-	owner.Guard(false,false,false,false)
+	owner.Guard(true,true,true,true)
 	owner.flip_h = false
 
 func Update(_delta: float):
 	pass
 
 func Physics_Update(_delta: float):
-	if owner.cFrame(13):
-		owner.hitRight = true
+	if owner.cFrame(7):
+		owner.Guard(false,false,false,false)
+		owner.hitUpLeft = true
 	if owner.cFrame(20):
 		owner.counterPunch = true
 	if owner.cFrame(33):
 		owner.counterPunch = false
-	if owner.cFrame(39):
-		owner.punchOpponent(2, 20, 20, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9, true, false, false, false)
 	if owner.cFrame(40):
-		owner.punchOpponent(2, 20, 20, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, false, false, false)
+		owner.punchOpponent("Attack4H1")
 	if owner.cFrame(41):
-		owner.punchOpponent(2, 20, 20, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, true, false, true)
+		owner.punchOpponent("Attack4H2")
 	if owner.cFrame(42):
-		owner.punchOpponent(2, 20, 20, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, true, false, true)
+		owner.punchOpponent("Attack4H3")
 	if owner.cFrame(43):
-		owner.punchOpponent(2, 20, 20, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9,  true, true, true, true, "DamageS", 250, true)
+		owner.punchOpponent("Attack4H4")
 	if owner.cFrame(44):
-		owner.punchOpponent(2, 20, 20, true, 12, 25, 
-		"Hurt", 1.0, 1.0, "HIT", 3.0, 3.0, 200, 200, 34, true, 6, 1, 9, true, true, true, true, "DamageS", 250, true)
+		owner.punchOpponent("Attack4H5")
+	if owner.cFrame(45):
+		owner.punchOpponent("Attack4H6")
 	if owner.punchHit:
 		if owner.cFrame(45):
 			owner.animSys.animPlay("Attack4Hit")
@@ -58,6 +54,9 @@ func Physics_Update(_delta: float):
 		if owner.cFrame(45):
 			owner.animSys.animPlay("Attack4Miss")
 			owner.stun()
+		if owner.cFrame(102):
+			owner.zoomCamera(0.2, 1.0)
 		if owner.animSys.animEnd:
 			owner.stunned = false
+			owner.zoomCamera(0.2, 1.0)
 			Transitioned.emit(self, "wait")

@@ -16,5 +16,7 @@ func Update(_delta: float):
 	pass
 
 func Physics_Update(_delta: float):
+	if owner.cFrame(6):
+		owner.zoomCamera(0.2, 1.0)
 	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")

@@ -1,6 +1,8 @@
 extends Node
 
 
+var gameScene = preload("res://Scenes/game.tscn")
+
 var effects = preload("res://Scenes/effect.tscn")
 
 var menu = "res://Scenes/menu.tscn"
@@ -12,9 +14,10 @@ var playerPalettes = ["res://Scenes/Players/Palettes/default.tscn",
 "res://Scenes/Players/Palettes/test3.tscn",
 "res://Scenes/Players/Palettes/test4.tscn",
 "res://Scenes/Players/Palettes/test5.tscn",
-"res://Scenes/Players/Palettes/test6.tscn"]
+"res://Scenes/Players/Palettes/test6.tscn",
+"res://Scenes/Players/Palettes/test7.tscn"]
 var enemyList = ["res://Scenes/Enemy/cardemomo.tscn",
-"res://Scenes/Enemy/cardemomo2.tscn"]
+"res://Scenes/Enemy/paulette.tscn"]
 
 var playerId = 0
 var playerPaletteId = 0
@@ -26,6 +29,9 @@ var enemyId = 0
 var fuckYou3 = false
 var prevScreenMode
 
+enum METERTYPE{STANDARD, STAR, REVOLVER} 
+enum COMBOHIT{ANY,PUNCH_LR, UPPER_LR, PUNCH_L, PUNCH_R, UPPER_L, UPPER_R, ANY_LEFT, ANY_RIGHT, PU_LR, PU_RL, NONE}
+
 
 func createEffects(effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, zIndex = 3, flip = false):
 	var instance = effects.instantiate()
@@ -36,20 +42,24 @@ func createEffects(effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, pos
 	instance.z_index = zIndex
 	instance.flip_h = flip
 	instance.scale = Vector2(scaleX, scaleY)
-	get_node("/root/Game/GameElements").add_child(instance)
+	get_node("/root/Game/GameElements3").add_child(instance)
+	instance.owner = get_node("/root/Game")
+	
 
 
-func checkInputJustPressed(inputName):
+func checkInputJustPressed(inputName, singleInput = false):
 	if Input.is_action_just_pressed(inputName):
 		return true
-	elif Input.is_action_just_pressed(inputName + "Key"):
+	if Input.is_action_just_pressed(inputName + "Key"):
 		return true
-	elif Input.is_action_just_pressed(inputName + "2"):
-		return true
-	elif Input.is_action_just_pressed(inputName + "Key2"):
-		return true
-	else:
+	if singleInput:
 		return false
+	if Input.is_action_just_pressed(inputName + "2"):
+		return true
+	if Input.is_action_just_pressed(inputName + "Key2"):
+		return true
+	
+	return false
 
 func checkInputJustReleased(inputName):
 	if Input.is_action_just_released(inputName):
@@ -89,9 +99,9 @@ func checkInputAxis(neg, pos):
 
 
 func destroyEffect(effectName):
-	if get_node("/root/Game/GameElements/" + effectName) == null:
+	if get_node("/root/Game/GameElements3/" + effectName) == null:
 		return
-	get_node("/root/Game/GameElements/" + effectName).queue_free()
+	get_node("/root/Game/GameElements3/" + effectName).queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -1,6 +1,8 @@
 class_name player_palette
 extends Node
 
+@export var playerMeterType = Gamemanager.METERTYPE.STANDARD
+
 @export var glove_color_main = Color(1.0, 0.66, 0.92, 1.0)
 @export var glove_color_socket = Color(0.03,0.92,0.86,1.0)
 @export var shirt_color_main = Color(0.40,0.60,0.59,1.0)

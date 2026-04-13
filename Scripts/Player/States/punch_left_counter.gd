@@ -11,8 +11,7 @@ func Enter():
 	owner.ctrl = 0
 	owner.makerHerVisible = true
 	owner.animSys.animPlay("PunchLowCounter")
-	owner.punchOpponent(0, owner.counterDamage, owner.counterMeterGain, true, "Left", "Damage4", 1.0, 1.35, 
-	"DamageN4Counter", false, 3.0, 3.0, "HITCOUNTER", 200, 60, 3.0, 3.0)
+	owner.punchOpponent("PunchLeftCounter")
 	owner.makerHerVisible = true
 	AudioManager.Play("Attack4Swoosh", "Left", 1.0, 1.0)
 	owner.bufferPunchL = false
@@ -26,7 +25,7 @@ func Update(_delta: float):
 			owner.bufferUp = true
 
 func Physics_Update(_delta: float):
-	if owner.cFrame(11):
-		owner.ctrl = 1
+	if owner.cFrame(4):
+		owner.zoomCamera(0.2, 1.0)
 	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")

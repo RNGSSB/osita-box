@@ -27,7 +27,6 @@ func Physics_Update(_delta: float):
 	if owner.cFrame(1):
 		owner.makerHerVisible = true
 	if owner.cFrame(5):
-		owner.punchOpponent(1, owner.finishDamage, owner.finishMeterGain, false, "Right", "Damage4", 1.0, 1.35, 
-		"DamageN4", false, 4.0, 4.0, "HITFINISHER", -200, 60, 3.0, 3.0)
+		owner.punchOpponent("PunchRightFinisher")
 	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")

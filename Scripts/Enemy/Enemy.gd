@@ -1,12 +1,15 @@
+#Main Enemy Script
 extends Sprite2D
 
 var frozen = false
 var CURRSTATE = "Wait"
 var PREVSTATE = "Wait"
+@export var background : PackedScene
 @onready var stateMachine = $StateMachine
 @export var animSys : Node
-
-var charName = "Cardemomo"
+@export var hitSys : Node
+@export var enemyPortrait : CompressedTexture2D
+@export var charName = "Cardemomo"
 var stateFrame = 0
 var frameCounter = 0
 var prevStateFrame = 0 
@@ -29,34 +32,34 @@ var counterPunch = false
 @export var baseColor = Color8(255,255,255,255)
 var counterColor = Color8(255,164,167,255)
 
-var hitlagPunch = 3
-var hitlagUpper = 3
-var shakePunch = 10
-var shakeUpper = 10
+@export var hitlagPunch = 3
+@export var hitlagUpper = 3
+@export var shakePunch = 10
+@export var shakeUpper = 10
 
 var dizzy = 0
-var dizzyTime = 90
+@export var dizzyTime = 97
 
-var finalHitlagMul = 4
-var finalShakeMul = 4
+@export var finalHitlagMul = 4
+@export var finalShakeMul = 4
 
 var enemyRef
 
-var normalCombo = 2
-var dodgeCombo = 4
-var perfectCombo = 6
+@export var normalCombo : Array[Gamemanager.COMBOHIT] = [Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY,Gamemanager.COMBOHIT.ANY]
 
 var punchHit = false
 var attackMiss = false
 var isAttacking = false
-var defaultPosY = 100
+@export var defaultPosY = 100
 
 var healing = false
 
-var hitCount = 0
-var maxHitCount = 5
+var hitCount : int = 0
+var maxHitCount : int = 5
+var blockCount = 0
+var maxBlockCount = 3
 
-var maxHealth = 100
+@export var maxHealth = 100
 var health = 100
 
 var aiActive = false
@@ -66,19 +69,40 @@ var damageStopTimer = false
 
 var rng = RandomNumberGenerator.new()
 
-var superInit = 40
+@export var superInit = 30
+@export var playerMeterGuardLoss = 60
 
 var R = 255
 var G = 255
 var B = 255
 
 var playerPunch = 0 
-var flipDamageLw = true
-var flipDamageHi = true
-var flipDamageCounterLw = true
-var flipDamageCounterHi = false
+@export var flipDamageLw = true
+@export var flipDamageHi = true
+@export var flipDamageCounterLw = true
+@export var flipDamageCounterHi = false
+
+var dizzyAnim = "DizzyLw"
+@export var flipBlockLw = false
+@export var flipBlockHi = true
 
 @onready var brain = $Brain
+
+func resetCombo():
+	enemyRef = owner.player
+	hitLeft = true
+	hitRight = true
+	hitUpLeft = true
+	hitUpRight = true
+	blockLeft = false
+	blockRight = false
+	blockUpLeft = false
+	blockUpRight = false
+	damaged = false
+	attackMiss = false
+	hitCount = 0
+	enemyRef.currentCombo = normalCombo
+	maxHitCount = normalCombo.size()
 
 func setColor(value1, value2, value3):
 	R = value1 
@@ -97,6 +121,9 @@ func moveCamera(rate, towards):
 func moveCameraY(rate, towards):
 	owner.moveCameraY(rate, towards)
 
+func zoomCamera(rate, towards):
+	owner.zoomCamera(rate,towards)
+
 func enemyHeal(value, rate):
 	healing = true
 	owner.enemyHealing = health + value
@@ -104,51 +131,61 @@ func enemyHeal(value, rate):
 		owner.enemyHealing = maxHealth
 	owner.enemyHealingRate = rate
 
-func punchHitFunc(damage = 1, meter = 1, damageState = "DamageS", playerX = 0, flip = false, 
-hitlag = 3, shake = 25, 
-sfx = "Hurt", volume = 1.0, pitch = 1.0, audioBus = "SFX", 
-effectName = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 0, posY = 0, animOverride = "no", posOverride = 0, dirOverride = false):
-	#Engine.physics_ticks_per_second = 60
-	#Engine.time_scale = 1.0
+func punchHitFunc(hitbox : Hit):
 	enemyRef = owner.player
-	owner.playerUpdateHealth(damage)
+	if enemyRef.stateFrame > 15 and enemyRef.stateFrame <= 18:
+		if (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.LEFT and enemyRef.CURRSTATE == "DodgeLeft") or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.RIGHT and enemyRef.CURRSTATE == "DodgeRight") or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.DOWN and enemyRef.CURRSTATE == "DodgeDown") or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.ALL and (enemyRef.CURRSTATE == "DodgeLeft" or enemyRef.CURRSTATE == "DodgeRight" or enemyRef.CURRSTATE == "DodgeDown")) or (hitbox.dodgeDirection == hitbox.HITDIRECTIONS.HORIZONTAL and (enemyRef.CURRSTATE == "DodgeLeft" or enemyRef.CURRSTATE == "DodgeRight")):
+			punchDodgeFunc(hitbox)
+			return
+	owner.playerUpdateHealth(hitbox.damage)
 	punchHit = true
 	attackMiss = false
-	enemyRef.flip_h = flip
+	enemyRef.flip_h = hitbox.flip
+	enemyRef.moveCamera(0.2, 0.0)
+	enemyRef.moveCameraY(0.2, 0.0)
 	if enemyRef.inBurnout:
-		owner.hitLag(hitlag * 4, shake * 2)
+		owner.hitLag(hitbox.hitlag * 2, hitbox.screenShake * 2)
 	else:
-		owner.hitLag(hitlag, shake)
+		owner.hitLag(hitbox.hitlag, hitbox.screenShake)
 	if enemyRef.superMeter == 0 and !enemyRef.inBurnout:
 		owner.playerBurnout()
-	enemyRef.superMeter -= meter
-	AudioManager.Play(sfx, audioBus, volume, pitch)
-	Gamemanager.createEffects(effectName, scaleX, scaleY, posX, posY)
-	if animOverride == "no":
-		enemyRef.stateMachine.change_state2(damageState)
-		#enemyRef.position.x = playerX
-	else:
-		enemyRef.stateMachine.change_state2(animOverride)
-		enemyRef.flip_h = dirOverride
-		#enemyRef.position.x = posOverride
+	if enemyRef.superMeter - hitbox.meter < enemyRef.superCost * enemyRef.superLevel:
+		owner.playerSuper.value = enemyRef.superCost - 1
+	enemyRef.superMeter -= hitbox.meter
+	AudioManager.Play(hitbox.sfx, hitbox.AUDIOBUS.keys()[hitbox.audioBus], hitbox.volume, hitbox.pitch)
+	Gamemanager.createEffects(hitbox.effect, hitbox.scaleX, hitbox.scaleY, hitbox.posX, hitbox.posY, hitbox.zIndex)
+	enemyRef.stateMachine.change_state2(hitbox.HITANIMATIONS.keys()[hitbox.damageAnim])
+	enemyRef.position.x = hitbox.playerX
 
-func punchDodgeFunc(audioBus, combo = 3, comboPerfect = 5):
+func punchDodgeFunc(hitbox : Hit):
 	enemyRef = owner.player
 	enemyRef.dodgeSuccess = true
 	attackMiss = true
-	AudioManager.Play("Dodge", audioBus, 1.0, 1.0)
+	enemyRef.zoomCamera(0.2, 1.2)
+	#enemyRef.moveCamera(0.2, 0.0)
+	#enemyRef.moveCameraY(0.2, 0.0)
+	enemyRef.canDodge = false
+	enemyRef.canBlock = false
+	if enemyRef.CURRSTATE == "DodgeLeft":
+		AudioManager.Play("Dodge", "Left", 1.0, 1.0)
+	elif enemyRef.CURRSTATE == "DodgeRight":
+		AudioManager.Play("Dodge", "Right", 1.0, 1.0)
+	else:
+		AudioManager.Play("Dodge", "SFX", 1.0, 1.0)
 	enemyRef.hasCombo = true
-	maxHitCount = combo
-	if enemyRef.stateFrame <= enemyRef.perfectTiming:
+	enemyRef.currentCombo = hitbox.dodgeCombo
+	maxHitCount = hitbox.dodgeCombo.size() - 1
+	if enemyRef.stateFrame <= enemyRef.perfectTiming and !enemyRef.inBurnout and !enemyRef.isSuper:
 		enemyRef.superMeter += enemyRef.perfectDodgeMeterGain
-		enemyRef.burnoutEnd()
 		if enemyRef.superMeter >= enemyRef.superMax:
 			enemyRef.gotSuper = true
-		maxHitCount = comboPerfect
-		AudioManager.Play("Perfect", audioBus, 1.0, 1.0)
+		enemyRef.currentCombo = hitbox.perfectCombo
+		maxHitCount = hitbox.perfectCombo.size() - 1
+		
+		AudioManager.Play("Perfect", "SFX", 1.0, 1.0)
 		enemyRef.perfectDodge = true
 
-func punchBlockFunc(audioBus, meter, guardMeter, stun, combo = 3):
+func punchBlockFunc(hitbox : Hit):
 	enemyRef = owner.player
 	owner.hitLag(5, 15)
 	hitLeft = true
@@ -156,12 +193,14 @@ func punchBlockFunc(audioBus, meter, guardMeter, stun, combo = 3):
 	hitUpLeft = true
 	hitUpRight = true
 	if stun:
-		maxHitCount = combo
+		enemyRef.currentCombo = hitbox.blockCombo
+		maxHitCount = hitbox.blockCombo.size() - 1
 		enemyRef.hasCombo = true
 		punchHit = false
 		attackMiss = true
 	else:
-		maxHitCount = normalCombo
+		enemyRef.currentCombo = normalCombo
+		maxHitCount = normalCombo.size() - 1
 		enemyRef.hasCombo = false
 		punchHit = true
 		attackMiss = true
@@ -169,13 +208,15 @@ func punchBlockFunc(audioBus, meter, guardMeter, stun, combo = 3):
 	if enemyRef.superMeter <= 0 and !enemyRef.inBurnout:
 		owner.playerBurnout()
 	
-	if guardMeter == -1:
-		enemyRef.superMeter -= meter / 2
-	else:
-		enemyRef.superMeter -= guardMeter
-	AudioManager.Play("Block", audioBus, 1.0, 1.0)
+	if enemyRef.superMeter - hitbox.guardMeter < enemyRef.superCost * enemyRef.superLevel:
+		owner.playerSuper.value = enemyRef.superCost - 1
+	enemyRef.superMeter -= hitbox.guardMeter
+	AudioManager.Play("Block", hitbox.AUDIOBUS.keys()[hitbox.audioBus], 1.0, 1.0)
 	Gamemanager.createEffects("BLOCK", 1.5, 1.5, 0, 200, 1, true)
-	enemyRef.stateMachine.change_state2("BlockDamage")
+	if enemyRef.superMeter <= 0:
+		enemyRef.stateMachine.change_state2("GuardBreak")
+	else:
+		enemyRef.stateMachine.change_state2("BlockDamage")
 
 
 func hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
@@ -195,65 +236,79 @@ func hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
 	else:
 		return false
 
-func punchOpponent(value = 0, damage = 1, meter = 1, blockable = true, 
-hitLag = 3, screenShake = 25, 
-sfx = "Hurt", volume = 1.0, pitch = 1.0, 
-effect = "HIT", scaleX = 1.0, scaleY = 1.0, posX = 1.0, posY = 1.0,
-guardMeter = -1, blockStun = true, dodgeCombo = 3, blockCombo = 3, perfectCombo = 5, 
-hitLeft = true, hitNeutral = true, hitRight = true, hitDown = true, 
-animOverride = "no", posOverride = 0, dirOverride = false):
+func punchOpponent(hitboxName : String):
+	var hitbox
+	for child in hitSys.get_children():
+		if child is Hit and child.name == hitboxName:
+			hitbox = child
+	
+	if !hitbox is Hit:
+		return
+
 	enemyRef = owner.player
 	if attackMiss or punchHit:
 		return
 	
-	if value == 0: #Dodge Left
-		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
-			punchBlockFunc("Left", meter, guardMeter, blockStun, blockCombo)
+	if hitbox.dodgeDirection == hitbox.HITDIRECTIONS.LEFT: #Dodge Left
+		if enemyRef.isBlocking and hitbox.blockable and !enemyRef.inBurnout and hitbox.hitNeutral:
+			punchBlockFunc(hitbox)
 			return
 		if !enemyRef.dodgeLeft:
-			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
-				punchHitFunc(damage, meter, "DamageS", 250, true, hitLag, screenShake, 
-				sfx, volume, pitch, "Left", effect, scaleX, scaleY, posX, posY, animOverride, posOverride, dirOverride)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchHitFunc(hitbox)
 			else:
 				return
 		else:
-			punchDodgeFunc("Left", dodgeCombo, perfectCombo)
-	elif value == 1: #Dodge Right
-		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
-			punchBlockFunc("Right", meter, guardMeter, blockStun, blockCombo)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchDodgeFunc(hitbox)
+	elif hitbox.dodgeDirection == hitbox.HITDIRECTIONS.RIGHT: #Dodge Right
+		if enemyRef.isBlocking and hitbox.blockable and !enemyRef.inBurnout and hitbox.hitNeutral:
+			punchBlockFunc(hitbox)
 			return
 		if !enemyRef.dodgeRight:
-			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
-				punchHitFunc(damage, meter, "DamageS", -250, false, hitLag, screenShake, 
-				sfx, volume, pitch, "Right", effect, scaleX, scaleY, posX, posY, animOverride, posOverride, dirOverride)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchHitFunc(hitbox)
 			else:
 				return
 		else:
-			punchDodgeFunc("Right", dodgeCombo, perfectCombo)
-	elif value == 2: #Dodge Down
-		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
-			punchBlockFunc("SFX", meter, guardMeter, blockStun, blockCombo)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchDodgeFunc(hitbox)
+	elif hitbox.dodgeDirection == hitbox.HITDIRECTIONS.DOWN: #Dodge Down
+		if enemyRef.isBlocking and hitbox.blockable and !enemyRef.inBurnout and hitbox.hitNeutral:
+			punchBlockFunc(hitbox)
 			return
 		if !enemyRef.dodgeDown:
-			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
-				punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
-				sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY, animOverride, posOverride, dirOverride)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchHitFunc(hitbox)
 			else:
 				return
 		else:
-			punchDodgeFunc("SFX", dodgeCombo, perfectCombo)
-	elif value == 3: #Dodge All
-		if enemyRef.isBlocking and blockable and !enemyRef.inBurnout:
-			punchBlockFunc("SFX", meter, guardMeter, blockStun, blockCombo)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchDodgeFunc(hitbox)
+	elif hitbox.dodgeDirection == hitbox.HITDIRECTIONS.ALL: #Dodge All
+		if enemyRef.isBlocking and hitbox.blockable and !enemyRef.inBurnout and hitbox.hitNeutral:
+			punchBlockFunc(hitbox)
 			return
 		if !enemyRef.dodgeLeft and !enemyRef.dodgeRight and !enemyRef.dodgeDown:
-			if hitMasks(hitLeft, hitNeutral, hitRight, hitDown):
-				punchHitFunc(damage, meter, "DamageN", 0, false, hitLag, screenShake, 
-				sfx, volume, pitch, "SFX", effect, scaleX, scaleY, posX, posY, animOverride, posOverride, dirOverride)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchHitFunc(hitbox)
 			else:
 				return
 		else:
-			punchDodgeFunc("SFX", dodgeCombo, perfectCombo)
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchDodgeFunc(hitbox)
+	elif hitbox.dodgeDirection == hitbox.HITDIRECTIONS.HORIZONTAL: #Dodge Left or Right
+		if enemyRef.isBlocking and hitbox.blockable and !enemyRef.inBurnout and hitbox.hitNeutral:
+			punchBlockFunc(hitbox)
+			return
+		if !enemyRef.dodgeLeft and !enemyRef.dodgeRight:
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchHitFunc(hitbox)
+			else:
+				return
+		else:
+			if hitMasks(hitbox.hitLeft, hitbox.hitNeutral, hitbox.hitRight, hitbox.hitDown):
+				punchDodgeFunc(hitbox)
 
 func stun():
 	hitLeft = true
@@ -292,15 +347,44 @@ func lobotomy():
 		pass
 	else:
 		if Input.is_key_pressed(KEY_3):
+			owner.zoomCamera(0.2, 1.0)
 			stateMachine.change_state2("Attack1")
 		if Input.is_key_pressed(KEY_4):
+			owner.zoomCamera(0.2, 1.0)
 			stateMachine.change_state2("Attack2")
 		if Input.is_key_pressed(KEY_5):
+			owner.zoomCamera(0.2, 1.0)
 			stateMachine.change_state2("Attack3")
 		if Input.is_key_pressed(KEY_6):
+			owner.zoomCamera(0.2, 1.0)
 			stateMachine.change_state2("Attack4")
 		if Input.is_key_pressed(KEY_7):
-			stateMachine.change_state2("Dead")
+			owner.zoomCamera(0.2, 1.0)
+			stateMachine.change_state2("Attack5")
+		if Input.is_key_pressed(KEY_KP_0):
+			owner.zoomCamera(0.2, 1.0)
+			stateMachine.change_state2("Wait")
+		if Input.is_key_pressed(KEY_KP_1):
+			owner.zoomCamera(0.2, 1.0)
+			blockLeft = true
+			blockRight = true
+			blockUpLeft = false
+			blockUpRight = false
+			guardAll = false
+			flip_h = false
+			animSys.animPlay("BlockLw")
+			stateMachine.change_state2("Block")
+		if Input.is_key_pressed(KEY_KP_2):
+			owner.zoomCamera(0.2, 1.0)
+			blockLeft = false
+			blockRight = false
+			blockUpLeft = true
+			blockUpRight = true
+			guardAll = false
+			flip_h = false
+			animSys.animPlay("BlockHi")
+			stateMachine.change_state2("Block")
+		
 
 func _physics_process(_delta):
 	if health < 0:
@@ -309,14 +393,11 @@ func _physics_process(_delta):
 	if (owner.player.CURRSTATE == "PunchLeft" or owner.player.CURRSTATE == "PunchRight" or owner.player.CURRSTATE == "UpperLeft" or owner.player.CURRSTATE == "UpperRight") and counterPunch:
 		counterPunch = false
 	
-	if hitCount == maxHitCount and !owner.player.hasCombo:
-		guardAll = true
-	
 	if damaged and !damageStopTimer and (CURRSTATE != "DizzyHi" and CURRSTATE != "DizzyLw" and CURRSTATE != "DizzyEnd"):
 		owner.pauseTimer = true
 		damageStopTimer = true
 	
-	if (!damaged or (CURRSTATE == "DizzyHi" or CURRSTATE == "DizzyLw" or CURRSTATE == "DizzyEnd" or CURRSTATE == "DamageN4" or CURRSTATE == "DamageHi4" or CURRSTATE == "DamageN4Counter" or CURRSTATE == "DamageHi4Counter")) and damageStopTimer:
+	if (!damaged or (CURRSTATE == "Dizzy" or CURRSTATE == "Damage" or CURRSTATE == "DizzyEnd")) and damageStopTimer:
 		owner.pauseTimer = false
 		damageStopTimer = false
 	

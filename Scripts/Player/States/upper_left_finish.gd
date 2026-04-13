@@ -16,6 +16,7 @@ func Enter():
 	owner.bufferPunchL = false
 	owner.bufferUp = false
 	owner.flip_h = true
+	#owner.animSys.setFrame(6)
 
 func Update(_delta: float):
 	if owner.frameCounter >= 6:
@@ -27,7 +28,6 @@ func Physics_Update(_delta: float):
 	if owner.cFrame(1):
 		owner.makerHerVisible = true
 	if owner.cFrame(5):
-		owner.punchOpponent(2, owner.finishDamage, owner.finishMeterGain, true, "Left", "Damage4", 1.0, 1.35, 
-		"DamageHi4", true, 4.0, 4.0, "HITFINISHER", 150, -240, 3.0, 3.0)
+		owner.punchOpponent("UpperLeftFinisher")
 	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")

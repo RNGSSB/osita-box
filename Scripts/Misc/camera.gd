@@ -16,8 +16,6 @@ func randomOffset():
 
 
 func cameraShake(_delta):
-	if owner.hitStop > 0:
-		print("SHAKING")
 	if shake_strenght > 0:
 		shake_strenght = lerpf(shake_strenght,0, shakeFade * _delta)
 		offset = randomOffset()

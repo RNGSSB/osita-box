@@ -7,6 +7,8 @@ func Exit():
 	owner.perfectDodge = false
 	owner.dodgeRight = false
 	owner.makerHerVisible = false
+	owner.canDodge = true
+	owner.canBlock = true
 
 func Enter():
 	owner.ctrl = 0
@@ -26,16 +28,19 @@ func Update(_delta: float):
 func Physics_Update(_delta: float):
 	if owner.cFrame(1):
 		owner.makerHerVisible = true
+	if owner.cFrame(4):
+		if owner.perfectDodge:
+			owner.animSys.animPlay("DodgeSidePerfect")
 	if owner.cFrame(7):
 		owner.makerHerVisible = false
 	if owner.cFrame(16):
 		owner.dodgeRight = false
-	if owner.cFrame(18):
-		owner.moveCamera(0.2, 0)
 	if owner.cFrame(20):
 		if owner.dodgeSuccess:
 			owner.ctrl = 1
+		owner.moveCamera(0.2, 0)
 	if owner.cFrame(31):
-		owner.ctrl = 1
+		if !owner.inBurnout:
+			owner.ctrl = 1
 	if owner.animSys.animEnd:
 		Transitioned.emit(self, "wait")

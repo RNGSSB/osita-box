@@ -1,10 +1,10 @@
 [gd_scene load_steps=19 format=3 uid="uid://curbd3j26xu8w"]
 
 [ext_resource type="Script" uid="uid://b7g38wnnl2o5v" path="res://Scripts/Managers/audio_manager.gd" id="1_l5gxk"]
-[ext_resource type="AudioStream" uid="uid://bfxcygx8185we" path="res://SFX/Hit/Block.wav" id="2_j1c23"]
+[ext_resource type="AudioStream" uid="uid://23stmvo51ud2" path="res://SFX/block.wav" id="2_tesok"]
 [ext_resource type="AudioStream" uid="uid://dky2g85t1588g" path="res://SFX/Hit/CounterPunch.mp3" id="3_mncqp"]
-[ext_resource type="AudioStream" uid="uid://dn8odebc32v3a" path="res://SFX/Hit/Damage3.mp3" id="4_iu3wj"]
-[ext_resource type="AudioStream" uid="uid://bqlsgij3x5s0y" path="res://SFX/Hit/Damage4.mp3" id="5_ruksg"]
+[ext_resource type="AudioStream" uid="uid://ctwdylrxuk6xc" path="res://SFX/hit.wav" id="4_tesok"]
+[ext_resource type="AudioStream" uid="uid://cksyen51js22a" path="res://SFX/hit2.wav" id="5_tesok"]
 [ext_resource type="AudioStream" uid="uid://bg5elfs3ldqig" path="res://SFX/Hit/Dizzy.mp3" id="6_m5s05"]
 [ext_resource type="AudioStream" uid="uid://h7h08u0a5ars" path="res://SFX/Hit/Hurt.wav" id="7_1kdop"]
 [ext_resource type="AudioStream" uid="uid://d1yemw7f3bcbq" path="res://SFX/Player/Attack4Swoosh.wav" id="8_pijat"]
@@ -23,16 +23,16 @@
 script = ExtResource("1_l5gxk")
 
 [node name="Block" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_j1c23")
+stream = ExtResource("2_tesok")
 
 [node name="CounterPunch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_mncqp")
 
 [node name="Damage3" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_iu3wj")
+stream = ExtResource("4_tesok")
 
 [node name="Damage4" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_ruksg")
+stream = ExtResource("5_tesok")
 
 [node name="Dizzy" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_m5s05")
