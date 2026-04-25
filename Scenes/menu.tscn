@@ -1,17 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvlj2nsfbeja1"]
+[gd_scene format=3 uid="uid://dvlj2nsfbeja1"]
 
 [ext_resource type="Script" uid="uid://cnv5kork06bl" path="res://Scripts/UI/menu.gd" id="1_3xj72"]
 [ext_resource type="Texture2D" uid="uid://p8scof64hepa" path="res://Sprites/menu.png" id="2_e3d43"]
 [ext_resource type="Texture2D" uid="uid://vpympcrxky3c" path="res://Sprites/logo.png" id="3_u1cc6"]
 [ext_resource type="Texture2D" uid="uid://dwl4tsmq3aj5k" path="res://Sprites/knuckles.png" id="4_feg72"]
 
-[node name="Menu" type="Node2D"]
+[node name="Menu" type="Node2D" unique_id=194972361]
 process_mode = 3
 script = ExtResource("1_3xj72")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1852918103]
 
-[node name="Palette" type="Label" parent="CanvasLayer"]
+[node name="Palette" type="Label" parent="CanvasLayer" unique_id=1853574525]
 z_index = 1
 offset_left = 1186.0
 offset_top = 136.0
@@ -22,7 +22,7 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PaletteSlider" type="HSlider" parent="CanvasLayer"]
+[node name="PaletteSlider" type="HSlider" parent="CanvasLayer" unique_id=895155019]
 z_index = 1
 offset_left = 1171.0
 offset_top = 187.0
@@ -30,13 +30,13 @@ offset_right = 1504.0
 offset_bottom = 203.0
 max_value = 3.0
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer" unique_id=347935464]
 position = Vector2(952, 553)
 scale = Vector2(0.33, 0.33)
 texture = ExtResource("2_e3d43")
 metadata/_edit_lock_ = true
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=1490802835]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -49,7 +49,7 @@ offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1254902554]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -63,28 +63,28 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 11
 
-[node name="Cardemomo" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="Cardemomo" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=88091133]
 layout_mode = 2
 text = "Cardemomo"
 
-[node name="Character2" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="Character2" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=2036178954]
 layout_mode = 2
 text = "Paulette"
 
-[node name="Settings" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="Settings" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=92311550]
 layout_mode = 2
 text = "Settings"
 
-[node name="Quit" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="Quit" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=840012250]
 layout_mode = 2
 text = "Quit"
 
-[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer"]
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer" unique_id=1035115360]
 position = Vector2(1663, 911)
 scale = Vector2(0.40918, 0.534483)
 texture = ExtResource("3_u1cc6")
 
-[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer"]
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer" unique_id=1584519218]
 position = Vector2(1734, 980)
 scale = Vector2(0.40918, 0.534483)
 texture = ExtResource("4_feg72")

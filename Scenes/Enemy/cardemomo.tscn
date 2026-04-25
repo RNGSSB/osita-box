@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://eobepwks4242"]
+[gd_scene format=3 uid="uid://eobepwks4242"]
 
 [ext_resource type="Script" uid="uid://ccs8cn6x6ojk5" path="res://Scripts/Enemy/Enemy.gd" id="1_d8ljs"]
 [ext_resource type="Texture2D" uid="uid://imdyfpgo15s0" path="res://Sprites/Characters/Cardemomo/Wait.png" id="1_krvq6"]
@@ -52,7 +52,7 @@
 [ext_resource type="Script" uid="uid://b5jf4kxwgsqro" path="res://Scripts/Enemy/CommonStates/damage.gd" id="52_602uk"]
 [ext_resource type="Script" uid="uid://ba2ago3tf8xo4" path="res://Scripts/Enemy/CommonStates/dizzy.gd" id="53_xspry"]
 
-[node name="Enemy" type="Sprite2D" node_paths=PackedStringArray("animSys", "hitSys")]
+[node name="Enemy" type="Sprite2D" unique_id=642603973 node_paths=PackedStringArray("animSys", "hitSys")]
 process_mode = 1
 texture_filter = 1
 position = Vector2(0, 100)
@@ -68,13 +68,13 @@ maxHealth = 1000
 superInit = 150
 flipBlockHi = false
 
-[node name="Brain" type="Node" parent="."]
+[node name="Brain" type="Node" parent="." unique_id=52688968]
 script = ExtResource("3_4dlqf")
 
-[node name="AnimSys" type="Node" parent="."]
+[node name="AnimSys" type="Node" parent="." unique_id=80885134]
 script = ExtResource("4_e4mki")
 
-[node name="Wait" type="Node" parent="AnimSys"]
+[node name="Wait" type="Node" parent="AnimSys" unique_id=1558581103]
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("1_krvq6")
@@ -82,7 +82,7 @@ frames = 7
 frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageHi" type="Node" parent="AnimSys"]
+[node name="DamageHi" type="Node" parent="AnimSys" unique_id=2123468613]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("7_l6kyl")
 initialFrame = 3
@@ -91,7 +91,7 @@ posY = 0.0
 frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageHi4" type="Node" parent="AnimSys"]
+[node name="DamageHi4" type="Node" parent="AnimSys" unique_id=735981654]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("7_l6kyl")
 frames = 7
@@ -99,7 +99,7 @@ posY = 0.0
 frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageHiL" type="Node" parent="AnimSys"]
+[node name="DamageHiL" type="Node" parent="AnimSys" unique_id=266774454]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("6_ei7hm")
 initialFrame = 3
@@ -108,7 +108,7 @@ posY = 0.0
 frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageHi4L" type="Node" parent="AnimSys"]
+[node name="DamageHi4L" type="Node" parent="AnimSys" unique_id=195955704]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("6_ei7hm")
 frames = 7
@@ -116,7 +116,7 @@ posY = 0.0
 frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageLw" type="Node" parent="AnimSys"]
+[node name="DamageLw" type="Node" parent="AnimSys" unique_id=197581839]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("9_602uk")
 initialFrame = 3
@@ -124,14 +124,14 @@ frames = 7
 frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageLw4" type="Node" parent="AnimSys"]
+[node name="DamageLw4" type="Node" parent="AnimSys" unique_id=1271500508]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("9_602uk")
 frames = 7
 frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageLwL" type="Node" parent="AnimSys"]
+[node name="DamageLwL" type="Node" parent="AnimSys" unique_id=1567075376]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("7_7fwu1")
 initialFrame = 3
@@ -139,14 +139,14 @@ frames = 7
 frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageLw4L" type="Node" parent="AnimSys"]
+[node name="DamageLw4L" type="Node" parent="AnimSys" unique_id=1485418571]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("7_7fwu1")
 frames = 7
 frameTimes = Array[int]([5, 5, 5, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageLw4Counter" type="Node" parent="AnimSys"]
+[node name="DamageLw4Counter" type="Node" parent="AnimSys" unique_id=1545767008]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("11_vpu86")
 frames = 12
@@ -154,7 +154,7 @@ columns = 2
 frameTimes = Array[int]([5, 5, 5, 4, 2, 2, 2, 3, 6, 2, 2, 3])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageLw4CounterL" type="Node" parent="AnimSys"]
+[node name="DamageLw4CounterL" type="Node" parent="AnimSys" unique_id=1897630747]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("12_sgbrq")
 frames = 12
@@ -162,7 +162,7 @@ columns = 2
 frameTimes = Array[int]([5, 5, 5, 4, 2, 2, 2, 3, 6, 2, 2, 3])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DizzyLw" type="Node" parent="AnimSys"]
+[node name="DizzyLw" type="Node" parent="AnimSys" unique_id=1912323732]
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("12_41qvh")
@@ -173,7 +173,7 @@ columns = 2
 frameTimes = Array[int]([3, 2, 1, 1, 7, 7, 7, 7, 6, 6])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DizzyHi" type="Node" parent="AnimSys"]
+[node name="DizzyHi" type="Node" parent="AnimSys" unique_id=1579251918]
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("13_cp0n4")
@@ -183,7 +183,7 @@ columns = 2
 frameTimes = Array[int]([4, 4, 4, 6, 6, 6, 6, 6])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DizzyLwEnd" type="Node" parent="AnimSys"]
+[node name="DizzyLwEnd" type="Node" parent="AnimSys" unique_id=60600534]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("12_41qvh")
 initialFrame = 10
@@ -192,7 +192,7 @@ columns = 2
 frameTimes = Array[int]([3, 2, 1, 7, 7, 7, 7, 7, 6, 6, 2, 3, 4, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DizzyHiEnd" type="Node" parent="AnimSys"]
+[node name="DizzyHiEnd" type="Node" parent="AnimSys" unique_id=1887599830]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("13_cp0n4")
 initialFrame = 9
@@ -201,7 +201,7 @@ columns = 2
 frameTimes = Array[int]([7, 7, 7, 7, 7, 8, 4, 0, 4, 4])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Dead" type="Node" parent="AnimSys"]
+[node name="Dead" type="Node" parent="AnimSys" unique_id=1012850379]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("14_fbvtt")
 frames = 15
@@ -210,7 +210,7 @@ posX = -400.0
 frameTimes = Array[int]([3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="BlockLw" type="Node" parent="AnimSys"]
+[node name="BlockLw" type="Node" parent="AnimSys" unique_id=1497577205]
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("15_tjj63")
@@ -221,7 +221,7 @@ columns = 2
 frameTimes = Array[int]([2, 4, 4, 5, 6, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="BlockLwL" type="Node" parent="AnimSys"]
+[node name="BlockLwL" type="Node" parent="AnimSys" unique_id=954145480]
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("17_vpu86")
@@ -232,7 +232,7 @@ columns = 2
 frameTimes = Array[int]([2, 4, 4, 5, 6, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="BlockLwDamage" type="Node" parent="AnimSys"]
+[node name="BlockLwDamage" type="Node" parent="AnimSys" unique_id=1217235172]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("15_tjj63")
 frames = 9
@@ -240,7 +240,7 @@ columns = 2
 frameTimes = Array[int]([2, 4, 4, 5, 6, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="BlockLwDamageL" type="Node" parent="AnimSys"]
+[node name="BlockLwDamageL" type="Node" parent="AnimSys" unique_id=1689825092]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("17_vpu86")
 frames = 9
@@ -248,7 +248,7 @@ columns = 2
 frameTimes = Array[int]([2, 4, 4, 5, 6, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="BlockHi" type="Node" parent="AnimSys"]
+[node name="BlockHi" type="Node" parent="AnimSys" unique_id=1892476365]
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("16_2syqj")
@@ -259,7 +259,7 @@ columns = 2
 frameTimes = Array[int]([2, 3, 5, 4, 6, 6, 6, 6, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="BlockHiL" type="Node" parent="AnimSys"]
+[node name="BlockHiL" type="Node" parent="AnimSys" unique_id=1236539431]
 script = ExtResource("5_mymh5")
 loop = true
 spriteSheet = ExtResource("19_sgbrq")
@@ -270,7 +270,7 @@ columns = 2
 frameTimes = Array[int]([2, 3, 5, 4, 6, 6, 6, 6, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="BlockHiDamage" type="Node" parent="AnimSys"]
+[node name="BlockHiDamage" type="Node" parent="AnimSys" unique_id=1192828104]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("16_2syqj")
 frames = 9
@@ -278,7 +278,7 @@ columns = 2
 frameTimes = Array[int]([2, 3, 5, 4, 6, 6, 6, 6, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="BlockHiDamageL" type="Node" parent="AnimSys"]
+[node name="BlockHiDamageL" type="Node" parent="AnimSys" unique_id=1186365892]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("19_sgbrq")
 frames = 9
@@ -286,7 +286,7 @@ columns = 2
 frameTimes = Array[int]([2, 3, 5, 4, 6, 6, 6, 6, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack1Start" type="Node" parent="AnimSys"]
+[node name="Attack1Start" type="Node" parent="AnimSys" unique_id=67066256]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("17_smk4i")
 frames = 21
@@ -294,7 +294,7 @@ columns = 3
 frameTimes = Array[int]([2, 2, 1, 1, 1, 1, 4, 4, 4, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 1, 2])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack1Hit" type="Node" parent="AnimSys"]
+[node name="Attack1Hit" type="Node" parent="AnimSys" unique_id=1003572823]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("18_kg3pl")
 frames = 7
@@ -302,7 +302,7 @@ posX = 150.0
 frameTimes = Array[int]([2, 2, 7, 2, 7, 7, 7])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack1Miss" type="Node" parent="AnimSys"]
+[node name="Attack1Miss" type="Node" parent="AnimSys" unique_id=41497678]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("19_qc8nk")
 frames = 21
@@ -310,7 +310,7 @@ columns = 3
 frameTimes = Array[int]([2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 6, 6, 6, 6, 6, 6, 3, 3, 3, 3, 3])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack3Start" type="Node" parent="AnimSys"]
+[node name="Attack3Start" type="Node" parent="AnimSys" unique_id=503593007]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("23_sqo1q")
 frames = 21
@@ -318,7 +318,7 @@ columns = 3
 frameTimes = Array[int]([2, 2, 1, 1, 1, 1, 4, 4, 4, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 1, 2])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack3Hit" type="Node" parent="AnimSys"]
+[node name="Attack3Hit" type="Node" parent="AnimSys" unique_id=379865879]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("24_grbw2")
 frames = 7
@@ -326,7 +326,7 @@ posX = -150.0
 frameTimes = Array[int]([2, 2, 7, 2, 7, 7, 7])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack3Miss" type="Node" parent="AnimSys"]
+[node name="Attack3Miss" type="Node" parent="AnimSys" unique_id=2131832219]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("25_j3k2o")
 frames = 21
@@ -334,7 +334,7 @@ columns = 3
 frameTimes = Array[int]([2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 6, 6, 6, 6, 6, 6, 3, 3, 3, 3, 3])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack2Start" type="Node" parent="AnimSys"]
+[node name="Attack2Start" type="Node" parent="AnimSys" unique_id=1219580483]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("20_5yj8u")
 frames = 19
@@ -342,7 +342,7 @@ columns = 3
 frameTimes = Array[int]([2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 2])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack2Hit" type="Node" parent="AnimSys"]
+[node name="Attack2Hit" type="Node" parent="AnimSys" unique_id=1139025886]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("21_vg4im")
 frames = 12
@@ -350,7 +350,7 @@ columns = 2
 frameTimes = Array[int]([1, 2, 2, 4, 4, 4, 4, 5, 5, 5, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack2Miss" type="Node" parent="AnimSys"]
+[node name="Attack2Miss" type="Node" parent="AnimSys" unique_id=209145017]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("22_bmsvv")
 frames = 14
@@ -358,7 +358,7 @@ columns = 2
 frameTimes = Array[int]([2, 2, 2, 2, 4, 4, 12, 4, 4, 12, 6, 6, 6, 6])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack4Start" type="Node" parent="AnimSys"]
+[node name="Attack4Start" type="Node" parent="AnimSys" unique_id=1394909307]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("23_ei7hm")
 frames = 21
@@ -367,7 +367,7 @@ posY = -2.0
 frameTimes = Array[int]([2, 2, 2, 1, 2, 5, 6, 7, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 2])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack4Hit" type="Node" parent="AnimSys"]
+[node name="Attack4Hit" type="Node" parent="AnimSys" unique_id=1380323703]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("24_vpu86")
 frames = 21
@@ -375,7 +375,7 @@ columns = 3
 frameTimes = Array[int]([1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 3, 5, 1, 1, 3, 2, 2, 6, 0])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack4Miss" type="Node" parent="AnimSys"]
+[node name="Attack4Miss" type="Node" parent="AnimSys" unique_id=444350171]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("25_sgbrq")
 frames = 19
@@ -383,7 +383,7 @@ columns = 3
 frameTimes = Array[int]([2, 2, 2, 1, 1, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack5Start" type="Node" parent="AnimSys"]
+[node name="Attack5Start" type="Node" parent="AnimSys" unique_id=1223015538]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("27_sqo1q")
 frames = 17
@@ -391,7 +391,7 @@ columns = 3
 frameTimes = Array[int]([2, 1, 1, 1, 1, 1, 5, 5, 5, 7, 2, 2, 1, 1, 1, 1, 1])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack5Hit" type="Node" parent="AnimSys"]
+[node name="Attack5Hit" type="Node" parent="AnimSys" unique_id=869839054]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("28_grbw2")
 frames = 12
@@ -399,7 +399,7 @@ columns = 2
 frameTimes = Array[int]([1, 1, 1, 2, 2, 7, 4, 1, 2, 5, 4, 3])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="Attack5Miss" type="Node" parent="AnimSys"]
+[node name="Attack5Miss" type="Node" parent="AnimSys" unique_id=1294878903]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("29_j3k2o")
 frames = 19
@@ -407,7 +407,7 @@ columns = 3
 frameTimes = Array[int]([2, 2, 2, 2, 2, 2, 4, 5, 5, 7, 5, 5, 7, 2, 6, 7, 2, 5, 5])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageSuperLw" type="Node" parent="AnimSys"]
+[node name="DamageSuperLw" type="Node" parent="AnimSys" unique_id=1403159893]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("36_j3k2o")
 frames = 21
@@ -416,7 +416,7 @@ posX = 100.0
 frameTimes = Array[int]([5, 1, 2, 2, 2, 1, 1, 2, 1, 1, 2, 3, 2, 3, 2, 3, 3, 5, 4, 3, 4])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="DamageSuperLwL" type="Node" parent="AnimSys"]
+[node name="DamageSuperLwL" type="Node" parent="AnimSys" unique_id=840926303]
 script = ExtResource("5_mymh5")
 spriteSheet = ExtResource("37_1a5x5")
 frames = 21
@@ -425,9 +425,29 @@ posX = -100.0
 frameTimes = Array[int]([5, 1, 2, 2, 2, 1, 1, 2, 1, 1, 2, 3, 2, 3, 2, 3, 3, 5, 4, 3, 4])
 metadata/_custom_type_script = "uid://dtj8na0fxumeu"
 
-[node name="HitSys" type="Node" parent="."]
+[node name="HitSys" type="Node" parent="." unique_id=2025492014]
 
-[node name="Attack1" type="Node" parent="HitSys"]
+[node name="Attack1" type="Node" parent="HitSys" unique_id=1302496035]
+script = ExtResource("31_1a5x5")
+dodgeDirection = 1
+damage = 125.0
+meter = 180.0
+hitlag = 8
+guardMeter = 150.0
+dodgeCombo = Array[int]([0, 0, 0, 0, 0])
+blockCombo = Array[int]([0, 0])
+perfectCombo = Array[int]([0, 0, 0, 0, 0, 0, 0])
+flip = true
+hitLeft = false
+hitRight = false
+audioBus = 2
+scaleX = 3.0
+scaleY = 3.0
+posX = -200.0
+posY = 200.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack12" type="Node" parent="HitSys" unique_id=787091093]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 1
 damage = 125.0
@@ -446,7 +466,7 @@ posX = -200.0
 posY = 200.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
-[node name="Attack2" type="Node" parent="HitSys"]
+[node name="Attack2" type="Node" parent="HitSys" unique_id=950172181]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 3
 damage = 75.0
@@ -462,7 +482,28 @@ posX = 0.0
 posY = 450.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
-[node name="Attack3" type="Node" parent="HitSys"]
+[node name="Attack3" type="Node" parent="HitSys" unique_id=1710729234]
+script = ExtResource("31_1a5x5")
+damage = 125.0
+meter = 180.0
+hitlag = 8
+guardMeter = 150.0
+dodgeCombo = Array[int]([0, 0, 0, 0, 0])
+blockCombo = Array[int]([0, 0])
+perfectCombo = Array[int]([0, 0, 0, 0, 0, 0, 0])
+damageAnim = 1
+playerX = 350.0
+flip = true
+hitLeft = false
+hitRight = false
+audioBus = 1
+scaleX = 3.0
+scaleY = 3.0
+posX = 200.0
+posY = 200.0
+metadata/_custom_type_script = "uid://cmx5chmbgbga5"
+
+[node name="Attack32" type="Node" parent="HitSys" unique_id=1198293988]
 script = ExtResource("31_1a5x5")
 damage = 125.0
 meter = 180.0
@@ -481,7 +522,7 @@ posX = 200.0
 posY = 200.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
-[node name="Attack4H1" type="Node" parent="HitSys"]
+[node name="Attack4H1" type="Node" parent="HitSys" unique_id=1434679011]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 200.0
@@ -500,7 +541,7 @@ posX = 0.0
 posY = 350.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
-[node name="Attack4H2" type="Node" parent="HitSys"]
+[node name="Attack4H2" type="Node" parent="HitSys" unique_id=638792458]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 200.0
@@ -519,7 +560,7 @@ posX = 0.0
 posY = 350.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
-[node name="Attack4H3" type="Node" parent="HitSys"]
+[node name="Attack4H3" type="Node" parent="HitSys" unique_id=219102302]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 200.0
@@ -536,7 +577,7 @@ posX = 0.0
 posY = 350.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
-[node name="Attack4H4" type="Node" parent="HitSys"]
+[node name="Attack4H4" type="Node" parent="HitSys" unique_id=1856635505]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 200.0
@@ -553,7 +594,7 @@ posX = 0.0
 posY = 350.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
-[node name="Attack4H5" type="Node" parent="HitSys"]
+[node name="Attack4H5" type="Node" parent="HitSys" unique_id=1462042173]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 200.0
@@ -572,7 +613,7 @@ posX = 300.0
 posY = 200.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
-[node name="Attack4H6" type="Node" parent="HitSys"]
+[node name="Attack4H6" type="Node" parent="HitSys" unique_id=1355788931]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 2
 damage = 200.0
@@ -591,7 +632,7 @@ posX = 300.0
 posY = 200.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
-[node name="Attack5" type="Node" parent="HitSys"]
+[node name="Attack5" type="Node" parent="HitSys" unique_id=454046160]
 script = ExtResource("31_1a5x5")
 dodgeDirection = 4
 damage = 135.0
@@ -607,42 +648,42 @@ posX = 0.0
 posY = 150.0
 metadata/_custom_type_script = "uid://cmx5chmbgbga5"
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=396979980 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_xadju")
 initial_state = NodePath("Wait")
 
-[node name="Wait" type="Node" parent="StateMachine"]
+[node name="Wait" type="Node" parent="StateMachine" unique_id=981634793]
 script = ExtResource("4_iw216")
 
-[node name="Damage" type="Node" parent="StateMachine"]
+[node name="Damage" type="Node" parent="StateMachine" unique_id=1683202726]
 script = ExtResource("52_602uk")
 
-[node name="Dizzy" type="Node" parent="StateMachine"]
+[node name="Dizzy" type="Node" parent="StateMachine" unique_id=1695706399]
 script = ExtResource("53_xspry")
 
-[node name="DizzyEnd" type="Node" parent="StateMachine"]
+[node name="DizzyEnd" type="Node" parent="StateMachine" unique_id=33944580]
 script = ExtResource("12_1c0r1")
 
-[node name="Attack1" type="Node" parent="StateMachine"]
+[node name="Attack1" type="Node" parent="StateMachine" unique_id=1318225194]
 script = ExtResource("9_0ut8b")
 
-[node name="Attack2" type="Node" parent="StateMachine"]
+[node name="Attack2" type="Node" parent="StateMachine" unique_id=1074530972]
 script = ExtResource("13_nue1q")
 
-[node name="Attack3" type="Node" parent="StateMachine"]
+[node name="Attack3" type="Node" parent="StateMachine" unique_id=1554633779]
 script = ExtResource("17_jgx48")
 
-[node name="Attack4" type="Node" parent="StateMachine"]
+[node name="Attack4" type="Node" parent="StateMachine" unique_id=1036885396]
 script = ExtResource("21_dno04")
 
-[node name="Attack5" type="Node" parent="StateMachine"]
+[node name="Attack5" type="Node" parent="StateMachine" unique_id=715070347]
 script = ExtResource("48_grbw2")
 
-[node name="Dead" type="Node" parent="StateMachine"]
+[node name="Dead" type="Node" parent="StateMachine" unique_id=757166109]
 script = ExtResource("22_agd4v")
 
-[node name="Block" type="Node" parent="StateMachine"]
+[node name="Block" type="Node" parent="StateMachine" unique_id=359025981]
 script = ExtResource("14_y3m0o")
 
-[node name="BlockDamage" type="Node" parent="StateMachine"]
+[node name="BlockDamage" type="Node" parent="StateMachine" unique_id=1856820062]
 script = ExtResource("46_sgbrq")

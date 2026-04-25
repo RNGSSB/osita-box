@@ -5,6 +5,13 @@ func Exit():
 
 func Enter():
 	owner.ctrl = 1
+	owner.canDodge = true
+	owner.canBlock = true
+	owner.dodgeSuccess = false
+	owner.perfectDodge = false
+	owner.dodgeLeft = false
+	owner.dodgeRight = false
+	owner.dodgeDown = false
 	if !owner.inBurnout:
 		owner.animSys.animPlay("Wait")
 	else:

@@ -36,6 +36,7 @@ func Physics_Update(_delta: float):
 		owner.counterPunch = false
 	if owner.cFrame(39):
 		owner.punchOpponent("Attack1")
+		owner.punchOpponent("Attack12")
 	if owner.punchHit:
 		if owner.cFrame(40):
 			owner.animSys.animPlay("Attack1Hit")
